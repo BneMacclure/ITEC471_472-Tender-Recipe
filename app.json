@@ -1,0 +1,12 @@
+{
+  "name": "TenderRecipe",
+  "displayName": "TenderRecipe",
+  "expo": {
+    "name": "TenderRecipe",
+    "slug": "TenderRecipe",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
