@@ -4,19 +4,42 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Navigator from "./navigation/Navigator";
-import { useFonts, BigShouldersDisplay_700Bold } from '@expo-google-fonts/big-shoulders-display';
+import * as Font from 'expo-font';
 //import AppLoading from 'expo-app-loading';
 
-export default function App() {
-    let [fontsLoaded] = useFonts({
-        BigShouldersDisplay_700Bold
-    });
+export default class App extends React.Component {
+    state = {
+      fontsLoaded: false,
+    };
 
-    return (
-        <NavigationContainer>
-            <Navigator> </Navigator>
-        </NavigationContainer>
-        );
+    async loadFonts() {
+      await Font.loadAsync({
+        BigShouldersDisplayBold_700Bold: require('./assets/BigShouldersDisplay-Bold.ttf'),
+        
+        'BigShouldersDisplay_700Bold': {
+          uri: require('./assets/BigShouldersDisplay-Bold.ttf'),
+          fontDisplay: Font.FontDisplay.FALLBACK,
+        },
+      });
+      this.setState({ fontsLoaded: true });
+    }
+
+    componentDidMount() {
+      this.loadFonts();
+    }
+
+    render() {
+      if (this.state.fontsLoaded) {
+        return (
+          <NavigationContainer>
+              <Navigator> </Navigator>
+          </NavigationContainer>
+          );
+      } else {
+        return null;
+      }
+      
+    }
 }
 
 const styles = StyleSheet.create({
