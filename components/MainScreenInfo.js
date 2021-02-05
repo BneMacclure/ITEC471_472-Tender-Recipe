@@ -1,7 +1,10 @@
-import React from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ImageBackground, TouchableOpacity } from 'react-native';
+import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
 
-const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 const Users = [
@@ -186,9 +189,14 @@ export default class MainScreenInfo extends React.Component {
 
     render() {
         return (
+            <ImageBackground
+                source={require("../assets/images/main_bg2.png")}
+                resizeMode="cover"
+                style={styles.background}
+                imageStyle={styles.background_imageStyle}
+            >
             <View style={{ flex: 1 }}>
                 <View style={{ height: 10 }}>
-
                 </View>
                 <View style={{ flex: 1 }}>
                     {this.renderUsers()}
@@ -196,14 +204,31 @@ export default class MainScreenInfo extends React.Component {
                 <View style={{ height: 10 }}>
 
                 </View>
-                <View style={styles.container}>
-                    <View style={styles.button} />
-                    <View style={styles.button} />
-                    <View style={styles.button} />
+                <View style={styles.skip_buttonRow}>
+                    <TouchableOpacity
+                        onPress={() => props.navigation.goBack()}
+                        style={styles.skip_button}
+                    >
+                        <MaterialCommunityIconsIcon
+                            name="heart-off"
+                            style={styles.icon}
+                        ></MaterialCommunityIconsIcon>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => props.navigation.goBack()}
+                        style={styles.recipe_button}
+                    >
+                        <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => props.navigation.goBack()}
+                        style={styles.like_button}
+                    >
+                        <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-
-
-            </View>
+            </ImageBackground>
 
         );
     }
@@ -219,9 +244,71 @@ const styles = StyleSheet.create({
         bottom: 10,
         alignSelf: 'center'
     },
-    button: {
-        backgroundColor: 'green',
-        width: '25%',
-        height: 40
-    }
+
+    skip_buttonRow: {
+        height: 60,
+        flexDirection: "row",
+        marginTop: 65,
+        alignSelf: 'center',
+        padding: 70
+    },
+
+    skip_button: {
+        width: 64,
+        height: 60,
+        //backgroundColor: "#E6E6E6",
+        backgroundColor: "#f94723",
+        borderRadius: 100
+    },
+    icon: {
+        //color: "rgba(80,220,232,1)",
+        color: "rgba(255,255,255,1)",
+        fontSize: 40,
+        marginTop: 8,
+        marginLeft: 12
+    },
+    recipe_button: {
+        width: 64,
+        height: 60,
+        //backgroundColor: "#E6E6E6",
+        backgroundColor: "#f94723",
+        borderRadius: 100,
+        marginLeft: 43
+    },
+    icon4: {
+        //color: "rgba(80,207,12,1)",
+        color: "rgba(255,255,255,1)",
+        fontSize: 40,
+        marginTop: 10,
+        marginLeft: 15
+    },
+    like_button: {
+        width: 64,
+        height: 60,
+        //backgroundColor: "#E6E6E6",
+        backgroundColor: "#f94723",
+        borderRadius: 100,
+        justifyContent: "center",
+        marginLeft: 39
+    },
+    icon2: {
+        //color: "rgba(244,57,8,1)",
+        color: "rgba(255,255,255,1)",
+        fontSize: 40,
+        alignSelf: "center"
+    }, 
+
+    background: {
+        width: '100%',
+        height: '100%',
+        alignSelf: 'center'
+    },
+    background_imageStyle: {},
+    materialHeader1: {
+        height: '100%',
+        width: '100%',
+        position: "absolute",
+        top: 0,
+        left: 0
+    },
 });
