@@ -69,6 +69,7 @@ export default class MainScreenInfo extends React.Component {
             },
             onPanResponderRelease: (evt, gestureState) => {
 
+                //swipe right
                 if (gestureState.dx > 120) {
                     Animated.spring(this.position, {
                         toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy }
@@ -78,7 +79,33 @@ export default class MainScreenInfo extends React.Component {
                         })
                     })
                 }
+
+                //swipe left
                 else if (gestureState.dx < -120) {
+                    Animated.spring(this.position, {
+                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+                    }).start(() => {
+                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                            this.position.setValue({ x: 0, y: 0 })
+                        })
+                    })
+                }
+
+                //swipe down
+                else if (gestureState.dy > 120)
+                {
+                    Animated.spring(this.position, {
+                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+                    }).start(() => {
+                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                            this.position.setValue({ x: 0, y: 0 })
+                        })
+                    })
+                }
+
+                //swipe up
+                else if (gestureState.dy < -120)
+                {
                     Animated.spring(this.position, {
                         toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
                     }).start(() => {
@@ -194,7 +221,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: 'green',
-        width: '20%',
+        width: '25%',
         height: 40
     }
 });
