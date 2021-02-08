@@ -12,6 +12,8 @@ import {
     Alert
 } from "react-native";
 import NativeForms from "native-forms";
+import { NativeFormsWebView } from "native-forms";
+import { WebView } from "react-native-webview";
 
 //<NativeForms form="https://my.nativeforms.com/vVDct0mcvZWPmZic4JlRvpmNy0Db" />
 //use this component within the render() method. This code will display form in your application.
@@ -23,7 +25,7 @@ import NativeForms from "native-forms";
 export default class CreateRecipeScreen extends React.Component {
     render() {
         return(
-            < NativeForms form="https://my.nativeforms.com/QW1AHTN1jZm4GTxkFTJ1Db"/>
+            <WebView source={{ uri: 'https://my.nativeforms.com/QW1AHTN1jZm4GTxkFTJ1Db' }}/>
             );
     }
 }
