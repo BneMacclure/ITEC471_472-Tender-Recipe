@@ -59,7 +59,7 @@ function LoginScreen(props) {
 
                 <View style={styles.loginBtnRow}>
                     <TouchableOpacity
-                        onPress={() => props.navigation.navigate("Untitled1")} //insert navigation
+                        onPress={() => props.navigation.navigate('Main Screen')} //insert navigation
                         style={styles.loginBtn}
                     >
                         <Text style={styles.login}>Login</Text>
@@ -108,6 +108,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignSelf: "center"
     },
+    iconRow: {
+        height: 35,
+        flexDirection: "row",
+        marginTop: 69,
+        marginLeft: 31,
+        marginRight: 26
+    },
     icon: {
         color: "rgba(255,255,255,1)",
         fontSize: 31,
@@ -123,15 +130,7 @@ const styles = StyleSheet.create({
         width: 275,
         borderRadius: 10,
         borderWidth: 3,
-        borderColor: "rgba(255,255,255,1)",
-        shadowColor: "rgba(206,203,203,1)",
-        shadowOffset: {
-            height: 3,
-            width: 3
-        },
-        elevation: 5,
-        shadowOpacity: 1,
-        shadowRadius: 0,
+        borderColor: "rgba(255,255,255,1)",    
         lineHeight: 14,
         letterSpacing: 1,
         textAlign: "left",
@@ -141,11 +140,11 @@ const styles = StyleSheet.create({
         height: 35,
         marginLeft: 4
     },
-    iconRow: {
+    icon2Row: {
         height: 35,
         flexDirection: "row",
-        marginTop: 69,
-        marginLeft: 31,
+        marginTop: 26,
+        marginLeft: 27,
         marginRight: 26
     },
     icon2: {
@@ -161,7 +160,11 @@ const styles = StyleSheet.create({
         width: 275,
         borderRadius: 10,
         borderWidth: 3,
-        borderColor: "rgba(255,255,255,1)",
+        borderColor: "rgba(255,255,255,1)", 
+        fontSize: 16
+    },
+
+    textInputShadow: {
         shadowColor: "rgba(206,203,203,1)",
         shadowOffset: {
             width: 3,
@@ -170,16 +173,8 @@ const styles = StyleSheet.create({
         elevation: 5,
         shadowOpacity: 1,
         shadowRadius: 0,
-        fontSize: 16
     },
-    icon2Row: {
-        height: 35,
-        flexDirection: "row",
-        marginTop: 26,
-        marginLeft: 27,
-        marginRight: 26
-    },
-
+    
     loginBtn: {
         width: 149,
         height: 36,
@@ -209,7 +204,15 @@ const styles = StyleSheet.create({
         height: 36,
         flexDirection: "row",
         marginTop: 30,
-        alignSelf: "center"
+        alignSelf: "center",
+        shadowColor: "rgba(206,203,203,1)",
+        shadowOffset: {
+            width: 3,
+            height: 3
+        },
+        elevation: 5,
+        shadowOpacity: 1,
+        shadowRadius: 0,
     },
     activityIndicator: {
         marginTop: 50,
