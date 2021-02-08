@@ -25,7 +25,17 @@ const Navigator = props => {
             <Stack.Screen
                 name="Login Page"
                 component={LoginPage}
-                //options={(route)} => ({title: route.params.name})
+                options={{
+                    title: "Welcome!",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                }}
             />
             <Stack.Screen
                 name="Main Screen"
@@ -58,7 +68,17 @@ const Navigator = props => {
             <Stack.Screen
                 name="CreateRecipeScreen"
                 component={CreateRecipeScreen}
-            //options={(route)} => ({title: route.params.name})
+                options={{
+                    title: "Create a Recipe",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                }}
             />
         </Stack.Navigator>
     );
