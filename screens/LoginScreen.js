@@ -9,10 +9,14 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Button,
-    Alert
+    Alert,
+    Dimensions
 } from "react-native";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
+
+const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 function LoginScreen(props) {
     return (
@@ -31,7 +35,7 @@ function LoginScreen(props) {
                 <Text style={styles.tenderRecipes}>Tender Recipes</Text>
 
 
-                <View style={styles.iconRow}>
+                <View style={styles.usernameGroup}>
                     <IoniconsIcon name="md-person" style={styles.icon}></IoniconsIcon>
                     <TextInput
                         placeholder=" Username"
@@ -41,7 +45,7 @@ function LoginScreen(props) {
                         style={styles.textInput}
                     ></TextInput>
                 </View>
-                <View style={styles.icon2Row}>
+                <View style={styles.passwordGroup}>
                     <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
                     <TextInput
                         placeholder=" Password"
@@ -94,28 +98,29 @@ const styles = StyleSheet.create({
         borderRadius: 57,
         borderWidth: 4,
         borderColor: "rgba(255,255,255,1)",
-        marginTop: 57,
+        marginTop: SCREEN_HEIGHT / 15,
         alignSelf: "center"
     },
     tenderRecipes: {
         fontFamily: 'BigShouldersDisplay_700Bold',
         color: "rgba(251,251,251,1)",
         fontSize: 36,
-        marginTop: 17,
+        marginTop: 10,
         alignSelf: "center"
     },
     icon: {
         color: "rgba(255,255,255,1)",
         fontSize: 31,
         height: 34,
-        width: 23,
-        marginTop: 1
+        width: 28,
+        marginTop: 1,
+        marginRight: 1
     },
     textInput: {
         //fontFamily: "helvetica-regular",
 
         color: "rgba(253,253,253,1)",
-        width: 276,
+        width: 275,
         borderRadius: 10,
         borderWidth: 3,
         borderColor: "rgba(255,255,255,1)",
@@ -147,13 +152,13 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,1)",
         fontSize: 31,
         height: 35,
-        width: 31
+        width: 34
     },
     textInput2: {
         //fontFamily: "helvetica-regular",
         color: "#121212",
         height: 35,
-        width: 276,
+        width: 275,
         borderRadius: 10,
         borderWidth: 3,
         borderColor: "rgba(255,255,255,1)",
@@ -183,7 +188,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     login: {
-        fontFamily: "roboto-regular",
+        //fontFamily: "roboto-regular",
         color: "rgba(249,71,35,1)",
         alignSelf: "center"
     },
@@ -196,7 +201,7 @@ const styles = StyleSheet.create({
         marginLeft: 4,
     },
     signUp: {
-        fontFamily: "roboto-regular",
+        //fontFamily: "roboto-regular",
         color: "rgba(249,71,35,1)",
         alignSelf: "center"
     },
@@ -207,8 +212,25 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     activityIndicator: {
-        marginTop: 34,
+        marginTop: 50,
         alignSelf: "center"
+    },
+
+    usernameGroup: {
+        width: 276,
+        height: 35,
+        flexDirection: "row",
+        marginTop: 60,
+        alignSelf: "center",
+        marginRight: 30
+    },
+    passwordGroup: {
+        width: 276,
+        height: 35,
+        flexDirection: "row",
+        marginTop: 26,
+        alignSelf: "center",
+        marginRight: 30
     }
 
 });

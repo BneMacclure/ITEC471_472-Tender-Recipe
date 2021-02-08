@@ -95,8 +95,7 @@ export default class MainScreenInfo extends React.Component {
                 }
 
                 //swipe down
-                else if (gestureState.dy > 120)
-                {
+                else if (gestureState.dy > 120) {
                     Animated.spring(this.position, {
                         toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
                     }).start(() => {
@@ -107,8 +106,7 @@ export default class MainScreenInfo extends React.Component {
                 }
 
                 //swipe up
-                else if (gestureState.dy < -120)
-                {
+                else if (gestureState.dy < -120) {
                     Animated.spring(this.position, {
                         toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
                     }).start(() => {
@@ -191,36 +189,36 @@ export default class MainScreenInfo extends React.Component {
                 style={styles.background}
                 imageStyle={styles.background_imageStyle}
             >
-            <View style={{ flex: 1 }}>
-                <View style={{ height: 10 }}>
-                </View>
                 <View style={{ flex: 1 }}>
-                    {this.renderUsers()}
-                </View>
-                <View style={{ height: 10 }}>
+                    <View style={{ height: 10 }}>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        {this.renderUsers()}
+                    </View>
+                    <View style={{ height: 10 }}>
 
-                </View>
-                <View style={styles.skip_buttonRow}>
-                    <TouchableOpacity
-                        onPress={() => props.navigation.goBack()}
-                        style={styles.skip_button}
-                    >
-                        <MaterialCommunityIconsIcon
-                            name="heart-off"
-                            style={styles.icon}
-                        ></MaterialCommunityIconsIcon>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
-                        style={styles.recipe_button}
-                    >
-                        <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => props.navigation.goBack()}
-                        style={styles.like_button}
-                    >
-                        <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
+                    </View>
+                    <View style={styles.skip_buttonRow}>
+                        <TouchableOpacity
+                            onPress={() => props.navigation.goBack()}
+                            style={styles.skip_button}
+                        >
+                            <MaterialCommunityIconsIcon
+                                name="heart-off"
+                                style={styles.icon}
+                            ></MaterialCommunityIconsIcon>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
+                            style={styles.recipe_button}
+                        >
+                            <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => props.navigation.goBack()}
+                            style={styles.like_button}
+                        >
+                            <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -292,7 +290,7 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,1)",
         fontSize: 40,
         alignSelf: "center"
-    }, 
+    },
 
     background: {
         width: '100%',
