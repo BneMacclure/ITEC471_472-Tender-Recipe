@@ -20,6 +20,7 @@
     "expo-splash-screen": "~0.8.0",
     "expo-status-bar": "~1.0.3",
     "expo-updates": "~0.4.0",
+    "firebase": "^8.2.6",
     "native-forms": "^1.4.9",
     "react": "16.13.1",
     "react-dom": "16.13.1",
