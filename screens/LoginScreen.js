@@ -88,7 +88,7 @@ function LoginScreen(props) {
                 <View style={styles.usernameGroup}>
                     <IoniconsIcon name="md-person" style={styles.icon}></IoniconsIcon>
                     <TextInput
-                        placeholder=" Email"
+                        placeholder="Email"
                         placeholderTextColor="rgba(230, 230, 230,1)"
                         inlineImagePadding={0}
                         selectionColor="rgba(52,250,215,1)"
@@ -99,7 +99,7 @@ function LoginScreen(props) {
                 <View style={styles.passwordGroup}>
                     <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
                     <TextInput
-                        placeholder=" Password"
+                        placeholder="Password"
                         placeholderTextColor="rgba(230, 230, 230,1)"
                         selectionColor="rgba(52,250,215,1)"
                         secureTextEntry={true}
@@ -123,6 +123,18 @@ function LoginScreen(props) {
                         <Text style={styles.signUp}>Sign up</Text>
                     </TouchableOpacity>
                 </View>
+
+
+
+                <View style={styles.loginBtnRow}> 
+                    <TouchableOpacity
+                        onPress={() => props.navigation.navigate('Main Screen')} //DEBUG
+                        style={styles.loginBtn}
+                    >
+                        <Text style={styles.login}>DebugLogin</Text>
+                    </TouchableOpacity>
+                </View>
+
 
 
                 <ActivityIndicator
@@ -178,7 +190,7 @@ const styles = StyleSheet.create({
     textInput: {
         //fontFamily: "helvetica-regular",
 
-        color: "rgba(253,253,253,1)",
+        color: "rgba(255,255,255,1)",
         width: 275,
         borderRadius: 10,
         borderWidth: 3,
@@ -190,7 +202,8 @@ const styles = StyleSheet.create({
 
         fontSize: 16,
         height: 35,
-        marginLeft: 4
+        marginLeft: 4,
+        paddingLeft: 8
     },
     icon2Row: {
         height: 35,
@@ -207,13 +220,15 @@ const styles = StyleSheet.create({
     },
     textInput2: {
         //fontFamily: "helvetica-regular",
-        color: "#121212",
+        color: "rgba(255,255,255,1)",
         height: 35,
         width: 275,
         borderRadius: 10,
         borderWidth: 3,
         borderColor: "rgba(255,255,255,1)", 
-        fontSize: 16
+        fontSize: 16,
+        letterSpacing: 1,
+        paddingLeft: 8
     },
 
     textInputShadow: {
