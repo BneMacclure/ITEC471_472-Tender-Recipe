@@ -25,7 +25,7 @@ const MenuIcon = () => <Icon
 const Navigator = props => {
 
     return (
-        <Stack.Navigator>           
+        <Stack.Navigator>
             <Stack.Screen
                 name="Login Page"
                 component={LoginPage}
@@ -84,6 +84,7 @@ const Navigator = props => {
                     },
                 }}
             />
+
         </Stack.Navigator>
     );
 }
