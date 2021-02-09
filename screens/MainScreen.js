@@ -76,7 +76,8 @@ export default class MainScreenInfo extends React.Component {
                 //swipe right
                 if (gestureState.dx > 120) {
                     Animated.spring(this.position, {
-                        toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy }
+                        toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
+                        useNativeDriver: true
                     }).start(() => {
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
@@ -87,7 +88,8 @@ export default class MainScreenInfo extends React.Component {
                 //swipe left
                 else if (gestureState.dx < -120) {
                     Animated.spring(this.position, {
-                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+                        useNativeDriver: true
                     }).start(() => {
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
@@ -98,7 +100,8 @@ export default class MainScreenInfo extends React.Component {
                 //swipe down
                 else if (gestureState.dy > 120) {
                     Animated.spring(this.position, {
-                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+                        useNativeDriver: true
                     }).start(() => {
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
@@ -109,7 +112,8 @@ export default class MainScreenInfo extends React.Component {
                 //swipe up
                 else if (gestureState.dy < -120) {
                     Animated.spring(this.position, {
-                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+                        toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+                        useNativeDriver: true
                     }).start(() => {
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
@@ -119,6 +123,7 @@ export default class MainScreenInfo extends React.Component {
                 else {
                     Animated.spring(this.position, {
                         toValue: { x: 0, y: 0 },
+                        useNativeDriver: true,
                         friction: 4
                     }).start()
                 }
