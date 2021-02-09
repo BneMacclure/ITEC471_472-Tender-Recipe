@@ -4,11 +4,11 @@ import MaterialCheckboxWithLabel from "./components/MaterialCheckboxWithLabel";
 
 function Index(props) {
   return (
-    <View style={styles.container}>
+    
       <MaterialCheckboxWithLabel
         style={styles.nutsMaterialCheckbox}
       ></MaterialCheckboxWithLabel>
-    </View>
+    
   );
 }
 
@@ -22,7 +22,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    flex: 1
+    flex: 1,
+    width: 292,
+    height: 48
   }
 });
 
