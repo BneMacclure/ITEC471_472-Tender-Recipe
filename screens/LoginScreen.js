@@ -40,6 +40,35 @@ function LoginScreen(props) {
         )
       )
     };
+
+    // Function for registering an account. Uses firbase's authentication API to signup
+    const registerFunc = () => {
+        if(email === '' && password === '') {
+            Alert.alert('Enter details to signup!')
+          } 
+        else {
+            firebaseApp
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => Alert.alert(
+                "Register",
+                "You're registered! Enjoy!",
+                [
+                    {text: "OK", onPress: () => console.log("Register OK pressed") }
+                ],
+                { cancelable: false }
+            ))
+            .catch(error => Alert.alert(
+                "Register",
+                "Invalid information",
+                [
+                    {text: "OK", onPress: () => console.log("OK pressed") }
+                ],
+                { cancelable: false }
+            ))
+        }
+    };
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -88,7 +117,7 @@ function LoginScreen(props) {
                         <Text style={styles.login}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => props.navigation.navigate("Untitled1")} //insert navigation
+                        onPress={registerFunc} //insert navigation
                         style={styles.signupBtn}
                     >
                         <Text style={styles.signUp}>Sign up</Text>
