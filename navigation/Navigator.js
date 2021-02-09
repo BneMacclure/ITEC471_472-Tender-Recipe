@@ -4,9 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Button, View, TouchableOpacity, StatusBar, Alert } from "react-native";
 import Icon from 'react-native-vector-icons/Octicons';
-import LoginPage from '../screens/LoginScreen'
-import MainScreen from '../screens/MainScreen'
-import CreateRecipeScreen from '../screens/CreateRecipeScreen'
+import LoginPage from '../screens/LoginScreen';
+import MainScreen from '../screens/MainScreen';
+import CreateRecipeScreen from '../screens/CreateRecipeScreen';
+import { firebaseApp } from '../config/DatabaseConfig';
+import { HeaderBackButton } from '@react-navigation/stack';
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -19,7 +21,9 @@ const MenuIcon = () => <Icon
     //onPress={() => navigate('DrawerOpen')}
 />;
 
+
 const Navigator = props => {
+
     return (
         <Stack.Navigator>           
             <Stack.Screen
@@ -62,7 +66,8 @@ const Navigator = props => {
                             <Icon name="three-bars" size={30} color={'#fff'} />
                         </View>
                     ),
-
+                    headerLeft: null
+    
                 }}
             />
             <Stack.Screen

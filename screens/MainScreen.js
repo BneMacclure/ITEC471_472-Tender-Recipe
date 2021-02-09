@@ -62,6 +62,7 @@ export default class MainScreenInfo extends React.Component {
         })
 
     }
+
     UNSAFE_componentWillMount() {
         this.PanResponder = PanResponder.create({
 
