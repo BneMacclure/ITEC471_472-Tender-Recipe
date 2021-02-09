@@ -14,7 +14,7 @@ const Stack = createStackNavigator()
 
 const MenuIcon = () => <Icon
     name='three-bars'
-    size={30}
+    size={35}
     color='#fff'
     //onPress={() => navigate('DrawerOpen')}
 />;
@@ -56,13 +56,12 @@ const Navigator = props => {
                                 flex: 1,
                                 alignItems: 'center',
                                 flexDirection: 'row',
-                                paddingHorizontal: 10,
+                                paddingHorizontal: 25,
                                 height: StatusBar.currentHeight,
                             }}>
-                            <Icon name="three-bars" size={30} color={'#fff'} />
+                            <Icon name="three-bars" size={35} color={'#fff'} />
                         </View>
                     ),
-
                 }}
             />
             <Stack.Screen

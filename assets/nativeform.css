@@ -1,69 +1,77 @@
-<span class="nf-status-header" style="color: #222;">Sounds delicious!</span>
-<span class="nf-status-description" style="color: #222;">Recipe submitted successfully.</span>
-<div class="nf-status-container" style="background-color: rgb(250 250 250);">
-<div class="nf-status-wrapper" style="padding: 80px 20px;">
-<svg width="80" height="80" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-<path fill="#b9d3b0" d="M59.45 3.6a59.83 59.83 0 0145 15.08 60.03 60.03 0 0119.57 37.33 59.16 59.16 0 01-10.87 42.12 59.67 59.67 0 01-38.12 23.77 59.81 59.81 0 01-43.01-8.92A59.81 59.81 0 018.03 81.62a59.89 59.89 0 014.71-47.82C22.12 16.88 40.15 5.16 59.45 3.6m-3.26 5.58a54.31 54.31 0 00-33.93 20.15 54.12 54.12 0 00-10.18 45.44 54.31 54.31 0 0064.09 41.21 54.25 54.25 0 0035.49-25.27 54.31 54.31 0 00-17-73.45 54.55 54.55 0 00-38.47-8.08z"></path><path fill="#76a964" d="M86.49 48.49c3.05-3.12 6.12-6.23 9.44-9.08 1.85.55 3.72 1.68 4.18 3.7.24 1.64-1.15 2.83-2.14 3.92-13.68 13.6-27.27 27.29-40.95 40.9a8.4 8.4 0 01-4.4-2.54c-5.99-6.05-12.07-12.02-18.03-18.09-3.27-2.42 1.42-8.29 4.3-5.15 5.96 5.46 11.27 11.6 17.4 16.88 9.72-10.51 20.17-20.33 30.2-30.54z">
-</path></svg><span class="nf-status-header" style="color: #222;">Sounds delicious!</span>
-<span class="nf-status-description" style="color: #222;">Recipe submitted successfully.</span>
-</div></div>
+.nf-question-header {
+    font-size: 20px !important;
+}
 
-<div class="sc-pcLhl cywLTP"><div dir="ltr" class="nf-root">
-<div class="nf-form-wrapper">
-<div class="nf-form-container" style="background-color: rgb(253, 128, 23);"><div class="nf-questions-container" style="background-color: rgba(34, 0, 255, 0.01);"><div class="nf-logo-container" style="background-color: rgb(250 250 250);padding-top: 20px;"><div class="nf-question"><img alt="logo" src="https://firebasestorage.googleapis.com/v0/b/nativeforms-prod.appspot.com/o/logo%2FILY1Ln%2FMLp5Y%2FlogoKJ9cu.png?alt=media&amp;token=6c88dd1b-7c75-4999-8399-688c703830e4" style="width: auto; max-width: 600px; height: 60px;">
-</div>
-</div>
-<div class="nf-question">
-<div class="nf-question-wrapper" style="background-color: rgb(250 250 250);font-size: 20px;margin-bottom: 0px;border-bottom: 1px solid rgb(206, 214, 221);border-top: 0px solid rgb(206, 214, 221);"><div class="nf-question-container"><span class="nf-question-header" style="color: rgb(0, 0, 0); text-align: center;"><span>What's your recipe?</span> </span></div></div><div class="nf-badge-container"><span class="nf-badge" style="background-color: rgb(250 250 250);border-color: #222;border-width: 1px;border-style: solid;color: rgb(197, 64, 4);">Fill in fields below</span>
-</div><div class="nf-inputs-wrapper"><div class="nf-input-container" style="margin-bottom: 12px;">
-<label for="Recipe Name" class="nf-input-label" style=" border-color: #222; */color: rgb(250 250 250);">Recipe Name
-<span class="nf-input-required">*</span>
-</label>
-<input form="[object Object]" field="[object Object]" block="[object Object]" maxlength="10000" class="nf-input" id="Recipe Name" style="color: rgb(0, 0, 0); border-color: rgb(101, 101, 101); background-color: rgb(255, 255, 255); -webkit-text-fill-color: rgba(0, 0, 0, 0.6);">
-<span class="nf-input-error">This field is required.</span>
-</div>
-<div class="nf-input-container" style="margin-bottom: 12px;">
-<label for="The Ingredients" class="nf-input-label" style="color: rgb(250 250 250);">The Ingredients
-<span class="nf-input-required">*</span>
-</label>
-<textarea form="[object Object]" field="[object Object]" block="[object Object]" rows="4" maxlength="25000" class="nf-textarea" id="The Ingredients" style="color: rgb(0, 0, 0); border-color: rgb(101, 101, 101); background-color: rgb(255, 255, 255); -webkit-text-fill-color: rgba(0, 0, 0, 0.6);"></textarea>
-<span class="nf-input-error">This field is required.</span>
-</div>
-<div class="nf-input-container" style="margin-bottom: 12px;">
-<label for="The Instructions" class="nf-input-label" style="color: rgb(250 250 250);">The Instructions
-<span class="nf-input-required">*</span>
-</label>
-<textarea form="[object Object]" field="[object Object]" block="[object Object]" rows="4" maxlength="25000" class="nf-textarea" id="The Instructions" style="color: rgb(0, 0, 0); border-color: rgb(101, 101, 101); background-color: rgb(255, 255, 255); -webkit-text-fill-color: rgba(0, 0, 0, 0.6);"></textarea>
-<span class="nf-input-error">This field is required.</span>
-</div></div></div>
-<div class="nf-question"><div class="nf-question-wrapper" style="background-color: rgb(250 250 250);margin-bottom: 0px;border-bottom: 1px solid rgb(206, 214, 221);border-top: 1px solid rgb(206, 214, 221);"><div class="nf-question-container"><span class="nf-question-header" style="color: rgb(0, 0, 0); text-align: center;"><span>Allergens</span> </span></div></div><div class="nf-badge-container"><span class="nf-badge" style="background-color: rgb(250 250 250);border-color: #222;border-width: 1px;border-style: solid;color: #c54004;">Select answer</span>
-</div>
-<div class="nf-selection-container"><div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(255, 255, 255);"><div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div><span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Nuts</span>
-</div>
-<div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(250 250 250);">
-<div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div><span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Gluten</span></div>
-<div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(250 250 250);">
-<div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div><span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Shellfish</span></div>
-<div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(250 250 250);"><div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div><span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Dairy</span></div><div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(250 250 250);"><div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div>
-<span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Eggs</span></div>
-<div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(250 250 250);">
-<div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div>
-<span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Soy</span>
-</div>
-<div class="nf-selection-answer" style="border-color: rgb(101 101 101);background-color: rgb(250 250 250);">
-<div class="nf-selection-checkbox" style="background-color: rgb(255 255 255);border-color: #222;border-radius: 2px;margin-right: 12px;margin-left: 0px;"></div><span class="nf-answer-label" style="font-weight: 400; color: rgb(0, 0, 0); font-size: 15px; line-height: 20px; letter-spacing: 0.5px;">Fish</span></div></div></div><div class="nf-question"><div class="nf-question-wrapper" style="background-color: rgb(250 250 250);margin-bottom: 0px;border-bottom: 1px solid rgb(206, 214, 221);border-top: 1px solid rgb(206, 214, 221);">
-<div class="nf-question-container">
-<span class="nf-question-header" style="color: rgb(0, 0, 0); text-align: center;">
-<span>Add a photo of your recipe!</span> </span></div></div>
-<div class="nf-badge-container">
-<span class="nf-badge" style="background-color: rgb(250 250 250);border-color: #222;border-width: 1px;border-style: solid;color: rgb(197 64 4);">Drop files in the box below</span>
-</div>
-<div class="nf-files-upload-container">
-<div class="nf-files-upload" style="flex-flow: column wrap;justify-content: center;background-color: rgb(250 250 250);border-width: 1px;border-style: solid;border-color: rgb(101 101 101);position: relative;display: flex;align-items: center;min-height: 150px;padding: 24px;box-sizing: border-box;width: 100%;border-radius: 4px;fill: rgba(0, 0, 0, 0.44);">
-<input accept="image" multiple="" type="file" autocomplete="off" tabindex="-1" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="inherit" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg><span style="font-size: 13px; color: rgb(0, 0, 0); padding-top: 8px; text-align: center;">Tap to browse your photos</span></div></div></div><div class="nf-question"><div class="nf-submit-button-container" style="padding-bottom: 8px;">
-<div class="nf-submit-button" style="border-color: rgb(101 101 101);border-width: 1px;border-style: solid;background-color: rgb(255 255 255); border-color: #222; opacity: 1;color: #e35514;">Create Recipe</div></div></div></div><div class="nf-powered-by-container" style="background-color: rgb(250 127 26);">
-<a href="https://nativeforms.com?utm_source=powered_by&amp;utm_medium=unknown&amp;utm_campaign=ILY1Ln" rel="noopener noreferrer" class="nf-link" target="_blank" style="text-decoration: none;font-size: 10px;color: rgb(250 250 250);">
-<span style="font-size: 10px;color: #000;">Powered by <strong style="color: #2f009c;">NativeForms</strong></span></a>
-</div></div></div>
-<div class="nf-toasts-wrapper" style="margin: 0px; top: 30px;">
-</div></div></div>
+.nf-status-header {
+    font-size: 20px;
+}
+
+.nf-logo-container {
+    background-color: #ffffff !important;
+}
+
+.nf-question-wrapper {
+    border-bottom: 1px solid #000000 !important;
+    background-color: #ffffff !important;
+}
+
+.nf-badge {
+    background-color: #ffffff !important;
+    color: rgb(197, 64, 4) !important;
+    border-color: #222 !important;
+}
+
+.nf-inputs-wrapper {
+    border-bottom: 1px solid #000000 !important;
+}
+
+.nf-input-label {
+    color: #ffffff !important;
+    font-size: 18px;
+    font-weight: 750;
+}
+
+.nf-input {
+    border-color: rgb(101 101 101) !important;
+}
+
+.nf-textarea {
+    border-color: rgb(101 101 101) !important;
+}
+
+.nf-input-required {
+    color: #ffffff !important;
+}
+
+.nf-selection-container {
+    border-bottom: 1px solid #000000 !important;
+}
+
+.nf-selection-answer {
+    background-color: #ffffff !important;
+    border-color: rgb(101 101 101) !important;
+}
+
+.nf-selection-checkbox {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-color: #000000 !important;
+}
+
+.nf-files-upload {
+    background-color: #ffffff !important;
+    border-color: rgb(101 101 101) !important;
+}
+
+.nf-submit-button {
+    background-color: #ca3f00 !important;
+    color: #ffffff !important;
+    font-size: 20px;
+    font-weight: 750;
+    border-color: rgb(0 0 0) !important;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.nf-status-container {
+    background-color: #ffffff !important;
+}
