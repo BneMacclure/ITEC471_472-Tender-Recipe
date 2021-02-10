@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import {
     StyleSheet,
     View,
@@ -40,6 +40,8 @@ import FishCheckbox from "../components/FishCheckbox/components/MaterialCheckbox
 import EggsCheckbox from "../components/EggsCheckbox/components/MaterialCheckboxWithLabel";
 import SoyCheckbox from "../components/SoyCheckbox/components/MaterialCheckboxWithLabel";
 import { db } from "../config/DatabaseConfig";
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -119,12 +121,45 @@ const CreateRecipeScreen = (props) =>  {
         }
     }
 
+    useEffect(() => {
+        (async () => {
+          if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+        })();
+      }, []);
+    
+      const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setImageSource(result.uri);
+        }
+      };
+
     const submitRecipeFunc = () => {
         db.ref('/recipes').push({
             name: {name},
             ingredients: {ingredients},
             instructions: {instructions},
             imageSource: {imageSource},
+            soy: {isSelectedSoy},
+            eggs: {isSelectedEggs},
+            gluten: {isSelectedGluten},
+            dairy: {isSelectedDairy},
+            fish: {isSelectedFish},
+            shellfish: {isSelectedShellfish},
+            nuts: {isSelectedNuts},
         }).then(() => console.log('Data sent'));
         
         props.navigation.navigate('Main Screen');
@@ -219,7 +254,13 @@ const CreateRecipeScreen = (props) =>  {
                     </ImageBackground>   
 
                     <View style={[styles.imagerPickerContainer, styles.imagePickerContent, { backgroundColor: '#F5A023' }]}>
-                        <Text>Simple image picker</Text>
+                        <TouchableOpacity
+                            onPress={pickImage} // MARISSA PLEASE CHANGE THIS TO BE PRETTY
+                            style={styles.submitBtn}
+                        >
+                             <Text style={styles.submitRecipeText}>Upload Image</Text>
+                        </TouchableOpacity>
+                        {imageSource && <Image source={{ uri: imageSource }} style={{ width: 300, height: 250 }} />}
                     </View>
 
 
