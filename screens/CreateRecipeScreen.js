@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import {
     StyleSheet,
     View,
@@ -39,12 +39,146 @@ import DairyCheckbox from "../components/DairyCheckbox/components/MaterialCheckb
 import FishCheckbox from "../components/FishCheckbox/components/MaterialCheckboxWithLabel";
 import EggsCheckbox from "../components/EggsCheckbox/components/MaterialCheckboxWithLabel";
 import SoyCheckbox from "../components/SoyCheckbox/components/MaterialCheckboxWithLabel";
+import { db } from "../config/DatabaseConfig";
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import { Alert } from "react-native";
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-function CreateRecipeScreen(props) {
-    const [isSelected, setSelection] = useState(false);
+const CreateRecipeScreen = (props) =>  {
+    const [isSelectedNuts, setSelectionNuts] = useState(false);
+    const [isSelectedGluten, setSelectionGluten] = useState(false);
+    const [isSelectedShellfish, setSelectionShellfish] = useState(false);
+    const [isSelectedDairy, setSelectionDairy] = useState(false);
+    const [isSelectedFish, setSelectionFish] = useState(false);
+    const [isSelectedEggs, setSelectionEggs] = useState(false);
+    const [isSelectedSoy, setSelectionSoy] = useState(false);
+    const [name, setName] = useState('');
+    const [ingredients, setIngredients] = useState('');
+    const [instructions, setInstructions] = useState('');
     const [imageSource, setImageSource] = useState(null);
+
+    const changeNutSelected = () => {
+        if (isSelectedNuts) {
+            setSelectionNuts(false)
+        }
+        else {
+            setSelectionNuts(true)
+        }
+    }
+
+    const changeGlutenSelected = () => {
+        if (isSelectedGluten) {
+            setSelectionGluten(false)
+        }
+        else {
+            setSelectionGluten(true)
+        }
+    }
+
+    const changeShellfishSelected = () => {
+        if (isSelectedShellfish) {
+            setSelectionShellfish(false)
+        }
+        else {
+            setSelectionShellfish(true)
+        }
+    }
+
+    const changeDairySelected = () => {
+        if (isSelectedDairy) {
+            setSelectionDairy(false)
+        }
+        else {
+            setSelectionDairy(true)
+        }
+    }
+
+    const changeFishSelected = () => {
+        if (isSelectedFish) {
+            setSelectionFish(false)
+        }
+        else {
+            setSelectionFish(true)
+        }
+    }
+
+    const changeEggsSelected = () => {
+        if (isSelectedEggs) {
+            setSelectionEggs(false)
+        }
+        else {
+            setSelectionEggs(true)
+        }
+    }
+
+    const changeSoySelected = () => {
+        if (isSelectedSoy) {
+            setSelectionSoy(false)
+        }
+        else {
+            setSelectionSoy(true)
+        }
+    }
+
+    useEffect(() => {
+        (async () => {
+          if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+        })();
+      }, []);
+    
+      const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setImageSource(result.uri);
+        }
+      };
+
+    const submitRecipeFunc = () => {
+        if (name != '' && ingredients != '' && instructions != '' && imageSource != null) {
+            db.ref('/recipes').push({
+                name: {name},
+                ingredients: {ingredients},
+                instructions: {instructions},
+                imageSource: {imageSource},
+                soy: {isSelectedSoy},
+                eggs: {isSelectedEggs},
+                gluten: {isSelectedGluten},
+                dairy: {isSelectedDairy},
+                fish: {isSelectedFish},
+                shellfish: {isSelectedShellfish},
+                nuts: {isSelectedNuts},
+            }).then(() => console.log('Data sent'));
+            
+            props.navigation.navigate('Main Screen');
+        }
+        else {
+            Alert.alert(
+                "Create Recipe",
+                "Need these fields: \nImage\nName\nIngredients\nInstructions",
+                [
+                    {text: "OK", onPress: () => console.log("Register OK pressed") }
+                ],
+                { cancelable: false }
+            )
+        }
+        
+    }
+
     return (
         <View style={styles.container}>
             <Image
@@ -71,6 +205,7 @@ function CreateRecipeScreen(props) {
                                     multiline={false}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeName}
+                                    onChangeText={(name) => setName(name)}
                                 ></TextInput>
                                 <Text style={styles.recipeIngredientsText}>The Ingredients</Text>
                                 <TextInput
@@ -78,6 +213,7 @@ function CreateRecipeScreen(props) {
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeIngredients}
+                                    onChangeText={(ingredients) => setIngredients(ingredients)}
                                 ></TextInput>
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
@@ -85,6 +221,7 @@ function CreateRecipeScreen(props) {
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeInstructions}
+                                    onChangeText={(instructions) => setInstructions(instructions)}
                                 ></TextInput>
                             </View>
                     </ImageBackground>
@@ -100,40 +237,51 @@ function CreateRecipeScreen(props) {
                         </View>
 
 
-
-
                         <NutsCheckbox
                             style={styles.nutsMaterialCheckbox}
+                            onPress={changeNutSelected}
                         ></NutsCheckbox>
                         <GlutenCheckbox
                             style={styles.glutenMaterialCheckbox}
+                            onPress={changeGlutenSelected}
                         ></GlutenCheckbox>
                         <ShellfishCheckbox
                             style={styles.shellfishMaterialCheckbox}
+                            onPress={changeShellfishSelected}
                         ></ShellfishCheckbox>
                         <DairyCheckbox
                             style={styles.dairyMaterialCheckbox}
+                            onPress={changeDairySelected}
                         ></DairyCheckbox>
                         <FishCheckbox
                             style={styles.fishMaterialCheckbox}
+                            onPress={changeFishSelected}
                         ></FishCheckbox>
                         <EggsCheckbox
                             style={styles.eggsMaterialCheckbox}
+                            onPress={changeEggsSelected}
                         ></EggsCheckbox>
                         <SoyCheckbox
                             style={styles.soyMaterialCheckbox}
+                            onPress={changeSoySelected}
                         ></SoyCheckbox>
                     </ImageBackground>   
 
                     <View style={[styles.imagerPickerContainer, styles.imagePickerContent, { backgroundColor: '#F5A023' }]}>
-                        <Text>Simple image picker</Text>
+                        <TouchableOpacity
+                            onPress={pickImage} // MARISSA PLEASE CHANGE THIS TO BE PRETTY
+                            style={styles.submitBtn}
+                        >
+                             <Text style={styles.submitRecipeText}>Upload Image</Text>
+                        </TouchableOpacity>
+                        {imageSource && <Image source={{ uri: imageSource }} style={{ width: 300, height: 250 }} />}
                     </View>
 
 
 
                     <View style={styles.submitRecipeContainer}>
                         <TouchableOpacity
-                            onPress={() => props.navigation.navigate('Main Screen')} //DEBUG
+                            onPress={submitRecipeFunc} //DEBUG
                             style={styles.submitBtn}
                         >
                             <Text style={styles.submitRecipeText}>Submit</Text>
