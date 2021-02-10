@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, Imag
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
-import { db } from '../config/DatabaseConfig';
+import { db, firebaseApp } from '../config/DatabaseConfig';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -18,8 +18,8 @@ export default class MainScreenInfo extends React.Component {
         this.state = {
             currentIndex: 0,
             recipes: [],
-            currentKey: '',
-        }
+            indexToKey: [], // basically, helps me figure out which recipe you just liked. things like index 0 is key 1234, which pertains to a certain recipe in the DB
+         }
 
         this.rotate = this.position.x.interpolate({
             inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -59,7 +59,18 @@ export default class MainScreenInfo extends React.Component {
 
     }
 
-     // This is called when the component is rendered. Loads in the data for the FlatList
+    saveRecipe(key) {
+        var recipeObj;
+        db.ref('/recipes/'+key).on('value', (snapshot) =>{
+            recipeObj = snapshot.val();
+        });
+        // Send the recipe up to be stored as the User's saved recipe
+        console.log(key);
+        console.log(recipeObj);
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/savedRecipes/'+currentUserID).push(recipeObj).then(() => console.log('Data sent'));
+    }
+
     componentDidMount() {
         db.ref('/recipes').on('value', (snapshot) => {
         var returnArray = [];
@@ -91,6 +102,8 @@ export default class MainScreenInfo extends React.Component {
                         toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
                         useNativeDriver: true
                     }).start(() => {
+                        const k = this.state.recipes[this.state.currentIndex].key
+                        this.saveRecipe(k)
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
@@ -143,6 +156,12 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
+    updateIndexToKey = (i, key) => {
+        var tempArray = this.state.indexToKey;
+        tempArray[i] = key;
+        this.setState({ indexToKey: tempArray });
+    }
+
     renderRecipes = () => {
 
         return this.state.recipes.map((item, i) => {
@@ -152,7 +171,6 @@ export default class MainScreenInfo extends React.Component {
                 return null
             }
             else if (i == this.state.currentIndex) {
-
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
@@ -191,7 +209,7 @@ export default class MainScreenInfo extends React.Component {
 
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
-                            source={item.uri} />
+                            source={{uri: item.uri}} />
 
                     </Animated.View>
                 )
