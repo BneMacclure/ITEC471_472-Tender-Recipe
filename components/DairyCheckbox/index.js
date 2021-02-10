@@ -25,6 +25,18 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 292,
     height: 48
+  },
+  checkIcon: {
+    color: "#434343",
+    fontSize: 28,
+    lineHeight: 28
+  },
+  nuts: {
+    marginLeft: 2,
+    fontSize: 16,
+    color: "rgba(0,0,0,0.87)",
+    lineHeight: 19,
+    letterSpacing: 1
   }
 });
 

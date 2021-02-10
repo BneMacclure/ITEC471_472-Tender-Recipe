@@ -8,6 +8,7 @@ import { db, firebaseApp } from '../config/DatabaseConfig';
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Alert } from 'react-native';
 
 export default class MainScreenInfo extends React.Component {
 
@@ -59,19 +60,57 @@ export default class MainScreenInfo extends React.Component {
 
     }
 
+    // Given a key, saved the recipe under the user's UID in Firebase
     saveRecipe(key) {
         var recipeObj;
+        // Get the recipe
         db.ref('/recipes/'+key).on('value', (snapshot) =>{
             recipeObj = snapshot.val();
         });
         // Send the recipe up to be stored as the User's saved recipe
-        console.log(key);
-        console.log(recipeObj);
         var currentUserID = firebaseApp.auth().currentUser.uid;
         db.ref('/savedRecipes/'+currentUserID).push(recipeObj).then(() => console.log('Data sent'));
     }
 
+    // Given a key, give the recipe to view for the user
+    viewRecipe(key) {
+        var name, ingredients, instructions, nuts, gluten, shellfish, dairy, fish, eggs, soy;
+        var recipeObj;
+        // Get the recipe
+        db.ref('/recipes/'+key).on('value', (snapshot) =>{
+            recipeObj = snapshot.val();
+        });
+        // Extract the data into vars for easier use
+        name = recipeObj.name.name;
+        ingredients = recipeObj.ingredients.ingredients;
+        instructions = recipeObj.instructions.instructions;
+        nuts = recipeObj.nuts.isSelectedNuts ? "nuts" : '';
+        gluten = recipeObj.gluten.isSelectedGluten ? 'gluten' : '';
+        shellfish = recipeObj.shellfish.isSelectedShellfish ? 'shellfish' : '';
+        dairy = recipeObj.dairy.isSelectedDairy ? 'dairy' : '';
+        fish = recipeObj.fish.isSelectedFish ? 'fish' : '';
+        eggs = recipeObj.eggs.isSelectedEggs ? 'eggs' : '';
+        soy = recipeObj.soy.isSelectedSoy ? "soy" : '';
+        // Consolidate the allergens before the Alert
+        allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
+        // Show info to user
+        Alert.alert(
+            name,
+            "Ingredients:\n"
+            +ingredients
+            +"\nInstructions:\n"
+            +instructions+"\n"
+            +"Allergens:\n"
+            +allergens,
+            [
+                {text: "OK", onPress: () => console.log("View recipe OK pressed") }
+            ],
+            { cancelable: false }
+        )
+    }
+
     componentDidMount() {
+        // Retrive recipes from Firebase
         db.ref('/recipes').on('value', (snapshot) => {
         var returnArray = [];
         
@@ -116,6 +155,7 @@ export default class MainScreenInfo extends React.Component {
                         toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
                         useNativeDriver: true
                     }).start(() => {
+                        const k = this.state.recipes[this.state.currentIndex].key
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
@@ -128,9 +168,11 @@ export default class MainScreenInfo extends React.Component {
                         toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
                         useNativeDriver: true
                     }).start(() => {
+                        const k = this.state.recipes[this.state.currentIndex].key
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
+                        this.viewRecipe(k)
                     })
                 }
 
@@ -140,9 +182,11 @@ export default class MainScreenInfo extends React.Component {
                         toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
                         useNativeDriver: true
                     }).start(() => {
+                        const k = this.state.recipes[this.state.currentIndex].key
                         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
+                        this.viewRecipe(k)
                     })
                 }
                 else {
