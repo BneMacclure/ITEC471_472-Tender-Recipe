@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ImageBackground, TouchableOpacity } from 'react-native';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import { db } from '../config/DatabaseConfig';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
-const Users = [
-    { id: "1", uri: require('../assets/images/waffles.jpg') },
-    { id: "2", uri: require('../assets/images/potato_wedges.jpg') },
-    { id: "3", uri: require('../assets/images/salmon.jpg') },
-    { id: "4", uri: require('../assets/images/burgers.jpg') },
-    { id: "5", uri: require('../assets/images/choco_chip_cookies.jpg') },
-]
 
 export default class MainScreenInfo extends React.Component {
 
@@ -22,7 +16,9 @@ export default class MainScreenInfo extends React.Component {
 
         this.position = new Animated.ValueXY()
         this.state = {
-            currentIndex: 0
+            currentIndex: 0,
+            recipes: [],
+            currentKey: '',
         }
 
         this.rotate = this.position.x.interpolate({
@@ -61,6 +57,22 @@ export default class MainScreenInfo extends React.Component {
             extrapolate: 'clamp'
         })
 
+    }
+
+     // This is called when the component is rendered. Loads in the data for the FlatList
+    componentDidMount() {
+        db.ref('/recipes').on('value', (snapshot) => {
+        var returnArray = [];
+        
+        snapshot.forEach( (snap) => {
+            returnArray.push({
+                key: snap.key,
+                uri: snap.val().imageSource.imageSource
+            });
+        });
+    
+        this.setState({ recipes: returnArray })
+        });
     }
 
     UNSAFE_componentWillMount() {
@@ -131,9 +143,9 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
-    renderUsers = () => {
+    renderRecipes = () => {
 
-        return Users.map((item, i) => {
+        return this.state.recipes.map((item, i) => {
 
 
             if (i < this.state.currentIndex) {
@@ -144,7 +156,7 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.id} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
 
@@ -153,7 +165,7 @@ export default class MainScreenInfo extends React.Component {
 
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
-                            source={item.uri} />
+                            source={{uri: item.uri}} />
 
                     </Animated.View>
                 )
@@ -162,7 +174,7 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
 
-                        key={item.id} style={[{
+                        key={item.key} style={[{
                             opacity: this.nextCardOpacity,
                             transform: [{ scale: this.nextCardScale }],
                             height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute'
@@ -199,7 +211,7 @@ export default class MainScreenInfo extends React.Component {
                     <View style={{ height: 10 }}>
                     </View>
                     <View style={{ flex: 1 }}>
-                        {this.renderUsers()}
+                        {this.renderRecipes()}
                     </View>
                     <View style={{ height: 10 }}>
 
