@@ -42,6 +42,7 @@ import SoyCheckbox from "../components/SoyCheckbox/components/MaterialCheckboxWi
 import { db } from "../config/DatabaseConfig";
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import { Alert } from "react-native";
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -148,21 +149,34 @@ const CreateRecipeScreen = (props) =>  {
       };
 
     const submitRecipeFunc = () => {
-        db.ref('/recipes').push({
-            name: {name},
-            ingredients: {ingredients},
-            instructions: {instructions},
-            imageSource: {imageSource},
-            soy: {isSelectedSoy},
-            eggs: {isSelectedEggs},
-            gluten: {isSelectedGluten},
-            dairy: {isSelectedDairy},
-            fish: {isSelectedFish},
-            shellfish: {isSelectedShellfish},
-            nuts: {isSelectedNuts},
-        }).then(() => console.log('Data sent'));
+        if (name != '' && ingredients != '' && instructions != '' && imageSource != null) {
+            db.ref('/recipes').push({
+                name: {name},
+                ingredients: {ingredients},
+                instructions: {instructions},
+                imageSource: {imageSource},
+                soy: {isSelectedSoy},
+                eggs: {isSelectedEggs},
+                gluten: {isSelectedGluten},
+                dairy: {isSelectedDairy},
+                fish: {isSelectedFish},
+                shellfish: {isSelectedShellfish},
+                nuts: {isSelectedNuts},
+            }).then(() => console.log('Data sent'));
+            
+            props.navigation.navigate('Main Screen');
+        }
+        else {
+            Alert.alert(
+                "Create Recipe",
+                "Need these fields: \nImage\nName\nIngredients\nInstructions",
+                [
+                    {text: "OK", onPress: () => console.log("Register OK pressed") }
+                ],
+                { cancelable: false }
+            )
+        }
         
-        props.navigation.navigate('Main Screen');
     }
 
     return (
