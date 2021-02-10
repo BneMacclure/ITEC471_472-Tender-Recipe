@@ -15,6 +15,7 @@ import NativeForms from "native-forms";
 import { NativeFormsWebView } from "native-forms";
 import { WebView } from "react-native-webview";
 import { CheckBox } from 'react-native-elements';
+import Icon from "react-native-vector-icons/FontAwesome";
 //import { ScrollView } from "react-native-gesture-handler";
 
 //<NativeForms form="https://my.nativeforms.com/vVDct0mcvZWPmZic4JlRvpmNy0Db" />
@@ -135,9 +136,9 @@ const CreateRecipeScreen = (props) =>  {
     
       const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,
-          aspect: [4, 3],
+          aspect: [3, 5],
           quality: 1,
         });
     
@@ -181,16 +182,23 @@ const CreateRecipeScreen = (props) =>  {
 
     return (
         <View style={styles.container}>
-            <Image
-                source={require("../assets/images/logo.png")}
-                resizeMode="contain"
-                style={styles.image1}
-            ></Image>
-            <Text style={styles.whatsYourRecipe}>What's your recipe?</Text>
+
+            <View style={styles.titleContainer}>
+                <Image
+                    source={require("../assets/images/logo.png")}
+                    resizeMode="contain"
+                    style={styles.image1}
+                ></Image>
+                <Text style={styles.whatsYourRecipe}>What's your recipe?</Text>
+            </View>
+
             <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>
-                    <View style={styles.recipeFillIn}>
+
+
+                <View style={styles.recipeFillIn}>
+                    <View style={styles.fieldsBackgroundStack}>
                         <ImageBackground
-                            source={require("../assets/images/recipefield_bbg.jpg")}
+                            source={require("../assets/images/checkboxfield_bbg.jpg")}
                             resizeMode="contain"
                             style={styles.fieldsBackground}
                             imageStyle={styles.fieldsBackground_imageStyle}
@@ -199,21 +207,21 @@ const CreateRecipeScreen = (props) =>  {
                                 <Text style={styles.fillInBelow}>FILL IN BELOW</Text>
                             </View>
                             <View style={styles.recipeFields}>
-                                <Text style={styles.recipeNameText}>Recipe Name</Text>
-                                <TextInput
-                                    placeholder=""
-                                    multiline={false}
-                                    enablesReturnKeyAutomatically={true}
-                                    style={styles.recipeName}
-                                    onChangeText={(name) => setName(name)}
-                                ></TextInput>
+                                <View style={styles.recipeNameTextStack}>
+                                    <Text style={styles.recipeNameText}>Recipe Name</Text>
+                                    <TextInput
+                                        placeholder=""
+                                        multiline={false}
+                                        enablesReturnKeyAutomatically={true}
+                                        style={styles.recipeName}
+                                    ></TextInput>
+                                </View>
                                 <Text style={styles.recipeIngredientsText}>The Ingredients</Text>
                                 <TextInput
                                     placeholder=""
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeIngredients}
-                                    onChangeText={(ingredients) => setIngredients(ingredients)}
                                 ></TextInput>
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
@@ -221,10 +229,10 @@ const CreateRecipeScreen = (props) =>  {
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeInstructions}
-                                    onChangeText={(instructions) => setInstructions(instructions)}
                                 ></TextInput>
                             </View>
-                    </ImageBackground>
+                        </ImageBackground> 
+                    </View>
 
                     <ImageBackground
                         source={require("../assets/images/checkboxfield_bbg.jpg")}
@@ -267,16 +275,32 @@ const CreateRecipeScreen = (props) =>  {
                         ></SoyCheckbox>
                     </ImageBackground>   
 
-                    <View style={[styles.imagerPickerContainer, styles.imagePickerContent, { backgroundColor: '#F5A023' }]}>
-                        <TouchableOpacity
-                            onPress={pickImage} // MARISSA PLEASE CHANGE THIS TO BE PRETTY
-                            style={styles.submitBtn}
+                    
+                    <View style={styles.recipePhotoUpload}>
+                        <ImageBackground
+                            source={require("../assets/images/recipefield_bbg.jpg")}
+                            resizeMode="contain"
+                            style={styles.uploadBackground}
+                            imageStyle={styles.uploadBackground_imageStyle}
                         >
-                             <Text style={styles.submitRecipeText}>Upload Image</Text>
-                        </TouchableOpacity>
-                        {imageSource && <Image source={{ uri: imageSource }} style={{ width: 300, height: 250 }} />}
+                            <View style={styles.uploadBadge}>
+                                <Text style={styles.uploadAPicture}>UPLOAD A PICTURE!</Text>
+                            </View>
+                            <View style={styles.uploadContent}>
+                                <View style={styles.iconContainer}>
+                                    <Icon name="cloud-upload" style={styles.uploadicon}></Icon>
+                                </View>
+                                <Text style={styles.tapTheButtonBelow}>Tap the button Below</Text>
+                                <Text style={styles.aPhoto}>Can't wait to see it!</Text>
+                                <View style={styles.uploadPreviewContainer}>
+                                    {imageSource && <Image source={{ uri: imageSource }} resizeMode="cover" style={{ width: 163, height: 243 }} />}
+                                </View>
+                                <TouchableOpacity onPress={pickImage} style={styles.browseButton}>
+                                    <Text style={styles.browsePhotos}>BROWSE PHOTOS</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ImageBackground>
                     </View>
-
 
 
                     <View style={styles.submitRecipeContainer}>
@@ -302,105 +326,126 @@ const styles = StyleSheet.create({
     },
 
     titleContainer: {
+        backgroundColor: 'white',
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT / 6
     },
 
     image1: {
         width: 78,
         height: 78,
-        marginTop: 30,
+        marginTop: 15,
         alignSelf: 'center'
     },
     whatsYourRecipe: {
         //fontFamily: "roboto-regular",
         color: "#121212",
         fontSize: 20,
-        alignSelf: 'center'
+        marginTop: 12,
+        alignSelf: "center"
     },
     recipeFillIn: {
         width: 292,
         height: '100%',
-        marginTop: 50,
+        marginTop: 35,
         alignSelf: "center"
     },
     fieldsBackground: {
+        top: 12,
+        left: 0,
         width: 591,
         height: 592,
-        marginTop: -124,
-        marginLeft: -135
+
     },
     fieldsBackground_imageStyle: {},
     fillInBadge: {
+        top: -10,
         width: 110,
         height: 24,
+        position: "absolute",
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 100,
-        marginTop: 87,
-        marginLeft: 226
+        left: 220
     },
     fillInBelow: {
         //fontFamily: "roboto-300",
         color: "rgba(222,5,5,1)",
         fontSize: 12,
-        marginTop: 2,
+        marginTop: 4,
         alignSelf: "center"
     },
     recipeFields: {
         flex: 1,
-        marginBottom: 428,
-        marginTop: 8,
-        marginLeft: 135,
-        marginRight: 164
+        marginBottom: 527,
+        marginTop: 25,
+        marginLeft: 129,
+        marginRight: 170
     },
     recipeNameText: {
+        left: 0,
+        position: "absolute",
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
         fontSize: 20,
-        marginLeft: 1
+        top: 0
     },
     recipeName: {
+        position: "absolute",
         //fontFamily: "roboto-regular",
         color: "#121212",
         height: 40,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
-        backgroundColor: "rgba(255,255,255,1)"
+        backgroundColor: "rgba(255,255,255,1)",
+        top: 30,
+        left: 0,
+        right: 0
+    },
+    recipeNameTextStack: {
+        height: 61
     },
     recipeIngredientsText: {
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
         fontSize: 20,
-        marginTop: 9,
+        marginTop: 15,
         marginLeft: 1
     },
     recipeIngredients: {
         //fontFamily: "roboto-regular",
         color: "#121212",
-        height: 105,
-        width: 292,
+        height: 204,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
-        backgroundColor: "rgba(255,255,255,1)",
-        marginLeft: 1
+        backgroundColor: "rgba(255,255,255,1)"
     },
     theInstructionsText: {
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
         fontSize: 20,
-        marginTop: 9,
+        marginTop: 8,
         marginLeft: 1
     },
     recipeInstructions: {
         //fontFamily: "roboto-regular",
         color: "#121212",
-        height: 105,
+        height: 204,
+        width: 292,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
-        backgroundColor: "rgba(255,255,255,1)"
+        backgroundColor: "rgba(255,255,255,1)",
+        alignSelf: "center"
+    },
+    fieldsBackgroundStack: {
+        width: 591,
+        height: 604,
+        marginTop: -37,
+        marginLeft: -129
     },
 
 
@@ -426,7 +471,7 @@ const styles = StyleSheet.create({
     checkboxBackground: {
         width: 591,
         height: 792,
-        marginTop: -124,
+        marginTop: -24,
         marginLeft: -135
 
     },
@@ -436,9 +481,8 @@ const styles = StyleSheet.create({
 
     scrollableView: {
         width: SCREEN_WIDTH,
-        margin: 20,
+        margin: 10,
         alignSelf: 'center',
-        padding: 20,
     },
 
     svContentContainer: {
@@ -451,7 +495,7 @@ const styles = StyleSheet.create({
     },
     nutsMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -465,7 +509,7 @@ const styles = StyleSheet.create({
     },
     glutenMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -476,7 +520,7 @@ const styles = StyleSheet.create({
     },
     shellfishMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -487,7 +531,7 @@ const styles = StyleSheet.create({
     },
     dairyMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -498,7 +542,7 @@ const styles = StyleSheet.create({
     },
     fishMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -509,7 +553,7 @@ const styles = StyleSheet.create({
     },
     eggsMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -520,7 +564,7 @@ const styles = StyleSheet.create({
     },
     soyMaterialCheckbox: {
         height: 48,
-        width: 292,
+        width: SCREEN_WIDTH / 1.2,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
         borderColor: "#000000",
@@ -542,9 +586,126 @@ const styles = StyleSheet.create({
         marginLeft: -135
     },
 
+
+
+
+
+
+    recipePhotoUpload: {
+        width: 292,
+        height: 590,
+        marginTop: 1,
+        alignSelf: "center"
+    },
+    uploadBackground: {
+        width: 870,
+        height: 896,
+        marginTop: -183,
+        marginLeft: -135
+    },
+    uploadBackground_imageStyle: {},
+
+    uploadBadge: {
+        width: 147,
+        height: 24,
+        backgroundColor: "rgba(255,255,255,1)",
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 100,
+        marginTop: 146,
+        marginLeft: 208
+    },
+    uploadAPicture: {
+        //fontFamily: "roboto-300",
+        color: "rgba(222,5,5,1)",
+        fontSize: 12,
+        marginTop: 2,
+        alignSelf: "center"
+    },
+    uploadContent: {
+        width: SCREEN_WIDTH / 1.2,
+        height: 514,
+        backgroundColor: "rgba(255,255,255,1)",
+        borderRadius: 10,
+        marginTop: 20,
+        marginLeft: 110
+    },
+    iconContainer: {
+        width: 74,
+        height: 74,
+        backgroundColor: "rgba(239,115,15,1)",
+        borderRadius: 100,
+        justifyContent: "center",
+        marginTop: 35,
+        alignSelf: "center"
+    },
+    uploadicon: {
+        color: "rgba(255,255,255,1)",
+        fontSize: 52,
+        alignSelf: "center"
+    },
+    tapTheButtonBelow: {
+        //fontFamily: "roboto-regular",
+        color: "#121212",
+        fontSize: 18,
+        marginTop: 10,
+        alignSelf: "center"
+    },
+    aPhoto: {
+        //fontFamily: "roboto-regular",
+        color: "#121212",
+        marginTop: 1,
+        alignSelf: "center"
+    },
+    uploadPreviewContainer: {
+        width: 165,
+        height: 245,
+        backgroundColor: "#E6E6E6",
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderStyle: "dashed",
+        marginTop: 9,
+        alignSelf: "center"
+    },
+    browseButton: {
+        width: 198,
+        height: 42,
+        backgroundColor: "rgba(249,71,35,1)",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderStyle: "solid",
+        justifyContent: "center",
+        marginTop: 15,
+        alignSelf: "center"
+    },
+    browsePhotos: {
+        //fontFamily: "roboto-regular",
+        color: "rgba(255,255,255,1)",
+        fontSize: 18,
+        alignSelf: "center"
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     submitRecipeContainer: {
         height: 96,
-        marginTop: 30,
+        marginTop: 10,
         alignSelf: "center",
     },
 
