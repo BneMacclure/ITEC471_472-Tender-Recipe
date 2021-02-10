@@ -138,7 +138,7 @@ const CreateRecipeScreen = (props) =>  {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,
-          aspect: [3, 5],
+          aspect: [4, 5],
           quality: 1,
         });
     
@@ -293,7 +293,7 @@ const CreateRecipeScreen = (props) =>  {
                                 <Text style={styles.tapTheButtonBelow}>Tap the button Below</Text>
                                 <Text style={styles.aPhoto}>Can't wait to see it!</Text>
                                 <View style={styles.uploadPreviewContainer}>
-                                    {imageSource && <Image source={{ uri: imageSource }} resizeMode="cover" style={{ width: 163, height: 243 }} />}
+                                    {imageSource && <Image source={{ uri: imageSource }} resizeMode="cover" style={{ width: 164, height: 243 }} />}
                                 </View>
                                 <TouchableOpacity onPress={pickImage} style={styles.browseButton}>
                                     <Text style={styles.browsePhotos}>BROWSE PHOTOS</Text>
