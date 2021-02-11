@@ -55,69 +55,6 @@ const CreateRecipeScreen = (props) =>  {
     const [instructions, setInstructions] = useState('');
     const [imageSource, setImageSource] = useState(null);
 
-    const changeNutSelected = () => {
-        if (isSelectedNuts) {
-            setSelectionNuts(false)
-        }
-        else {
-            setSelectionNuts(true)
-        }
-    }
-
-    const changeGlutenSelected = () => {
-        if (isSelectedGluten) {
-            setSelectionGluten(false)
-        }
-        else {
-            setSelectionGluten(true)
-        }
-    }
-
-    const changeShellfishSelected = () => {
-        if (isSelectedShellfish) {
-            setSelectionShellfish(false)
-        }
-        else {
-            setSelectionShellfish(true)
-        }
-    }
-
-    const changeDairySelected = () => {
-        if (isSelectedDairy) {
-            setSelectionDairy(false)
-        }
-        else {
-            setSelectionDairy(true)
-        }
-    }
-
-    const changeFishSelected = () => {
-        if (isSelectedFish) {
-            setSelectionFish(false)
-        }
-        else {
-            setSelectionFish(true)
-        }
-    }
-
-    const changeEggsSelected = () => {
-        if (isSelectedEggs) {
-            setSelectionEggs(false)
-        }
-        else {
-            setSelectionEggs(true)
-        }
-    }
-
-    const changeSoySelected = () => {
-        if (isSelectedSoy) {
-            setSelectionSoy(false)
-        }
-        else {
-            setSelectionSoy(true)
-        }
-    }
-
     useEffect(() => {
         (async () => {
           if (Platform.OS !== 'web') {
@@ -214,6 +151,7 @@ const CreateRecipeScreen = (props) =>  {
                                         multiline={false}
                                         enablesReturnKeyAutomatically={true}
                                         style={styles.recipeName}
+                                        onChangeText={(name) => setName(name)}
                                     ></TextInput>
                                 </View>
                                 <Text style={styles.recipeIngredientsText}>The Ingredients</Text>
@@ -222,6 +160,7 @@ const CreateRecipeScreen = (props) =>  {
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeIngredients}
+                                    onChangeText={(ingredients) => setIngredients(ingredients)}
                                 ></TextInput>
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
@@ -229,6 +168,7 @@ const CreateRecipeScreen = (props) =>  {
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeInstructions}
+                                    onChangeText={(instructions) => setInstructions(instructions)}
                                 ></TextInput>
                             </View>
                         </ImageBackground> 
@@ -326,6 +266,19 @@ const CreateRecipeScreen = (props) =>  {
                                 uncheckedColor={'#F94723'}
                                 checked={isSelectedFish}
                                 onPress={() => setSelectionFish(!isSelectedFish)}
+                            />
+                            <CheckBox value={isSelectedSoy}
+                                title='Soy'
+                                onValueChange={setSelectionSoy}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedSoy}
+                                checkedIcon={"check-square"}
+                                checkedColor={'#F94723'}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checked={isSelectedSoy}
+                                onPress={() => setSelectionSoy(!isSelectedSoy)}
                             />
                         </View>
 
@@ -555,7 +508,7 @@ const styles = StyleSheet.create({
     checkBoxColumn: {
         width: SCREEN_WIDTH / 1.15,
         height: 43,
-        justifyContent: "space-between",
+        flex: 1,
         marginTop: 30,
         marginLeft: SCREEN_WIDTH / 4
     },
