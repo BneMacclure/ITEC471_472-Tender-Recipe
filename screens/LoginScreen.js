@@ -124,7 +124,14 @@ function LoginScreen(props) {
                     </TouchableOpacity>
                 </View>
 
-
+                <View style={styles.loginBtnRow}>
+                    <TouchableOpacity
+                        onPress={() => props.navigation.navigate('Main Screen')}
+                        style={styles.loginBtn}
+                    >
+                        <Text style={styles.login}>DebugLogin</Text>
+                    </TouchableOpacity> 
+                </View>
 
                 
 

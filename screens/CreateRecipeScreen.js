@@ -16,6 +16,7 @@ import { NativeFormsWebView } from "native-forms";
 import { WebView } from "react-native-webview";
 import { CheckBox } from 'react-native-elements';
 import Icon from "react-native-vector-icons/FontAwesome";
+import CheckedIcon from "react-native-vector-icons/FontAwesome";
 //import { ScrollView } from "react-native-gesture-handler";
 
 //<NativeForms form="https://my.nativeforms.com/vVDct0mcvZWPmZic4JlRvpmNy0Db" />
@@ -33,13 +34,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 //    }
 //}
 
-import NutsCheckbox from "../components/NutCheckbox/components/MaterialCheckboxWithLabel";
-import GlutenCheckbox from "../components/GlutenCheckbox/components/MaterialCheckboxWithLabel";
-import ShellfishCheckbox from "../components/ShellfishCheckbox/components/MaterialCheckboxWithLabel";
-import DairyCheckbox from "../components/DairyCheckbox/components/MaterialCheckboxWithLabel";
-import FishCheckbox from "../components/FishCheckbox/components/MaterialCheckboxWithLabel";
-import EggsCheckbox from "../components/EggsCheckbox/components/MaterialCheckboxWithLabel";
-import SoyCheckbox from "../components/SoyCheckbox/components/MaterialCheckboxWithLabel";
 import { db } from "../config/DatabaseConfig";
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -55,6 +49,7 @@ const CreateRecipeScreen = (props) =>  {
     const [isSelectedFish, setSelectionFish] = useState(false);
     const [isSelectedEggs, setSelectionEggs] = useState(false);
     const [isSelectedSoy, setSelectionSoy] = useState(false);
+
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [instructions, setInstructions] = useState('');
@@ -138,9 +133,14 @@ const CreateRecipeScreen = (props) =>  {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,
-          aspect: [4, 5],
+          aspect: [3, 4],
           quality: 1,
         });
+
+          let options = {
+              maxWidth: SCREEN_WIDTH,
+              maxHeight: SCREEN_HEIGHT,
+          };
     
         console.log(result);
     
@@ -179,7 +179,7 @@ const CreateRecipeScreen = (props) =>  {
         }
         
     }
-
+    
     return (
         <View style={styles.container}>
 
@@ -234,8 +234,11 @@ const CreateRecipeScreen = (props) =>  {
                         </ImageBackground> 
                     </View>
 
+
+
+
                     <ImageBackground
-                        source={require("../assets/images/checkboxfield_bbg.jpg")}
+                        source={require("../assets/images/checkbox_bbg.jpg")}
                         resizeMode="contain"
                         style={styles.checkboxBackground}
                         imageStyle={styles.checkBoxBackground_imageStyle}
@@ -245,35 +248,91 @@ const CreateRecipeScreen = (props) =>  {
                         </View>
 
 
-                        <NutsCheckbox
-                            style={styles.nutsMaterialCheckbox}
-                            onPress={changeNutSelected}
-                        ></NutsCheckbox>
-                        <GlutenCheckbox
-                            style={styles.glutenMaterialCheckbox}
-                            onPress={changeGlutenSelected}
-                        ></GlutenCheckbox>
-                        <ShellfishCheckbox
-                            style={styles.shellfishMaterialCheckbox}
-                            onPress={changeShellfishSelected}
-                        ></ShellfishCheckbox>
-                        <DairyCheckbox
-                            style={styles.dairyMaterialCheckbox}
-                            onPress={changeDairySelected}
-                        ></DairyCheckbox>
-                        <FishCheckbox
-                            style={styles.fishMaterialCheckbox}
-                            onPress={changeFishSelected}
-                        ></FishCheckbox>
-                        <EggsCheckbox
-                            style={styles.eggsMaterialCheckbox}
-                            onPress={changeEggsSelected}
-                        ></EggsCheckbox>
-                        <SoyCheckbox
-                            style={styles.soyMaterialCheckbox}
-                            onPress={changeSoySelected}
-                        ></SoyCheckbox>
+                        <View style={styles.checkBoxColumn}>
+                            <CheckBox
+                                title='Gluten'
+                                onValueChange={setSelectionGluten}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedGluten}
+                                checkedIcon={"check-square"}
+                                checkedColor={'#F94723'}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checked={isSelectedGluten}
+                                onPress={() => setSelectionGluten(!isSelectedGluten)}     
+                            />
+                            <CheckBox value={isSelectedNuts}
+                                title='Nuts'
+                                onValueChange={setSelectionNuts}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedNuts}
+                                checkedIcon={"check-square"}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checkedColor={'#F94723'}
+                                checked={isSelectedNuts}
+                                onPress={() => setSelectionNuts(!isSelectedNuts)}
+                            />
+                            <CheckBox value={isSelectedShellfish}
+                                title='Shellfish'
+                                onValueChange={setSelectionShellfish}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedShellfish}
+                                checkedIcon={"check-square"}
+                                checkedColor={'#F94723'}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checked={isSelectedShellfish}
+                                onPress={() => setSelectionShellfish(!isSelectedShellfish)}
+                            />
+                            <CheckBox value={isSelectedDairy}
+                                title='Dairy'
+                                onValueChange={setSelectionDairy}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedGluten}
+                                checkedIcon={"check-square"}
+                                checkedColor={'#F94723'}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checked={isSelectedDairy}
+                                onPress={() => setSelectionDairy(!isSelectedDairy)}
+                            />
+                            <CheckBox value={isSelectedEggs}
+                                title='Eggs'
+                                onValueChange={setSelectionEggs}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedEggs}
+                                checkedIcon={"check-square"}
+                                checkedColor={'#F94723'}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checked={isSelectedEggs}
+                                onPress={() => setSelectionEggs(!isSelectedEggs)}
+                            />
+                            <CheckBox value={isSelectedFish}
+                                title='Fish'
+                                onValueChange={setSelectionFish}
+                                size={40}
+                                containerStyle={styles.checkboxContainerStyle}
+                                value={isSelectedFish}
+                                checkedIcon={"check-square"}
+                                checkedColor={'#F94723'}
+                                textStyle={styles.checkboxText}
+                                uncheckedColor={'#F94723'}
+                                checked={isSelectedFish}
+                                onPress={() => setSelectionFish(!isSelectedFish)}
+                            />
+                        </View>
+
                     </ImageBackground>   
+
+
+
 
                     
                     <View style={styles.recipePhotoUpload}>
@@ -291,7 +350,7 @@ const CreateRecipeScreen = (props) =>  {
                                     <Icon name="cloud-upload" style={styles.uploadicon}></Icon>
                                 </View>
                                 <Text style={styles.tapTheButtonBelow}>Tap the button Below</Text>
-                                <Text style={styles.aPhoto}>Can't wait to see it!</Text>
+                                <Text style={styles.aPhoto}>See your photo here!</Text>
                                 <View style={styles.uploadPreviewContainer}>
                                     {imageSource && <Image source={{ uri: imageSource }} resizeMode="cover" style={{ width: 164, height: 243 }} />}
                                 </View>
@@ -323,6 +382,17 @@ const CreateRecipeScreen = (props) =>  {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+
+    scrollableView: {
+        width: SCREEN_WIDTH,
+        margin: 10,
+        alignSelf: 'center',
+    },
+
+    svContentContainer: {
+        justifyContent: 'space-between'
+
     },
 
     titleContainer: {
@@ -373,14 +443,14 @@ const styles = StyleSheet.create({
         //fontFamily: "roboto-300",
         color: "rgba(222,5,5,1)",
         fontSize: 12,
-        marginTop: 4,
+        marginTop: 2,
         alignSelf: "center"
     },
     recipeFields: {
         flex: 1,
         marginBottom: 527,
-        marginTop: 25,
-        marginLeft: 129,
+        marginTop: 20,
+        marginLeft: SCREEN_WIDTH / 4,
         marginRight: 170
     },
     recipeNameText: {
@@ -388,21 +458,20 @@ const styles = StyleSheet.create({
         position: "absolute",
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
+        fontWeight: "bold",
         fontSize: 20,
         top: 0
     },
     recipeName: {
-        position: "absolute",
+        width: SCREEN_WIDTH / 1.2,
         //fontFamily: "roboto-regular",
         color: "#121212",
         height: 40,
+        marginTop: 30,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,1)",
-        top: 30,
-        left: 0,
-        right: 0
     },
     recipeNameTextStack: {
         height: 61
@@ -410,36 +479,42 @@ const styles = StyleSheet.create({
     recipeIngredientsText: {
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
+        fontWeight: "bold",
         fontSize: 20,
         marginTop: 15,
         marginLeft: 1
     },
     recipeIngredients: {
-        //fontFamily: "roboto-regular",
+        width: SCREEN_WIDTH / 1.2,
         color: "#121212",
         height: 204,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
-        backgroundColor: "rgba(255,255,255,1)"
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2
     },
     theInstructionsText: {
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
+        fontWeight: "bold",
         fontSize: 20,
         marginTop: 8,
         marginLeft: 1
     },
     recipeInstructions: {
-        //fontFamily: "roboto-regular",
+        width: SCREEN_WIDTH / 1.2,
         color: "#121212",
         height: 204,
-        width: 292,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,1)",
-        alignSelf: "center"
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2
     },
     fieldsBackgroundStack: {
         width: 591,
@@ -470,109 +545,40 @@ const styles = StyleSheet.create({
 
     checkboxBackground: {
         width: 591,
-        height: 792,
+        height: 715,
         marginTop: -24,
         marginLeft: -135
 
     },
     checkboxBackground_imageStyle: {},
 
-
-
-    scrollableView: {
-        width: SCREEN_WIDTH,
-        margin: 10,
-        alignSelf: 'center',
+    checkBoxColumn: {
+        width: SCREEN_WIDTH / 1.15,
+        height: 43,
+        justifyContent: "space-between",
+        marginTop: 30,
+        marginLeft: SCREEN_WIDTH / 4
     },
 
-    svContentContainer: {
-        justifyContent: 'space-between'
-
+    checkboxContainerStyle: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+    },
+    checkboxText: {
+        fontSize: 20,
+        color: "rgba(111,111,111,1)",
+        paddingBottom: 4
     },
 
     checkboxContainer: {
         flexDirection: "row",
     },
-    nutsMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
-    label: {
+    
 
-    },
-    glutenMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
-    shellfishMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
-    dairyMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
-    fishMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
-    eggsMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
-    soyMaterialCheckbox: {
-        height: 48,
-        width: SCREEN_WIDTH / 1.2,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 10,
-        marginTop: 30,
-        alignSelf: 'center',
-        marginRight: 24
-    },
+
+
+
+
 
     imagePickerContainer: {
         flex: 1
@@ -585,11 +591,6 @@ const styles = StyleSheet.create({
         height: 692,
         marginLeft: -135
     },
-
-
-
-
-
 
     recipePhotoUpload: {
         width: 292,
@@ -687,22 +688,6 @@ const styles = StyleSheet.create({
     },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     submitRecipeContainer: {
         height: 96,
         marginTop: 10,
@@ -719,7 +704,8 @@ const styles = StyleSheet.create({
 
     submitRecipeText: {
         color: "rgba(255,255,255,1)",
-        alignSelf: "center"
+        alignSelf: "center",
+        fontWeight: "bold",
     },
 
 });
