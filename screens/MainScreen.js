@@ -170,7 +170,7 @@ export default class MainScreenInfo extends React.Component {
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
                         this.viewRecipe(k)
-                        this.setState({ currentIndex: this.state.currentIndex - 1 }, () => {
+                        this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -184,8 +184,6 @@ export default class MainScreenInfo extends React.Component {
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
                         this.viewRecipe(k)
-                        const modifier = this.state.currentIndex == 0 ? 0 : 1
-                        console.log(this.state.currentIndex)
                         this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
