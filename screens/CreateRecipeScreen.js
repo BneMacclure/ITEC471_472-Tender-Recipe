@@ -236,7 +236,7 @@ const CreateRecipeScreen = (props) =>  {
 
 
 
-
+                    <View style={styles.selectContainer}>
                     <ImageBackground
                         source={require("../assets/images/checkbox_bbg.jpg")}
                         resizeMode="contain"
@@ -342,12 +342,9 @@ const CreateRecipeScreen = (props) =>  {
                             />
                         </View>
 
-                    </ImageBackground>   
+                        </ImageBackground>
+                    </View>
 
-
-
-
-                    
                     <View style={styles.recipePhotoUpload}>
                         <ImageBackground
                             source={require("../assets/images/recipefield_bbg.jpg")}
@@ -383,6 +380,9 @@ const CreateRecipeScreen = (props) =>  {
                             <Text style={styles.submitRecipeText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
+
+                    
+                    
                 </View>
             </ScrollView>
 
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
     },
 
     svContentContainer: {
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
 
     },
 
@@ -530,6 +530,11 @@ const styles = StyleSheet.create({
         marginLeft: -129
     },
 
+    selectContainer: {
+        width: 292,
+        height: 760,
+    },
+
 
     checkEachBadge: {
         width: 170,
@@ -562,7 +567,7 @@ const styles = StyleSheet.create({
     checkBoxColumn: {
         flex: 1,
         width: SCREEN_WIDTH / 1.15,
-        height: 63,
+        height: 43,
         marginTop: 15,
         marginLeft: SCREEN_WIDTH / 4
     },
@@ -588,27 +593,29 @@ const styles = StyleSheet.create({
 
 
     imagePickerContainer: {
-        flex: 1
+        //flex: 1
     },
 
     imagePickerContent: {
         alignItems: 'center',
         justifyContent: 'center',
         width: 591,
-        height: 692,
+        height: 792,
         marginLeft: -135
     },
 
     recipePhotoUpload: {
         width: 292,
-        height: 590,
-        marginTop: 1,
+        height: 890,
+        marginTop: -10,
         alignSelf: "center"
     },
+
+    //error causing
     uploadBackground: {
         width: 870,
-        height: 896,
-        marginTop: -183,
+        height: 740,
+        marginTop: -163,
         marginLeft: -135
     },
     uploadBackground_imageStyle: {},
@@ -620,7 +627,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 100,
-        marginTop: 146,
+        marginTop: 70,
         marginLeft: 208
     },
     uploadAPicture: {
@@ -693,7 +700,7 @@ const styles = StyleSheet.create({
 
     submitRecipeContainer: {
         height: 96,
-        marginTop: 10,
+        marginTop: -330,
         alignSelf: "center",
     },
 
