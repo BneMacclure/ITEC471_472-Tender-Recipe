@@ -123,9 +123,6 @@ export default class MainScreenInfo extends React.Component {
     
         this.setState({ recipes: returnArray })
         });
-    }
-
-    UNSAFE_componentWillMount() {
         this.PanResponder = PanResponder.create({
 
             onStartShouldSetPanResponder: (evt, gestureState) => true,
