@@ -84,13 +84,13 @@ export default class MainScreenInfo extends React.Component {
         name = recipeObj.name.name;
         ingredients = recipeObj.ingredients.ingredients;
         instructions = recipeObj.instructions.instructions;
-        nuts = recipeObj.nuts.isSelectedNuts ? "nuts" : '';
-        gluten = recipeObj.gluten.isSelectedGluten ? 'gluten' : '';
-        shellfish = recipeObj.shellfish.isSelectedShellfish ? 'shellfish' : '';
-        dairy = recipeObj.dairy.isSelectedDairy ? 'dairy' : '';
-        fish = recipeObj.fish.isSelectedFish ? 'fish' : '';
-        eggs = recipeObj.eggs.isSelectedEggs ? 'eggs' : '';
-        soy = recipeObj.soy.isSelectedSoy ? "soy" : '';
+        nuts = recipeObj.nuts.isSelectedNuts ? "nuts, " : '';
+        gluten = recipeObj.gluten.isSelectedGluten ? 'gluten, ' : '';
+        shellfish = recipeObj.shellfish.isSelectedShellfish ? 'shellfish, ' : '';
+        dairy = recipeObj.dairy.isSelectedDairy ? 'dairy, ' : '';
+        fish = recipeObj.fish.isSelectedFish ? 'fish, ' : '';
+        eggs = recipeObj.eggs.isSelectedEggs ? 'eggs, ' : '';
+        soy = recipeObj.soy.isSelectedSoy ? "soy, " : '';
         // Consolidate the allergens before the Alert
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
         // Show info to user
@@ -169,10 +169,10 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        this.viewRecipe(k)
+                        this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
-                        this.viewRecipe(k)
                     })
                 }
 
@@ -183,10 +183,10 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        this.viewRecipe(k)
+                        this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
-                        this.viewRecipe(k)
                     })
                 }
                 else {
