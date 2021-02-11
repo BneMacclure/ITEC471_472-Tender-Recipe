@@ -71,10 +71,10 @@ const Navigator = props => {
                 }}
             />
 			 <Stack.Screen
-                name="My Profile"
+                name="MyProfile"
                 component={MyProfile}
                 options={{
-                    title: "My Profile",
+                    title: "MyProfile",
                     headerStyle: {
                         backgroundColor: '#e35514',
                     },

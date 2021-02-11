@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity
 } from "react-native";
-//import Svg, { Ellipse } from "react-native-svg";
+import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Ionicons";
 
 function Profile(props) {

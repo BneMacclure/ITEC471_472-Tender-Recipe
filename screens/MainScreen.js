@@ -286,7 +286,7 @@ export default class MainScreenInfo extends React.Component {
                             ></MaterialCommunityIconsIcon>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('MyProfile')}
+                            onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
                             style={styles.recipe_button}
                         >
                             <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
