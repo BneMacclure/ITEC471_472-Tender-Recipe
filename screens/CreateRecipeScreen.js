@@ -338,7 +338,7 @@ const CreateRecipeScreen = (props) =>  {
                                 textStyle={styles.checkboxText}
                                 uncheckedColor={'#F94723'}
                                 checked={isSelectedSoy}
-                                onPress={() => setSelectionFish(!isSelectedSoy)}
+                                onPress={() => setSelectionSoy(!isSelectedSoy)}
                             />
                         </View>
 
@@ -562,7 +562,7 @@ const styles = StyleSheet.create({
     checkBoxColumn: {
         flex: 1,
         width: SCREEN_WIDTH / 1.15,
-        height: 43,
+        height: 63,
         marginTop: 15,
         marginLeft: SCREEN_WIDTH / 4
     },
