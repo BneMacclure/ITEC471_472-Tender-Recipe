@@ -192,7 +192,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox
                                 title='Gluten'
                                 onValueChange={setSelectionGluten}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedGluten}
                                 checkedIcon={"check-square"}
@@ -205,7 +205,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox value={isSelectedNuts}
                                 title='Nuts'
                                 onValueChange={setSelectionNuts}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedNuts}
                                 checkedIcon={"check-square"}
@@ -218,7 +218,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox value={isSelectedShellfish}
                                 title='Shellfish'
                                 onValueChange={setSelectionShellfish}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedShellfish}
                                 checkedIcon={"check-square"}
@@ -231,7 +231,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox value={isSelectedDairy}
                                 title='Dairy'
                                 onValueChange={setSelectionDairy}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedGluten}
                                 checkedIcon={"check-square"}
@@ -244,7 +244,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox value={isSelectedEggs}
                                 title='Eggs'
                                 onValueChange={setSelectionEggs}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedEggs}
                                 checkedIcon={"check-square"}
@@ -257,7 +257,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox value={isSelectedFish}
                                 title='Fish'
                                 onValueChange={setSelectionFish}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedFish}
                                 checkedIcon={"check-square"}
@@ -270,7 +270,7 @@ const CreateRecipeScreen = (props) =>  {
                             <CheckBox value={isSelectedSoy}
                                 title='Soy'
                                 onValueChange={setSelectionSoy}
-                                size={40}
+                                size={35}
                                 containerStyle={styles.checkboxContainerStyle}
                                 value={isSelectedSoy}
                                 checkedIcon={"check-square"}
@@ -339,7 +339,6 @@ const styles = StyleSheet.create({
 
     scrollableView: {
         width: SCREEN_WIDTH,
-        margin: 10,
         alignSelf: 'center',
     },
 
@@ -361,7 +360,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     whatsYourRecipe: {
-        //fontFamily: "roboto-regular",
         color: "#121212",
         fontSize: 20,
         marginTop: 12,
@@ -393,7 +391,6 @@ const styles = StyleSheet.create({
         left: 220
     },
     fillInBelow: {
-        //fontFamily: "roboto-300",
         color: "rgba(222,5,5,1)",
         fontSize: 12,
         marginTop: 2,
@@ -409,7 +406,6 @@ const styles = StyleSheet.create({
     recipeNameText: {
         left: 0,
         position: "absolute",
-        //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
         fontWeight: "bold",
         fontSize: 20,
@@ -417,7 +413,6 @@ const styles = StyleSheet.create({
     },
     recipeName: {
         width: SCREEN_WIDTH / 1.2,
-        //fontFamily: "roboto-regular",
         color: "#121212",
         height: 40,
         marginTop: 30,
@@ -430,7 +425,6 @@ const styles = StyleSheet.create({
         height: 61
     },
     recipeIngredientsText: {
-        //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
         fontWeight: "bold",
         fontSize: 20,
@@ -506,10 +500,10 @@ const styles = StyleSheet.create({
     checkboxBackground_imageStyle: {},
 
     checkBoxColumn: {
-        width: SCREEN_WIDTH / 1.15,
-        height: 43,
         flex: 1,
-        marginTop: 30,
+        width: SCREEN_WIDTH / 1.15,
+        height: 63,
+        marginTop: 15,
         marginLeft: SCREEN_WIDTH / 4
     },
 
@@ -570,7 +564,6 @@ const styles = StyleSheet.create({
         marginLeft: 208
     },
     uploadAPicture: {
-        //fontFamily: "roboto-300",
         color: "rgba(222,5,5,1)",
         fontSize: 12,
         marginTop: 2,
@@ -599,14 +592,12 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     tapTheButtonBelow: {
-        //fontFamily: "roboto-regular",
         color: "#121212",
         fontSize: 18,
         marginTop: 10,
         alignSelf: "center"
     },
     aPhoto: {
-        //fontFamily: "roboto-regular",
         color: "#121212",
         marginTop: 1,
         alignSelf: "center"
@@ -634,7 +625,6 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     browsePhotos: {
-        //fontFamily: "roboto-regular",
         color: "rgba(255,255,255,1)",
         fontSize: 18,
         alignSelf: "center"
