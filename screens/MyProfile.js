@@ -6,7 +6,8 @@ import {
   Image,
   ImageBackground,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -90,6 +91,7 @@ function Profile(props) {
           <Text style={styles.allergiesList}>
             {allergies}
           </Text>
+
         </View>
         <TouchableOpacity style={styles.button3}>
           <Text style={styles.changePassword}>Change Password?</Text>
@@ -99,6 +101,7 @@ function Profile(props) {
         </TouchableOpacity>
       </View>
     );
+
 }
 
 const styles = StyleSheet.create({
@@ -283,6 +286,19 @@ const styles = StyleSheet.create({
     color: "#121212",
     marginTop: 10,
     marginLeft: 123
+  },
+  myRecipesButton: {
+    width: 76,
+    height: 59,
+    backgroundColor: "#E6E6E6",
+    marginTop: -131,
+    marginLeft: 284
+  },
+  myRecipesText: {
+    fontFamily: "roboto-regular",
+    color: "#121212",
+    marginTop: 21,
+    marginLeft: 7
   }
 });
 

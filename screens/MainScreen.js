@@ -308,6 +308,12 @@ export default class MainScreenInfo extends React.Component {
                         >
                             <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
                         </TouchableOpacity>
+						<TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('MyProfile')}
+                            style={styles.recipe_button}
+                        >
+                            <FontAwesomeIcon name="pencil" style={styles.icon3}></FontAwesomeIcon>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ImageBackground>

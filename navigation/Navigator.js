@@ -11,6 +11,7 @@ import { firebaseApp } from '../config/DatabaseConfig';
 import { HeaderBackButton } from '@react-navigation/stack';
 import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
+import MyRecipes from '../screens/MyRecipes'
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -100,6 +101,34 @@ const Navigator = props => {
                                 height: StatusBar.currentHeight,
                             }}>
                             <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+			<Stack.Screen
+                name="MyRecipes"
+                component={MyRecipes}
+                options={{
+                    title: "MyRecipes",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 10,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={30} color={'#fff'} />
                         </View>
                     ),
 
