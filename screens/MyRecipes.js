@@ -11,7 +11,7 @@ const DATA = [
 	},
 	{
 		recName: "Papas Special Sauce ;)"
-	}
+	},
 ];
 
 const Item = ({recName}) => (
