@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
+import { db, firebaseApp } from '../config/DatabaseConfig';
 import {
   StyleSheet,
   View,
@@ -11,98 +12,96 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const SCREEN_HEIGHT = Dimensions.get('window').height - 20
-const SCREEN_WIDTH = Dimensions.get('window').width
+function Profile(props) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [skillLevel, setLevel] = useState('');
+  const [prefMeasurement, setMeasurement] = useState('');
+  const [allergies, setAllergies] = useState('');
 
-const Profile = ({navigation}) => {
-  return (
-    <View style={styles.container}>
-	  {/*Background image for top section*/}
-      <ImageBackground
-        source={require("../assets/images/Gradient.png")}
-        resizeMode="stretch"
-        style={styles.image}
-        imageStyle={styles.image_imageStyle}
-      >
-	    {/*Circle for profile picture*/}
-        <View style={styles.ellipseStack}>
-          <Svg viewBox="0 0 116 104" style={styles.ellipse}>
-            <Ellipse
-              stroke="rgba(230, 230, 230,1)"
-              strokeWidth={0}
-              fill="rgba(230, 230, 230,1)"
-              cx={58}
-              cy={52}
-              rx={58}
-              ry={52}
-            ></Ellipse>
-          </Svg>
-		  {/*Temp icon inside profile circle*/}
-          <Icon name="ios-person" style={styles.icon}></Icon>
-        </View>
-		{/*Name text*/}
-        <Text style={styles.johnDoe}>John Doe</Text>
-      </ImageBackground>
-	  {/*Container for email field*/}
-      <View style={styles.emailContStack}>
-        <View style={styles.emailCont}>
-		  {/*Email text*/}
-          <Text style={styles.email}>Email: johndoe@email.com</Text>
-        </View>
-		{/*Container for Skill level*/}
-        <View style={styles.skillCont}>
-		  {/*Skill level text*/}
-          <Text style={styles.skillLevel}>Skill Level</Text>
-          <View style={styles.buttonRow}>
-		    {/*Beginner button*/}
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.beginner}>Beginner</Text>
-            </TouchableOpacity>
-			{/*Intermediate button*/}
-            <TouchableOpacity style={styles.button1}>
-              <Text style={styles.intermediate}>Intermediate</Text>
-            </TouchableOpacity>
-			{/*Advanced button*/}
-            <TouchableOpacity style={styles.button2}>
-              <Text style={styles.advanced}>Advanced</Text>
-            </TouchableOpacity>
+  /* Pulls data from the Firebase database */
+  const retrieveData = () => {
+
+    var currentUserID = firebaseApp.auth().currentUser.uid;
+    db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
+      data = snapshot.val()
+      setName(data.name)
+      setLevel(data.skillLevel)
+      setMeasurement(data.prefMeasurement)
+      setAllergies(data.allergies)
+    });
+    setEmail(firebaseApp.auth().currentUser.email);
+  }
+
+  useEffect(() => {
+    retrieveData();
+  });
+
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../assets/images/Gradient.png")}
+          resizeMode="stretch"
+          style={styles.image}
+          imageStyle={styles.image_imageStyle}
+        >
+          <View style={styles.ellipseStack}>
+            <Svg viewBox="0 0 116 104" style={styles.ellipse}>
+              <Ellipse
+                stroke="rgba(230, 230, 230,1)"
+                strokeWidth={0}
+                fill="rgba(230, 230, 230,1)"
+                cx={58}
+                cy={52}
+                rx={58}
+                ry={52}
+              ></Ellipse>
+            </Svg>
+            <Icon name="ios-person" style={styles.icon}></Icon>
+          </View>
+          <Text style={styles.johnDoe}>{name}</Text>
+        </ImageBackground>
+        <View style={styles.emailContStack}>
+          <View style={styles.emailCont}>
+            <Text style={styles.email}>Email: {email}</Text>
+          </View>
+          <View style={styles.skillCont}>
+            <Text style={styles.skillLevel}>Skill Level: {skillLevel}</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.beginner}>Beginner</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button1}>
+                <Text style={styles.intermediate}>Intermediate</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button2}>
+                <Text style={styles.advanced}>Advanced</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-	  {/*Container for measurements fields*/}
-      <View style={styles.measurementsCont}>
-        <View style={styles.preferredRow}>
-		  {/*Preferred Measurements text*/}
-          <Text style={styles.preferred}>Preferred Measurements:</Text>
-		  {/*The measurement*/}
-          <Text style={styles.us}>US</Text>
+        <View style={styles.measurementsCont}>
+          <View style={styles.preferredRow}>
+            <Text style={styles.preferred}>Preferred Measurements:</Text>
+            <Text style={styles.us}>{prefMeasurement}</Text>
+          </View>
         </View>
+        <View style={styles.skillCont1}>
+          <Text style={styles.allergies}>Allergies</Text>
+          <Text style={styles.allergiesList}>
+            {allergies}
+          </Text>
+
+        </View>
+        <TouchableOpacity style={styles.button3}>
+          <Text style={styles.changePassword}>Change Password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button4}>
+          <Text style={styles.deleteAccount}>Delete Account</Text>
+        </TouchableOpacity>
       </View>
-	  {/*Container for allergies*/}
-      <View style={styles.skillCont1}>
-	    {/*Allergies*/}
-        <Text style={styles.allergies}>Allergies</Text>
-		{/*Preview of selected allergies*/}
-        <Text style={styles.allergiesList}>
-          Wheat, Milk, Eggs, Peanuts, Soy, ...
-        </Text>
-      </View>
-	  {/*Change password button*/}
-      <TouchableOpacity style={styles.button3}>
-        <Text style={styles.changePassword}>Change Password?</Text>
-      </TouchableOpacity>
-	  {/*Delete account button*/}
-      <TouchableOpacity style={styles.button4}>
-        <Text style={styles.deleteAccount}>Delete Account</Text>
-      </TouchableOpacity>
-	  {/*Temporary navigation button to MyRecipes*/}
-	  <TouchableOpacity 
-		onPress={() => navigation.navigate('MyRecipes')}
-		style={styles.myRecipesButton}>
-        <Text style={styles.myRecipesText}>My recipes</Text>
-      </TouchableOpacity>
-    </View>
-  );
+    );
+
 }
 
 const styles = StyleSheet.create({

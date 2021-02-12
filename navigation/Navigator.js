@@ -9,6 +9,7 @@ import MainScreen from '../screens/MainScreen';
 import CreateRecipeScreen from '../screens/CreateRecipeScreen';
 import { firebaseApp } from '../config/DatabaseConfig';
 import { HeaderBackButton } from '@react-navigation/stack';
+import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 
@@ -46,8 +47,9 @@ const Navigator = props => {
             <Stack.Screen
                 name="Main Screen"
                 component={MainScreen}
-                options={{
+                options={({ navigation }) => ({
                     title: "Main Page",
+                    headerLeft: null,
                     headerStyle: {
                         backgroundColor: '#e35514',
                     },
@@ -65,11 +67,16 @@ const Navigator = props => {
                                 paddingHorizontal: 25,
                                 height: StatusBar.currentHeight,
                             }}>
-                            <Icon name="three-bars" size={35} color={'#fff'} />
+                            <Icon
+                                name="three-bars"
+                                size={35}
+                                color={'#fff'}
+                                onPress={() => { navigation.navigate('MyProfile') }}
+                            />
                         </View>
                     ),
-                    headerLeft: null
-                }}
+
+                })}       
             />
 			 <Stack.Screen
                 name="MyProfile"
@@ -90,10 +97,10 @@ const Navigator = props => {
                                 flex: 1,
                                 alignItems: 'center',
                                 flexDirection: 'row',
-                                paddingHorizontal: 10,
+                                paddingHorizontal: 25,
                                 height: StatusBar.currentHeight,
                             }}>
-                            <Icon name="three-bars" size={30} color={'#fff'} />
+                            <Icon name="three-bars" size={35} color={'#fff'} />
                         </View>
                     ),
 
