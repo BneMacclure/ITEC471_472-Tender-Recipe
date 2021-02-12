@@ -5,20 +5,26 @@ import {
   Image,
   ImageBackground,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Ionicons";
 
-function Profile(props) {
+const SCREEN_HEIGHT = Dimensions.get('window').height - 20
+const SCREEN_WIDTH = Dimensions.get('window').width
+
+const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
+	  {/*Background image for top section*/}
       <ImageBackground
         source={require("../assets/images/Gradient.png")}
         resizeMode="stretch"
         style={styles.image}
         imageStyle={styles.image_imageStyle}
       >
+	    {/*Circle for profile picture*/}
         <View style={styles.ellipseStack}>
           <Svg viewBox="0 0 116 104" style={styles.ellipse}>
             <Ellipse
@@ -31,46 +37,69 @@ function Profile(props) {
               ry={52}
             ></Ellipse>
           </Svg>
+		  {/*Temp icon inside profile circle*/}
           <Icon name="ios-person" style={styles.icon}></Icon>
         </View>
+		{/*Name text*/}
         <Text style={styles.johnDoe}>John Doe</Text>
       </ImageBackground>
+	  {/*Container for email field*/}
       <View style={styles.emailContStack}>
         <View style={styles.emailCont}>
+		  {/*Email text*/}
           <Text style={styles.email}>Email: johndoe@email.com</Text>
         </View>
+		{/*Container for Skill level*/}
         <View style={styles.skillCont}>
+		  {/*Skill level text*/}
           <Text style={styles.skillLevel}>Skill Level</Text>
           <View style={styles.buttonRow}>
+		    {/*Beginner button*/}
             <TouchableOpacity style={styles.button}>
               <Text style={styles.beginner}>Beginner</Text>
             </TouchableOpacity>
+			{/*Intermediate button*/}
             <TouchableOpacity style={styles.button1}>
               <Text style={styles.intermediate}>Intermediate</Text>
             </TouchableOpacity>
+			{/*Advanced button*/}
             <TouchableOpacity style={styles.button2}>
               <Text style={styles.advanced}>Advanced</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+	  {/*Container for measurements fields*/}
       <View style={styles.measurementsCont}>
         <View style={styles.preferredRow}>
+		  {/*Preferred Measurements text*/}
           <Text style={styles.preferred}>Preferred Measurements:</Text>
+		  {/*The measurement*/}
           <Text style={styles.us}>US</Text>
         </View>
       </View>
+	  {/*Container for allergies*/}
       <View style={styles.skillCont1}>
+	    {/*Allergies*/}
         <Text style={styles.allergies}>Allergies</Text>
+		{/*Preview of selected allergies*/}
         <Text style={styles.allergiesList}>
           Wheat, Milk, Eggs, Peanuts, Soy, ...
         </Text>
       </View>
+	  {/*Change password button*/}
       <TouchableOpacity style={styles.button3}>
         <Text style={styles.changePassword}>Change Password?</Text>
       </TouchableOpacity>
+	  {/*Delete account button*/}
       <TouchableOpacity style={styles.button4}>
         <Text style={styles.deleteAccount}>Delete Account</Text>
+      </TouchableOpacity>
+	  {/*Temporary navigation button to MyRecipes*/}
+	  <TouchableOpacity 
+		onPress={() => navigation.navigate('MyRecipes')}
+		style={styles.myRecipesButton}>
+        <Text style={styles.myRecipesText}>My recipes</Text>
       </TouchableOpacity>
     </View>
   );
@@ -258,6 +287,19 @@ const styles = StyleSheet.create({
     color: "#121212",
     marginTop: 10,
     marginLeft: 123
+  },
+  myRecipesButton: {
+    width: 76,
+    height: 59,
+    backgroundColor: "#E6E6E6",
+    marginTop: -131,
+    marginLeft: 284
+  },
+  myRecipesText: {
+    fontFamily: "roboto-regular",
+    color: "#121212",
+    marginTop: 21,
+    marginLeft: 7
   }
 });
 
