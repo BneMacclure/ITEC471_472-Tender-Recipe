@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
         borderColor: "#000000",
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,1)",
-        paddingLeft: 6,
+        paddingLeft: 8,
         fontSize: 16
     },
     recipeNameTextStack: {
