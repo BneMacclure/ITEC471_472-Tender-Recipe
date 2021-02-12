@@ -60,6 +60,17 @@ export default class MainScreenInfo extends React.Component {
 
     }
 
+
+    //Triggers like animation, might need Ben to handle DB stuff in here
+    likeRecipe() {
+        const k = this.state.recipes[this.state.currentIndex].key
+        this.saveRecipe(k)
+        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+            this.position.setValue({ x: 0, y: 0 })
+        })
+    }
+
+
     // Given a key, saved the recipe under the user's UID in Firebase
     saveRecipe(key) {
         var recipeObj;
@@ -292,7 +303,7 @@ export default class MainScreenInfo extends React.Component {
                             <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => props.navigation.goBack()}
+                            onPress={() => this.likeRecipe()}
                             style={styles.like_button}
                         >
                             <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>

@@ -107,7 +107,7 @@ const CreateRecipeScreen = (props) =>  {
         else {
             Alert.alert(
                 "Create Recipe",
-                "Need these fields: \nImage\nName\nIngredients\nInstructions",
+                "Please enter all of the following: \nImage\nName\nIngredients\nInstructions",
                 [
                     {text: "OK", onPress: () => console.log("Register OK pressed") }
                 ],
@@ -120,6 +120,7 @@ const CreateRecipeScreen = (props) =>  {
     return (
         <View style={styles.container}>
 
+            {/*Static header. It's not in the scrollview so it can remain on the screen*/}
             <View style={styles.titleContainer}>
                 <Image
                     source={require("../assets/images/logo.png")}
@@ -129,9 +130,8 @@ const CreateRecipeScreen = (props) =>  {
                 <Text style={styles.whatsYourRecipe}>What's your recipe?</Text>
             </View>
 
-            <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>
-
-
+            <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>           
+                {/*Recipe textbox fill-in secion*/}
                 <View style={styles.recipeFillIn}>
                     <View style={styles.fieldsBackgroundStack}>
                         <ImageBackground
@@ -174,8 +174,7 @@ const CreateRecipeScreen = (props) =>  {
                         </ImageBackground> 
                     </View>
 
-
-
+                    {/*Recipe checkbox secion*/}
                     <View style={styles.selectContainer}>
                     <ImageBackground
                         source={require("../assets/images/checkbox_bbg.jpg")}
@@ -184,7 +183,7 @@ const CreateRecipeScreen = (props) =>  {
                         imageStyle={styles.checkBoxBackground_imageStyle}
                     >
                         <View style={styles.checkEachBadge}>
-                            <Text style={styles.fillInBelow}>SELECT ALL THAT APPLY</Text>
+                            <Text style={styles.fillInBelow}>SELECT ALLERGENS THAT APPLY</Text>
                         </View>
 
 
@@ -281,10 +280,10 @@ const CreateRecipeScreen = (props) =>  {
                                 onPress={() => setSelectionSoy(!isSelectedSoy)}
                             />
                         </View>
-
                         </ImageBackground>
                     </View>
 
+                    {/*Recipe photo upload section*/}
                     <View style={styles.recipePhotoUpload}>
                         <ImageBackground
                             source={require("../assets/images/recipefield_bbg.jpg")}
@@ -302,7 +301,7 @@ const CreateRecipeScreen = (props) =>  {
                                 <Text style={styles.tapTheButtonBelow}>Tap the button Below</Text>
                                 <Text style={styles.aPhoto}>See your photo here!</Text>
                                 <View style={styles.uploadPreviewContainer}>
-                                    {imageSource && <Image source={{ uri: imageSource }} resizeMode="cover" style={{ width: 164, height: 243 }} />}
+                                    {imageSource && <Image source={{ uri: imageSource }} resizeMode="cover" style={{ width: 163, height: 243 }} />}
                                 </View>
                                 <TouchableOpacity onPress={pickImage} style={styles.browseButton}>
                                     <Text style={styles.browsePhotos}>BROWSE PHOTOS</Text>
@@ -311,7 +310,7 @@ const CreateRecipeScreen = (props) =>  {
                         </ImageBackground>
                     </View>
 
-
+                    {/*Submit button*/}
                     <View style={styles.submitRecipeContainer}>
                         <TouchableOpacity
                             onPress={submitRecipeFunc} //DEBUG
@@ -354,15 +353,15 @@ const styles = StyleSheet.create({
     },
 
     image1: {
-        width: 78,
-        height: 78,
+        width: '50%', //78
+        height: '50%',
         marginTop: 15,
         alignSelf: 'center'
     },
     whatsYourRecipe: {
         color: "#121212",
         fontSize: 20,
-        marginTop: 12,
+        marginTop: '5%', //12
         alignSelf: "center"
     },
     recipeFillIn: {
@@ -400,7 +399,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 527,
         marginTop: 20,
-        marginLeft: SCREEN_WIDTH / 4,
+        marginLeft: SCREEN_WIDTH / 4.5,
         marginRight: 170
     },
     recipeNameText: {
@@ -412,7 +411,7 @@ const styles = StyleSheet.create({
         top: 0
     },
     recipeName: {
-        width: SCREEN_WIDTH / 1.2,
+        width: SCREEN_WIDTH / 1.1,
         color: "#121212",
         height: 40,
         marginTop: 30,
@@ -420,6 +419,8 @@ const styles = StyleSheet.create({
         borderColor: "#000000",
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,1)",
+        paddingLeft: 6,
+        fontSize: 16
     },
     recipeNameTextStack: {
         height: 61
@@ -432,7 +433,7 @@ const styles = StyleSheet.create({
         marginLeft: 1
     },
     recipeIngredients: {
-        width: SCREEN_WIDTH / 1.2,
+        width: SCREEN_WIDTH / 1.1,
         color: "#121212",
         height: 204,
         borderWidth: 1,
@@ -441,7 +442,8 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(255,255,255,1)",
         textAlignVertical: 'top',
         paddingLeft: 8,
-        paddingTop: 2
+        paddingTop: 2,
+        fontSize: 16
     },
     theInstructionsText: {
         //fontFamily: "roboto-700",
@@ -452,7 +454,7 @@ const styles = StyleSheet.create({
         marginLeft: 1
     },
     recipeInstructions: {
-        width: SCREEN_WIDTH / 1.2,
+        width: SCREEN_WIDTH / 1.1,
         color: "#121212",
         height: 204,
         borderWidth: 1,
@@ -461,7 +463,8 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(255,255,255,1)",
         textAlignVertical: 'top',
         paddingLeft: 8,
-        paddingTop: 2
+        paddingTop: 2,
+        fontSize: 16
     },
     fieldsBackgroundStack: {
         width: 591,
@@ -477,7 +480,7 @@ const styles = StyleSheet.create({
 
 
     checkEachBadge: {
-        width: 170,
+        width: 220,
         height: 24,
         backgroundColor: "rgba(255,255,255,1)",
         borderWidth: 1,
@@ -506,10 +509,10 @@ const styles = StyleSheet.create({
 
     checkBoxColumn: {
         flex: 1,
-        width: SCREEN_WIDTH / 1.15,
+        width: SCREEN_WIDTH / 1.06,
         height: 43,
         marginTop: 15,
-        marginLeft: SCREEN_WIDTH / 4
+        marginLeft: SCREEN_WIDTH / 4.6
     },
 
     checkboxContainerStyle: {
@@ -616,6 +619,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#000000",
         borderStyle: "dashed",
+        borderRadius: 1,
         marginTop: 9,
         alignSelf: "center"
     },
@@ -640,7 +644,7 @@ const styles = StyleSheet.create({
 
     submitRecipeContainer: {
         height: 96,
-        marginTop: -330,
+        marginTop: -360,
         alignSelf: "center",
     },
 
