@@ -21,10 +21,20 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 function LoginScreen(props) {
+    //
+    const [loading, setLoading] = useState(false);
+    const startLoading = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    };
     const [email, setEmail] = useState(""); // email for login
     const [password, setPassword] = useState(""); // password for login
     // Function for login. Uses firebase authentication
     const loginFunc = () => {
+      //activates the activity indicator's animation
+      startLoading();
       // check if valid login
       firebaseApp
       .auth()
@@ -38,7 +48,7 @@ function LoginScreen(props) {
           ],
           { cancelable: false }
         )
-      )
+      )   
     };
 
     // Function for registering an account. Uses firbase's authentication API to signup
@@ -133,11 +143,8 @@ function LoginScreen(props) {
                     </TouchableOpacity> 
                 </View>
 
-                
-
-
-
                 <ActivityIndicator
+                    animating={loading}
                     color="rgba(254,242,94,1)"
                     size="large"
                     style={styles.activityIndicator}
