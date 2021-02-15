@@ -1,18 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import { db, firebaseApp } from '../config/DatabaseConfig';
 
-const DATA = [
-	{
-		recName: "Spaghetti"
-	},
-	{
-		recName: "sCum"
-	},
-	{
-		recName: "Papas Special Sauce ;)"
-	}
-];
+const data = [];
+const [name, setName] = useState('');
+const [ingredients, setIngredients] = useState('');
+const [instructions, setInstructions] = useState('');
+const [imageSource, setImage] = useState('');
+const [dairy, setDairy] = useState(false);
+const [eggs, setEggs] = useState(false);
+const [fish, setFish] = useState(false);
+const [gluten, setGluten] = useState(false);
+const [nuts, setNuts] = useState(false);
+const [shellfish, setShellfish] = useState(false);
+const [soy, setSoy] = useState(false);
 
 const Item = ({recName}) => (
 	<View style={styles.item}>
@@ -24,9 +26,77 @@ const Item = ({recName}) => (
 );
 
 function MyRecipes(props) {
+
+  const getData = () => {
+    var currentUserID = firebaseApp.auth().currentUser.uid;
+    db.ref('/savedrecipes/'+currentUserID).on('value', (snapshot) => {
+      snapshot.forEach(function(childSnapshot) {
+        var child = childSnapshot.val();
+        setName(child.name);
+        setIngredients(child.ingredients);
+        setInstructions(child.instructions);
+        setImage(child.imageSource);
+        setDairy(child.dairy);
+        setEggs(child.eggs);
+        setFish(child.fish);
+        setGluten(child.gluten);
+        setNuts(child.nuts);
+        setShellfish(child.shellfish);
+        setSoy(child.soy);
+        data.push({
+          recName: {name},
+          "name": {name},
+          "ingredients": {ingredients},
+          "instructions": {instructions},
+          "imageSource": {imageSource},
+          "dairy": {dairy},
+          "eggs": {eggs},
+          "fish": {fish},
+          "gluten": {gluten},
+          "nuts": {nuts},
+          "shellfish": {shellfish},
+          "soy": {soy}
+        });
+      });
+    });
+  };
+
+  const orderData = () => {
+    data.sort(function(a, b) {
+      var name1 = a.name.toUpperCase();
+      var name2 = b.name.toUpperCase();
+      if (name1 < name2) {
+        return -1;
+      }
+      if (name1 > name2) {
+        return 1;
+      }
+      return 0;
+    });
+  };
+
+  const unsaveRecipe = () => {
+    var correctRecipe; 
+    var currentUserID = firebaseApp.auth().currentUser.uid;
+    db.ref('/savedrecipes/'+currentUserID).on('value', (snapshot) =>{
+      var isRightKey = false;
+      snapshot.forEach(function(childSnapshot) {
+        var child = childSnapshot.val();
+        setName(child.name);
+        var currentRecipe = {name};
+      });
+    });
+  };
+
+  useEffect(() => {
+    getData();
+    orderData();
+  });
+
   const renderItem = ({ item }) => (
 	<Item recName={item.recName} />
   );
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -42,7 +112,7 @@ function MyRecipes(props) {
       </ImageBackground>
 	  
 	  <FlatList
-		data = {DATA}
+		data = {data}
 		renderItem={renderItem}
 		keyExtractor={item => item.id}
 	  />
