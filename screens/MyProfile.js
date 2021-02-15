@@ -12,7 +12,7 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Ionicons";
 
-function Profile(props) {
+const Profile = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [skillLevel, setLevel] = useState('');

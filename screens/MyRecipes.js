@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
+import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 
 const data = [];
@@ -16,16 +16,7 @@ const [nuts, setNuts] = useState(false);
 const [shellfish, setShellfish] = useState(false);
 const [soy, setSoy] = useState(false);
 
-const Item = ({recName}) => (
-	<View style={styles.item}>
-		<Text style={styles.recName}>{recName}</Text>
-		<TouchableOpacity style={styles.trashButton}>
-			<Icon name="trash" style={styles.icon}></Icon>
-		</TouchableOpacity>
-	</View>
-);
-
-function MyRecipes(props) {
+export const MyRecipes = (props) => {
 
   const getData = () => {
     var currentUserID = firebaseApp.auth().currentUser.uid;
@@ -93,9 +84,16 @@ function MyRecipes(props) {
     orderData();
   });
 
-  const renderItem = ({ item }) => (
-	<Item recName={item.recName} />
-  );
+  const renderItem = ( item ) => {
+    return (
+      <View style={styles.item}>
+      <Text style={styles.recName}>{item.recName}</Text>
+      <TouchableOpacity style={styles.trashButton}>
+        <Icon name="trash" style={styles.icon}></Icon>
+      </TouchableOpacity>
+    </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -172,4 +170,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyRecipes;
