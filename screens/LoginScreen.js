@@ -20,7 +20,7 @@ import {firebaseApp} from '../config/DatabaseConfig';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-function LoginScreen(props) {
+const LoginScreen = (props) => {
     //
     const [loading, setLoading] = useState(false);
     const startLoading = () => {
