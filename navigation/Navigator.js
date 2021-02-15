@@ -11,7 +11,7 @@ import { firebaseApp } from '../config/DatabaseConfig';
 import { HeaderBackButton } from '@react-navigation/stack';
 import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
-import MyRecipes from '../screens/MyRecipes'
+import {MyRecipes} from '../screens/MyRecipes'
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 

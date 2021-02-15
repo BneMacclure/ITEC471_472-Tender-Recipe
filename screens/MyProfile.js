@@ -12,7 +12,7 @@ import {
 import Svg, { Ellipse } from "react-native-svg";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const Profile = (props) => {
+const Profile = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [skillLevel, setLevel] = useState('');
@@ -98,6 +98,11 @@ const Profile = (props) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button4}>
           <Text style={styles.deleteAccount}>Delete Account</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+        onPress={() => navigation.navigate('MyRecipes')}
+        style={styles.myRecipesButton}>
+            <Text style={styles.myRecipesText}>My recipes</Text>
         </TouchableOpacity>
       </View>
     );

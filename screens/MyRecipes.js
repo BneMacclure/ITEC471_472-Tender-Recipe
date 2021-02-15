@@ -1,26 +1,28 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 
-const data = [];
-const [name, setName] = useState('');
-const [ingredients, setIngredients] = useState('');
-const [instructions, setInstructions] = useState('');
-const [imageSource, setImage] = useState('');
-const [dairy, setDairy] = useState(false);
-const [eggs, setEggs] = useState(false);
-const [fish, setFish] = useState(false);
-const [gluten, setGluten] = useState(false);
-const [nuts, setNuts] = useState(false);
-const [shellfish, setShellfish] = useState(false);
-const [soy, setSoy] = useState(false);
+
 
 export const MyRecipes = (props) => {
 
+  const data = [];
+  const [name, setName] = useState('');
+  const [ingredients, setIngredients] = useState('');
+  const [instructions, setInstructions] = useState('');
+  const [imageSource, setImage] = useState('');
+  const [dairy, setDairy] = useState(false);
+  const [eggs, setEggs] = useState(false);
+  const [fish, setFish] = useState(false);
+  const [gluten, setGluten] = useState(false);
+  const [nuts, setNuts] = useState(false);
+  const [shellfish, setShellfish] = useState(false);
+  const [soy, setSoy] = useState(false);
+
   const getData = () => {
     var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/savedrecipes/'+currentUserID).on('value', (snapshot) => {
+    db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
       snapshot.forEach(function(childSnapshot) {
         var child = childSnapshot.val();
         setName(child.name);
@@ -35,7 +37,7 @@ export const MyRecipes = (props) => {
         setShellfish(child.shellfish);
         setSoy(child.soy);
         data.push({
-          recName: {name},
+          "recName": {name},
           "name": {name},
           "ingredients": {ingredients},
           "instructions": {instructions},
