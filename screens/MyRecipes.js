@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -108,14 +109,19 @@ export default class MyRecipes extends Component {
 	  <FlatList
 		data = {this.state.rec_data}
 		renderItem={({item}) => {
-      return (
-        <View style={styles.item}>
-        <Text style={styles.recName}>{item.recName}</Text>
-        <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-          <Icon name="trash" style={styles.icon}></Icon>
-        </TouchableOpacity>
-      </View>
-      )
+		  return (
+			<ImageBackground
+				source={require("../assets/images/burgers.jpg")}
+				resizeMode="cover"
+				style={styles.image2}
+				imageStyle={styles.image2_imageStyle}
+				>
+				<Text style={styles.recText}>{item.recName}</Text>
+				<TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+				  <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+				</TouchableOpacity>
+			</ImageBackground>		
+		  )
     }}
 		keyExtractor={(item) => item.id}
 	  />
@@ -143,16 +149,17 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "rgba(0,0,0,1)",
-    fontSize: 20,
-    height: 22,
-    width: 20,
-    marginLeft: 6
+    fontSize: 40,
+    height: 40,
+    width: 31,
+    marginLeft: 1,
+	marginTop: 2
   },
   trashButton: {
     width: 30,
     height: 30,
-    backgroundColor: "#E6E6E6",
-    marginLeft: 31
+    marginLeft: '90%',
+	bottom: 45
   },
   filterRow: {
     height: 22,
@@ -180,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 1
   },
   image2_imageStyle: {},
-  cheesePizza: {
+  recText: {
     color: "rgba(255,255,255,1)",
     fontSize: 35,
     marginTop: 84,
