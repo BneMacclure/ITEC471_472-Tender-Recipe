@@ -17,33 +17,27 @@ export default class MyRecipes extends Component {
     }
   }
 
-  // sorts recipes by name
-  orderData() {
-    this.state.rec_data.sort(function(a, b) {
-      var name1 = a.name; //.toUpperCase();
-      var name2 = b.name; //.toUpperCase();
-      if (name1 < name2) {
-        return -1;
-      }
-      if (name1 > name2) {
-        return 1;
-      }
-      return 0;
-    });
-  };
+  // // sorts recipes by name
+  // orderData() {
+  //   this.state.rec_data.sort(function(a, b) {
+  //     var name1 = a.name; //.toUpperCase();
+  //     var name2 = b.name; //.toUpperCase();
+  //     if (name1 < name2) {
+  //       return -1;
+  //     }
+  //     if (name1 > name2) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  // };
 
   // removes a recipe from the MyRecipes list
-  unsaveRecipe() {
-    var correctRecipe; 
+  unsaveRecipe(key) {
     var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/savedrecipes/'+currentUserID).on('value', (snapshot) =>{
-      var isRightKey = false;
-      snapshot.forEach(function(childSnapshot) {
-        var child = childSnapshot.val();
-        setName(child.name);
-        var currentRecipe = {name};
-      });
-    });
+    console.log(key);
+    db.ref('/savedRecipes/'+currentUserID).child(key).remove();
+    console.log(key);
   };
   
   componentDidMount() {
