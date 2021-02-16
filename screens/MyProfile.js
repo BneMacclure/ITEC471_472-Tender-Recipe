@@ -43,74 +43,109 @@ function Profile({navigation}) {
   });
 
     return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("../assets/images/Gradient.png")}
-          resizeMode="stretch"
-          style={styles.image}
-          imageStyle={styles.image_imageStyle}
-        >
-          <View style={styles.ellipseStack}>
-            <Svg viewBox="0 0 116 104" style={styles.ellipse}>
-              <Ellipse
-                stroke="rgba(230, 230, 230,1)"
-                strokeWidth={0}
-                fill="rgba(230, 230, 230,1)"
-                cx={58}
-                cy={52}
-                rx={58}
-                ry={52}
-              ></Ellipse>
-            </Svg>
-            <Icon name="ios-person" style={styles.icon}></Icon>
-          </View>
-          <Text style={styles.johnDoe}>{name}</Text>
-        </ImageBackground>
-        <View style={styles.emailContStack}>
-          <View style={styles.emailCont}>
-            <Text style={styles.email}>Email: {email}</Text>
-          </View>
-          <View style={styles.skillCont}>
-            <Text style={styles.skillLevel}>Skill Level: {skillLevel}</Text>
-            <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.beginner}>Beginner</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button1}>
-                <Text style={styles.intermediate}>Intermediate</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button2}>
-                <Text style={styles.advanced}>Advanced</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <View style={styles.measurementsCont}>
-          <View style={styles.preferredRow}>
-            <Text style={styles.preferred}>Preferred Measurements:</Text>
-            <Text style={styles.us}>{prefMeasurement}</Text>
-          </View>
-        </View>
-        <View style={styles.skillCont1}>
-          <Text style={styles.allergies}>Allergies</Text>
-          <Text style={styles.allergiesList}>
-            {allergies}
-          </Text>
-
-        </View>
-        <TouchableOpacity style={styles.button3}>
-          <Text style={styles.changePassword}>Change Password?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button4}>
-          <Text style={styles.deleteAccount}>Delete Account</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-        onPress={() => navigation.navigate('MyRecipes')}
-        style={styles.myRecipesButton}>
-            <Text style={styles.myRecipesText}>My recipes</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    <View style={styles.container}>
+	  <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>
+		
+			{/*Background image for top section*/}
+		  <ImageBackground
+			source={require("../assets/images/Gradient.png")}
+			resizeMode="stretch"
+			style={styles.image}
+			imageStyle={styles.image_imageStyle}
+		  >
+			{/*Circle for profile picture*/}
+			<View style={styles.ellipseStack}>
+			  <Svg viewBox="0 0 116 104" style={styles.ellipse}>
+				<Ellipse
+				  stroke="rgba(230, 230, 230,1)"
+				  strokeWidth={0}
+				  fill="rgba(230, 230, 230,1)"
+				  cx={58}
+				  cy={52}
+				  rx={58}
+				  ry={58}
+				></Ellipse>
+			  </Svg>
+			  {/*Temp icon inside profile circle*/}
+			  <Icon name="ios-person" style={styles.icon}></Icon>
+			</View>
+			{/*Name text*/}
+			<Text style={styles.johnDoe}>John Doe</Text>
+		  </ImageBackground>
+		  {/*Container for email field*/}
+		  <View style={styles.emailContStack}>
+			<View style={styles.emailCont}>
+			  {/*Email text*/}
+			  <Text style={styles.email}>Email: johndoe@email.com</Text>
+			</View>
+			{/*Container for Skill level*/}
+			<View style={styles.skillCont}>
+				{/*Skill level text*/}
+				<Text style={styles.skillLevel}>Skill Level</Text>
+				{/*Skill level dropdown*/}
+				<Picker
+					style={styles.skillPicker}
+					onValueChange={(value) => {
+						this.setState({pickerValue: value});
+						//alert("Hello");
+					}}
+				>
+					<Picker.Item label="Select a Skill Level" value="0"></Picker.Item>
+					<Picker.Item label="Beginner" value="1"></Picker.Item>
+					<Picker.Item label="Intermediate" value="2"></Picker.Item>
+					<Picker.Item label="Advanced" value="3"></Picker.Item>
+				</Picker>
+			  
+			 
+			</View>
+		  </View>
+		  {/*Container for measurements fields*/}
+		  <View style={styles.measurementsCont}>
+			<View style={styles.preferredRow}>
+			  {/*Preferred Measurements text*/}
+			  <Text style={styles.preferred}>Preferred Measurements:</Text>
+			  {/*The measurement*/}
+			</View>
+			<Picker
+				style={styles.measPicker}
+				onValueChange={(value) => {
+					this.setState({pickerValue: value});
+					//alert("Hello");
+				}}
+				>
+				<Picker.Item label="Metric" value="0"></Picker.Item>
+				<Picker.Item label="Imperial" value="1"></Picker.Item>
+			</Picker>
+		  </View>
+		  {/*Container for allergies*/}
+		  <View style={styles.skillCont1}>
+			{/*Allergies*/}
+			<Text style={styles.allergies}>Allergies</Text>
+			{/*Preview of selected allergies*/}
+			<Text style={styles.allergiesList}>
+			  Wheat, Milk, Eggs, Peanuts, Soy, ...
+			</Text>
+		  </View>
+		  {/*Temporary navigation button to MyRecipes*/}
+		  <TouchableOpacity 
+			onPress={() => navigation.navigate('MyRecipes')}
+			style={styles.myRecipesButton}>
+			<Text style={styles.myRecipesText}>My recipes</Text>
+		  </TouchableOpacity>
+		  <View style={styles.button3Row}>
+			  {/*Change password button*/}
+			  <TouchableOpacity style={styles.changePasswordButton}>
+				<Text style={styles.changePasswordText}>Change Password?</Text>
+			  </TouchableOpacity>
+			  {/*Delete account button*/}
+			  <TouchableOpacity style={styles.deleteAccountButton}>
+				<Text style={styles.deleteAccount}>Delete Account</Text>
+			  </TouchableOpacity>
+		  </View>
+	   </ScrollView>
+	  
+    </View>
+  );
 
 }
 
