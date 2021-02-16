@@ -1,9 +1,10 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 
-
+const SCREEN_HEIGHT = Dimensions.get('window').height - 20
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 export default class MyRecipes extends Component {
   

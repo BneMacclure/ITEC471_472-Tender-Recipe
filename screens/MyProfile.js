@@ -23,6 +23,8 @@ function Profile({navigation}) {
   const [skillLevel, setLevel] = useState('');
   const [prefMeasurement, setMeasurement] = useState('');
   const [allergies, setAllergies] = useState('');
+  const [pickerMeasValue, setMeasPickerValue] = useState('');
+  const [pickerSkillValue, setSkillPickerValue] = useState('');
 
   /* Pulls data from the Firebase database */
   const retrieveData = () => {
@@ -31,7 +33,7 @@ function Profile({navigation}) {
     db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
       data = snapshot.val()
       setName(data.name)
-      setLevel(data.skillLevel)
+      setSkillPickerValue(data.skillLevel)
       setMeasurement(data.prefMeasurement)
       setAllergies(data.allergies)
     });
@@ -70,23 +72,23 @@ function Profile({navigation}) {
 			  <Icon name="ios-person" style={styles.icon}></Icon>
 			</View>
 			{/*Name text*/}
-			<Text style={styles.johnDoe}>John Doe</Text>
+			<Text style={styles.johnDoe}>{name}</Text>
 		  </ImageBackground>
 		  {/*Container for email field*/}
 		  <View style={styles.emailContStack}>
 			<View style={styles.emailCont}>
 			  {/*Email text*/}
-			  <Text style={styles.email}>Email: johndoe@email.com</Text>
+			  <Text style={styles.email}>Email: {email}</Text>
 			</View>
 			{/*Container for Skill level*/}
 			<View style={styles.skillCont}>
 				{/*Skill level text*/}
-				<Text style={styles.skillLevel}>Skill Level</Text>
+				<Text style={styles.skillLevel}>Skill Level: {skillLevel}</Text>
 				{/*Skill level dropdown*/}
 				<Picker
 					style={styles.skillPicker}
 					onValueChange={(value) => {
-						this.setState({pickerValue: value});
+						setSkillPickerValue(value)
 						//alert("Hello");
 					}}
 				>
@@ -109,7 +111,7 @@ function Profile({navigation}) {
 			<Picker
 				style={styles.measPicker}
 				onValueChange={(value) => {
-					this.setState({pickerValue: value});
+					setMeasPickerValue(value)
 					//alert("Hello");
 				}}
 				>
@@ -123,7 +125,7 @@ function Profile({navigation}) {
 			<Text style={styles.allergies}>Allergies</Text>
 			{/*Preview of selected allergies*/}
 			<Text style={styles.allergiesList}>
-			  Wheat, Milk, Eggs, Peanuts, Soy, ...
+			  {allergies}
 			</Text>
 		  </View>
 		  {/*Temporary navigation button to MyRecipes*/}
