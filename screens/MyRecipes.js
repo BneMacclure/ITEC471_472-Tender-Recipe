@@ -16,27 +16,25 @@ export default class MyRecipes extends Component {
     }
   }
 
-  // // sorts recipes by name
-  // orderData() {
-  //   this.state.rec_data.sort(function(a, b) {
-  //     var name1 = a.name; //.toUpperCase();
-  //     var name2 = b.name; //.toUpperCase();
-  //     if (name1 < name2) {
-  //       return -1;
-  //     }
-  //     if (name1 > name2) {
-  //       return 1;
-  //     }
-  //     return 0;
-  //   });
-  // };
+  // sorts recipes by name
+  orderData() {
+    this.state.rec_data.sort(function(a, b) {
+      var name1 = a.name; //.toUpperCase();
+      var name2 = b.name; //.toUpperCase();
+      if (name1 < name2) {
+        return -1;
+      }
+      if (name1 > name2) {
+        return 1;
+      }
+      return 0;
+    });
+  };
 
   // removes a recipe from the MyRecipes list
   unsaveRecipe(key) {
     var currentUserID = firebaseApp.auth().currentUser.uid;
-    console.log(key);
     db.ref('/savedRecipes/'+currentUserID).child(key).remove();
-    console.log(key);
   };
   
   componentDidMount() {
@@ -76,8 +74,6 @@ export default class MyRecipes extends Component {
       this.setState({rec_data: returnArray});
     });
     
-    console.log(this.state.rec_data);
-    
   };
 
   render() {
@@ -94,13 +90,12 @@ export default class MyRecipes extends Component {
 				style={styles.filterPicker}
 				onValueChange={(value) => {
 					this.setState({pickerValue: value});
+          orderData();
 					//alert("Hello");
 				}}
 				>
 				<Picker.Item label="Filter" value="0"></Picker.Item>
-				<Picker.Item label="Breakfast" value="1"></Picker.Item>
-				<Picker.Item label="Lunch" value="1"></Picker.Item>
-				<Picker.Item label="Dinner" value="1"></Picker.Item>
+				<Picker.Item label="Sort" value="1"></Picker.Item>
 			</Picker>
         </View>
       </ImageBackground>
