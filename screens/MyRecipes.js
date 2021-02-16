@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 
 const DATA = [
@@ -14,13 +14,18 @@ const DATA = [
 	}
 ];
 
-const Item = ({recName}) => (
-	<View style={styles.item}>
+const SCREEN_HEIGHT = Dimensions.get('window').height - 20
+const SCREEN_WIDTH = Dimensions.get('window').width
+
+const Item = ({recName},{imgPath}) => (
+	 <ImageBackground
+		source={require("../assets/images/cheese-pizza.jpg")}
+		resizeMode="cover"
+		style={styles.image2}
+		imageStyle={styles.image2_imageStyle}
+	  >
 		<Text style={styles.recName}>{recName}</Text>
-		<TouchableOpacity style={styles.trashButton}>
-			<Icon name="trash" style={styles.icon}></Icon>
-		</TouchableOpacity>
-	</View>
+	 </ImageBackground>
 );
 
 function MyRecipes(props) {
@@ -36,15 +41,25 @@ function MyRecipes(props) {
         imageStyle={styles.image_imageStyle}
       >
         <View style={styles.filterRow}>
-          <Text style={styles.filter}>Filter</Text>
-          <Icon name="chevron-down" style={styles.icon}></Icon>
+          <Picker
+				style={styles.filterPicker}
+				onValueChange={(value) => {
+					this.setState({pickerValue: value});
+					//alert("Hello");
+				}}
+				>
+				<Picker.Item label="Filter" value="0"></Picker.Item>
+				<Picker.Item label="Breakfast" value="1"></Picker.Item>
+				<Picker.Item label="Lunch" value="1"></Picker.Item>
+				<Picker.Item label="Dinner" value="1"></Picker.Item>
+			</Picker>
         </View>
       </ImageBackground>
 	  
 	  <FlatList
 		data = {DATA}
 		renderItem={renderItem}
-		keyExtractor={item => item.id}
+		keyExtractor={(item) => item.id}
 	  />
 	  
     </View>
@@ -57,18 +72,16 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)"
   },
   image: {
-    width: 360,
+    width: SCREEN_WIDTH,
     height: 46,
     flexDirection: "row",
-    marginTop: 23
   },
   image_imageStyle: {},
   filter: {
-    fontFamily: "roboto-regular",
     color: "#121212",
-    lineHeight: 14,
+    height: 30,
     fontSize: 20,
-    marginTop: 4
+    marginTop: 0
   },
   icon: {
     color: "rgba(0,0,0,1)",
@@ -85,11 +98,14 @@ const styles = StyleSheet.create({
   },
   filterRow: {
     height: 22,
-    flexDirection: "row",
     flex: 1,
     marginRight: 17,
     marginLeft: 272,
     marginTop: 14
+  },
+  filterPicker: {
+	bottom: 10,
+	marginLeft: 0
   },
   item: {
     backgroundColor: '#8c8c8c',
@@ -99,6 +115,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  image2: {
+    width: SCREEN_WIDTH,
+    height: 140,
+    marginTop: 1
+  },
+  image2_imageStyle: {},
+  cheesePizza: {
+    color: "rgba(255,255,255,1)",
+    fontSize: 35,
+    marginTop: 84,
+    marginLeft: 8
   },
 });
 
