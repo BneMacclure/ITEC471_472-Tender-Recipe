@@ -5,59 +5,21 @@ import { db, firebaseApp } from '../config/DatabaseConfig';
 
 
 
-export const MyRecipes = (props) => {
+export default class MyRecipes extends Component {
+  
+  constructor(props) {
+    super(props)
 
-  const data = [];
-  const [name, setName] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [imageSource, setImage] = useState('');
-  const [dairy, setDairy] = useState(false);
-  const [eggs, setEggs] = useState(false);
-  const [fish, setFish] = useState(false);
-  const [gluten, setGluten] = useState(false);
-  const [nuts, setNuts] = useState(false);
-  const [shellfish, setShellfish] = useState(false);
-  const [soy, setSoy] = useState(false);
+    this.state = {
+      rec_data: []
+    }
+  }
 
-  const getData = () => {
-    var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
-      snapshot.forEach(function(childSnapshot) {
-        var child = childSnapshot.val();
-        setName(child.name);
-        setIngredients(child.ingredients);
-        setInstructions(child.instructions);
-        setImage(child.imageSource);
-        setDairy(child.dairy);
-        setEggs(child.eggs);
-        setFish(child.fish);
-        setGluten(child.gluten);
-        setNuts(child.nuts);
-        setShellfish(child.shellfish);
-        setSoy(child.soy);
-        data.push({
-          "recName": {name},
-          "name": {name},
-          "ingredients": {ingredients},
-          "instructions": {instructions},
-          "imageSource": {imageSource},
-          "dairy": {dairy},
-          "eggs": {eggs},
-          "fish": {fish},
-          "gluten": {gluten},
-          "nuts": {nuts},
-          "shellfish": {shellfish},
-          "soy": {soy}
-        });
-      });
-    });
-  };
-
-  const orderData = () => {
-    data.sort(function(a, b) {
-      var name1 = a.name.toUpperCase();
-      var name2 = b.name.toUpperCase();
+  // sorts recipes by name
+  orderData() {
+    this.state.rec_data.sort(function(a, b) {
+      var name1 = a.name; //.toUpperCase();
+      var name2 = b.name; //.toUpperCase();
       if (name1 < name2) {
         return -1;
       }
@@ -68,7 +30,8 @@ export const MyRecipes = (props) => {
     });
   };
 
-  const unsaveRecipe = () => {
+  // removes a recipe from the MyRecipes list
+  unsaveRecipe() {
     var correctRecipe; 
     var currentUserID = firebaseApp.auth().currentUser.uid;
     db.ref('/savedrecipes/'+currentUserID).on('value', (snapshot) =>{
@@ -80,24 +43,50 @@ export const MyRecipes = (props) => {
       });
     });
   };
+  
+  componentDidMount() {
+    var currentUserID = firebaseApp.auth().currentUser.uid;
+    db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
+      var returnArray = [];
+      snapshot.forEach(function(childSnapshot) { // iterate through each recipe
+        var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy;
+        var child = childSnapshot.val();
+        var id = childSnapshot.key;
+        recname = child.name.name;
+        ingredients = child.ingredients.ingredients;
+        instructions = child.instructions.instructions;
+        imageSource = child.imageSource.imageSource;
+        dairy = child.dairy.isSelectedDairy;
+        eggs = child.eggs.isSelectedEggs;
+        fish = child.fish.isSelectedFish;
+        gluten = child.gluten.isSelectedGluten;
+        nuts = child.nuts.isSelectedNuts;
+        shellfish = child.shellfish.isSelectedShellfish;
+        soy = child.soy.isSelectedSoy;
+        returnArray.push({ // push data into a single object in the array
+          "id": id,
+          "recName": recname,
+          "ingredients": ingredients,
+          "instructions": instructions,
+          "imageSource": imageSource,
+          "dairy": dairy,
+          "eggs": eggs,
+          "fish": fish,
+          "gluten": gluten,
+          "nuts": nuts,
+          "shellfish": shellfish,
+          "soy": soy
+        });
+      });
+      this.setState({rec_data: returnArray});
+    });
+    
+    console.log(this.state.rec_data);
+    
+  };
 
-  useEffect(() => {
-    getData();
-    orderData();
-  });
-
-  const renderItem = ( item ) => {
+  render() {
     return (
-      <View style={styles.item}>
-      <Text style={styles.recName}>{item.recName}</Text>
-      <TouchableOpacity style={styles.trashButton}>
-        <Icon name="trash" style={styles.icon}></Icon>
-      </TouchableOpacity>
-    </View>
-    )
-  }
-
-  return (
     <View style={styles.container}>
       <ImageBackground
         source={require("../assets/images/Gradient.png")}
@@ -112,13 +101,22 @@ export const MyRecipes = (props) => {
       </ImageBackground>
 	  
 	  <FlatList
-		data = {data}
-		renderItem={renderItem}
-		keyExtractor={item => item.id}
+		data = {this.state.rec_data}
+		renderItem={({item}) => {
+      return (
+        <View style={styles.item}>
+        <Text style={styles.recName}>{item.recName}</Text>
+        <TouchableOpacity style={styles.trashButton}>
+          <Icon name="trash" style={styles.icon}></Icon>
+        </TouchableOpacity>
+      </View>
+      )
+    }}
+		keyExtractor={(item) => item.id}
 	  />
 	  
     </View>
-  );
+  );}
 }
 
 const styles = StyleSheet.create({
