@@ -134,15 +134,6 @@ const LoginScreen = (props) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.loginBtnRow}>
-                    <TouchableOpacity
-                        onPress={() => props.navigation.navigate('Main Screen')}
-                        style={styles.loginBtn}
-                    >
-                        <Text style={styles.login}>DebugLogin</Text>
-                    </TouchableOpacity> 
-                </View>
-
                 <ActivityIndicator
                     animating={loading}
                     color="rgba(254,242,94,1)"
