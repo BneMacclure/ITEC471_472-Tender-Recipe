@@ -117,7 +117,7 @@ export default class MyRecipes extends Component {
 				imageStyle={styles.image2_imageStyle}
 				>
 				<Text style={styles.recText}>{item.recName}</Text>
-				<TouchableOpacity style={styles.trashButton}>
+				<TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
 				  <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
 				</TouchableOpacity>
 			</ImageBackground>		
