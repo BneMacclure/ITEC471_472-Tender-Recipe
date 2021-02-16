@@ -95,8 +95,18 @@ export default class MyRecipes extends Component {
         imageStyle={styles.image_imageStyle}
       >
         <View style={styles.filterRow}>
-          <Text style={styles.filter}>Filter</Text>
-          <Icon name="chevron-down" style={styles.icon}></Icon>
+          <Picker
+				style={styles.filterPicker}
+				onValueChange={(value) => {
+					this.setState({pickerValue: value});
+					//alert("Hello");
+				}}
+				>
+				<Picker.Item label="Filter" value="0"></Picker.Item>
+				<Picker.Item label="Breakfast" value="1"></Picker.Item>
+				<Picker.Item label="Lunch" value="1"></Picker.Item>
+				<Picker.Item label="Dinner" value="1"></Picker.Item>
+			</Picker>
         </View>
       </ImageBackground>
 	  
@@ -125,18 +135,16 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)"
   },
   image: {
-    width: 360,
+    width: SCREEN_WIDTH,
     height: 46,
     flexDirection: "row",
-    marginTop: 23
   },
   image_imageStyle: {},
   filter: {
-    fontFamily: "roboto-regular",
     color: "#121212",
-    lineHeight: 14,
+    height: 30,
     fontSize: 20,
-    marginTop: 4
+    marginTop: 0
   },
   icon: {
     color: "rgba(0,0,0,1)",
@@ -153,11 +161,14 @@ const styles = StyleSheet.create({
   },
   filterRow: {
     height: 22,
-    flexDirection: "row",
     flex: 1,
     marginRight: 17,
     marginLeft: 272,
     marginTop: 14
+  },
+  filterPicker: {
+	bottom: 10,
+	marginLeft: 0
   },
   item: {
     backgroundColor: '#8c8c8c',
@@ -167,6 +178,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  image2: {
+    width: SCREEN_WIDTH,
+    height: 140,
+    marginTop: 1
+  },
+  image2_imageStyle: {},
+  cheesePizza: {
+    color: "rgba(255,255,255,1)",
+    fontSize: 35,
+    marginTop: 84,
+    marginLeft: 8
   },
 });
 
