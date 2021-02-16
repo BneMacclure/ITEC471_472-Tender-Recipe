@@ -1,33 +1,92 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
+import Icon from "@expo/vector-icons/Entypo";
+import { db, firebaseApp } from '../config/DatabaseConfig';
 
-const DATA = [
-	{
-		recName: "Spaghetti"
-	},
-	{
-		recName: "sCum"
-	},
-	{
-		recName: "Papas Special Sauce ;)"
-	}
-];
 
-const Item = ({recName}) => (
-	<View style={styles.item}>
-		<Text style={styles.recName}>{recName}</Text>
-		<TouchableOpacity style={styles.trashButton}>
-			<Icon name="trash" style={styles.icon}></Icon>
-		</TouchableOpacity>
-	</View>
-);
 
-function MyRecipes(props) {
-  const renderItem = ({ item }) => (
-	<Item recName={item.recName} />
-  );
-  return (
+export default class MyRecipes extends Component {
+  
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      rec_data: []
+    }
+  }
+
+  // sorts recipes by name
+  orderData() {
+    this.state.rec_data.sort(function(a, b) {
+      var name1 = a.name; //.toUpperCase();
+      var name2 = b.name; //.toUpperCase();
+      if (name1 < name2) {
+        return -1;
+      }
+      if (name1 > name2) {
+        return 1;
+      }
+      return 0;
+    });
+  };
+
+  // removes a recipe from the MyRecipes list
+  unsaveRecipe() {
+    var correctRecipe; 
+    var currentUserID = firebaseApp.auth().currentUser.uid;
+    db.ref('/savedrecipes/'+currentUserID).on('value', (snapshot) =>{
+      var isRightKey = false;
+      snapshot.forEach(function(childSnapshot) {
+        var child = childSnapshot.val();
+        setName(child.name);
+        var currentRecipe = {name};
+      });
+    });
+  };
+  
+  componentDidMount() {
+    var currentUserID = firebaseApp.auth().currentUser.uid;
+    db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
+      var returnArray = [];
+      snapshot.forEach(function(childSnapshot) { // iterate through each recipe
+        var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy;
+        var child = childSnapshot.val();
+        var id = childSnapshot.key;
+        recname = child.name.name;
+        ingredients = child.ingredients.ingredients;
+        instructions = child.instructions.instructions;
+        imageSource = child.imageSource.imageSource;
+        dairy = child.dairy.isSelectedDairy;
+        eggs = child.eggs.isSelectedEggs;
+        fish = child.fish.isSelectedFish;
+        gluten = child.gluten.isSelectedGluten;
+        nuts = child.nuts.isSelectedNuts;
+        shellfish = child.shellfish.isSelectedShellfish;
+        soy = child.soy.isSelectedSoy;
+        returnArray.push({ // push data into a single object in the array
+          "id": id,
+          "recName": recname,
+          "ingredients": ingredients,
+          "instructions": instructions,
+          "imageSource": imageSource,
+          "dairy": dairy,
+          "eggs": eggs,
+          "fish": fish,
+          "gluten": gluten,
+          "nuts": nuts,
+          "shellfish": shellfish,
+          "soy": soy
+        });
+      });
+      this.setState({rec_data: returnArray});
+    });
+    
+    console.log(this.state.rec_data);
+    
+  };
+
+  render() {
+    return (
     <View style={styles.container}>
       <ImageBackground
         source={require("../assets/images/Gradient.png")}
@@ -42,13 +101,22 @@ function MyRecipes(props) {
       </ImageBackground>
 	  
 	  <FlatList
-		data = {DATA}
-		renderItem={renderItem}
-		keyExtractor={item => item.id}
+		data = {this.state.rec_data}
+		renderItem={({item}) => {
+      return (
+        <View style={styles.item}>
+        <Text style={styles.recName}>{item.recName}</Text>
+        <TouchableOpacity style={styles.trashButton}>
+          <Icon name="trash" style={styles.icon}></Icon>
+        </TouchableOpacity>
+      </View>
+      )
+    }}
+		keyExtractor={(item) => item.id}
 	  />
 	  
     </View>
-  );
+  );}
 }
 
 const styles = StyleSheet.create({
@@ -102,4 +170,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyRecipes;
