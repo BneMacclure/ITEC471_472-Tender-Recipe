@@ -18,29 +18,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 function Profile({navigation}) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [skillLevel, setLevel] = useState('');
-  const [prefMeasurement, setMeasurement] = useState('');
-  const [allergies, setAllergies] = useState('');
-
-  /* Pulls data from the Firebase database */
-  const retrieveData = () => {
-
-    var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
-      data = snapshot.val()
-      setName(data.name)
-      setLevel(data.skillLevel)
-      setMeasurement(data.prefMeasurement)
-      setAllergies(data.allergies)
-    });
-    setEmail(firebaseApp.auth().currentUser.email);
-  }
-
-  useEffect(() => {
-    retrieveData();
-  });
+  
 
     return (
     <View style={styles.container}>
