@@ -11,12 +11,8 @@ import {
     ScrollView,
     Dimensions
 } from "react-native";
-import NativeForms from "native-forms";
-import { NativeFormsWebView } from "native-forms";
-import { WebView } from "react-native-webview";
 import { CheckBox } from 'react-native-elements';
 import Icon from "react-native-vector-icons/FontAwesome";
-import CheckedIcon from "react-native-vector-icons/FontAwesome";
 //import { ScrollView } from "react-native-gesture-handler";
 
 //<NativeForms form="https://my.nativeforms.com/vVDct0mcvZWPmZic4JlRvpmNy0Db" />
