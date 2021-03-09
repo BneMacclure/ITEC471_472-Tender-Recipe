@@ -92,16 +92,16 @@ export default class MainScreenInfo extends React.Component {
             recipeObj = snapshot.val();
         });
         // Extract the data into vars for easier use
-        name = recipeObj.name.name;
-        ingredients = recipeObj.ingredients.ingredients;
-        instructions = recipeObj.instructions.instructions;
-        nuts = recipeObj.nuts.isSelectedNuts ? "nuts, " : '';
-        gluten = recipeObj.gluten.isSelectedGluten ? 'gluten, ' : '';
-        shellfish = recipeObj.shellfish.isSelectedShellfish ? 'shellfish, ' : '';
-        dairy = recipeObj.dairy.isSelectedDairy ? 'dairy, ' : '';
-        fish = recipeObj.fish.isSelectedFish ? 'fish, ' : '';
-        eggs = recipeObj.eggs.isSelectedEggs ? 'eggs, ' : '';
-        soy = recipeObj.soy.isSelectedSoy ? "soy, " : '';
+        name = recipeObj.name;
+        ingredients = recipeObj.ingredients;
+        instructions = recipeObj.instructions;
+        nuts = recipeObj.nuts ? "nuts, " : '';
+        gluten = recipeObj.gluten ? 'gluten, ' : '';
+        shellfish = recipeObj.shellfish ? 'shellfish, ' : '';
+        dairy = recipeObj.dairy ? 'dairy, ' : '';
+        fish = recipeObj.fish ? 'fish, ' : '';
+        eggs = recipeObj.eggs ? 'eggs, ' : '';
+        soy = recipeObj.soy ? "soy, " : '';
         // Consolidate the allergens before the Alert
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
         // Show info to user
@@ -121,14 +121,14 @@ export default class MainScreenInfo extends React.Component {
     }
 
     componentDidMount() {
-        // Retrive recipes from Firebase
+        // Retrieve recipes from Firebase
         db.ref('/recipes').on('value', (snapshot) => {
         var returnArray = [];
         
         snapshot.forEach( (snap) => {
             returnArray.push({
                 key: snap.key,
-                uri: snap.val().imageSource.imageSource
+                uri: snap.val().downloadUrl
             });
         });
     
