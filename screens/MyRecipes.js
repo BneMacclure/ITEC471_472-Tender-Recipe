@@ -48,17 +48,17 @@ export default class MyRecipes extends Component {
         var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy;
         var child = childSnapshot.val();
         var id = childSnapshot.key;
-        recname = child.name.name;
-        ingredients = child.ingredients.ingredients;
-        instructions = child.instructions.instructions;
-        imageSource = child.imageSource.imageSource;
-        dairy = child.dairy.isSelectedDairy;
-        eggs = child.eggs.isSelectedEggs;
-        fish = child.fish.isSelectedFish;
-        gluten = child.gluten.isSelectedGluten;
-        nuts = child.nuts.isSelectedNuts;
-        shellfish = child.shellfish.isSelectedShellfish;
-        soy = child.soy.isSelectedSoy;
+        recname = child.name;
+        ingredients = child.ingredients;
+        instructions = child.instructions;
+        imageSource = child.imageSource;
+        dairy = child.dairy;
+        eggs = child.eggs;
+        fish = child.fish;
+        gluten = child.gluten;
+        nuts = child.nuts;
+        shellfish = child;
+        soy = child.soy;
         returnArray.push({ // push data into a single object in the array
           "id": id,
           "recName": recname,

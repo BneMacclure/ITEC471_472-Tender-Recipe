@@ -8,34 +8,15 @@ import {
     TouchableOpacity,
     ScrollView
 } from "react-native";
-import NativeForms from "native-forms";
-import { NativeFormsWebView } from "native-forms";
-import { WebView } from "react-native-webview";
 import { CheckBox } from 'react-native-elements';
 import Icon from "react-native-vector-icons/FontAwesome";
-import CheckedIcon from "react-native-vector-icons/FontAwesome";
-import styles from '../styles/CreateRecipeStyles.js';
-//import { ScrollView } from "react-native-gesture-handler";
-
-//<NativeForms form="https://my.nativeforms.com/vVDct0mcvZWPmZic4JlRvpmNy0Db" />
-//use this component within the render() method. This code will display form in your application.
-//Replace form prop with your form's address
-
-//render on screen
-//<NativeForms form="https://my.nativeforms.com/QW1AHTN1jZm4GTxkFTJ1Db" />
-
-//export default class CreateRecipeScreen extends React.Component {
-//    render() {
-//        return(
-//            <WebView source={{ uri: 'https://my.nativeforms.com/QW1AHTN1jZm4GTxkFTJ1Db' }}/>
-//            );
-//    }
-//}
-
-import { db } from "../config/DatabaseConfig";
+import { db, firebaseApp } from "../config/DatabaseConfig";
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import { Alert } from "react-native";
+import uuid from 'react-native-uuid'
+const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 const CreateRecipeScreen = (props) =>  {
     const [isSelectedNuts, setSelectionNuts] = useState(false);
@@ -46,10 +27,11 @@ const CreateRecipeScreen = (props) =>  {
     const [isSelectedEggs, setSelectionEggs] = useState(false);
     const [isSelectedSoy, setSelectionSoy] = useState(false);
 
-    const [name, setName] = useState('');
-    const [ingredients, setIngredients] = useState('');
-    const [instructions, setInstructions] = useState('');
+    const [n, setName] = useState('');
+    const [ingred, setIngredients] = useState('');
+    const [instr, setInstructions] = useState('');
     const [imageSource, setImageSource] = useState(null);
+    const [downUrl, setDownloadUrl] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -81,24 +63,59 @@ const CreateRecipeScreen = (props) =>  {
           setImageSource(result.uri);
         }
       };
+    
+    const uploadImage = async (uri) => {
+        var blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+              resolve(xhr.response);
+            };
+            xhr.onerror = function(e) {
+              console.log(e);
+              reject(new TypeError('Network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+          });
+        
+        var ref = firebaseApp
+            .storage()
+            .ref()
+            .child(n);
+        var snapshot = await ref.put(blob);
+        
+        // We're done with the blob, close and release it
+        blob.close();
+        
+        return await snapshot.ref.getDownloadURL();
+    }
 
-    const submitRecipeFunc = () => {
-        if (name != '' && ingredients != '' && instructions != '' && imageSource != null) {
+    const submitRecipeFunc = async () => {
+        if (n != '' && ingred != '' && instr != '' && imageSource != null) {
+            const dUrl = await uploadImage(imageSource)
             db.ref('/recipes').push({
-                name: {name},
-                ingredients: {ingredients},
-                instructions: {instructions},
-                imageSource: {imageSource},
-                soy: {isSelectedSoy},
-                eggs: {isSelectedEggs},
-                gluten: {isSelectedGluten},
-                dairy: {isSelectedDairy},
-                fish: {isSelectedFish},
-                shellfish: {isSelectedShellfish},
-                nuts: {isSelectedNuts},
-            }).then(() => console.log('Data sent'));
-            
-            props.navigation.navigate('Main Screen');
+                name: n,
+                ingredients: ingred,
+                instructions: instr,
+                downloadUrl: dUrl,
+                soy: isSelectedSoy,
+                eggs: isSelectedEggs,
+                gluten: isSelectedGluten,
+                dairy: isSelectedDairy,
+                fish: isSelectedFish,
+                shellfish: isSelectedShellfish,
+                nuts: isSelectedNuts,
+            }).then(() => {
+            console.log('Data sent')
+            props.navigation.navigate('Main Screen')
+            }).catch(error => Alert.alert(
+                "Submit Recipe Error",
+                "Error: "+error,
+                [
+                    {text: "OK", onPress: () => console.log("OK pressed") }
+                ],
+                { cancelable: false }))
         }
         else {
             Alert.alert(
