@@ -12,6 +12,7 @@ import { HeaderBackButton } from '@react-navigation/stack';
 import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
+import RegisterScreen from '../screens/RegisterScreen'
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -83,6 +84,34 @@ const Navigator = props => {
                 component={MyProfile}
                 options={{
                     title: "MyProfile",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="RegisterScreen"
+                component={RegisterScreen}
+                options={{
+                    title: "RegisterScreen",
                     headerStyle: {
                         backgroundColor: '#e35514',
                     },
