@@ -78,4 +78,86 @@ export default StyleSheet.create({
         top: 0,
         left: 0
     },
+    title: {
+        textAlign: 'center',
+        fontSize: 22,
+        fontWeight: '300',
+        marginBottom: 20,
+    },
+    header: {
+        backgroundColor: '#FD8014',
+        padding: 20,
+        marginBottom: 5,
+    },
+    headerText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: '700',
+        color: 'white',
+    },
+    content: {
+        padding: 20,
+        backgroundColor: '#fff',
+        marginBottom: 5,
+    },
+    active: {
+        backgroundColor: 'rgba(255,255,255,1)',
+    },
+    inactive: {
+        backgroundColor: 'rgba(245,252,255,1)',
+    },
+    selectors: {
+        marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    selector: {
+        backgroundColor: '#F5FCFF',
+        padding: 10,
+    },
+    activeSelector: {
+        fontWeight: 'bold',
+    },
+    selectTitle: {
+        fontSize: 14,
+        fontWeight: '500',
+        padding: 10,
+    },
+    multipleToggle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 30,
+        alignItems: 'center',
+    },
+    multipleToggle__title: {
+        fontSize: 16,
+        marginRight: 8,
+    },
+    svContentContainer: {
+        paddingTop: 30,
+    },
+
+
+    exitRecipeContainer: {
+        height: 196,
+        paddingTop: 30,
+        alignSelf: "center",
+        width: '80%',
+    },
+
+    exitBtn: {
+
+        height: 56,
+        backgroundColor: "#e35514",
+        borderColor: "#000",
+        borderWidth: 1,
+        borderRadius: 10,
+        justifyContent: "center"
+    },
+
+    exitRecipeText: {
+        color: "rgba(255,255,255,1)",
+        alignSelf: "center",
+        fontWeight: "bold",
+    },
 });
