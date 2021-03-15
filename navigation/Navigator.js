@@ -13,6 +13,7 @@ import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'
+import MealPlannerScreen from '../screens/MealPlannerScreen'
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -168,6 +169,21 @@ const Navigator = props => {
                 component={CreateRecipeScreen}
                 options={{
                     title: "Create a Recipe",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="MealPlannerScreen"
+                component={MealPlannerScreen}
+                options={{
+                    title: "Meal Planner",
                     headerStyle: {
                         backgroundColor: '#e35514',
                     },
