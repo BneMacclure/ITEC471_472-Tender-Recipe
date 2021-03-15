@@ -278,7 +278,7 @@ export default class MainScreenInfo extends React.Component {
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 10 }}>
                     </View>
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1 }} testID='recipeStackView'>
                         {this.renderRecipes()}
                     </View>
                     <View style={{ height: 10 }}>
