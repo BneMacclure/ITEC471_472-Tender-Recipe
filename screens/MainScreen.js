@@ -1,14 +1,48 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ImageBackground, TouchableOpacity, SafeAreaView, ScrollView, Switch } from 'react-native';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { db, firebaseApp } from '../config/DatabaseConfig';
+import * as Animatable from 'react-native-animatable';
+import Collapsible from 'react-native-collapsible';
+import Accordion from 'react-native-collapsible/Accordion';
+import Modal from 'react-native-modal';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Alert } from 'react-native';
+
+const CONTENT = [
+    {
+        title: 'Allergens',
+        content: 'Dairy, Gluten',
+    },
+    {
+        title: 'Ingredients',
+        content: '2 cups of berries, 2 cups of butter, 1.5 cups of AP flour, 1 egg, 1 cup sugar',
+    },
+    {
+        title: 'Instructions',
+        content: 'Mix the flour and butter to form crust. Chill. Cook the berries. Add to crust. Bake immediately.',
+    },
+];
+
+const SELECTORS = [
+    {
+        title: 'First',
+        value: 0,
+    },
+    {
+        title: 'Third',
+        value: 2,
+    },
+    {
+        title: 'None',
+    },
+];
 
 export default class MainScreenInfo extends React.Component {
 
@@ -20,7 +54,11 @@ export default class MainScreenInfo extends React.Component {
             currentIndex: 0,
             recipes: [],
             indexToKey: [], // basically, helps me figure out which recipe you just liked. things like index 0 is key 1234, which pertains to a certain recipe in the DB
-         }
+            isVisible: false,
+            activeSections: [],
+            collapsed: true,
+            multipleSelect: false,
+        }
 
         this.rotate = this.position.x.interpolate({
             inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -60,6 +98,10 @@ export default class MainScreenInfo extends React.Component {
 
     }
 
+
+    displayRecipeModal(show) {
+        this.setState({isVisible: show})
+    }
 
     //Triggers like animation, might need Ben to handle DB stuff in here
     likeRecipe() {
@@ -214,6 +256,43 @@ export default class MainScreenInfo extends React.Component {
         this.setState({ indexToKey: tempArray });
     }
 
+    toggleExpanded = () => {
+        this.setState({ collapsed: !this.state.collapsed });
+    }
+
+    setSections = sections => {
+        this.setState({
+            activeSections: sections.includes(undefined) ? [] : sections,
+        });
+    }
+
+    renderHeader = (section, _, isActive) => {
+        return (
+            <Animatable.View
+                duration={400}
+                style={styles.header}
+                //style={[styles.header, isActive ? styles.active : styles.inactive]}
+                transition="backgroundColor"
+            >
+                <Text style={styles.headerText}>{section.title}</Text>
+            </Animatable.View>
+        );
+    }
+
+    renderContent = (section, _, isActive) => {
+        return (
+            <Animatable.View
+                duration={400}
+                style={[styles.content, isActive ? styles.active : styles.inactive]}
+                transition="backgroundColor"
+            >
+                <Animatable.Text animation={isActive ? 'bounceInUp' : undefined}>
+                    {section.content}
+                </Animatable.Text>
+            </Animatable.View>
+        );
+    }
+
     renderRecipes = () => {
 
         return this.state.recipes.map((item, i) => {
@@ -268,6 +347,7 @@ export default class MainScreenInfo extends React.Component {
     }
 
     render() {
+        const { multipleSelect, activeSections } = this.state;
         return (
             <ImageBackground
                 source={require("../assets/images/main_bg2.png")}
@@ -276,6 +356,59 @@ export default class MainScreenInfo extends React.Component {
                 imageStyle={styles.background_imageStyle}
             >
                 <View style={{ flex: 1 }}>
+
+                    <Modal
+                        animationType = "slide"
+                        transparent={true}
+                        hasBackdrop={true}
+                        backdropColor={"#000"}
+                        backdropOpacity={0.70}
+                        isVisible={this.state.isVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has now been closed.');
+                        }}>
+
+
+
+
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <View style={{
+                                width: '100%',
+                                height: '50%',
+                                backgroundColor: "#fff",
+                                borderColor: "#000", borderWidth: 2,
+                                borderStyle: "dashed",
+                                borderRadius: 1
+                            }}>
+                        <ScrollView style={styles.svContentContainer}>
+                            <Text style={styles.title}>Berry Tart</Text>
+
+                            <Accordion
+                                activeSections={activeSections}
+                                sections={CONTENT}
+                                touchableComponent={TouchableOpacity}
+                                expandMultiple={multipleSelect}
+                                renderHeader={this.renderHeader}
+                                renderContent={this.renderContent}
+                                duration={400}
+                                onChange={this.setSections}
+                            />
+
+                                <View style={styles.exitRecipeContainer}>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.displayRecipeModal(!this.state.isVisible);
+                                        }}
+                                        style={styles.exitBtn}
+                                    >
+                                        <Text style={styles.exitRecipeText}>Exit View</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </ScrollView>
+                            </View>
+                            </View>
+                    </Modal>
+
                     <View style={{ height: 10 }}>
                     </View>
                     <View style={{ flex: 1 }}>
@@ -286,7 +419,7 @@ export default class MainScreenInfo extends React.Component {
                     </View>
                     <View style={styles.skip_buttonRow}>
                         <TouchableOpacity
-                            onPress={() => props.navigation.goBack()}
+                            onPress={() => this.displayRecipeModal(true)} //here to test the modal
                             style={styles.skip_button}
                         >
                             <MaterialCommunityIconsIcon
@@ -301,7 +434,8 @@ export default class MainScreenInfo extends React.Component {
                             <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => this.likeRecipe()}
+                            //onPress={() => this.likeRecipe()}
+                            onPress={() => this.props.navigation.navigate('MealPlannerScreen')}
                             style={styles.like_button}
                         >
                             <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
@@ -391,4 +525,91 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0
     },
+
+
+
+
+    title: {
+        textAlign: 'center',
+        fontSize: 22,
+        fontWeight: '300',
+        marginBottom: 20,
+    },
+    header: {
+        backgroundColor: '#FD8014',
+        padding: 20,
+        marginBottom: 5,
+    },
+    headerText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: '700',
+        color: 'white',
+    },
+    content: {
+        padding: 20,
+        backgroundColor: '#fff',
+        marginBottom: 5,
+    },
+    active: {
+        backgroundColor: 'rgba(255,255,255,1)',
+    },
+    inactive: {
+        backgroundColor: 'rgba(245,252,255,1)',
+    },
+    selectors: {
+        marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    selector: {
+        backgroundColor: '#F5FCFF',
+        padding: 10,
+    },
+    activeSelector: {
+        fontWeight: 'bold',
+    },
+    selectTitle: {
+        fontSize: 14,
+        fontWeight: '500',
+        padding: 10,
+    },
+    multipleToggle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 30,
+        alignItems: 'center',
+    },
+    multipleToggle__title: {
+        fontSize: 16,
+        marginRight: 8,
+    },
+    svContentContainer: {
+        paddingTop: 30,
+    },
+
+
+    exitRecipeContainer: {
+        height: 196,
+        paddingTop: 30,
+        alignSelf: "center",
+        width: '80%',
+    },
+
+    exitBtn: {
+
+        height: 56,
+        backgroundColor: "#e35514",
+        borderColor: "#000",
+        borderWidth: 1,
+        borderRadius: 10,
+        justifyContent: "center"
+    },
+
+    exitRecipeText: {
+        color: "rgba(255,255,255,1)",
+        alignSelf: "center",
+        fontWeight: "bold",
+    },
+
 });
