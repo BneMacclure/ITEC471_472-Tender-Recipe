@@ -13,6 +13,10 @@ import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'
+import Registration02 from '../screens/Registration02';
+import Registration03 from '../screens/Registration03';
+import Registration04 from '../screens/Registration04';
+import Registration05 from '../screens/Registration05';
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -34,6 +38,7 @@ const Navigator = props => {
                 name="Login Page"
                 component={LoginPage}
                 options={{
+                    headerShown: false,
                     title: "Welcome!",
                     headerStyle: {
                         backgroundColor: '#e35514',
@@ -49,7 +54,7 @@ const Navigator = props => {
                 name="Main Screen"
                 component={MainScreen}
                 options={({ navigation }) => ({
-                    title: "Main Page",
+                    title: "",
                     headerLeft: null,
                     headerStyle: {
                         backgroundColor: '#e35514',
@@ -83,6 +88,7 @@ const Navigator = props => {
                 name="MyProfile"
                 component={MyProfile}
                 options={{
+                    headerShown: false,
                     title: "MyProfile",
                     headerStyle: {
                         backgroundColor: '#e35514',
@@ -111,7 +117,124 @@ const Navigator = props => {
                 name="RegisterScreen"
                 component={RegisterScreen}
                 options={{
+                    headerShown: false,
                     title: "RegisterScreen",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration02"
+                component={Registration02}
+                options={{
+                    headerShown: false,
+                    title: "Registration02",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration03"
+                component={Registration03}
+                options={{
+                    headerShown: false,
+                    title: "Registration03",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration04"
+                component={Registration04}
+                options={{
+                    headerShown: false,
+                    title: "Registration04",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration05"
+                component={Registration05}
+                options={{
+                    headerShown: false,
+                    title: "Registration05",
                     headerStyle: {
                         backgroundColor: '#e35514',
                     },

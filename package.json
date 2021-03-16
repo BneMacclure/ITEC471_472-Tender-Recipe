@@ -25,6 +25,7 @@
     "react-native-checkbox-form": "^1.1.5",
     "react-native-elements": "^3.2.0",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-paper": "^4.7.2",
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.2",
     "react-native-svg": "^12.1.0",

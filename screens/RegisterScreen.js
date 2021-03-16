@@ -1,100 +1,83 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  StyleSheet,
+  View,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  Dimensions
+} from "react-native";
+import {TextInput} from 'react-native-paper';
+import styles from '../styles/RegisterScreenStyles.js';
 
-function Untitled(props) {
+const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_WIDTH = Dimensions.get('window').width
+
+function Registration(props) { 
   return (
     <View style={styles.container}>
-      <Text style={styles.nameText}>Name</Text>
-      <TextInput placeholder="" style={styles.nameInput}></TextInput>
-      <Text style={styles.emailText}>Email</Text>
-      <TextInput placeholder="" style={styles.emailInput}></TextInput>
-      <Text style={styles.passwordText}>Password</Text>
-      <TextInput placeholder="" style={styles.passwordInput}></TextInput>
-      <Text style={styles.confirmPasswordText}>Confirm Password</Text>
-      <TextInput placeholder="" style={styles.confirmPasswordInput}></TextInput>
-      <TouchableOpacity 
-        style={styles.registerBtn}
-        /**onPress={Some Register Function }*/
-        >
-        <Text style={styles.register}>Register</Text>
-      </TouchableOpacity>
+      <StatusBar
+        backgroundColor="#E35614"
+         />
+      <ImageBackground
+        source={require("../assets/images/Gradient.png")}
+        resizeMode="cover"
+        style={styles.image}
+        imageStyle={styles.image_imageStyle}
+      >
+        <Text style={styles.registration}>Registration</Text>
+        {/* Spacer */}
+        <View style={{marginTop:100}}></View>
+        {/* <Text style={styles.labelText}>Name</Text> */}
+        <TextInput 
+          mode="outlined"
+          color="#FFFFFF"
+          label="Name"
+          theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
+          style={styles.inputStyle}>
+        </TextInput>
+        {/*<Text style={styles.labelText}>Phone Number</Text>*/}
+        <TextInput 
+          clearTextOnFocus={true}
+          mode="outlined"
+          label="Phone Number"
+          theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
+          style={styles.inputStyle}>
+          </TextInput>
+        {/* <Text style={styles.labelText}>Email</Text> */}
+        <TextInput 
+          mode="outlined"
+          label="Email" 
+          theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
+          style={styles.inputStyle}>
+        </TextInput>
+        {/* <Text style={styles.labelText}>Password</Text> */}
+        <TextInput 
+          mode="outlined"
+          label="Password"
+          theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
+          style={styles.inputStyle}>
+        </TextInput>
+        {/* <Text style={styles.labelText}>Confirm Password</Text> */}
+        <TextInput 
+          mode="outlined"
+          label="Confirm Password" 
+          theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
+          style={styles.inputStyle}>
+        </TextInput>
+        {/* Spacer */}
+        <View style={{marginTop:40}}></View>
+        <TouchableOpacity
+         onPress={() => props.navigation.navigate('Registration02')}
+         style={styles.button}
+         >
+          <Text style={styles.signUp}>Sign Up</Text>
+        </TouchableOpacity>
+      </ImageBackground>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  nameText: {
-    color: "#121212",
-    fontSize: 20,
-    marginTop: 176,
-    marginLeft: 153
-  },
-  nameInput: {
-    color: "#121212",
-    height: 46,
-    width: 189,
-    borderWidth: 1,
-    borderColor: "#000000",
-    marginLeft: 85
-  },
-  emailText: {
-    color: "#121212",
-    fontSize: 20,
-    marginLeft: 156
-  },
-  emailInput: {
-    color: "#121212",
-    height: 46,
-    width: 189,
-    borderWidth: 1,
-    borderColor: "#000000",
-    marginLeft: 85
-  },
-  passwordText: {
-    color: "#121212",
-    fontSize: 20,
-    marginLeft: 138
-  },
-  passwordInput: {
-    color: "#121212",
-    height: 46,
-    width: 189,
-    borderWidth: 1,
-    borderColor: "#000000",
-    marginLeft: 85
-  },
-  confirmPasswordText: {
-    color: "#121212",
-    fontSize: 20,
-    marginTop: 1,
-    marginLeft: 100
-  },
-  confirmPasswordInput: {
-    color: "#121212",
-    height: 46,
-    width: 189,
-    borderWidth: 1,
-    borderColor: "#000000",
-    marginLeft: 85
-  },
-  registerBtn: {
-    width: 159,
-    height: 49,
-    backgroundColor: "#E6E6E6",
-    marginTop: 71,
-    marginLeft: 100
-  },
-  register: {
-    color: "#121212",
-    fontSize: 20,
-    marginTop: 11,
-    marginLeft: 44
-  }
-});
-
-export default Untitled;
-
+export default Registration;

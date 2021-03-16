@@ -1,5 +1,15 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, ImageBackground, TouchableOpacity } from 'react-native';
+import { 
+    StyleSheet, 
+    Text, 
+    View, 
+    Dimensions, 
+    Image, 
+    Animated, 
+    PanResponder, 
+    ImageBackground,
+    StatusBar,
+    TouchableOpacity } from 'react-native';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
@@ -276,6 +286,9 @@ export default class MainScreenInfo extends React.Component {
                 imageStyle={styles.background_imageStyle}
             >
                 <View style={{ flex: 1 }}>
+                    <StatusBar
+                        backgroundColor="#E35614"
+                        />
                     <View style={{ height: 10 }}>
                     </View>
                     <View style={{ flex: 1 }}>

@@ -6,7 +6,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Dimensions
 } from "react-native";
 import { CheckBox } from 'react-native-elements';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -14,7 +15,6 @@ import { db, firebaseApp } from "../config/DatabaseConfig";
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import { Alert } from "react-native";
-import uuid from 'react-native-uuid'
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 

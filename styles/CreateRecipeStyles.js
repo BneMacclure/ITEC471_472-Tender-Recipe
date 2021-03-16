@@ -5,7 +5,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 export default StyleSheet.create({
     container: {
         flex: 1,
-    },
+    }, 
 
     scrollableView: {
         width: SCREEN_WIDTH,
