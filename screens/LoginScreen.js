@@ -122,6 +122,7 @@ const LoginScreen = (props) => {
                 <View style={styles.usernameGroup}>
                     <IoniconsIcon name="md-person" style={styles.icon}></IoniconsIcon>
                     <TextInput
+                        testID='emailInput'
                         placeholder="Email"
                         placeholderTextColor="rgba(230, 230, 230,1)"
                         inlineImagePadding={0}
@@ -133,6 +134,7 @@ const LoginScreen = (props) => {
                 <View style={styles.passwordGroup}>
                     <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
                     <TextInput
+                        testID='passwordInput'
                         placeholder="Password"
                         placeholderTextColor="rgba(230, 230, 230,1)"
                         selectionColor="rgba(52,250,215,1)"
@@ -147,11 +149,13 @@ const LoginScreen = (props) => {
                     <TouchableOpacity
                         onPress={ loginFunc } //insert navigation
                         style={styles.loginBtn}
+                        testID='loginButton'
                     >
                         <Text style={styles.login}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => props.navigation.navigate('RegisterScreen')}
+                        testID='registerButton'
                         //onPress={registerFunc} //insert navigation
                         style={styles.signupBtn}
                     >
