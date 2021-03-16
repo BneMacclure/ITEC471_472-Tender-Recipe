@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#121212",
+        "fontSize": 20,
+        "marginLeft": 153,
+        "marginTop": 176,
+      }
+    }
+  >
+    Name
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    placeholder=""
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderColor": "#000000",
+        "borderWidth": 1,
+        "color": "#121212",
+        "height": 46,
+        "marginLeft": 85,
+        "width": 189,
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <Text
+    style={
+      Object {
+        "color": "#121212",
+        "fontSize": 20,
+        "marginLeft": 156,
+      }
+    }
+  >
+    Email
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    placeholder=""
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderColor": "#000000",
+        "borderWidth": 1,
+        "color": "#121212",
+        "height": 46,
+        "marginLeft": 85,
+        "width": 189,
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <Text
+    style={
+      Object {
+        "color": "#121212",
+        "fontSize": 20,
+        "marginLeft": 138,
+      }
+    }
+  >
+    Password
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    placeholder=""
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderColor": "#000000",
+        "borderWidth": 1,
+        "color": "#121212",
+        "height": 46,
+        "marginLeft": 85,
+        "width": 189,
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <Text
+    style={
+      Object {
+        "color": "#121212",
+        "fontSize": 20,
+        "marginLeft": 100,
+        "marginTop": 1,
+      }
+    }
+  >
+    Confirm Password
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    placeholder=""
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderColor": "#000000",
+        "borderWidth": 1,
+        "color": "#121212",
+        "height": 46,
+        "marginLeft": 85,
+        "width": 189,
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <RNGestureHandlerButton
+    collapsable={false}
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+  >
+    <View
+      accessible={true}
+      style={
+        Object {
+          "backgroundColor": "#E6E6E6",
+          "height": 49,
+          "marginLeft": 100,
+          "marginTop": 71,
+          "opacity": 1,
+          "width": 159,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#121212",
+            "fontSize": 20,
+            "marginLeft": 44,
+            "marginTop": 11,
+          }
+        }
+      >
+        Register
+      </Text>
+    </View>
+  </RNGestureHandlerButton>
+</View>
+`;
