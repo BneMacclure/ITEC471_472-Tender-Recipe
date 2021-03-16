@@ -1,0 +1,559 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MainScreen /> main screen snapshot 1`] = `
+<View
+  accessibilityIgnoresInvertColors={true}
+  style={
+    Object {
+      "alignSelf": "center",
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <Image
+    resizeMode="cover"
+    source={1}
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "height": "100%",
+          "width": "100%",
+        },
+        Object {},
+      ]
+    }
+  />
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <Modal
+      animationType="slide"
+      deviceHeight={null}
+      deviceWidth={null}
+      hardwareAccelerated={false}
+      hideModalContentWhileAnimating={false}
+      onBackdropPress={[Function]}
+      onModalHide={[Function]}
+      onModalWillHide={[Function]}
+      onModalWillShow={[Function]}
+      onRequestClose={[Function]}
+      scrollHorizontal={false}
+      scrollOffset={0}
+      scrollOffsetMax={0}
+      scrollTo={null}
+      supportedOrientations={
+        Array [
+          "portrait",
+          "landscape",
+        ]
+      }
+      swipeThreshold={100}
+      transparent={true}
+      visible={false}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        forwardedRef={[Function]}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#000",
+            "bottom": 0,
+            "height": 1334,
+            "left": 0,
+            "opacity": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 750,
+          }
+        }
+      />
+      <View
+        animationType="slide"
+        deviceHeight={null}
+        deviceWidth={null}
+        forwardedRef={[Function]}
+        hideModalContentWhileAnimating={false}
+        onBackdropPress={[Function]}
+        onModalHide={[Function]}
+        onModalWillHide={[Function]}
+        onModalWillShow={[Function]}
+        onRequestClose={[Function]}
+        pointerEvents="box-none"
+        scrollHorizontal={false}
+        scrollOffset={0}
+        scrollOffsetMax={0}
+        scrollTo={null}
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "center",
+            "margin": 37.5,
+            "transform": Array [
+              Object {
+                "translateY": 0,
+              },
+            ],
+          }
+        }
+        supportedOrientations={
+          Array [
+            "portrait",
+            "landscape",
+          ]
+        }
+        swipeThreshold={100}
+        transparent={true}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "#fff",
+                "borderColor": "#000",
+                "borderRadius": 1,
+                "borderStyle": "dashed",
+                "borderWidth": 2,
+                "height": "50%",
+                "width": "100%",
+              }
+            }
+          >
+            <RCTScrollView
+              style={
+                Object {
+                  "paddingTop": 30,
+                }
+              }
+            >
+              <View>
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 22,
+                      "fontWeight": "300",
+                      "marginBottom": 20,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Berry Tart
+                </Text>
+                <View>
+                  <View
+                    style={Object {}}
+                  >
+                    <View
+                      accessible={true}
+                      focusable={true}
+                      onClick={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <View
+                        forwardedRef={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#FD8014",
+                            "marginBottom": 5,
+                            "padding": 20,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Object {
+                              "color": "white",
+                              "fontSize": 20,
+                              "fontWeight": "700",
+                              "textAlign": "center",
+                            }
+                          }
+                        >
+                          Allergens
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      pointerEvents="none"
+                      style={
+                        Object {
+                          "height": 0,
+                          "overflow": "hidden",
+                        }
+                      }
+                    >
+                      <View
+                        forwardedRef={[Function]}
+                        onLayout={[Function]}
+                        style={Object {}}
+                      >
+                        <View
+                          forwardedRef={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(245,252,255,1)",
+                              "marginBottom": 5,
+                              "padding": 20,
+                            }
+                          }
+                        >
+                          <Text
+                            forwardedRef={[Function]}
+                            style={Object {}}
+                          >
+                            Dairy, Gluten
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                  <View
+                    style={Object {}}
+                  >
+                    <View
+                      accessible={true}
+                      focusable={true}
+                      onClick={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <View
+                        forwardedRef={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#FD8014",
+                            "marginBottom": 5,
+                            "padding": 20,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Object {
+                              "color": "white",
+                              "fontSize": 20,
+                              "fontWeight": "700",
+                              "textAlign": "center",
+                            }
+                          }
+                        >
+                          Ingredients
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      pointerEvents="none"
+                      style={
+                        Object {
+                          "height": 0,
+                          "overflow": "hidden",
+                        }
+                      }
+                    >
+                      <View
+                        forwardedRef={[Function]}
+                        onLayout={[Function]}
+                        style={Object {}}
+                      >
+                        <View
+                          forwardedRef={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(245,252,255,1)",
+                              "marginBottom": 5,
+                              "padding": 20,
+                            }
+                          }
+                        >
+                          <Text
+                            forwardedRef={[Function]}
+                            style={Object {}}
+                          >
+                            2 cups of berries, 2 cups of butter, 1.5 cups of AP flour, 1 egg, 1 cup sugar
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                  <View
+                    style={Object {}}
+                  >
+                    <View
+                      accessible={true}
+                      focusable={true}
+                      onClick={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <View
+                        forwardedRef={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#FD8014",
+                            "marginBottom": 5,
+                            "padding": 20,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Object {
+                              "color": "white",
+                              "fontSize": 20,
+                              "fontWeight": "700",
+                              "textAlign": "center",
+                            }
+                          }
+                        >
+                          Instructions
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      pointerEvents="none"
+                      style={
+                        Object {
+                          "height": 0,
+                          "overflow": "hidden",
+                        }
+                      }
+                    >
+                      <View
+                        forwardedRef={[Function]}
+                        onLayout={[Function]}
+                        style={Object {}}
+                      >
+                        <View
+                          forwardedRef={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(245,252,255,1)",
+                              "marginBottom": 5,
+                              "padding": 20,
+                            }
+                          }
+                        >
+                          <Text
+                            forwardedRef={[Function]}
+                            style={Object {}}
+                          >
+                            Mix the flour and butter to form crust. Chill. Cook the berries. Add to crust. Bake immediately.
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "center",
+                      "height": 196,
+                      "paddingTop": 30,
+                      "width": "80%",
+                    }
+                  }
+                >
+                  <View
+                    accessible={true}
+                    focusable={true}
+                    onClick={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={
+                      Object {
+                        "backgroundColor": "#e35514",
+                        "borderColor": "#000",
+                        "borderRadius": 10,
+                        "borderWidth": 1,
+                        "height": 56,
+                        "justifyContent": "center",
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        Object {
+                          "alignSelf": "center",
+                          "color": "rgba(255,255,255,1)",
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Exit View
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </RCTScrollView>
+          </View>
+        </View>
+      </View>
+    </Modal>
+    <View
+      style={
+        Object {
+          "height": 10,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+      testID="recipeStackView"
+    />
+    <View
+      style={
+        Object {
+          "height": 10,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "flexDirection": "row",
+          "height": 60,
+          "marginTop": 65,
+          "padding": 70,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f94723",
+            "borderRadius": 100,
+            "height": 60,
+            "opacity": 1,
+            "width": 64,
+          }
+        }
+      >
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f94723",
+            "borderRadius": 100,
+            "height": 60,
+            "marginLeft": 43,
+            "opacity": 1,
+            "width": 64,
+          }
+        }
+      >
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f94723",
+            "borderRadius": 100,
+            "height": 60,
+            "justifyContent": "center",
+            "marginLeft": 39,
+            "opacity": 1,
+            "width": 64,
+          }
+        }
+      >
+        <Text />
+      </View>
+    </View>
+  </View>
+</View>
+`;
