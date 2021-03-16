@@ -31,7 +31,7 @@ const MenuIcon = () => <Icon
 const Navigator = props => {
 
     return (
-        <NavigationContainer>
+        <NavigationContainer independent={true}>
             <Stack.Navigator>
                 <Stack.Screen
                     name="Login Page"
