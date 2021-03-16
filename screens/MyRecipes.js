@@ -41,10 +41,9 @@ export default class MyRecipes extends Component {
   };
   
   componentDidMount() {
-    var currentUserID = ''
-    firebaseApp.auth().onAuthStateChanged((user) => {
-      var currentUserID = firebaseApp.auth().currentUser.uid;
-    })
+    var currentUserID = currentUserID = firebaseApp.auth().currentUser.uid;
+
+    console.log(currentUserID)
     
     db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
       var returnArray = [];
@@ -55,7 +54,7 @@ export default class MyRecipes extends Component {
         recname = child.name;
         ingredients = child.ingredients;
         instructions = child.instructions;
-        imageSource = child.imageSource;
+        downloadURL = child.downloadUrl;
         dairy = child.dairy;
         eggs = child.eggs;
         fish = child.fish;
@@ -68,7 +67,7 @@ export default class MyRecipes extends Component {
           "recName": recname,
           "ingredients": ingredients,
           "instructions": instructions,
-          "imageSource": imageSource,
+          "downloadURL": downloadURL,
           "dairy": dairy,
           "eggs": eggs,
           "fish": fish,
@@ -115,7 +114,7 @@ export default class MyRecipes extends Component {
 		renderItem={({item}) => {
 		  return (
 			<ImageBackground
-				source={require("../assets/images/burgers.jpg")}
+				source={{uri: item.downloadURL}}
 				resizeMode="cover"
 				style={styles.image2}
 				imageStyle={styles.image2_imageStyle}
