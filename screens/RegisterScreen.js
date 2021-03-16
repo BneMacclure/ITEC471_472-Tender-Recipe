@@ -24,10 +24,10 @@ function Registration(props) {
       <ImageBackground
         source={require("../assets/images/Gradient.png")}
         resizeMode="cover"
-        style={styles.image}
-        imageStyle={styles.image_imageStyle}
+        style={styles.backImg}
+        imageStyle={styles.backImg_imageStyle}
       >
-        <Text style={styles.registration}>Registration</Text>
+        <Text style={styles.registrationText}>Registration</Text>
         {/* Spacer */}
         <View style={{marginTop:100}}></View>
         {/* <Text style={styles.labelText}>Name</Text> */}
@@ -71,9 +71,9 @@ function Registration(props) {
         <View style={{marginTop:40}}></View>
         <TouchableOpacity
          onPress={() => props.navigation.navigate('Registration02')}
-         style={styles.button}
+         style={styles.signUpBtn}
          >
-          <Text style={styles.signUp}>Sign Up</Text>
+          <Text style={styles.signUpTxt}>Sign Up</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>
