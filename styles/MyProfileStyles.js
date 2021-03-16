@@ -3,7 +3,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 export default StyleSheet.create({
-    container: {
+    container: { 
       flex: 1,
       backgroundColor: "#fff"
     },

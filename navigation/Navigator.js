@@ -13,6 +13,10 @@ import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'
+import Registration02 from '../screens/Registration02';
+import Registration03 from '../screens/Registration03';
+import Registration04 from '../screens/Registration04';
+import Registration05 from '../screens/Registration05';
 import MealPlannerScreen from '../screens/MealPlannerScreen'
 import { NavigationContainer } from '@react-navigation/native';
 
