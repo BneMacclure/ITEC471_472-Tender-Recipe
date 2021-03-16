@@ -41,7 +41,11 @@ export default class MyRecipes extends Component {
   };
   
   componentDidMount() {
-    var currentUserID = firebaseApp.auth().currentUser.uid;
+    var currentUserID = ''
+    firebaseApp.auth().onAuthStateChanged((user) => {
+      var currentUserID = firebaseApp.auth().currentUser.uid;
+    })
+    
     db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
       var returnArray = [];
       snapshot.forEach(function(childSnapshot) { // iterate through each recipe

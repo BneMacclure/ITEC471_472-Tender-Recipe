@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginScreen /> LoginScreen snapshot test 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={1}
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": undefined,
+            "width": undefined,
+          },
+          Object {},
+        ]
+      }
+    />
+    <Image
+      resizeMode="contain"
+      source={1}
+      style={
+        Object {
+          "alignSelf": "center",
+          "borderColor": "rgba(255,255,255,1)",
+          "borderRadius": 57,
+          "borderWidth": 4,
+          "height": 200,
+          "marginTop": 88.93333333333334,
+          "width": 200,
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "rgba(251,251,251,1)",
+          "fontFamily": "BigShouldersDisplay_700Bold",
+          "fontSize": 36,
+          "marginTop": 10,
+        }
+      }
+    >
+      Tender Recipes
+    </Text>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "flexDirection": "row",
+          "height": 35,
+          "marginRight": 30,
+          "marginTop": 60,
+          "width": 276,
+        }
+      }
+    >
+      <Text />
+      <TextInput
+        allowFontScaling={true}
+        inlineImagePadding={0}
+        onChangeText={[Function]}
+        placeholder="Email"
+        placeholderTextColor="rgba(230, 230, 230,1)"
+        rejectResponderTermination={true}
+        selectionColor="rgba(52,250,215,1)"
+        style={
+          Object {
+            "borderColor": "rgba(255,255,255,1)",
+            "borderRadius": 10,
+            "borderWidth": 3,
+            "color": "rgba(255,255,255,1)",
+            "fontSize": 16,
+            "height": 35,
+            "letterSpacing": 1,
+            "lineHeight": 14,
+            "marginLeft": 4,
+            "paddingLeft": 8,
+            "textAlign": "left",
+            "width": 275,
+          }
+        }
+        testID="emailInput"
+        underlineColorAndroid="transparent"
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "flexDirection": "row",
+          "height": 35,
+          "marginRight": 30,
+          "marginTop": 26,
+          "width": 276,
+        }
+      }
+    >
+      <Text />
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="Password"
+        placeholderTextColor="rgba(230, 230, 230,1)"
+        rejectResponderTermination={true}
+        secureTextEntry={true}
+        selectionColor="rgba(52,250,215,1)"
+        style={
+          Object {
+            "borderColor": "rgba(255,255,255,1)",
+            "borderRadius": 10,
+            "borderWidth": 3,
+            "color": "rgba(255,255,255,1)",
+            "fontSize": 16,
+            "height": 35,
+            "letterSpacing": 1,
+            "paddingLeft": 8,
+            "width": 275,
+          }
+        }
+        testID="passwordInput"
+        underlineColorAndroid="transparent"
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "elevation": 5,
+          "flexDirection": "row",
+          "height": 36,
+          "marginTop": 30,
+          "shadowColor": "rgba(206,203,203,1)",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 3,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 0,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(255,255,255,1)",
+            "borderRadius": 10,
+            "height": 36,
+            "justifyContent": "center",
+            "opacity": 1,
+            "width": 149,
+          }
+        }
+        testID="loginButton"
+      >
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "rgba(249,71,35,1)",
+            }
+          }
+        >
+          Login
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(255,255,255,1)",
+            "borderRadius": 10,
+            "height": 36,
+            "justifyContent": "center",
+            "marginLeft": 4,
+            "opacity": 1,
+            "width": 149,
+          }
+        }
+        testID="registerButton"
+      >
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "rgba(249,71,35,1)",
+            }
+          }
+        >
+          Sign up
+        </Text>
+      </View>
+    </View>
+    <ActivityIndicator
+      animating={false}
+      color="rgba(254,242,94,1)"
+      hidesWhenStopped={true}
+      size="large"
+      style={
+        Object {
+          "alignSelf": "center",
+          "marginTop": 50,
+        }
+      }
+    />
+  </View>
+</View>
+`;
