@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import { db, firebaseApp } from '../config/DatabaseConfig';
 import {
   StyleSheet,
   View,
@@ -9,10 +10,62 @@ import {
   TextInput,
   Dimensions
 } from "react-native";
+//import { set } from "cypress/types/lodash";
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-function Registration05(props) {
+
+
+function Registration05({navigation, route}) {
+  const [wheat, setWheat] = useState(false);
+  const [dairy, setDairy] = useState(false);
+  const [eggs, setEggs] = useState(false);
+  const [fish, setFish] = useState(false);
+  const [gluten, setGluten] = useState(false);
+  const [treeNuts, setTreeNuts] = useState(false);
+  const [peanuts, setPeanuts] = useState(false);
+  const [shellfish, setShellfish] = useState(false);
+  const [soy, setSoy] = useState(false);
+  const [other, setOther] = useState("");
+  const {name, email, phone, skillLevel, prefMeasurement, password, diet} = route.params;
+
+  const registerFunc5 = () => {
+    firebaseApp
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      firebaseApp
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        var allergies = {
+          wheat: wheat,
+          dairy: dairy,
+          eggs: eggs,
+          fish: fish,
+          gluten: gluten,
+          treeNuts: treeNuts,
+          peanuts: peanuts,
+          shellfish: shellfish,
+          soy: soy,
+          other: other
+        }
+        db.ref('/userInfo/' + currentUserID).push({
+          name: name,
+          phone: phone,
+          skillLevel: skillLevel,
+          prefMeasurement: prefMeasurement,
+          allergies: allergies,
+          diet: diet
+        }).then(() => {
+          navigation.navigate('Main Screen')
+        })
+
+      })
+    })
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -23,42 +76,63 @@ function Registration05(props) {
       >
         <Text style={styles.loremIpsum1}>Do you have any{"\n"} allergies?</Text>
         <View style={styles.button1Row}>
-          <TouchableOpacity style={styles.button1}>
+          <TouchableOpacity
+          style={styles.button1}
+          onPress={() => setWheat(!wheat)}>
             <Text style={styles.wheat}>Wheat</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button5}>
+          <TouchableOpacity
+          style={styles.button5}
+          onPress={() => setDairy(!dairy)}>
             <Text style={styles.dairy}>Dairy</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button6}>
+          <TouchableOpacity
+          style={styles.button6}
+          onPress={() => setGluten(!gluten)}>
             <Text style={styles.gluten}>Gluten</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.button8Row}>
+        <View
+        style={styles.button8Row}
+        onPress={() => setEggs(!eggs)}>
           <TouchableOpacity style={styles.button8}>
             <Text style={styles.eggs}>Eggs</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button9}>
+          <TouchableOpacity
+          style={styles.button9}
+          onPress={() => setFish(!fish)}>
             <Text style={styles.fish}>Fish</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button10}>
+          <TouchableOpacity
+          style={styles.button10}
+          onPress={() => setShellfish(!shellfish)}>
             <Text style={styles.shellfish}>Shellfish</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.button11Row}>
-          <TouchableOpacity style={styles.button11}>
+          <TouchableOpacity
+          style={styles.button11}
+          onPress={() => setTreeNuts(!treeNuts)}>
             <Text style={styles.treeNuts}>Tree nuts</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button12}>
+          <TouchableOpacity
+          style={styles.button12}
+          onPress={() => setPeanuts(!peanuts)}>
             <Text style={styles.peanuts}>Peanuts</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button13}>
+          <TouchableOpacity
+          style={styles.button13}
+          onPress={() => setSoy(!soy)}>
             <Text style={styles.soybeans}>Soybeans</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.other}>Other:</Text>
-        <TextInput placeholder="" style={styles.nameInput1}></TextInput>
+        <TextInput
+        placeholder=""
+        style={styles.nameInput1}
+        onChangeText={(other) => setOther(other)}></TextInput>
         <TouchableOpacity 
-            onPress={() => props.navigation.navigate('Login Page')}
+            onPress={() => registerFunc5()}
             style={styles.button7}>
           <Text style={styles.finish}>Finish</Text>
         </TouchableOpacity>

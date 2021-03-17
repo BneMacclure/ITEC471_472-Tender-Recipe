@@ -143,6 +143,122 @@ const Navigator = props => {
                     }}
                 />
                 <Stack.Screen
+                name="Registration02"
+                component={Registration02}
+                options={{
+                    headerShown: false,
+                    title: "Registration02",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration03"
+                component={Registration03}
+                options={{
+                    headerShown: false,
+                    title: "Registration03",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration04"
+                component={Registration04}
+                options={{
+                    headerShown: false,
+                    title: "Registration04",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+            <Stack.Screen
+                name="Registration05"
+                component={Registration05}
+                options={{
+                    headerShown: false,
+                    title: "Registration05",
+                    headerStyle: {
+                        backgroundColor: '#e35514',
+                    },
+                    headerTintColor: '#f7f5f2',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    },
+                    headerRight: () => (
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 25,
+                                height: StatusBar.currentHeight,
+                            }}>
+                            <Icon name="three-bars" size={35} color={'#fff'} />
+                        </View>
+                    ),
+
+                }}
+            />
+                <Stack.Screen
                     name="MyRecipes"
                     component={MyRecipes}
                     options={{

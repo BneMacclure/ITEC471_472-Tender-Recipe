@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -11,7 +11,16 @@ import {
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-function Registration04(props) {
+
+function Registration04({navigation, route}) {
+  const [diet, setDiet] = useState("Neither");
+  const {name, email, phone, skillLevel, prefMeasurement, password} = route.params;
+
+  const registerFunc4 = () => {
+    navigation.navigate('Registration05', { name: name, email: email, phone: phone, password: password, skillLevel: skillLevel,
+    prefMeasurement: prefMeasurement, diet: diet })
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -23,17 +32,23 @@ function Registration04(props) {
         <Text style={styles.loremIpsum1}>
           Are you vegan {"\n"}or vegetarian?
         </Text>
-        <TouchableOpacity style={styles.button1}>
+        <TouchableOpacity
+        style={styles.button1}
+        onPress={() => setDiet("Vegan")}>
           <Text style={styles.vegan}>Vegan</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2}>
+        <TouchableOpacity
+        style={styles.button2}
+        onPress={() => setDiet("Vegetarian")}>
           <Text style={styles.vegetarian}>Vegetarian</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button4}>
+        <TouchableOpacity
+        style={styles.button4}
+        onPress={() => setDiet("Neither")}>
           <Text style={styles.neither}>Neither</Text>
         </TouchableOpacity>
         <TouchableOpacity 
-            onPress={() => props.navigation.navigate('Registration05')}
+            onPress={() => registerFunc4()}
             style={styles.button3}>
           <Text style={styles.next1}>Next</Text>
         </TouchableOpacity>

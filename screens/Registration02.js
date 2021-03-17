@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -12,7 +12,16 @@ import {
 import styles from '../styles/RegisterScreenStyles.js';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-function Registration02(props) {
+
+
+function Registration02({navigation, route}) {
+  const [skill, setSkill] = useState("Beginner");
+  const {name, email, phone, password} = route.params;
+
+  const registerFunc2 = () => {
+    navigation.navigate('Registration03', { name: name, email: email, phone: phone, password: password, skillLevel: skill })
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -22,17 +31,23 @@ function Registration02(props) {
         imageStyle={styles.backImg_imageStyle}
       >
         <Text style={styles.loremIpsum1}>What is your skill level?</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+        style={styles.button}
+        onPress={() => setSkill("Beginner")}>
           <Text style={styles.beginner}>Beginner</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2}>
+        <TouchableOpacity
+        style={styles.button2}
+        onPress={() => setSkill("Intermediate")}>
           <Text style={styles.intermediate}>Intermediate</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button3}>
+        <TouchableOpacity
+        style={styles.button3}
+        onPress={() => setSkill("Advanced")}>
           <Text style={styles.advanced}>Advanced</Text>
         </TouchableOpacity>
         <TouchableOpacity
-            onPress={() => props.navigation.navigate('Registration03')}
+            onPress={() => registerFunc2()}
             style={styles.button4}>
           <Text style={styles.next1}>Next</Text>
         </TouchableOpacity>

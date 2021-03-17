@@ -31,11 +31,15 @@ function Profile({navigation}) {
 
     var currentUserID = firebaseApp.auth().currentUser.uid;
     db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
-      data = snapshot.val()
-      setName(data.name)
-      setSkillPickerValue(data.skillLevel)
-      setMeasurement(data.prefMeasurement)
-      setAllergies(data.allergies)
+		snapshot.forEach(function(childSnapshot) {
+			data = childSnapshot.val()
+			console.log(data)
+			setName(data.name)
+			setLevel(data.skillLevel)
+			setMeasurement(data.prefMeasurement)
+			//setAllergies(data.allergies)
+		})
+
     });
     setEmail(firebaseApp.auth().currentUser.email);
   }

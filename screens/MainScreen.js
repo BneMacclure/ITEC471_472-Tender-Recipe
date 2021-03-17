@@ -315,7 +315,8 @@ export default class MainScreenInfo extends React.Component {
 
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
-                            source={{uri: item.uri}} />
+                            source={{uri: item.uri}}
+                            testID = 'currentImage' />
 
                     </Animated.View>
                 )
@@ -356,7 +357,8 @@ export default class MainScreenInfo extends React.Component {
                 style={styles.background}
                 imageStyle={styles.background_imageStyle}
             >
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}
+                      testID="testLocation1">
 
                     <Modal
                         animationType = "slide"
