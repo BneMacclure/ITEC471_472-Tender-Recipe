@@ -52,26 +52,6 @@ const LoginScreen = (props) => {
       )   
     };
 
-    // Function for login. Uses firebase authentication
-    const debugLoginFunc = () => {
-        //activates the activity indicator's animation
-        startLoading();
-        // check if valid login
-        firebaseApp
-        .auth()
-        .signInWithEmailAndPassword("test@radford.edu", "password")
-        .then(() => props.navigation.navigate('Main Screen'))
-        .catch(error => Alert.alert(
-            "Login",
-            "Invalid login information",
-            [
-              { text: "OK", onPress: () => console.log("OK Pressed") }
-            ],
-            { cancelable: false }
-          )
-        )   
-      };
-
     // Function for registering an account. Uses firbase's authentication API to signup
     const registerFunc = () => {
         if(email === '' && password === '') {
@@ -160,14 +140,6 @@ const LoginScreen = (props) => {
                         style={styles.signupBtn}
                     >
                         <Text style={styles.signUp}>Sign up</Text>
-                    </TouchableOpacity>
-                    {/*DEBUG BUTTON*/}
-                    <TouchableOpacity
-                        onPress={ debugLoginFunc }
-                        //onPress={registerFunc} //insert navigation
-                        style={styles.signupBtn}
-                    >
-                        <Text style={styles.signUp}>Debug Login</Text>
                     </TouchableOpacity>
                 </View>
 
