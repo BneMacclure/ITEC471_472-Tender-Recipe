@@ -5,6 +5,7 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import { Card, Avatar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {firebaseApp, db} from '../config/DatabaseConfig';
 
 
 const timeToString = (time) => {
@@ -42,20 +43,29 @@ const MealPlannerScreen = (props) => {
 
     const loadItems = (day) => {
         setTimeout(() => {
-            for (let i = -15; i < 85; i++) {
-                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                const strTime = timeToString(time);
-                if (!items[strTime]) {
-                    items[strTime] = [];
-                    const numItems = Math.floor(Math.random() * 3 + 1);
-                    for (let j = 0; j < numItems; j++) {
-                        items[strTime].push({
-                            name: 'Item for ' + strTime + ' #' + j,
-                            height: Math.max(50, Math.floor(Math.random() * 150)),
-                        });
-                    }
-                }
-            }
+            // for (let i = -15; i < 85; i++) {
+            //     const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+            //     const strTime = timeToString(time);
+            //     if (!items[strTime]) {
+            //         items[strTime] = [];
+            //         const numItems = Math.floor(Math.random() * 3 + 1);
+            //         for (let j = 0; j < numItems; j++) {
+            //             items[strTime].push({
+            //                 name: 'Item for ' + strTime + ' #' + j,
+            //                 height: Math.max(50, Math.floor(Math.random() * 150)),
+            //             });
+            //         }
+            //     }
+            // }
+            // Get current user
+            var currentUserID = ''
+            firebaseApp.auth().onAuthStateChanged((user) => {
+            var currentUserID = firebaseApp.auth().currentUser.uid;
+            })
+
+
+
+
             const newItems = {};
             Object.keys(items).forEach((key) => {
                 newItems[key] = items[key];
@@ -63,6 +73,7 @@ const MealPlannerScreen = (props) => {
             setItems(newItems);
         }, 1000);
     };
+
     const renderItem = (item) => {
         return (
             <Swipeable renderRightActions={rightActions}>
@@ -148,24 +159,3 @@ const styles = StyleSheet.create({
 });
 
 export default MealPlannerScreen;
-
-/*
-export default class MealPlannerScreen extends React.Component {
-
-    render() {
-        return (
-            <View style={{ flex: 1 }}>
-                <CalendarList>
-                    pastScrollRange={1}
-                    futureScrollRange={1}
-                    scrollEnabled={true}
-                    showScrollIndicator={true}
-                </CalendarList>
-                <Agenda>
-
-                </Agenda>
-            </View>
-           );
-    }
-}
-*/

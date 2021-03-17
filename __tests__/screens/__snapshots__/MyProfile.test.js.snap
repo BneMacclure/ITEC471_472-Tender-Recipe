@@ -1,0 +1,442 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyProfile /> MyProfile snapshot test 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView>
+    <View>
+      <View
+        accessibilityIgnoresInvertColors={true}
+        style={
+          Object {
+            "height": 289,
+            "width": 750,
+          }
+        }
+      >
+        <Image
+          resizeMode="stretch"
+          source={1}
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "height": 289,
+                "width": 750,
+              },
+              Object {},
+            ]
+          }
+        />
+        <View
+          style={
+            Object {
+              "height": 117,
+              "marginLeft": 122,
+              "marginTop": 86,
+              "width": 750,
+            }
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight={116}
+            bbWidth={116}
+            focusable={false}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "height": 116,
+                  "left": "5%",
+                  "top": "5%",
+                  "width": 116,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 116,
+                  "width": 116,
+                },
+              ]
+            }
+            vbHeight={104}
+            vbWidth={116}
+          >
+            <RNSVGGroup>
+              <RNSVGEllipse
+                cx={58}
+                cy={52}
+                fill={4293322470}
+                propList={
+                  Array [
+                    "fill",
+                    "stroke",
+                    "strokeWidth",
+                  ]
+                }
+                rx={58}
+                ry={58}
+                stroke={4293322470}
+                strokeWidth={0}
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+          <Text />
+        </View>
+        <Text
+          style={
+            Object {
+              "color": "#121212",
+              "fontSize": 40,
+              "marginLeft": 187.5,
+              "marginTop": 10,
+            }
+          }
+        >
+          
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "height": 114,
+            "width": 750,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "#E6E6E6",
+              "height": 46,
+              "left": 0,
+              "position": "absolute",
+              "top": 0,
+              "width": 750,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#121212",
+                "fontSize": 20,
+                "marginLeft": 19,
+                "marginTop": 11,
+              }
+            }
+          >
+            Email: 
+            
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(218,218,218,1)",
+              "height": 70,
+              "left": 0,
+              "position": "absolute",
+              "top": 44,
+              "width": 750,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#121212",
+                "fontSize": 20,
+                "marginLeft": 19,
+                "marginTop": 9,
+              }
+            }
+          >
+            Skill Level: 
+            
+          </Text>
+          <View
+            style={
+              Object {
+                "bottom": 5,
+                "left": 10,
+              }
+            }
+          >
+            <RCTPicker
+              items={
+                Array [
+                  Object {
+                    "label": "Select a Skill Level",
+                    "textColor": undefined,
+                    "value": "0",
+                  },
+                  Object {
+                    "label": "Beginner",
+                    "textColor": undefined,
+                    "value": "1",
+                  },
+                  Object {
+                    "label": "Intermediate",
+                    "textColor": undefined,
+                    "value": "2",
+                  },
+                  Object {
+                    "label": "Advanced",
+                    "textColor": undefined,
+                    "value": "3",
+                  },
+                ]
+              }
+              onChange={[Function]}
+              selectedIndex={0}
+              style={
+                Array [
+                  Object {
+                    "height": 216,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#E6E6E6",
+            "height": 100,
+            "marginLeft": 0,
+            "marginTop": 0,
+            "width": 750,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "height": 24,
+              "marginLeft": 16,
+              "marginRight": 24,
+              "marginTop": 14,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#121212",
+                "fontSize": 20,
+              }
+            }
+          >
+            Preferred Measurements:
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "bottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "Metric",
+                  "textColor": undefined,
+                  "value": "0",
+                },
+                Object {
+                  "label": "Imperial",
+                  "textColor": undefined,
+                  "value": "1",
+                },
+              ]
+            }
+            onChange={[Function]}
+            selectedIndex={0}
+            style={
+              Array [
+                Object {
+                  "height": 216,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgba(218,218,218,1)",
+            "height": 68,
+            "width": 750,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#121212",
+              "fontSize": 20,
+              "marginLeft": 17,
+              "marginTop": 10,
+            }
+          }
+        >
+          Allergies
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#121212",
+              "fontSize": 16,
+              "marginLeft": 17,
+              "marginTop": 6,
+            }
+          }
+        >
+          
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#E6E6E6",
+            "borderRadius": 10,
+            "height": 37,
+            "justifyContent": "center",
+            "marginLeft": "30%",
+            "marginTop": 10,
+            "opacity": 1,
+            "width": 155,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "#121212",
+            }
+          }
+        >
+          My recipes
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "height": 36,
+            "marginLeft": 17,
+            "marginRight": 15,
+            "marginTop": 10,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={false}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(164,164,164,1)",
+              "borderRadius": 10,
+              "height": 36,
+              "justifyContent": "center",
+              "left": -5,
+              "opacity": 1,
+              "width": "50%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#121212",
+              }
+            }
+          >
+            Change Password?
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={false}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(230,0,0,1)",
+              "borderRadius": 10,
+              "height": 36,
+              "justifyContent": "center",
+              "left": 5,
+              "opacity": 1,
+              "width": "50%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#121212",
+              }
+            }
+          >
+            Delete Account
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
