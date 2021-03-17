@@ -42,6 +42,7 @@ const MealPlannerScreen = (props) => {
     };
 
     const loadItems = (day) => {
+        console.log("loading items......")
         setTimeout(() => {
             // for (let i = -15; i < 85; i++) {
             //     const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -57,24 +58,40 @@ const MealPlannerScreen = (props) => {
             //         }
             //     }
             // }
+
             // Get current user
             var currentUserID = ''
             firebaseApp.auth().onAuthStateChanged((user) => {
-            var currentUserID = firebaseApp.auth().currentUser.uid;
+            currentUserID = firebaseApp.auth().currentUser.uid;
             })
 
+            var loading = {}
 
+            db.ref('/userAgendas/'+currentUserID).on('value', (snapshot) =>{
+                snapshot.forEach((childSnapshot) => {
+                    childSnapshot.forEach((snap) => {
+                        var data = snap.val()
+                        if(!items[data.dateTime]) {
+                            loading[data.dateTime] = [{"name": data.recName, "src": data.downloadURL}]
+                        }
+                    })
+                })
+            })
 
+            console.log(loading)
 
-            const newItems = {};
-            Object.keys(items).forEach((key) => {
-                newItems[key] = items[key];
-            });
-            setItems(newItems);
+            // const newItems = {};
+            // Object.keys(items).forEach((key) => {
+            //     newItems[key] = items[key];
+            // });
+            setItems(loading);
         }, 1000);
+        
     };
 
     const renderItem = (item) => {
+        console.log("item")
+        console.log(item)
         return (
             <Swipeable renderRightActions={rightActions}>
                 <TouchableOpacity style={{ marginTop: 15 }}>
@@ -87,7 +104,7 @@ const MealPlannerScreen = (props) => {
                                     alignItems: 'center',
                                 }}>
                                 <Text>{item.name}</Text>
-                                <Avatar.Image size={80} source={require('../assets/images/waffles.jpg')} />
+                                <Avatar.Image size={80} source={{uri: item.src}} />
                             </View>
                         </Card.Content>
                     </Card>
