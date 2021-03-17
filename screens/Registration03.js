@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { 
   StyleSheet, 
   View, 
@@ -11,7 +11,16 @@ import {
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-function Registration03(props) {
+
+function Registration03({navigation, route}) {
+  const [measurement, setMeasurement] = useState("Imperial");
+  const {name, email, phone, skillLevel, password} = route.params;
+
+  const registerFunc3 = () => {
+    navigation.navigate('Registration04', { name: name, email: email, phone: phone, password: password, skillLevel: skillLevel, prefMeasurement: measurement })
+  }
+
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -24,15 +33,19 @@ function Registration03(props) {
           What is your preferred {"\n"} measurement units?
         </Text>
         <View style={styles.rectRow}>
-          <TouchableOpacity style={styles.rect}>
+          <TouchableOpacity
+          style={styles.rect}
+          onPress={() => setMeasurement("Metric")}>
             <Text style={styles.metric}>Metric</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.rect1}>
+          <TouchableOpacity
+          style={styles.rect1}
+          onPress={() => setMeasurement("Imperial")}>
             <Text style={styles.imperial}>Imperial</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity 
-          onPress={() => props.navigation.navigate('Registration04')}
+          onPress={() => registerFunc3()}
           style={styles.rect2}>
           <Text style={styles.next}>Next</Text>
         </TouchableOpacity>
