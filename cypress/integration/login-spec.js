@@ -35,7 +35,7 @@ describe('Login Page', () => {
 
     // Test valid login attempt (test@radford.edu)
     it('succesffuly logs in as test@radford.edu', () => {
-        // Type in the email, but not the password
+        // Type in the email and the password
         cy.get('[data-testid="emailInput"]').type('test@radford.edu')
         cy.get('[data-testid="passwordInput"]').type('password')
         cy.get('[data-testid="loginButton"]').click()
@@ -46,7 +46,7 @@ describe('Login Page', () => {
 
     // Test valid login attempt (bmcclure3@radford.edu)
     it('succesffuly logs in as bmcclure3@radford.edu', () => {
-        // Type in the email, but not the password
+        // Type in the email and the password
         cy.get('[data-testid="emailInput"]').type('bmcclure3@radford.edu')
         cy.get('[data-testid="passwordInput"]').type('password')
         cy.get('[data-testid="loginButton"]').click()

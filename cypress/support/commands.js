@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('swipeLeft', () => {
+    cy.get('[data-testid="currentImage"')
+    .find('img')
+    .trigger('mousedown', { position: 'right', which: 1 })
+    .trigger('mousemove', { position: 'left'})
+    .trigger('mouseup', { force: true, position: 'left' })
+})
+
+Cypress.Commands.add('testLogin', () => {
+    cy.get('[data-testid="emailInput"]').type('test@radford.edu')
+    cy.get('[data-testid="passwordInput"]').type('password')
+    cy.get('[data-testid="loginButton"]').click()
+})
