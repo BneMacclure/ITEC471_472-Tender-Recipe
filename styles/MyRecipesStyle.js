@@ -65,4 +65,19 @@ export default StyleSheet.create({
       marginTop: 84,
       marginLeft: 8
     },
+    addButton: {
+        width: 30,
+        height: 30,
+        marginLeft: '80%',
+        bottom: 73
+    },
+
+    addIcon: {
+        color: "rgba(0,0,0,1)",
+        fontSize: 38,
+        height: 40,
+        width: 41,
+        marginLeft: 1,
+        marginTop: 2
+    },
   });
