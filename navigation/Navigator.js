@@ -13,7 +13,12 @@ import {    StackNavigator,} from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'
+import Registration02 from '../screens/Registration02';
+import Registration03 from '../screens/Registration03';
+import Registration04 from '../screens/Registration04';
+import Registration05 from '../screens/Registration05';
 import MealPlannerScreen from '../screens/MealPlannerScreen'
+import { NavigationContainer } from '@react-navigation/native';
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -30,172 +35,175 @@ const MenuIcon = () => <Icon
 const Navigator = props => {
 
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Login Page"
-                component={LoginPage}
-                options={{
-                    title: "Welcome!",
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                }}
-            />
-            <Stack.Screen
-                name="Main Screen"
-                component={MainScreen}
-                options={({ navigation }) => ({
-                    title: "Main Page",
-                    headerLeft: null,
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                    headerRight: () => (
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                paddingHorizontal: 25,
-                                height: StatusBar.currentHeight,
-                            }}>
-                            <Icon
-                                name="three-bars"
-                                size={35}
-                                color={'#fff'}
-                                onPress={() => { navigation.navigate('MyProfile') }}
-                            />
-                        </View>
-                    ),
+        <NavigationContainer independent={true}>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Login Page"
+                    component={LoginPage}
+                    options={{
+                        title: "Welcome!",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                    }}
+                />
+                <Stack.Screen
+                    name="Main Screen"
+                    component={MainScreen}
+                    options={({ navigation }) => ({
+                        title: "Main Page",
+                        headerLeft: null,
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 25,
+                                    height: StatusBar.currentHeight,
+                                }}>
+                                <Icon
+                                    name="three-bars"
+                                    size={35}
+                                    color={'#fff'}
+                                    onPress={() => { navigation.navigate('MyProfile') }}
+                                />
+                            </View>
+                        ),
 
-                })}       
-            />
-			 <Stack.Screen
-                name="MyProfile"
-                component={MyProfile}
-                options={{
-                    title: "MyProfile",
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                    headerRight: () => (
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                paddingHorizontal: 25,
-                                height: StatusBar.currentHeight,
-                            }}>
-                            <Icon name="three-bars" size={35} color={'#fff'} />
-                        </View>
-                    ),
+                    })}       
+                />
+                <Stack.Screen
+                    name="MyProfile"
+                    component={MyProfile}
+                    options={{
+                        title: "MyProfile",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 25,
+                                    height: StatusBar.currentHeight,
+                                }}>
+                                <Icon name="three-bars" size={35} color={'#fff'} />
+                            </View>
+                        ),
 
-                }}
-            />
-            <Stack.Screen
-                name="RegisterScreen"
-                component={RegisterScreen}
-                options={{
-                    title: "RegisterScreen",
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                    headerRight: () => (
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                paddingHorizontal: 25,
-                                height: StatusBar.currentHeight,
-                            }}>
-                            <Icon name="three-bars" size={35} color={'#fff'} />
-                        </View>
-                    ),
+                    }}
+                />
+                <Stack.Screen
+                    name="RegisterScreen"
+                    component={RegisterScreen}
+                    options={{
+                        title: "RegisterScreen",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 25,
+                                    height: StatusBar.currentHeight,
+                                }}>
+                                <Icon name="three-bars" size={35} color={'#fff'} />
+                            </View>
+                        ),
 
-                }}
-            />
-			<Stack.Screen
-                name="MyRecipes"
-                component={MyRecipes}
-                options={{
-                    title: "MyRecipes",
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                    headerRight: () => (
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                paddingHorizontal: 10,
-                                height: StatusBar.currentHeight,
-                            }}>
-                            <Icon name="three-bars" size={30} color={'#fff'} />
-                        </View>
-                    ),
+                    }}
+                />
+                <Stack.Screen
+                    name="MyRecipes"
+                    component={MyRecipes}
+                    options={{
+                        title: "MyRecipes",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 10,
+                                    height: StatusBar.currentHeight,
+                                }}>
+                                <Icon name="three-bars" size={30} color={'#fff'} />
+                            </View>
+                        ),
 
-                }}
-            />
-            <Stack.Screen
-                name="CreateRecipeScreen"
-                component={CreateRecipeScreen}
-                options={{
-                    title: "Create a Recipe",
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                }}
-            />
-            <Stack.Screen
-                name="MealPlannerScreen"
-                component={MealPlannerScreen}
-                options={{
-                    title: "Meal Planner",
-                    headerStyle: {
-                        backgroundColor: '#e35514',
-                    },
-                    headerTintColor: '#f7f5f2',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 25,
-                    },
-                }}
-            />
+                    }}
+                />
+                <Stack.Screen
+                    name="CreateRecipeScreen"
+                    component={CreateRecipeScreen}
+                    options={{
+                        title: "Create a Recipe",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                    }}
+                />
+                <Stack.Screen
+                    name="MealPlannerScreen"
+                    component={MealPlannerScreen}
+                    options={{
+                        title: "Meal Planner",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                    }}
+                />
 
-        </Stack.Navigator>
+            </Stack.Navigator>
+        </NavigationContainer>
+        
     );
 }
 

@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyRecipes /> MyRecipes snapshot test 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "rgba(255,255,255,1)",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": 46,
+        "width": 750,
+      }
+    }
+  >
+    <Image
+      resizeMode="stretch"
+      source={1}
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": 46,
+            "width": 750,
+          },
+          Object {},
+        ]
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "height": 22,
+          "marginLeft": 272,
+          "marginRight": 17,
+          "marginTop": 14,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "bottom": 10,
+            "marginLeft": 0,
+          }
+        }
+      >
+        <RCTPicker
+          items={
+            Array [
+              Object {
+                "label": "Filter",
+                "textColor": undefined,
+                "value": "0",
+              },
+              Object {
+                "label": "Breakfast",
+                "textColor": undefined,
+                "value": "1",
+              },
+              Object {
+                "label": "Lunch",
+                "textColor": undefined,
+                "value": "1",
+              },
+              Object {
+                "label": "Dinner",
+                "textColor": undefined,
+                "value": "1",
+              },
+            ]
+          }
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>
+  <RCTScrollView
+    data={Array []}
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;
