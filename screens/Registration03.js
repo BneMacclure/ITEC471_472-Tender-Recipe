@@ -9,97 +9,56 @@ import {
   TouchableOpacity,
  } from "react-native";
 
+import styles from '../styles/RegisterScreenStyles.js';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-function Registration03(props) {
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../assets/images/Gradient.png")}
-        resizeMode="cover"
-        style={styles.image}
-        imageStyle={styles.image_imageStyle}
-      > 
-        <Text style={styles.loremIpsum}>
-          What is your preferred {"\n"} measurement units?
-        </Text>
-        <View style={styles.rectRow}>
-          <TouchableOpacity style={styles.rect}>
-            <Text style={styles.metric}>Metric</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rect1}>
-            <Text style={styles.imperial}>Imperial</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity 
-          onPress={() => props.navigation.navigate('Registration04')}
-          style={styles.rect2}>
-          <Text style={styles.next}>Next</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    </View>
-  );
-}
+class Registration03 extends React.Component {
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  image: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT
-  },
-  image_imageStyle: {},
-  loremIpsum: {
-    color: "rgba(255,255,255,1)",
-    fontSize: 30,
-    marginTop: 56,
-    marginLeft: 37
-  },
-  rect: {
-    width: 151,
-    height: 71,
-    backgroundColor: "rgba(255,255,255,1)"
-  },
-  metric: {
-    color: "rgba(249,71,35,1)",
-    fontSize: 20,
-    marginTop: 23,
-    marginLeft: 48
-  },
-  rect1: {
-    width: 151,
-    height: 71,
-    backgroundColor: "rgba(255,255,255,1)",
-    marginLeft: 3
-  },
-  imperial: {
-    color: "rgba(249,71,35,1)",
-    fontSize: 20,
-    marginTop: 23,
-    marginLeft: 37
-  },
-  rectRow: {
-    height: 71,
-    flexDirection: "row",
-    marginTop: 243,
-    marginLeft: 36,
-    marginRight: 34
-  },
-  rect2: {
-    width: 122,
-    height: 52,
-    backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: 25,
-    marginTop: 250,
-    marginLeft: 250
-  },
-  next: {
-    color: "rgba(249,71,35,1)",
-    fontSize: 20,
-    marginTop: 14,
-    marginLeft: 40
+  constructor(props){
+    super(props);
+
+    this.state = {
+      btn1Act:false,
+      btn2Act:false
+    }
   }
-});
+
+  render(){
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../assets/images/Gradient.png")}
+          resizeMode="cover"
+          style={styles.backImg}
+          imageStyle={styles.backImg_imageStyle}
+        > 
+          <Text style={styles.reg2Header}>
+            What is your preferred {"\n"} measurement units?
+          </Text>
+          <View style={styles.rectRow}>
+            <TouchableOpacity 
+              onPress={() => this.setState({btn1Act: !this.state.btn1Act, btn2Act: false})}
+              style={this.state.btn1Act? styles.horzInpBtnActive : styles.horzInpBtnInactive}>
+              <Text style={this.state.btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Metric</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => this.setState({btn2Act: !this.state.btn2Act, btn1Act: false})}
+              style={this.state.btn2Act? styles.horzInpBtnActive : styles.horzInpBtnInactive}>
+              <Text style={this.state.btn2Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Imperial</Text>
+            </TouchableOpacity>
+          </View>
+          {/* Spacer */}
+          <View style={{marginTop:330}}></View>
+          <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate('Registration04')}
+            style={styles.nextBtn}>
+            <Text style={styles.nextBtnTxt}>Next</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
+    );
+  }
+  
+}
 
 export default Registration03;

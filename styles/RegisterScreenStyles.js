@@ -9,7 +9,7 @@ export default StyleSheet.create({
     },
     backImg: {
       width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT
+      height: SCREEN_HEIGHT,
     },
     backImg_imageStyle: {},
     registrationText: {
@@ -41,63 +41,121 @@ export default StyleSheet.create({
       color: "rgba(249,71,35,1)",
       fontSize: 24
     },
-    loremIpsum1: {
+    reg2Header: {
       color: "rgba(255,255,255,1)",
-      fontSize: 30,
-      marginTop: 56,
-      marginLeft: 37
+      fontSize: 32,
+      marginTop: Expo.Constants.statusBarHeight,
+      marginLeft: '15%'
     },
-    button: {
-      width: 151,
+    vertInpBtnInactive: {
+      width: 200,
       height: 71,
       backgroundColor: "rgba(255,255,255,1)",
-      marginTop: 157,
-      marginLeft: 112
+      marginTop: 20,
+      marginLeft: 100,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
-    beginner: {
-      color: "rgba(249,71,35,1)",
-      fontSize: 20,
-      marginTop: 23,
-      marginLeft: 40
+    vertInpBtnActive: {
+      width: 200,
+      height: 71,
+      backgroundColor: "transparent",
+      borderWidth: 4,
+      borderColor: "rgba(227,24,20,1)",
+      marginTop: 20,
+      marginLeft: 100,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
-    button2: {
-      width: 151,
+    horzInpBtnInactive: {
+      width: 200,
       height: 71,
       backgroundColor: "rgba(255,255,255,1)",
-      marginTop: 15,
-      marginLeft: 112
+      marginTop: 20,
+      marginLeft: 5,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
-    intermediate: {
-      color: "rgba(249,71,35,1)",
-      fontSize: 20,
-      marginTop: 24,
-      marginLeft: 23
-    },
-    button3: {
-      width: 151,
+    horzInpBtnActive: {
+      width: 200,
       height: 71,
-      backgroundColor: "rgba(255,255,255,1)",
-      marginTop: 13,
-      marginLeft: 112
+      backgroundColor: "transparent",
+      borderWidth: 4,
+      borderColor: "rgba(227,24,20,1)",
+      marginTop: 20,
+      marginLeft: 5,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
-    advanced: {
+    inpBtnTxtInactive: {
       color: "rgba(249,71,35,1)",
-      fontSize: 20,
-      marginTop: 24,
-      marginLeft: 31
+      fontSize: 24
     },
-    button4: {
+    inpBtnTxtActive: {
+      color: "white",
+      fontSize: 24
+    },
+    nextBtn: {
       width: 122,
       height: 52,
       backgroundColor: "rgba(255,255,255,1)",
       borderRadius: 25,
-      marginTop: 222,
-      marginLeft: 216
+      marginLeft: SCREEN_WIDTH - 150,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
-    next1: {
+    nextBtnTxt: {
       color: "rgba(249,71,35,1)",
+      fontSize: 20
+    },
+    rectRow: {
+      height: 71,
+      flexDirection: "row",
+      marginTop: 175
+    },
+    allergyBtnRow: {
+      height: 44,
+      flexDirection: "row",
+      marginTop: 10,
+      marginLeft: 25,
+      marginRight: 24
+    },
+    allergyBtnInactive: {
+      width: 105,
+      height: 44,
+      backgroundColor: "rgba(255,255,255,1)",
+      marginLeft: 10,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    allergyBtnActive: {
+      width: 105,
+      height: 44,
+      backgroundColor: "transparent",
+      marginLeft: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 4,
+      borderColor: "rgba(227,24,20,1)",
+    },
+    allergyBtnTxtInactive: {
+      color: "rgba(249,71,35,1)",
+      fontSize: 20
+    },
+    allergyBtnTxtActive: {
+      color: "white",
+      fontSize: 20
+    },
+    other: {
+      color: "rgba(255,255,255,1)",
       fontSize: 20,
-      marginTop: 14,
-      marginLeft: 40
+      marginTop: 11,
+      marginLeft: 25
+    },
+    nameInput1: {
+      color: "#121212",
+      height: 47,
+      width: 246,
+      marginLeft: 25
     }
   });
