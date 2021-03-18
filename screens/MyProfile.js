@@ -30,14 +30,14 @@ function Profile({navigation}) {
   const retrieveData = () => {
 
     var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
+    db.ref('/userInfo/'+currentUserID).once('value', (snapshot) => {
 		snapshot.forEach(function(childSnapshot) {
 			data = childSnapshot.val()
 			console.log(data)
 			setName(data.name)
 			setLevel(data.skillLevel)
 			setMeasurement(data.prefMeasurement)
-			//setAllergies(data.allergies)
+			// setAllergies(data.allergies)
 		})
 
     });
@@ -89,7 +89,7 @@ function Profile({navigation}) {
 				{/*Skill level text*/}
 				<Text style={styles.skillLevel}>Skill Level: {skillLevel}</Text>
 				{/*Skill level dropdown*/}
-				<Picker
+				{/* <Picker
 					style={styles.skillPicker}
 					onValueChange={(value) => {
 						setSkillPickerValue(value)
@@ -100,19 +100,17 @@ function Profile({navigation}) {
 					<Picker.Item label="Beginner" value="1"></Picker.Item>
 					<Picker.Item label="Intermediate" value="2"></Picker.Item>
 					<Picker.Item label="Advanced" value="3"></Picker.Item>
-				</Picker>
-			  
-			 
+				</Picker> */}
 			</View>
 		  </View>
 		  {/*Container for measurements fields*/}
 		  <View style={styles.measurementsCont}>
 			<View style={styles.preferredRow}>
 			  {/*Preferred Measurements text*/}
-			  <Text style={styles.preferred}>Preferred Measurements:</Text>
+			  <Text style={styles.preferred}>Preferred Measurements: {prefMeasurement}</Text>
 			  {/*The measurement*/}
 			</View>
-			<Picker
+			{/* <Picker
 				style={styles.measPicker}
 				onValueChange={(value) => {
 					setMeasPickerValue(value)
@@ -121,12 +119,13 @@ function Profile({navigation}) {
 				>
 				<Picker.Item label="Metric" value="0"></Picker.Item>
 				<Picker.Item label="Imperial" value="1"></Picker.Item>
-			</Picker>
+			</Picker> */}
 		  </View>
 		  {/*Container for allergies*/}
 		  <View style={styles.skillCont1}>
 			{/*Allergies*/}
 			<Text style={styles.allergies}>Allergies</Text>
+			{/* <Text style={styles.allergies}>{allergies}</Text> */}
 			{/*Preview of selected allergies*/}
 			<Text style={styles.allergiesList}>
 			  {allergies}
