@@ -9,7 +9,9 @@ export default StyleSheet.create({
     },
     image: {
       width: SCREEN_WIDTH,
-      height: 289
+      height: 289,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     image_imageStyle: {},
     ellipse: {
@@ -20,24 +22,26 @@ export default StyleSheet.create({
     },
     icon: {
       top: '1%',
-      left: '6%',
+      // left: '6%',
       position: "absolute",
       color: "rgba(128,128,128,1)",
       fontSize: 107,
       height: 117,
-      width: SCREEN_WIDTH
+      width: 100
     },
     ellipseStack: {
-      width: SCREEN_WIDTH,
+      width: 116,
       height: 117,
-      marginTop: 86,
-      marginLeft: 122
+      alignItems: 'center',
+      justifyContent: 'center',
+      // marginTop: 86,
+      // marginLeft: 122
     },
     johnDoe: {
       color: "#121212",
       fontSize: 40,
       marginTop: 10,
-      marginLeft: (SCREEN_WIDTH / 4)
+      // marginLeft: (SCREEN_WIDTH / 4)
     },
     emailCont: {
       top: 0,
@@ -58,13 +62,14 @@ export default StyleSheet.create({
       height: 70,
       position: "absolute",
       backgroundColor: "rgba(218,218,218,1)",
+      justifyContent: 'center',
       top: 44,
       left: 0
     },
     skillLevel: {
       color: "#121212",
       fontSize: 20,
-      marginTop: 9,
+      // marginTop: 9,
       marginLeft: 19
     },
     skillPicker: {
@@ -115,7 +120,7 @@ export default StyleSheet.create({
     },
     measurementsCont: {
       width: SCREEN_WIDTH,
-      height: 100,
+      height: 50,
       backgroundColor: "#E6E6E6",
       marginTop: 0,
       marginLeft: 0
