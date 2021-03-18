@@ -46,6 +46,7 @@ function Registration04({navigation, route}) {
         </Text>
         {/* Spacer */}
         <View style={{marginTop:100}}></View>
+		testID='vegan'
         <TouchableOpacity 
           onPress={() => {
             setBtns(1)
@@ -54,7 +55,8 @@ function Registration04({navigation, route}) {
           style={btn1Act? styles.vertInpBtnActive : styles.vertInpBtnInactive}>
           <Text style={btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Vegan</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
+			testID='veg'
           onPress={() => {
             setBtns(2)
             setDiet("Vegetarian")
@@ -63,6 +65,7 @@ function Registration04({navigation, route}) {
           <Text style={btn2Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Vegetarian</Text>
         </TouchableOpacity>
         <TouchableOpacity 
+			TestID='pesc'
           onPress={() => {
             setBtns(3)
             setDiet("Pescatarian")
@@ -71,6 +74,7 @@ function Registration04({navigation, route}) {
           <Text style={btn3Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Pescatarian</Text>
         </TouchableOpacity>
         <TouchableOpacity 
+		  testID='none'
           onPress={() => {
             setBtns(4)
             setDiet("None")
@@ -81,6 +85,7 @@ function Registration04({navigation, route}) {
         {/* Spacer */}
         <View style={{marginTop:150}}></View>
         <TouchableOpacity 
+			TestID='nextBn4'
             onPress={() => registerFunc4()}
             style={styles.nextBtn}>
           <Text style={styles.nextBtnTxt}>Next</Text>

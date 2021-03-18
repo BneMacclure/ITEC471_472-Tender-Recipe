@@ -42,6 +42,7 @@ function Registration02({navigation, route}) {
         {/* Spacer */}
         <View style={{marginTop:100}}></View>
         <TouchableOpacity 
+			testID='beginner'
           onPress={() => {
             setBtns(1)
             setSkill("Beginner")
@@ -50,14 +51,16 @@ function Registration02({navigation, route}) {
           <Text style={btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Beginner</Text>
         </TouchableOpacity>
         <TouchableOpacity 
+		testID='intermediate'
           onPress={() => {
             setBtns(2)
-            setSkill("Intermediate")
+            setSkill("intermediate")
           }}
           style={btn2Act? styles.vertInpBtnActive : styles.vertInpBtnInactive}>
           <Text style={btn2Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Intermediate</Text>
         </TouchableOpacity>
         <TouchableOpacity 
+			testID='advanced'
           onPress={() => {
             setBtns(3)
             setSkill("Advanced")
@@ -68,6 +71,7 @@ function Registration02({navigation, route}) {
         {/* Spacer */}
         <View style={{marginTop:200}}></View>
         <TouchableOpacity
+			TestID='nextBn1'
             onPress={() => registerFunc2()}
             style={styles.nextBtn}>
           <Text style={styles.nextBtnTxt}>Next</Text>

@@ -41,6 +41,7 @@ function Registration03({navigation, route}) {
         </Text>
         <View style={styles.rectRow}>
           <TouchableOpacity 
+			TestID='metric'
             onPress={() =>{
               setBtns(1)
               setMeasurement("Metric")
@@ -49,6 +50,7 @@ function Registration03({navigation, route}) {
             <Text style={btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Metric</Text>
           </TouchableOpacity>
           <TouchableOpacity 
+		    TestID='imperial'
             onPress={() => {
               setBtns(2)
               setMeasurement("Imperial")
@@ -60,6 +62,7 @@ function Registration03({navigation, route}) {
         {/* Spacer */}
         <View style={{marginTop:330}}></View>
         <TouchableOpacity 
+		   TestID='nextBn2'
           onPress={() => registerFunc3()}
           style={styles.nextBtn}>
           <Text style={styles.nextBtnTxt}>Next</Text>
