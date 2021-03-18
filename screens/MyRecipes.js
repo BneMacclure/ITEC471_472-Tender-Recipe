@@ -4,6 +4,7 @@ import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import styles from '../styles/MyRecipesStyle.js';
+import { data } from "cypress/types/jquery";
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -13,7 +14,8 @@ export default class MyRecipes extends Component {
     super(props)
 
     this.state = {
-      rec_data: []
+      rec_data: [],
+      currentUserID = firebaseApp.auth().currentUser.uid
     }
   }
 
@@ -32,17 +34,41 @@ export default class MyRecipes extends Component {
   //   });
   // };
 
+
+
+  
+
+  shareRecipe(key) {
+    console.log(key);
+    db.ref('/savedRecipes/'+currentUserID).child(key).on('value', (snapshot) => {
+      db.ref('/userInfo/'+currentUserID).child().on('value', (userSnapshot) => {
+        userSnapshot.forEach(childSnapshot) {
+          userData = childSnapshot.val();
+          recipeData = snapshot.val();
+          var templateParams = {
+            from_name: userData.name,
+            to_name: "Insert name here", // replace with name variable from field
+            to_email: "Insert email here", // replace with email variable from field
+            recipe_name: recipeData.name,
+            recipe_ingredients: recipeData.ingredients,
+            recipe_instructions: recipeData.instructions
+          }
+          emailjs.send('service_z7eytox', 'template_4zzkqrh', templateParams);e
+        }
+
+      })
+
+    })
+  }
+
   // removes a recipe from the MyRecipes list
   unsaveRecipe(key) {
-    var currentUserID = firebaseApp.auth().currentUser.uid;
     console.log(key);
     db.ref('/savedRecipes/'+currentUserID).child(key).remove();
     console.log(key);
   };
   
   componentDidMount() {
-    var currentUserID = currentUserID = firebaseApp.auth().currentUser.uid;
-
     console.log(currentUserID)
     
     db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
