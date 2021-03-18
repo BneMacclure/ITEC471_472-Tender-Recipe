@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, ImageBackground, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card, Avatar } from 'react-native-paper';
@@ -15,6 +15,12 @@ const timeToString = (time) => {
 
 const MealPlannerScreen = (props) => {
     const [items, setItems] = useState({});
+    const [uid, setUid] = useState('')
+    const [itemKey, setItemKey] = useState("")
+
+    const deleteFromAgenda = () => {
+
+    }
 
 
     const rightActions = (progress, dragX) => {
@@ -24,17 +30,9 @@ const MealPlannerScreen = (props) => {
         })
         return (
             <>
-                <TouchableOpacity onPress={() => alert('Delete button pressed')}>
+                <TouchableOpacity onPress={() => deleteItemPrompt(itemKey)}>
                     <View style={{ flex: 1, backgroundColor: 'orange', justifyContent: 'center', marginTop: 15, borderRadius: 3, }}>
-                        <Animated.Text
-                            style={{
-                                color: 'white',
-                                paddingHorizontal: 10,
-                                fontWeight: '600',
-                                transform: [{ scale }],
-                            }}>
-                            Delete
-                        </Animated.Text>
+                        <Icon name="trash" style={styles.trashIcon}></Icon>
                     </View>
                 </TouchableOpacity>
             </>
@@ -42,41 +40,65 @@ const MealPlannerScreen = (props) => {
     };
 
     const loadItems = (day) => {
+        console.log("loading items......")
         setTimeout(() => {
-            // for (let i = -15; i < 85; i++) {
-            //     const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-            //     const strTime = timeToString(time);
-            //     if (!items[strTime]) {
-            //         items[strTime] = [];
-            //         const numItems = Math.floor(Math.random() * 3 + 1);
-            //         for (let j = 0; j < numItems; j++) {
-            //             items[strTime].push({
-            //                 name: 'Item for ' + strTime + ' #' + j,
-            //                 height: Math.max(50, Math.floor(Math.random() * 150)),
-            //             });
-            //         }
-            //     }
-            // }
             // Get current user
-            var currentUserID = ''
-            firebaseApp.auth().onAuthStateChanged((user) => {
             var currentUserID = firebaseApp.auth().currentUser.uid;
+
+            setUid(currentUserID)
+
+            var loading = {}
+
+            db.ref('/userAgendas/'+currentUserID).on('value', (snapshot) =>{
+                snapshot.forEach((childSnapshot) => {
+                    var data = childSnapshot.val()
+                    console.log(data)
+                    if(!items[data.dateTime]) {
+                        loading[data.dateTime] = [{"name": data.recName, "src": data.downloadURL, "date": data.dateTime, "key": childSnapshot.key}]
+                    }
+                })
             })
 
+            console.log('Finished loading')
+            console.log(loading)
+            
+           
 
 
-
-            const newItems = {};
-            Object.keys(items).forEach((key) => {
-                newItems[key] = items[key];
-            });
-            setItems(newItems);
+            setItems(loading);
         }, 1000);
+        
     };
 
+    const deleteItemPrompt = (itemKey) => {
+        Alert.alert(
+            "Delete Item",
+            "Are you sure you wish to delete this item from your agenda?",
+            [
+              {
+                text: "NO",
+                onPress: () => console.log("NO Pressed"),
+                style: "cancel"
+              },
+              { text: "YES", onPress: () => deleteItem(itemKey) },
+            ],
+            {cancellable: false}
+          );
+    }
+
+    const deleteItem = (itemKey) => {
+        db.ref('/userAgendas/'+uid+"/"+itemKey).set(null).then(() => {
+            console.log('removed successfully'+itemKey)
+            loadItems('')
+        })
+    }
+
     const renderItem = (item) => {
+        // console.log("item")
+        // console.log(item)
         return (
-            <Swipeable renderRightActions={rightActions}>
+            //onSwipeableRightOpen={() => deleteItemPrompt(item.key)}>
+            <Swipeable renderRightActions={rightActions} onSwipeableRightOpen={setItemKey(item.key)}>
                 <TouchableOpacity style={{ marginTop: 15 }}>
                     <Card>
                         <Card.Content>
@@ -87,7 +109,7 @@ const MealPlannerScreen = (props) => {
                                     alignItems: 'center',
                                 }}>
                                 <Text>{item.name}</Text>
-                                <Avatar.Image size={80} source={require('../assets/images/waffles.jpg')} />
+                                <Avatar.Image size={80} source={{uri: item.src}} />
                             </View>
                         </Card.Content>
                     </Card>
@@ -155,6 +177,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.7, // IOS
         shadowRadius: 2, //IOS
         elevation: 20,
+    },
+    trashIcon: {
+        //color: "rgba(80,207,12,1)",
+        color: "rgba(255,255,255,1)",
+        fontSize: 40,
+        paddingHorizontal: 10,
+        alignSelf: "center"
     },
 });
 

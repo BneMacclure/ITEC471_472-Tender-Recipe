@@ -5,26 +5,32 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "test": "jest --collectCoverage --expand --colors --verbose",
+    "test": "node_modules/.bin/jest --collectCoverage --expand --colors --verbose",
+    "updateSnaps": "jest --updateSnapshot",
     "cypress:open": "cypress open"
   },
   "dependencies": {
     "@expo-google-fonts/big-shoulders-display": "^0.1.0",
     "@expo/vector-icons": "^12.0.3",
+<<<<<<< HEAD
+=======
+    "@expo/webpack-config": "^0.12.61",
+>>>>>>> a646547ba375468c9dd784b5536c9144ec114635
     "@react-native-community/datetimepicker": "3.0.4",
     "@react-navigation/native": "^5.9.2",
     "@react-navigation/stack": "^5.14.2",
     "cypress": "^6.6.0",
     "emailjs-com": "^2.6.4",
     "expo": "^40.0.1",
+    "expo-constants": "^10.0.1",
     "expo-font": "~8.4.0",
     "expo-image-picker": "~9.2.0",
     "expo-status-bar": "~1.0.3",
     "expo-updates": "~0.4.0",
-    "firebase": "^8.2.6",
+    "firebase": "^8.3.0",
     "mocha": "^8.3.2",
     "native-forms": "^1.4.9",
-    "react": "16.13.1",
+    "react": "^17.0.1",
     "react-dom": "^16.13.1",
     "react-easy-swipe": "^0.0.21",
     "react-native": "~0.63.4",
@@ -36,6 +42,7 @@
     "react-native-gesture-handler": "~1.8.0",
     "react-native-image-picker": "^3.1.4",
     "react-native-modal": "^11.7.0",
+    "react-native-modal-datetime-picker": "^9.2.0",
     "react-native-paper": "^4.7.2",
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.2",
@@ -45,7 +52,12 @@
     "react-native-unimodules": "~0.12.0",
     "react-native-uuid": "^1.4.9",
     "react-native-web": "^0.15.0",
+<<<<<<< HEAD
     "react-navigation": "^4.4.3"
+=======
+    "react-navigation": "^4.4.3",
+    "sentry-expo": "^3.0.5"
+>>>>>>> a646547ba375468c9dd784b5536c9144ec114635
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

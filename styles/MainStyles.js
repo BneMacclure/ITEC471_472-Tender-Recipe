@@ -30,9 +30,9 @@ export default StyleSheet.create({
     icon: {
         //color: "rgba(80,220,232,1)",
         color: "rgba(255,255,255,1)",
-        fontSize: 40,
-        marginTop: 8,
-        marginLeft: 12
+        fontSize: 45,
+        marginTop: 6,
+        alignSelf: "center"
     },
     recipe_button: {
         width: 64,
@@ -40,14 +40,29 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: 43
+        marginLeft: '12%'
+    },
+    calendar_button: {
+        width: 64,
+        height: 60,
+        //backgroundColor: "#E6E6E6",
+        backgroundColor: "#f94723",
+        borderRadius: 100,
+        marginLeft: '12%',
     },
     icon4: {
         //color: "rgba(80,207,12,1)",
         color: "rgba(255,255,255,1)",
+        fontSize: 43,
+        marginTop: 8,
+        alignSelf: "center"
+    },
+    calendarIcon: {
+        //color: "rgba(80,207,12,1)",
+        color: "rgba(255,255,255,1)",
         fontSize: 40,
         marginTop: 10,
-        marginLeft: 15
+        alignSelf: "center"
     },
     like_button: {
         width: 64,
@@ -56,13 +71,14 @@ export default StyleSheet.create({
         backgroundColor: "#f94723",
         borderRadius: 100,
         justifyContent: "center",
-        marginLeft: 39
+        marginLeft: '12%'
     },
     icon2: {
         //color: "rgba(244,57,8,1)",
         color: "rgba(255,255,255,1)",
-        fontSize: 40,
-        alignSelf: "center"
+        fontSize: 45,
+        alignSelf: "center",
+        justifyContent: "center"
     },
 
     background: {

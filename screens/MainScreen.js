@@ -59,6 +59,8 @@ export default class MainScreenInfo extends React.Component {
             activeSections: [],
             collapsed: true,
             multipleSelect: false,
+            curentRecipeName: "",
+            CONTENT: [],
         }
 
         this.rotate = this.position.x.interpolate({
@@ -113,6 +115,15 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
+    //triggers dislike animation
+
+    skipRecipe() {
+        const k = this.state.recipes[this.state.currentIndex].key
+        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+            this.position.setValue({ x: 0, y: 0 })
+        })
+    }
+
 
     // Given a key, saved the recipe under the user's UID in Firebase
     saveRecipe(key) {
@@ -128,8 +139,9 @@ export default class MainScreenInfo extends React.Component {
 
     // Given a key, give the recipe to view for the user
     viewRecipe(key) {
-        var name, ingredients, instructions, nuts, gluten, shellfish, dairy, fish, eggs, soy;
+        var name, allergens, ingredients, instructions, nuts, gluten, shellfish, dairy, fish, eggs, soy;
         var recipeObj;
+        var newContent;
         // Get the recipe
         db.ref('/recipes/'+key).on('value', (snapshot) =>{
             recipeObj = snapshot.val();
@@ -148,19 +160,34 @@ export default class MainScreenInfo extends React.Component {
         // Consolidate the allergens before the Alert
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
         // Show info to user
-        Alert.alert(
-            name,
-            "Ingredients:\n"
-            +ingredients
-            +"\nInstructions:\n"
-            +instructions+"\n"
-            +"Allergens:\n"
-            +allergens,
-            [
-                {text: "OK", onPress: () => console.log("View recipe OK pressed") }
-            ],
-            { cancelable: false }
-        )
+
+        newContent = []
+        newContent.push({
+            title: 'Allergens',
+            content: allergens,
+        })
+        newContent.push({
+            title: 'Ingredients',
+            content: ingredients,
+        })
+        newContent.push({
+            title: 'Instructions',
+            content: instructions,
+        })
+        this.setState({ CONTENT : newContent })
+        
+    }
+
+    getRecipeTitle(key){
+        const k = this.state.recipes[this.state.currentIndex].key
+        var name;
+        var recipeObj;
+        // Get the recipe
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
+            recipeObj = snapshot.val();
+        });
+        name = recipeObj.name;
+        this.setState({ curentRecipeName: name });
     }
 
     componentDidMount() {
@@ -234,7 +261,9 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
+                        this.getRecipeTitle(k)
                         this.viewRecipe(k)
+                        this.displayRecipeModal(true)
                         this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
@@ -371,9 +400,6 @@ export default class MainScreenInfo extends React.Component {
                             Alert.alert('Modal has now been closed.');
                         }}>
 
-
-
-
                         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                             <View style={{
                                 width: '100%',
@@ -383,12 +409,12 @@ export default class MainScreenInfo extends React.Component {
                                 borderStyle: "dashed",
                                 borderRadius: 1
                             }}>
-                        <ScrollView style={styles.svContentContainer}>
-                            <Text style={styles.title}>Berry Tart</Text>
+                                <ScrollView style={styles.svContentContainer}>
+                                    <Text style={styles.title}>{this.state.curentRecipeName}</Text>
 
                             <Accordion
                                 activeSections={activeSections}
-                                sections={CONTENT}
+                                sections={this.state.CONTENT}
                                 touchableComponent={TouchableOpacity}
                                 expandMultiple={multipleSelect}
                                 renderHeader={this.renderHeader}
@@ -422,7 +448,7 @@ export default class MainScreenInfo extends React.Component {
                     </View>
                     <View style={styles.skip_buttonRow}>
                         <TouchableOpacity
-                            onPress={() => this.displayRecipeModal(true)} //here to test the modal
+                            onPress={() => this.skipRecipe()}
                             style={styles.skip_button}
                         >
                             <MaterialCommunityIconsIcon
@@ -437,8 +463,13 @@ export default class MainScreenInfo extends React.Component {
                             <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            //onPress={() => this.likeRecipe()}
                             onPress={() => this.props.navigation.navigate('MealPlannerScreen')}
+                            style={styles.calendar_button}
+                        >
+                            <FontAwesomeIcon name="calendar" style={styles.calendarIcon}></FontAwesomeIcon>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.likeRecipe()}
                             style={styles.like_button}
                         >
                             <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>

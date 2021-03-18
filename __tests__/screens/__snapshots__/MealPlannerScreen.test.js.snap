@@ -123,9 +123,9 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                 "Nov 2020",
                 "Dec 2020",
                 "Jan 2021",
-                "2021-02-16T00:00:00.000Z",
-                "2021-03-16T00:00:00.000Z",
-                "2021-04-16T00:00:00.000Z",
+                "2021-02-18T00:00:00.000Z",
+                "2021-03-18T00:00:00.000Z",
+                "2021-04-18T00:00:00.000Z",
                 "May 2021",
                 "Jun 2021",
                 "Jul 2021",
@@ -279,7 +279,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                       accessibilityRole="adjustable"
                       accessible={true}
                       onAccessibilityAction={[Function]}
-                      testID="undefined_1615852800000"
+                      testID="undefined_1616025600000"
                     >
                       <View
                         style={
@@ -312,7 +312,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                                 "margin": 10,
                               }
                             }
-                            testID="HEADER_MONTH_NAME-undefined_1615852800000"
+                            testID="HEADER_MONTH_NAME-undefined_1616025600000"
                           >
                             March 2021
                           </Text>
@@ -327,7 +327,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                             "marginTop": 7,
                           }
                         }
-                        testID="native.calendar.DAY_NAMES-undefined_1615852800000"
+                        testID="native.calendar.DAY_NAMES-undefined_1616025600000"
                       >
                         <Text
                           accessibilityLabel=""
@@ -1473,7 +1473,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                           }
                         >
                           <View
-                            accessibilityLabel="today Monday 15 March 2021 "
+                            accessibilityLabel=" Monday 15 March 2021 "
                             accessibilityRole="button"
                             accessible={true}
                             focusable={true}
@@ -1487,8 +1487,6 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                             style={
                               Object {
                                 "alignItems": "center",
-                                "backgroundColor": undefined,
-                                "borderRadius": 16,
                                 "height": 32,
                                 "opacity": 1,
                                 "width": 32,
@@ -1507,9 +1505,6 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                                     "fontSize": 16,
                                     "fontWeight": "300",
                                     "marginTop": 6,
-                                  },
-                                  Object {
-                                    "color": "#00BBF2",
                                   },
                                 ]
                               }
@@ -1541,7 +1536,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                           }
                         >
                           <View
-                            accessibilityLabel=" Tuesday 16 March 2021 selected You have no entries for this day "
+                            accessibilityLabel=" Tuesday 16 March 2021 "
                             accessibilityRole="button"
                             accessible={true}
                             focusable={true}
@@ -1555,8 +1550,6 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                             style={
                               Object {
                                 "alignItems": "center",
-                                "backgroundColor": "orange",
-                                "borderRadius": 16,
                                 "height": 32,
                                 "opacity": 1,
                                 "width": 32,
@@ -1575,9 +1568,6 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                                     "fontSize": 16,
                                     "fontWeight": "300",
                                     "marginTop": 6,
-                                  },
-                                  Object {
-                                    "color": "white",
                                   },
                                 ]
                               }
@@ -1609,7 +1599,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                           }
                         >
                           <View
-                            accessibilityLabel=" Wednesday 17 March 2021 "
+                            accessibilityLabel="today Wednesday 17 March 2021 "
                             accessibilityRole="button"
                             accessible={true}
                             focusable={true}
@@ -1623,6 +1613,8 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                             style={
                               Object {
                                 "alignItems": "center",
+                                "backgroundColor": undefined,
+                                "borderRadius": 16,
                                 "height": 32,
                                 "opacity": 1,
                                 "width": 32,
@@ -1641,6 +1633,9 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                                     "fontSize": 16,
                                     "fontWeight": "300",
                                     "marginTop": 6,
+                                  },
+                                  Object {
+                                    "color": "#00BBF2",
                                   },
                                 ]
                               }
@@ -1672,7 +1667,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                           }
                         >
                           <View
-                            accessibilityLabel=" Thursday 18 March 2021 "
+                            accessibilityLabel=" Thursday 18 March 2021 selected You have no entries for this day "
                             accessibilityRole="button"
                             accessible={true}
                             focusable={true}
@@ -1686,6 +1681,8 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                             style={
                               Object {
                                 "alignItems": "center",
+                                "backgroundColor": "orange",
+                                "borderRadius": 16,
                                 "height": 32,
                                 "opacity": 1,
                                 "width": 32,
@@ -1704,6 +1701,9 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                                     "fontSize": 16,
                                     "fontWeight": "300",
                                     "marginTop": 6,
+                                  },
+                                  Object {
+                                    "color": "white",
                                   },
                                 ]
                               }
@@ -2809,7 +2809,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                       accessibilityRole="adjustable"
                       accessible={true}
                       onAccessibilityAction={[Function]}
-                      testID="undefined_1618531200000"
+                      testID="undefined_1618704000000"
                     >
                       <View
                         style={
@@ -2842,7 +2842,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                                 "margin": 10,
                               }
                             }
-                            testID="HEADER_MONTH_NAME-undefined_1618531200000"
+                            testID="HEADER_MONTH_NAME-undefined_1618704000000"
                           >
                             April 2021
                           </Text>
@@ -2857,7 +2857,7 @@ exports[`<MealPlannerScreen /> MealplannerScreen snapshot test 1`] = `
                             "marginTop": 7,
                           }
                         }
-                        testID="native.calendar.DAY_NAMES-undefined_1618531200000"
+                        testID="native.calendar.DAY_NAMES-undefined_1618704000000"
                       >
                         <Text
                           accessibilityLabel=""

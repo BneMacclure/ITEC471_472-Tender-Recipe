@@ -57,7 +57,9 @@ export default StyleSheet.create({
         fontSize: 16,
         height: 35,
         marginLeft: 4,
-        paddingLeft: 8
+        paddingLeft: 8,
+        justifyContent: "center",
+        textAlignVertical: "center"
     },
     icon2Row: {
         height: 35,
@@ -82,7 +84,9 @@ export default StyleSheet.create({
         borderColor: "rgba(255,255,255,1)", 
         fontSize: 16,
         letterSpacing: 1,
-        paddingLeft: 8
+        paddingLeft: 8,
+        justifyContent: "center",
+        textAlignVertical: "center"
     },
 
     textInputShadow: {
@@ -106,20 +110,22 @@ export default StyleSheet.create({
     login: {
         //fontFamily: "roboto-regular",
         color: "rgba(249,71,35,1)",
-        alignSelf: "center"
+        alignSelf: "center",
+        justifyContent: "center",
     },
     signupBtn: {
         width: 149,
         height: 36,
         backgroundColor: "rgba(255,255,255,1)",
         borderRadius: 10,
-        justifyContent: "center",
         marginLeft: 4,
     },
     signUp: {
         //fontFamily: "roboto-regular",
         color: "rgba(249,71,35,1)",
-        alignSelf: "center"
+        alignSelf: "center",
+        //justifyContent: "center",
+        paddingTop: 7
     },
     loginBtnRow: {
         height: 36,
