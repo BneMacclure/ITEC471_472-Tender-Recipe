@@ -1,9 +1,12 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
+import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker, Button } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import styles from '../styles/MyRecipesStyle.js';
+import Modal from 'react-native-modal';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -12,8 +15,10 @@ export default class MyRecipes extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      rec_data: []
+      this.state = {
+          //isVisible: false,
+          isDateTimePickerVisible: false,
+          rec_data: []
     }
   }
 
@@ -82,11 +87,37 @@ export default class MyRecipes extends Component {
     
     console.log(this.state.rec_data);
     
-  };
+    };
+
+    showDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: true });
+        console.log("Show date time picker has been set to true");
+    };
+
+    hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+    };
+
+    handleDatePicked = date => {
+        console.log("A date has been picked: ", date);
+        this.hideDateTimePicker();
+    }
 
   render() {
     return (
-    <View style={styles.container}>
+        <View style={styles.container}>
+
+            <View style={{
+                justifyContent: "center",
+                alignItems: "center", }}>
+                <DateTimePickerModal
+                    isVisible={this.state.isDateTimePickerVisible}
+                    mode="datetime"
+                    onConfirm={(date) => this.handleDatePicked(date)}
+                    onCancel={() => this.hideDateTimePicker()}
+                />
+            </View>
+
       <ImageBackground
         source={require("../assets/images/Gradient.png")}
         resizeMode="stretch"
@@ -122,7 +153,10 @@ export default class MyRecipes extends Component {
 				<Text style={styles.recText}>{item.recName}</Text>
 				<TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
 				  <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
-				</TouchableOpacity>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.addButton} onPress={() => this.showDateTimePicker()}>
+                      <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+                  </TouchableOpacity>
 			</ImageBackground>		
 		  )
     }}
