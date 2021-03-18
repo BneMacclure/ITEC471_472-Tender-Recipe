@@ -45,7 +45,7 @@ export default StyleSheet.create({
     reg2Header: {
       color: "rgba(255,255,255,1)",
       fontSize: 32,
-      marginTop: Expo.Constants.statusBarHeight,
+      marginTop: Constants.statusBarHeight,
       marginLeft: '15%'
     },
     vertInpBtnInactive: {
