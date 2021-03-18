@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
+import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Share, Picker } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -8,6 +8,8 @@ import Modal from 'react-native-modal';
 import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from '@react-native-community/datetimepicker';
+// import { data } from "cypress/types/jquery";
+// import { data } from "cypress/types/jquery";
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -22,7 +24,8 @@ export default class MyRecipes extends Component {
           rec_data: [],
           selectedRecipe: '',
           uid: '',
-          isModalVisible: false
+          isModalVisible: false,
+          msg: ""
     }
   }
 
@@ -39,6 +42,36 @@ export default class MyRecipes extends Component {
       }
       return 0;
     });
+  };
+
+  async shareRecipe (key){
+    var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
+    db.ref('/savedRecipes/'+currentUserID).child(key).on('value', (snapshot) => {
+      data = snapshot.val()
+      this.state.msg = data.name
+      this.state.msg += "\n \n"
+      this.state.msg += data.ingredients
+      this.state.msg += data.instructions
+      console.log("msg1:" + this.state.msg)
+    })
+    console.log("msg2:" + this.state.msg)
+		try {
+			const result = await Share.share({
+			message:
+			this.state.msg,
+		});
+		if (result.action === Share.sharedAction) {
+			if (result.activityType) {
+			// shared with activity type of result.activityType
+			} else {
+			// shared
+			}
+		} else if (result.action === Share.dismissedAction) {
+			// dismissed
+		}
+		} catch (error) {
+		alert(error.message);
+	}
   };
 
   // removes a recipe from the MyRecipes list
@@ -227,10 +260,10 @@ export default class MyRecipes extends Component {
           style={styles.image}
           imageStyle={styles.image_imageStyle}
         >
-          <TouchableOpacity style={{width: 50,height: 30,marginLeft: 20, marginTop: 15}}
+          {/* <TouchableOpacity style={{width: 50,height: 30,marginLeft: 20, marginTop: 15}}
              onPress={() => this.showModal()}>
             <Text style={{fontSize: 10}}>Show Modal</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* Share Modal */}
           <Modal 
             style={{alignItems: 'center', justifyContent: 'center',}}
@@ -265,7 +298,7 @@ export default class MyRecipes extends Component {
             </View>
           </Modal>
           <View style={styles.filterRow}>
-            <Picker
+            {/* <Picker
               style={styles.filterPicker}
               onValueChange={(value) => {
                 this.setState({pickerValue: value});
@@ -276,7 +309,7 @@ export default class MyRecipes extends Component {
               <Picker.Item label="Breakfast" value="1"></Picker.Item>
               <Picker.Item label="Lunch" value="1"></Picker.Item>
               <Picker.Item label="Dinner" value="1"></Picker.Item>
-            </Picker>
+            </Picker> */}
           </View>
         </ImageBackground>
       
@@ -298,7 +331,7 @@ export default class MyRecipes extends Component {
                 </TouchableOpacity>
                 {/* Share Button */}
                 <TouchableOpacity style={styles.iconButton} 
-                    onPress={() => this.showModal()}>
+                    onPress={() => this.shareRecipe(item.id)}>
                     <Icon name="share" style={styles.icon}></Icon>
                 </TouchableOpacity>
                 {/* Add Button */}

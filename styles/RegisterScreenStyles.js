@@ -11,6 +11,7 @@ export default StyleSheet.create({
     backImg: {
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
+      alignItems: 'center'
     },
     backImg_imageStyle: {},
     registrationText: {
@@ -46,14 +47,14 @@ export default StyleSheet.create({
       color: "rgba(255,255,255,1)",
       fontSize: 32,
       marginTop: Constants.statusBarHeight,
-      marginLeft: '15%'
+      // marginLeft: '15%'
     },
     vertInpBtnInactive: {
       width: 200,
       height: 71,
       backgroundColor: "rgba(255,255,255,1)",
       marginTop: 20,
-      marginLeft: 100,
+      // marginLeft: 100,
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -64,7 +65,7 @@ export default StyleSheet.create({
       borderWidth: 4,
       borderColor: "rgba(227,24,20,1)",
       marginTop: 20,
-      marginLeft: 100,
+      // marginLeft: 100,
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -73,7 +74,7 @@ export default StyleSheet.create({
       height: 71,
       backgroundColor: "rgba(255,255,255,1)",
       marginTop: 20,
-      marginLeft: 5,
+      // marginLeft: 5,
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -84,7 +85,7 @@ export default StyleSheet.create({
       borderWidth: 4,
       borderColor: "rgba(227,24,20,1)",
       marginTop: 20,
-      marginLeft: 5,
+      // marginLeft: 5,
       alignItems: 'center',
       justifyContent: 'center'
     },

@@ -192,7 +192,7 @@ export default class MainScreenInfo extends React.Component {
 
     componentDidMount() {
         // Retrieve recipes from Firebase
-        db.ref('/recipes').once('value', (snapshot) => {
+        db.ref('/recipes').on('value', (snapshot) => {
         var returnArray = [];
         
         snapshot.forEach( (snap) => {

@@ -49,7 +49,7 @@ const MealPlannerScreen = (props) => {
 
             var loading = {}
 
-            db.ref('/userAgendas/'+currentUserID).once('value', (snapshot) =>{
+            db.ref('/userAgendas/'+currentUserID).on('value', (snapshot) =>{
                 snapshot.forEach((childSnapshot) => {
                     var data = childSnapshot.val()
                     console.log(data)
