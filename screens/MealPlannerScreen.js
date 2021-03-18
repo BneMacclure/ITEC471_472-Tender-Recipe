@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, ImageBackground, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card, Avatar } from 'react-native-paper';
@@ -15,6 +15,11 @@ const timeToString = (time) => {
 
 const MealPlannerScreen = (props) => {
     const [items, setItems] = useState({});
+    const [uid, setUid] = useState('')
+
+    const deleteFromAgenda = () => {
+
+    }
 
 
     const rightActions = (progress, dragX) => {
@@ -44,56 +49,62 @@ const MealPlannerScreen = (props) => {
     const loadItems = (day) => {
         console.log("loading items......")
         setTimeout(() => {
-            // for (let i = -15; i < 85; i++) {
-            //     const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-            //     const strTime = timeToString(time);
-            //     if (!items[strTime]) {
-            //         items[strTime] = [];
-            //         const numItems = Math.floor(Math.random() * 3 + 1);
-            //         for (let j = 0; j < numItems; j++) {
-            //             items[strTime].push({
-            //                 name: 'Item for ' + strTime + ' #' + j,
-            //                 height: Math.max(50, Math.floor(Math.random() * 150)),
-            //             });
-            //         }
-            //     }
-            // }
-
             // Get current user
-            var currentUserID = ''
-            firebaseApp.auth().onAuthStateChanged((user) => {
-            currentUserID = firebaseApp.auth().currentUser.uid;
-            })
+            var currentUserID = firebaseApp.auth().currentUser.uid;
+
+            setUid(currentUserID)
 
             var loading = {}
 
             db.ref('/userAgendas/'+currentUserID).on('value', (snapshot) =>{
                 snapshot.forEach((childSnapshot) => {
-                    childSnapshot.forEach((snap) => {
-                        var data = snap.val()
-                        if(!items[data.dateTime]) {
-                            loading[data.dateTime] = [{"name": data.recName, "src": data.downloadURL}]
-                        }
-                    })
+                    var data = childSnapshot.val()
+                    console.log(data)
+                    if(!items[data.dateTime]) {
+                        loading[data.dateTime] = [{"name": data.recName, "src": data.downloadURL, "date": data.dateTime, "key": childSnapshot.key}]
+                    }
                 })
             })
 
+            console.log('Finished loading')
             console.log(loading)
+            
+           
 
-            // const newItems = {};
-            // Object.keys(items).forEach((key) => {
-            //     newItems[key] = items[key];
-            // });
+
             setItems(loading);
         }, 1000);
         
     };
 
+    const deleteItemPrompt = (itemKey) => {
+        Alert.alert(
+            "Delete Item",
+            "Are you sure you wish to delete this item from your agenda?",
+            [
+              {
+                text: "NO",
+                onPress: () => console.log("NO Pressed"),
+                style: "cancel"
+              },
+              { text: "YES", onPress: () => deleteItem(itemKey) },
+            ],
+            {cancellable: false}
+          );
+    }
+
+    const deleteItem = (itemKey) => {
+        db.ref('/userAgendas/'+uid+"/"+itemKey).set(null).then(() => {
+            console.log('removed successfully'+itemKey)
+            loadItems('')
+        })
+    }
+
     const renderItem = (item) => {
-        console.log("item")
-        console.log(item)
+        // console.log("item")
+        // console.log(item)
         return (
-            <Swipeable renderRightActions={rightActions}>
+            <Swipeable renderRightActions={rightActions} onSwipeableRightOpen={() => deleteItemPrompt(item.key)}>
                 <TouchableOpacity style={{ marginTop: 15 }}>
                     <Card>
                         <Card.Content>
