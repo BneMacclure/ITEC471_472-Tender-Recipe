@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions} from 'react-native';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
+import Constants from 'expo-constants';
 
 export default StyleSheet.create({
     container: {
@@ -15,7 +16,7 @@ export default StyleSheet.create({
     registrationText: {
       color: "rgba(255,255,255,1)",
       fontSize: 40,
-      marginTop: Expo.Constants.statusBarHeight,
+      marginTop: Constants.statusBarHeight,
       marginLeft: '20%'
     },
     inputStyle: {

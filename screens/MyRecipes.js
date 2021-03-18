@@ -41,14 +41,15 @@ export default class MyRecipes extends Component {
 
   // removes a recipe from the MyRecipes list
   unsaveRecipe(key) {
-    var currentUserID = firebaseApp.auth().currentUser.uid;
+
+    var currentUserID = firbeaseApp ? firebaseApp.auth().currentUser.uid : '';
     console.log(key);
     db.ref('/savedRecipes/'+currentUserID).child(key).remove();
     console.log(key);
   };
   
   componentDidMount() {
-    var currentUserID = currentUserID = firebaseApp.auth().currentUser.uid;
+    var currentUserID = firebaseApp.auth().currentUser.uid;
 
     this.setState({uid: currentUserID})
 
