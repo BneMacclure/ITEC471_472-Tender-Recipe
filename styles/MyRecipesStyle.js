@@ -23,44 +23,44 @@ export default StyleSheet.create({
       height: 46,
       flexDirection: "row",
       marginTop: 0,
-      marginLeft: 10
+      marginLeft: 300
     },
     icon: {
-      color: "rgba(0,0,0,1)",
-      fontSize: 40,
-      height: 40,
-      width: 31,
-      // marginLeft: 1,
-      // marginTop: 2
-    },
-    trashButton: {
-      width: 30,
-      height: 30,
-      // marginLeft: '90%',
-      bottom: 45
-    },
-    shareIcon: {
-      color: "rgba(0,0,0,1)",
+      color: "white",
       fontSize: 40,
       height: 40,
       width: 40,
       // marginLeft: 1,
       // marginTop: 2
     },
-    addButton: {
+    iconButton: {
       width: 30,
       height: 30,
-      // marginLeft: '80%',
-      bottom: 45
+      // marginLeft: '90%',
+      bottom: 125
     },
-    addIcon: {
-      color: "rgba(0,0,0,1)",
-      fontSize: 38,
-      height: 40,
-      width: 41,
-      // marginLeft: 1,
-      marginTop: 2
-    },
+    // shareIcon: {
+    //   color: "white",
+    //   fontSize: 40,
+    //   height: 40,
+    //   width: 40,
+    //   // marginLeft: 1,
+    //   // marginTop: 2
+    // },
+    // addButton: {
+    //   width: 30,
+    //   height: 30,
+    //   // marginLeft: '80%',
+    //   bottom: 45
+    // },
+    // addIcon: {
+    //   color: "rgba(0,0,0,1)",
+    //   fontSize: 38,
+    //   height: 40,
+    //   width: 41,
+    //   // marginLeft: 1,
+    //   marginTop: 2
+    // },
     filterRow: {
       height: 22,
       flex: 1,
