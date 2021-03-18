@@ -79,6 +79,7 @@ const Navigator = props => {
                                     name="three-bars"
                                     size={35}
                                     color={'#fff'}
+									testID='myProfileNav'
                                     onPress={() => { navigation.navigate('MyProfile') }}
                                 />
                             </View>
