@@ -3,3 +3,4 @@ node_modules
 --reset-cache
 components/.expo
 coverage
+package-lock.json
