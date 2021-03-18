@@ -183,7 +183,7 @@ export default class MainScreenInfo extends React.Component {
         var name;
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/' + key).on('value', (snapshot) => {
+        db.ref('/recipes/' + key).once('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
@@ -192,7 +192,7 @@ export default class MainScreenInfo extends React.Component {
 
     componentDidMount() {
         // Retrieve recipes from Firebase
-        db.ref('/recipes').on('value', (snapshot) => {
+        db.ref('/recipes').once('value', (snapshot) => {
         var returnArray = [];
         
         snapshot.forEach( (snap) => {
