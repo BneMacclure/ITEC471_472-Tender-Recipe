@@ -512,6 +512,39 @@ exports[`<Navigator /> Navigator snapshot test 1`] = `
                               Sign up
                             </Text>
                           </View>
+                          <View
+                            accessible={true}
+                            focusable={true}
+                            onClick={[Function]}
+                            onResponderGrant={[Function]}
+                            onResponderMove={[Function]}
+                            onResponderRelease={[Function]}
+                            onResponderTerminate={[Function]}
+                            onResponderTerminationRequest={[Function]}
+                            onStartShouldSetResponder={[Function]}
+                            style={
+                              Object {
+                                "backgroundColor": "rgba(255,255,255,1)",
+                                "borderRadius": 10,
+                                "height": 36,
+                                "justifyContent": "center",
+                                "marginLeft": 4,
+                                "opacity": 1,
+                                "width": 149,
+                              }
+                            }
+                          >
+                            <Text
+                              style={
+                                Object {
+                                  "alignSelf": "center",
+                                  "color": "rgba(249,71,35,1)",
+                                }
+                              }
+                            >
+                              Debug Login
+                            </Text>
+                          </View>
                         </View>
                         <ActivityIndicator
                           animating={false}

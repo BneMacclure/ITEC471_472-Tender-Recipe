@@ -4,154 +4,1235 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
 <View
   style={
     Object {
+      "alignItems": "center",
       "flex": 1,
     }
   }
 >
-  <Text
+  <View
+    accessibilityIgnoresInvertColors={true}
     style={
       Object {
-        "color": "#121212",
-        "fontSize": 20,
-        "marginLeft": 153,
-        "marginTop": 176,
+        "height": 1334,
+        "width": 750,
       }
     }
   >
-    Name
-  </Text>
-  <TextInput
-    allowFontScaling={true}
-    placeholder=""
-    rejectResponderTermination={true}
-    style={
-      Object {
-        "borderColor": "#000000",
-        "borderWidth": 1,
-        "color": "#121212",
-        "height": 46,
-        "marginLeft": 85,
-        "width": 189,
+    <Image
+      resizeMode="cover"
+      source={1}
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": 1334,
+            "width": 750,
+          },
+          Object {},
+        ]
       }
-    }
-    underlineColorAndroid="transparent"
-  />
-  <Text
-    style={
-      Object {
-        "color": "#121212",
-        "fontSize": 20,
-        "marginLeft": 156,
-      }
-    }
-  >
-    Email
-  </Text>
-  <TextInput
-    allowFontScaling={true}
-    placeholder=""
-    rejectResponderTermination={true}
-    style={
-      Object {
-        "borderColor": "#000000",
-        "borderWidth": 1,
-        "color": "#121212",
-        "height": 46,
-        "marginLeft": 85,
-        "width": 189,
-      }
-    }
-    underlineColorAndroid="transparent"
-  />
-  <Text
-    style={
-      Object {
-        "color": "#121212",
-        "fontSize": 20,
-        "marginLeft": 138,
-      }
-    }
-  >
-    Password
-  </Text>
-  <TextInput
-    allowFontScaling={true}
-    placeholder=""
-    rejectResponderTermination={true}
-    style={
-      Object {
-        "borderColor": "#000000",
-        "borderWidth": 1,
-        "color": "#121212",
-        "height": 46,
-        "marginLeft": 85,
-        "width": 189,
-      }
-    }
-    underlineColorAndroid="transparent"
-  />
-  <Text
-    style={
-      Object {
-        "color": "#121212",
-        "fontSize": 20,
-        "marginLeft": 100,
-        "marginTop": 1,
-      }
-    }
-  >
-    Confirm Password
-  </Text>
-  <TextInput
-    allowFontScaling={true}
-    placeholder=""
-    rejectResponderTermination={true}
-    style={
-      Object {
-        "borderColor": "#000000",
-        "borderWidth": 1,
-        "color": "#121212",
-        "height": 46,
-        "marginLeft": 85,
-        "width": 189,
-      }
-    }
-    underlineColorAndroid="transparent"
-  />
-  <RNGestureHandlerButton
-    collapsable={false}
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
-  >
-    <View
-      accessible={true}
+    />
+    <Text
       style={
         Object {
-          "backgroundColor": "#E6E6E6",
-          "height": 49,
-          "marginLeft": 100,
-          "marginTop": 71,
+          "color": "rgba(255,255,255,1)",
+          "fontSize": 40,
+          "marginLeft": "20%",
+          "marginTop": 44,
+        }
+      }
+    >
+      Registration
+    </Text>
+    <View
+      style={
+        Object {
+          "marginTop": 100,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "justifyContent": "center",
+          "marginLeft": 150,
+          "marginTop": 10,
+          "width": 250,
+        }
+      }
+    >
+      <View>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "backgroundColor": "#E35614",
+                "borderColor": "white",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "paddingBottom": 0,
+              },
+              Object {
+                "minHeight": 64,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            pointerEvents="none"
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                ],
+              }
+            }
+          >
+            <View
+              pointerEvents="none"
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "bottom": 0,
+                  "height": 2,
+                  "left": 10,
+                  "opacity": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 6,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                  ],
+                  "width": 8,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "color": "transparent",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 18,
+                  "opacity": 0,
+                  "paddingHorizontal": 0,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 37,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "scaleY": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Name
+            </Text>
+            <Text
+              numberOfLines={1}
+              onLayout={[Function]}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Name
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Name
+            </Text>
+          </View>
+          <TextInput
+            allowFontScaling={true}
+            color="#FFFFFF"
+            editable={true}
+            multiline={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            placeholderTextColor="white"
+            rejectResponderTermination={true}
+            selectionColor="white"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "margin": 0,
+                  "paddingHorizontal": 14,
+                  "zIndex": 1,
+                },
+                Object {
+                  "height": 56,
+                },
+                Object {
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                },
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "textAlign": "left",
+                  "textAlignVertical": "center",
+                },
+                Array [
+                  Object {},
+                ],
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "justifyContent": "center",
+          "marginLeft": 150,
+          "marginTop": 10,
+          "width": 250,
+        }
+      }
+    >
+      <View>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "backgroundColor": "#E35614",
+                "borderColor": "white",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "paddingBottom": 0,
+              },
+              Object {
+                "minHeight": 64,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            pointerEvents="none"
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                ],
+              }
+            }
+          >
+            <View
+              pointerEvents="none"
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "bottom": 0,
+                  "height": 2,
+                  "left": 10,
+                  "opacity": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 6,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                  ],
+                  "width": 8,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "color": "transparent",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 18,
+                  "opacity": 0,
+                  "paddingHorizontal": 0,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 37,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "scaleY": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Phone Number
+            </Text>
+            <Text
+              numberOfLines={1}
+              onLayout={[Function]}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Phone Number
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Phone Number
+            </Text>
+          </View>
+          <TextInput
+            allowFontScaling={true}
+            clearTextOnFocus={true}
+            editable={true}
+            multiline={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            placeholderTextColor="white"
+            rejectResponderTermination={true}
+            selectionColor="white"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "margin": 0,
+                  "paddingHorizontal": 14,
+                  "zIndex": 1,
+                },
+                Object {
+                  "height": 56,
+                },
+                Object {
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                },
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "textAlign": "left",
+                  "textAlignVertical": "center",
+                },
+                Array [
+                  Object {},
+                ],
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "justifyContent": "center",
+          "marginLeft": 150,
+          "marginTop": 10,
+          "width": 250,
+        }
+      }
+    >
+      <View>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "backgroundColor": "#E35614",
+                "borderColor": "white",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "paddingBottom": 0,
+              },
+              Object {
+                "minHeight": 64,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            pointerEvents="none"
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                ],
+              }
+            }
+          >
+            <View
+              pointerEvents="none"
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "bottom": 0,
+                  "height": 2,
+                  "left": 10,
+                  "opacity": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 6,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                  ],
+                  "width": 8,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "color": "transparent",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 18,
+                  "opacity": 0,
+                  "paddingHorizontal": 0,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 37,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "scaleY": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Email
+            </Text>
+            <Text
+              numberOfLines={1}
+              onLayout={[Function]}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Email
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Email
+            </Text>
+          </View>
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            multiline={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            placeholderTextColor="white"
+            rejectResponderTermination={true}
+            selectionColor="white"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "margin": 0,
+                  "paddingHorizontal": 14,
+                  "zIndex": 1,
+                },
+                Object {
+                  "height": 56,
+                },
+                Object {
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                },
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "textAlign": "left",
+                  "textAlignVertical": "center",
+                },
+                Array [
+                  Object {},
+                ],
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "justifyContent": "center",
+          "marginLeft": 150,
+          "marginTop": 10,
+          "width": 250,
+        }
+      }
+    >
+      <View>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "backgroundColor": "#E35614",
+                "borderColor": "white",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "paddingBottom": 0,
+              },
+              Object {
+                "minHeight": 64,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            pointerEvents="none"
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                ],
+              }
+            }
+          >
+            <View
+              pointerEvents="none"
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "bottom": 0,
+                  "height": 2,
+                  "left": 10,
+                  "opacity": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 6,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                  ],
+                  "width": 8,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "color": "transparent",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 18,
+                  "opacity": 0,
+                  "paddingHorizontal": 0,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 37,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "scaleY": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Password
+            </Text>
+            <Text
+              numberOfLines={1}
+              onLayout={[Function]}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Password
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Password
+            </Text>
+          </View>
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            multiline={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            placeholderTextColor="white"
+            rejectResponderTermination={true}
+            selectionColor="white"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "margin": 0,
+                  "paddingHorizontal": 14,
+                  "zIndex": 1,
+                },
+                Object {
+                  "height": 56,
+                },
+                Object {
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                },
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "textAlign": "left",
+                  "textAlignVertical": "center",
+                },
+                Array [
+                  Object {},
+                ],
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "justifyContent": "center",
+          "marginLeft": 150,
+          "marginTop": 10,
+          "width": 250,
+        }
+      }
+    >
+      <View>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "backgroundColor": "#E35614",
+                "borderColor": "white",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "paddingBottom": 0,
+              },
+              Object {
+                "minHeight": 64,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <View
+            pointerEvents="none"
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "translateX": 0,
+                  },
+                ],
+              }
+            }
+          >
+            <View
+              pointerEvents="none"
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "bottom": 0,
+                  "height": 2,
+                  "left": 10,
+                  "opacity": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 6,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                  ],
+                  "width": 8,
+                }
+              }
+            />
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "backgroundColor": "#E35614",
+                  "color": "transparent",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 18,
+                  "opacity": 0,
+                  "paddingHorizontal": 0,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 37,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "scaleY": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Confirm Password
+            </Text>
+            <Text
+              numberOfLines={1}
+              onLayout={[Function]}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Confirm Password
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 14,
+                  "position": "absolute",
+                  "textAlign": "left",
+                  "top": 36,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                  "writingDirection": "ltr",
+                }
+              }
+            >
+              Confirm Password
+            </Text>
+          </View>
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            multiline={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onFocus={[Function]}
+            placeholder=""
+            placeholderTextColor="white"
+            rejectResponderTermination={true}
+            selectionColor="white"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "margin": 0,
+                  "paddingHorizontal": 14,
+                  "zIndex": 1,
+                },
+                Object {
+                  "height": 56,
+                },
+                Object {
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                },
+                Object {
+                  "color": "white",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "fontWeight": undefined,
+                  "textAlign": "left",
+                  "textAlignVertical": "center",
+                },
+                Array [
+                  Object {},
+                ],
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "marginTop": 40,
+        }
+      }
+    />
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255,255,255,1)",
+          "borderColor": "#000000",
+          "borderRadius": 25,
+          "borderWidth": 0,
+          "height": 59,
+          "justifyContent": "center",
+          "marginLeft": 187.5,
+          "marginTop": 30,
           "opacity": 1,
-          "width": 159,
+          "width": 214,
         }
       }
     >
       <Text
         style={
           Object {
-            "color": "#121212",
-            "fontSize": 20,
-            "marginLeft": 44,
-            "marginTop": 11,
+            "color": "rgba(249,71,35,1)",
+            "fontSize": 24,
           }
         }
       >
-        Register
+        Sign Up
       </Text>
     </View>
-  </RNGestureHandlerButton>
+  </View>
 </View>
 `;
