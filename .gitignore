@@ -2,3 +2,4 @@ node_modules
 .expo
 --reset-cache
 components/.expo
+coverage
