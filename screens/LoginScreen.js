@@ -161,7 +161,7 @@ const LoginScreen = (props) => {
                     >
                         <Text style={styles.signUp}>Sign up</Text>
                     </TouchableOpacity>
-                    {/*DEBUG BUTTON*/}
+                    {/*DEBUG BUTTON
                     <TouchableOpacity
                         onPress={ debugLoginFunc }
                         //onPress={registerFunc} //insert navigation
@@ -169,6 +169,7 @@ const LoginScreen = (props) => {
                     >
                         <Text style={styles.signUp}>Debug Login</Text>
                     </TouchableOpacity>
+                    */}
                 </View>
 
                 <ActivityIndicator

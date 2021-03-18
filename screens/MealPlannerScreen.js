@@ -16,6 +16,7 @@ const timeToString = (time) => {
 const MealPlannerScreen = (props) => {
     const [items, setItems] = useState({});
     const [uid, setUid] = useState('')
+    const [itemKey, setItemKey] = useState("")
 
     const deleteFromAgenda = () => {
 
@@ -29,17 +30,9 @@ const MealPlannerScreen = (props) => {
         })
         return (
             <>
-                <TouchableOpacity onPress={() => alert('Delete button pressed')}>
+                <TouchableOpacity onPress={() => deleteItemPrompt(itemKey)}>
                     <View style={{ flex: 1, backgroundColor: 'orange', justifyContent: 'center', marginTop: 15, borderRadius: 3, }}>
-                        <Animated.Text
-                            style={{
-                                color: 'white',
-                                paddingHorizontal: 10,
-                                fontWeight: '600',
-                                transform: [{ scale }],
-                            }}>
-                            Delete
-                        </Animated.Text>
+                        <Icon name="trash" style={styles.trashIcon}></Icon>
                     </View>
                 </TouchableOpacity>
             </>
@@ -104,7 +97,8 @@ const MealPlannerScreen = (props) => {
         // console.log("item")
         // console.log(item)
         return (
-            <Swipeable renderRightActions={rightActions} onSwipeableRightOpen={() => deleteItemPrompt(item.key)}>
+            //onSwipeableRightOpen={() => deleteItemPrompt(item.key)}>
+            <Swipeable renderRightActions={rightActions} onSwipeableRightOpen={setItemKey(item.key)}>
                 <TouchableOpacity style={{ marginTop: 15 }}>
                     <Card>
                         <Card.Content>
@@ -183,6 +177,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.7, // IOS
         shadowRadius: 2, //IOS
         elevation: 20,
+    },
+    trashIcon: {
+        //color: "rgba(80,207,12,1)",
+        color: "rgba(255,255,255,1)",
+        fontSize: 40,
+        paddingHorizontal: 10,
+        alignSelf: "center"
     },
 });
 
