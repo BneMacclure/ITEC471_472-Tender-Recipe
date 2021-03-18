@@ -251,9 +251,12 @@ export default class MyRecipes extends Component {
                 theme={{ colors: {placeholder: 'black', text: 'black', primary: 'black'} }}
                 style={styles.inputStyle}>
               </TextInput>
-              <TouchableOpacity style={{width: 50,height: 30,marginLeft: 10, marginTop: 15}}
+              {/* Share button */}
+              <TouchableOpacity 
+                style={{width: 280,height: 50, backgroundColor: "#0083c4", marginLeft: 10, marginTop: 15,alignItems: 'center',
+                justifyContent: 'center'}}
                 onPress={() => this.hideModal()}>
-                <Text style={{fontSize: 10}}>Hide Modal</Text>
+                <Text style={{fontSize: 20, color: "white"}}>Share</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{width: 50,height: 30,marginLeft: 10, marginTop: 15}}
                 onPress={() => this.hideModal()}>
@@ -289,22 +292,17 @@ export default class MyRecipes extends Component {
             >
               <Text style={styles.recText}>{item.recName}</Text>
               <View style={styles.iconRow}>
-                <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+                {/* Delete Button */}
+                <TouchableOpacity style={styles.iconButton} onPress={() => this.unsaveRecipe(item.id)}>
                   <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={styles.addButton} 
-                    onPress={() => {
-                      this.showDateTimePicker();
-                      this.setState(
-                        {selectedRecipe: item.recName,}
-                        );
-                      }
-                    }>
-                    <Icon name="share" style={styles.shareIcon}></Icon>
+                {/* Share Button */}
+                <TouchableOpacity style={styles.iconButton} 
+                    onPress={() => this.showModal()}>
+                    <Icon name="share" style={styles.icon}></Icon>
                 </TouchableOpacity>
-                
-                <TouchableOpacity style={styles.addButton} 
+                {/* Add Button */}
+                <TouchableOpacity style={styles.iconButton} 
                     onPress={() => {
                       this.showDateTimePicker();
                       this.setState(
@@ -312,7 +310,7 @@ export default class MyRecipes extends Component {
                         );
                       }
                     }>
-                    <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+                    <FontAwesomeIcon name="plus-circle" style={styles.icon}></FontAwesomeIcon>
                 </TouchableOpacity>
               </View>
           </ImageBackground>		
