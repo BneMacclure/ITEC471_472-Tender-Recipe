@@ -23,7 +23,7 @@ export default StyleSheet.create({
       height: 46,
       flexDirection: "row",
       marginTop: 0,
-      marginLeft: 300
+      marginLeft: 280
     },
     icon: {
       color: "white",
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     iconButton: {
       width: 30,
       height: 30,
-      // marginLeft: '90%',
+      marginLeft: 10,
       bottom: 125
     },
     // shareIcon: {
