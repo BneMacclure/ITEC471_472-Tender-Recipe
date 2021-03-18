@@ -19,19 +19,47 @@ export default StyleSheet.create({
       fontSize: 20,
       marginTop: 0
     },
+    iconRow: {
+      height: 46,
+      flexDirection: "row",
+      marginTop: 0,
+      marginLeft: 10
+    },
     icon: {
       color: "rgba(0,0,0,1)",
       fontSize: 40,
       height: 40,
       width: 31,
-      marginLeft: 1,
-      marginTop: 2
+      // marginLeft: 1,
+      // marginTop: 2
     },
     trashButton: {
       width: 30,
       height: 30,
-      marginLeft: '90%',
+      // marginLeft: '90%',
       bottom: 45
+    },
+    shareIcon: {
+      color: "rgba(0,0,0,1)",
+      fontSize: 40,
+      height: 40,
+      width: 40,
+      // marginLeft: 1,
+      // marginTop: 2
+    },
+    addButton: {
+      width: 30,
+      height: 30,
+      // marginLeft: '80%',
+      bottom: 45
+    },
+    addIcon: {
+      color: "rgba(0,0,0,1)",
+      fontSize: 38,
+      height: 40,
+      width: 41,
+      // marginLeft: 1,
+      marginTop: 2
     },
     filterRow: {
       height: 22,
@@ -65,19 +93,11 @@ export default StyleSheet.create({
       marginTop: 84,
       marginLeft: 8
     },
-    addButton: {
-        width: 30,
-        height: 30,
-        marginLeft: '80%',
-        bottom: 73
-    },
-
-    addIcon: {
-        color: "rgba(0,0,0,1)",
-        fontSize: 38,
-        height: 40,
-        width: 41,
-        marginLeft: 1,
-        marginTop: 2
-    },
+    inputStyle: {
+      // backgroundColor: "white",
+      justifyContent: 'center',
+      width: 280,
+      marginTop: 15,
+      marginLeft: 10
+    }
   });
