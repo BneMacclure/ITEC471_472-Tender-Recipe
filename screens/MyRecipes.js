@@ -18,7 +18,9 @@ export default class MyRecipes extends Component {
       this.state = {
           //isVisible: false,
           isDateTimePickerVisible: false,
-          rec_data: []
+          rec_data: [],
+          selectedRecipe: '',
+          uid: ''
     }
   }
 
@@ -48,6 +50,8 @@ export default class MyRecipes extends Component {
   componentDidMount() {
     var currentUserID = currentUserID = firebaseApp.auth().currentUser.uid;
 
+    this.setState({uid: currentUserID})
+
     console.log(currentUserID)
     
     db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
@@ -65,7 +69,7 @@ export default class MyRecipes extends Component {
         fish = child.fish;
         gluten = child.gluten;
         nuts = child.nuts;
-        shellfish = child;
+        shellfish = child.shellfish;
         soy = child.soy;
         returnArray.push({ // push data into a single object in the array
           "id": id,
@@ -89,18 +93,100 @@ export default class MyRecipes extends Component {
     
     };
 
+    // show the time picker modal
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
         console.log("Show date time picker has been set to true");
     };
 
+    // hide the time picker modal
     hideDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: false });
+        console.log("Show date time picker has been set to false");
     };
 
+    numberfyMonth = (monthStr) => {
+      if (monthStr === 'Jan') {
+        return '01'
+      }
+      else if (monthStr === 'Feb') {
+        return '02'
+      }
+      else if (monthStr === 'Mar') {
+        return '03'
+      }
+      else if (monthStr === 'Apr') {
+        return '04'
+      }
+      else if (monthStr === 'May') {
+        return '05'
+      }
+      else if (monthStr === 'Jun') {
+        return '06'
+      }
+      else if (monthStr === 'Jul') {
+        return '07'
+      }
+      else if (monthStr === 'Aug') {
+        return '08'
+      }
+      else if (monthStr === 'Sep') {
+        return '09'
+      }
+      else if (monthStr === 'Oct') {
+        return '10'
+      }
+      else if (monthStr === 'Nov') {
+        return '11'
+      }
+      else if (monthStr === 'Dec') {
+        return '12'
+      }
+    }
+
+    formatDate = (date) => {
+      var newDate = ''
+      var res = date.split(" ")
+      // "Wed Mar 17 2021 18:04:50 GMT-0400 (EDT)"
+      var year = res[3]
+      var day = res[2]
+      var month = this.numberfyMonth(res[1])
+      var time = res[4]
+
+      newDate = year + '-' + month + '-' + day
+
+      return newDate
+    }
+
+    // Once a date is it's time to submit it to the DB
     handleDatePicked = date => {
         console.log("A date has been picked: ", date);
-        this.hideDateTimePicker();
+        // get the recipe
+        var recipe = {}
+        for (i = 0; i < this.state.rec_data.length; i++) {
+          if (this.state.rec_data[i].recName == this.state.selectedRecipe) {
+            recipe = {
+              "recName": this.state.rec_data[i].recName,
+              "ingredients": this.state.rec_data[i].ingredients,
+              "instructions": this.state.rec_data[i].instructions,
+              "downloadURL": this.state.rec_data[i].downloadURL,
+              "dairy": this.state.rec_data[i].dairy,
+              "eggs": this.state.rec_data[i].eggs,
+              "fish": this.state.rec_data[i].fish,
+              "gluten": this.state.rec_data[i].gluten,
+              "nuts": this.state.rec_data[i].nuts,
+              "shellfish": this.state.rec_data[i].shellfish,
+              "soy": this.state.rec_data[i].soy,
+              "dateTime": this.formatDate(date.toString())
+            }
+          }
+        }
+        console.log(recipe)
+        db.ref('/userAgendas/'+this.state.uid).push(recipe)
+        .then(() => this.hideDateTimePicker())
+        .catch(() => console.log('failure has been achieved'))
+        
+        
     }
 
   render() {
@@ -150,13 +236,20 @@ export default class MyRecipes extends Component {
 				style={styles.image2}
 				imageStyle={styles.image2_imageStyle}
 				>
-				<Text style={styles.recText}>{item.recName}</Text>
-				<TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-				  <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.addButton} onPress={() => this.showDateTimePicker()}>
-                      <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-                  </TouchableOpacity>
+				  <Text style={styles.recText}>{item.recName}</Text>
+				  <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+				    <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.addButton} 
+          onPress={() => {
+            this.showDateTimePicker();
+            this.setState(
+              {selectedRecipe: item.recName,}
+              );
+            }
+          }>
+              <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+          </TouchableOpacity>
 			</ImageBackground>		
 		  )
     }}
