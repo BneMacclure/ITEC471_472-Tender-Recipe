@@ -23,7 +23,7 @@
     "firebase": "^8.2.6",
     "mocha": "^8.3.2",
     "native-forms": "^1.4.9",
-    "react": "16.13.1",
+    "react": "^17.0.1",
     "react-dom": "^16.13.1",
     "react-easy-swipe": "^0.0.21",
     "react-native": "~0.63.4",
