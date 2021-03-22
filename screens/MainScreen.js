@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, Imag
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config/config.json';
+
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import styles from '../styles/MainStyles.js';
 import * as Animatable from 'react-native-animatable';
@@ -15,6 +20,8 @@ const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Alert } from 'react-native';
+
+const CustomIcon = createIconSetFromFontello(fontelloConfig, 'CustomIcons');
 
 const CONTENT = [
     {
@@ -61,6 +68,13 @@ export default class MainScreenInfo extends React.Component {
             multipleSelect: false,
             curentRecipeName: "",
             CONTENT: [],
+            isEgg: false,
+            isGluten: false,
+            isDairy: false,
+            isSoy: false,
+            isFish: false,
+            isShellfish: false,
+            isNuts: false,
         }
 
         this.rotate = this.position.x.interpolate({
@@ -124,6 +138,18 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
+    resetAllergens() {
+        this.setState(
+            { isEgg: false },
+            { isGluten: false },
+            { isDairy: false },
+            { isSoy: false },
+            { isFish: false },
+            { isShellfish: false },
+            { isNuts: false },
+        );
+    }
+
 
     // Given a key, saved the recipe under the user's UID in Firebase
     saveRecipe(key) {
@@ -151,12 +177,19 @@ export default class MainScreenInfo extends React.Component {
         ingredients = recipeObj.ingredients;
         instructions = recipeObj.instructions;
         nuts = recipeObj.nuts ? "nuts, " : '';
+        recipeObj.nuts ? this.setState({ isNuts: true }) : this.setState({ isNuts: false });
         gluten = recipeObj.gluten ? 'gluten, ' : '';
+        recipeObj.gluten ? this.setState({ isGluten: true }) : this.setState({ isGluten: false });
         shellfish = recipeObj.shellfish ? 'shellfish, ' : '';
+        recipeObj.shellfish ? this.setState({ isShellfish: true }) : this.setState({ isShellfish: false });
         dairy = recipeObj.dairy ? 'dairy, ' : '';
+        recipeObj.dairy ? this.setState({ isDairy: true }) : this.setState({ isDairy: false });
         fish = recipeObj.fish ? 'fish, ' : '';
+        recipeObj.fish ? this.setState({ isFish: true }) : this.setState({ isFish: false });
         eggs = recipeObj.eggs ? 'eggs, ' : '';
+        recipeObj.eggs ? this.setState({ isEggs: true }) : this.setState({ isEggs: false });
         soy = recipeObj.soy ? "soy, " : '';
+        recipeObj.soy ? this.setState({ isSoy: true }) : this.setState({ isSoy: false });
         // Consolidate the allergens before the Alert
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
         // Show info to user
@@ -411,6 +444,69 @@ export default class MainScreenInfo extends React.Component {
                             }}>
                                 <ScrollView style={styles.svContentContainer}>
                                     <Text style={styles.title}>{this.state.curentRecipeName}</Text>
+                                    <Collapsible collapsed={false} align="center">
+                                        <View style={{ flex: 1, marginBottom: 5, justifyContent: 'space-between' }}>
+                                            <View style={{ flexDirection: 'row', alignSelf: 'center'}}>
+
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="gluten_allergen"
+                                                        size={40}
+                                                        style={[this.state.isGluten ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="peanut_allergen"
+                                                        size={40}
+                                                        style={[this.state.isNuts ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="egg_allergen"
+                                                        size={40}
+                                                        style={[this.state.isEgg ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="dairy_allergen"
+                                                        size={40}
+                                                        style={[this.state.isDairy ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="fish_allergen"
+                                                        size={40}
+                                                        style={[this.state.isFish ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="shellfish_allergen"
+                                                        size={40}
+                                                        style={[this.state.isShellfish ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.allergen_icon}
+                                                >
+                                                    <CustomIcon name="soy_allergen"
+                                                        size={40}
+                                                        style={[this.state.isSoy ? styles.allergen_active : styles.allergen_inactive]}>
+                                                    </CustomIcon>
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+                                    </Collapsible>
 
                             <Accordion
                                 activeSections={activeSections}
@@ -473,6 +569,7 @@ export default class MainScreenInfo extends React.Component {
                             style={styles.like_button}
                         >
                             <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
+                            {/*<CustomIcon name="gluten_allergen" size={60} color='white'></CustomIcon>*/}
                         </TouchableOpacity>
                     </View>
                 </View>

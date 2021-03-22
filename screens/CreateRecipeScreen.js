@@ -93,7 +93,8 @@ const CreateRecipeScreen = (props) =>  {
     }
 
     const submitRecipeFunc = async () => {
-        if (n != '' && ingred != '' && instr != '' && imageSource != null) {
+        if (n != '' && ingred != '' && instr != '' && imageSource != null)
+        {
             const dUrl = await uploadImage(imageSource)
             db.ref('/recipes').push({
                 name: n,
@@ -108,6 +109,18 @@ const CreateRecipeScreen = (props) =>  {
                 shellfish: isSelectedShellfish,
                 nuts: isSelectedNuts,
             }).then(() => {
+                Alert.alert(
+                    "Looks tasy!",
+                    "Recipe sucessfully added.",
+                    [
+                        {
+                            text: "OK",
+                            onPress: () => console.log("OK Pressed"),
+                            style: "cancel"
+                        },
+                    ],
+                    { cancellable: false }
+                );
             console.log('Data sent')
             props.navigation.navigate('Main Screen')
             }).catch(error => Alert.alert(
