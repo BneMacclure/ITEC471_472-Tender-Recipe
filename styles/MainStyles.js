@@ -176,4 +176,20 @@ export default StyleSheet.create({
         alignSelf: "center",
         fontWeight: "bold",
     },
+    allergen_icon: {
+        width: 40,
+        height: 40,
+        //backgroundColor: "#E6E6E6",
+        //backgroundColor: "#f94723",
+        borderRadius: 100,
+        justifyContent: "center",
+        marginLeft: '.15%'
+    },
+    allergen_active: {
+        color: '#e35514'
+    },
+    allergen_inactive: {
+        //size: 60,
+        color: 'gray'
+    }
 });
