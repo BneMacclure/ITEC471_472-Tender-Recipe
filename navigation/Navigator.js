@@ -41,6 +41,7 @@ const Navigator = props => {
                     name="Login Page"
                     component={LoginPage}
                     options={{
+                        headerShown: false,
                         title: "Welcome!",
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -56,7 +57,7 @@ const Navigator = props => {
                     name="Main Screen"
                     component={MainScreen}
                     options={({ navigation }) => ({
-                        title: "Main Page",
+                        title: "",
                         headerLeft: null,
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -91,6 +92,7 @@ const Navigator = props => {
                     name="MyProfile"
                     component={MyProfile}
                     options={{
+                        headerShown: false,
                         title: "MyProfile",
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -119,6 +121,7 @@ const Navigator = props => {
                     name="RegisterScreen"
                     component={RegisterScreen}
                     options={{
+                        headerShown: false,
                         title: "RegisterScreen",
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -264,6 +267,7 @@ const Navigator = props => {
                     component={MyRecipes}
                     options={{
                         title: "MyRecipes",
+                        headerShown: false,
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },

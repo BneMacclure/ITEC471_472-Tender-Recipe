@@ -69,7 +69,7 @@ function Registration02({navigation, route}) {
           <Text style={btn3Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Advanced</Text>
         </TouchableOpacity>
         {/* Spacer */}
-        <View style={{marginTop:200}}></View>
+        <View style={{marginTop:250}}></View>
         <TouchableOpacity
 			TestID='nextBn1'
             onPress={() => registerFunc2()}

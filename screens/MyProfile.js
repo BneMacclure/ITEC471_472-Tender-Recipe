@@ -30,7 +30,7 @@ function Profile({navigation}) {
   const retrieveData = () => {
 
     var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/userInfo/'+currentUserID).once('value', (snapshot) => {
+    db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
 		snapshot.forEach(function(childSnapshot) {
 			data = childSnapshot.val()
 			console.log(data)

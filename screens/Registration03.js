@@ -49,6 +49,8 @@ function Registration03({navigation, route}) {
             style={btn1Act? styles.horzInpBtnActive : styles.horzInpBtnInactive}>
             <Text style={btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Metric</Text>
           </TouchableOpacity>
+          {/* Spacer */}
+          <View style={{marginLeft:5}}></View>
           <TouchableOpacity 
 		    TestID='imperial'
             onPress={() => {
