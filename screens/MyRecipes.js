@@ -300,6 +300,7 @@ export default class MyRecipes extends Component {
           <View style={styles.filterRow}>
             {/* <Picker
               style={styles.filterPicker}
+			  testID='filterbtn'
               onValueChange={(value) => {
                 this.setState({pickerValue: value});
                 //alert("Hello");
@@ -319,6 +320,7 @@ export default class MyRecipes extends Component {
           return (
           <ImageBackground
             source={{uri: item.downloadURL}}
+			testID='food'
             resizeMode="cover"
             style={styles.image2}
             imageStyle={styles.image2_imageStyle}
@@ -327,7 +329,7 @@ export default class MyRecipes extends Component {
               <View style={styles.iconRow}>
                 {/* Delete Button */}
                 <TouchableOpacity style={styles.iconButton} onPress={() => this.unsaveRecipe(item.id)}>
-                  <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+                  <FontAwesomeIcon name="trash-o" testID='trashcan'style={styles.icon}></FontAwesomeIcon>
                 </TouchableOpacity>
                 {/* Share Button */}
                 <TouchableOpacity style={styles.iconButton} 
