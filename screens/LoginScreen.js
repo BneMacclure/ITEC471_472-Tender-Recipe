@@ -133,14 +133,16 @@ export default class LoginScreen extends React.Component {
     loginFunc() {
       //activates the activity indicator's animation
       this.startLoading();
+      console.log(this.state.email)
+      console.log(this.state.password)
       // check if valid login
       firebaseApp
       .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => props.navigation.navigate('Main Screen'))
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate('Main Screen'))
       .catch(error => Alert.alert(
           "Login",
-          "Invalid login information",
+          "Invalid login information" + error,
           [
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ],
