@@ -1,11 +1,13 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, ImageBackground, TouchableOpacity, Animated, Alert } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, FlatList, ImageBackground, Picker, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card, Avatar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {firebaseApp, db} from '../config/DatabaseConfig';
+import { firebaseApp, db } from '../config/DatabaseConfig';
+import Modal from 'react-native-modal';
 
 
 const timeToString = (time) => {
@@ -17,6 +19,8 @@ const MealPlannerScreen = (props) => {
     const [items, setItems] = useState({});
     const [uid, setUid] = useState('')
     const [itemKey, setItemKey] = useState("")
+    const [isVisible, setIsVisible] = useState(false)
+    const [selectedValue, setSelectedValue] = useState(0);
 
     const deleteFromAgenda = () => {
 
@@ -93,6 +97,10 @@ const MealPlannerScreen = (props) => {
         })
     }
 
+    const displayRecipeModal = () => {
+
+    }
+
     const renderItem = (item) => {
         // console.log("item")
         // console.log(item)
@@ -120,6 +128,58 @@ const MealPlannerScreen = (props) => {
 
     return (
         <View style={{ flex: 1 }}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                hasBackdrop={true}
+                backdropColor={"#000"}
+                backdropOpacity={0.70}
+                isVisible={isVisible}
+                >
+
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    <View style={{
+                        width: '100%',
+                        height: '80%',
+                        backgroundColor: "#EBE5E4",
+                        borderColor: "#000", borderWidth: 2,
+                        borderStyle: "dashed",
+                        borderRadius: 1
+                    }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: "#FD8017", height: '8%'}}>
+                            <View style={{ borderRadius: 35, backgroundColor: '#fff', borderWidth: 1, borderStyle: "solid", borderColor: 'black', width: '35%', height: '75%', marginTop: 6, marginRight: '50%', alignContent: "center", justifyContent: "center",}}>
+                                <Picker
+                                    style={{ height: 50, width: 120, marginLeft: 10}}
+                                    itemStyle={{ backgroundColor: "black", color: "blue", fontSize: 17 }}
+                                    selectedValue={selectedValue}
+                                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+
+                                >
+                                    <Picker.Item label="Filter" value="0"></Picker.Item>
+                                    <Picker.Item label="Breakfast" value="1"></Picker.Item>
+                                    <Picker.Item label="Lunch" value="1"></Picker.Item>
+                                    <Picker.Item label="Dinner" value="1"></Picker.Item>
+                                </Picker>
+                            </View>
+
+                            <TouchableOpacity>
+                                <EntypoIcon
+                                    name="circle-with-cross"
+                                    style={styles.exitModalIcon}
+                                    size={50}
+                                    onPress={() => setIsVisible(false)}
+                                ></EntypoIcon>
+                            </TouchableOpacity>
+                        </View>
+                        <FlatList>
+                            
+                        </FlatList>
+                    </View>
+                </View>
+
+            </Modal>
+
+
             <Agenda
                 items={items}
                 loadItemsForMonth={loadItems}
@@ -135,8 +195,7 @@ const MealPlannerScreen = (props) => {
                 }}
             />
             <TouchableOpacity
-                //onPress={() => this.displayRecipeModal(true)}
-
+                onPress={() => setIsVisible(true)}
                 style={styles.addButton}
             >
                 <MaterialCommunityIconsIcon
@@ -185,6 +244,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         alignSelf: "center"
     },
+    exitModalIcon: {
+        //color: "#f94723",
+        color: "#fff"
+
+    }
 });
 
 export default MealPlannerScreen;

@@ -40,7 +40,7 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '12%'
+        marginLeft: '4%'
     },
     calendar_button: {
         width: 64,
@@ -48,7 +48,15 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '12%',
+        marginLeft: '4%',
+    },
+    magnify_button: {
+        width: 64,
+        height: 60,
+        //backgroundColor: "#E6E6E6",
+        backgroundColor: "#f94723",
+        borderRadius: 100,
+        marginLeft: '4%',
     },
     icon4: {
         //color: "rgba(80,207,12,1)",
@@ -64,6 +72,12 @@ export default StyleSheet.create({
         marginTop: 10,
         alignSelf: "center"
     },
+    magnifyIcon: {
+        color: "rgba(255,255,255,1)",
+        fontSize: 50,
+        marginTop: 6,
+        alignSelf: "center"
+    },
     like_button: {
         width: 64,
         height: 60,
@@ -71,7 +85,7 @@ export default StyleSheet.create({
         backgroundColor: "#f94723",
         borderRadius: 100,
         justifyContent: "center",
-        marginLeft: '12%'
+        marginLeft: '4%'
     },
     icon2: {
         //color: "rgba(244,57,8,1)",
@@ -99,6 +113,7 @@ export default StyleSheet.create({
         fontSize: 22,
         fontWeight: '300',
         marginBottom: 20,
+        paddingBottom: 10,
     },
     header: {
         backgroundColor: '#FD8014',
@@ -156,7 +171,7 @@ export default StyleSheet.create({
 
     exitRecipeContainer: {
         height: 196,
-        paddingTop: 30,
+        paddingTop: 40,
         alignSelf: "center",
         width: '80%',
     },
@@ -177,19 +192,25 @@ export default StyleSheet.create({
         fontWeight: "bold",
     },
     allergen_icon: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         //backgroundColor: "#E6E6E6",
         //backgroundColor: "#f94723",
         borderRadius: 100,
         justifyContent: "center",
-        marginLeft: '.15%'
+        marginLeft: '0.5%',
+        borderRadius: 100,
+        borderWidth: 1,
+        borderColor: "black",
+        overflow: "hidden"
     },
     allergen_active: {
-        color: '#e35514'
+        color: '#e35514',
+        fontSize: 50,
     },
     allergen_inactive: {
         //size: 60,
-        color: 'gray'
+        color: '#6E6A68',
+        fontSize: 50,
     }
 });

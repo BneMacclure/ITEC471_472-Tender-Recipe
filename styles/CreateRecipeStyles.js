@@ -333,4 +333,11 @@ export default StyleSheet.create({
         fontWeight: "bold",
     },
 
+    activityIndicator: {
+        position: 'absolute',
+        alignSelf: "center",
+        justifyContent: "center",
+        marginTop: '60%'
+    }
+
 });

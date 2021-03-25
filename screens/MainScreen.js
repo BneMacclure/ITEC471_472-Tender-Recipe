@@ -117,7 +117,7 @@ export default class MainScreenInfo extends React.Component {
 
 
     displayRecipeModal(show) {
-        this.setState({isVisible: show})
+        this.setState({ isVisible: show })
     }
 
     //Triggers like animation, might need Ben to handle DB stuff in here
@@ -155,13 +155,23 @@ export default class MainScreenInfo extends React.Component {
     saveRecipe(key) {
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/'+key).on('value', (snapshot) =>{
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         // Send the recipe up to be stored as the User's saved recipe
         var currentUserID = firebaseApp.auth().currentUser.uid;
-        db.ref('/savedRecipes/'+currentUserID).push(recipeObj).then(() => console.log('Data sent'));
+        db.ref('/savedRecipes/' + currentUserID).push(recipeObj).then(() => console.log('Data sent'));
     }
+
+    viewCurrentRecipe() {
+        const k = this.state.recipes[this.state.currentIndex].key
+        this.getRecipeTitle(k)
+        this.viewRecipe(k)
+        this.displayRecipeModal(true)
+        this.setState({ currentIndex: this.state.currentIndex }, () => {
+            this.position.setValue({ x: 0, y: 0 })
+        })}
+
 
     // Given a key, give the recipe to view for the user
     viewRecipe(key) {
@@ -436,7 +446,7 @@ export default class MainScreenInfo extends React.Component {
                         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                             <View style={{
                                 width: '100%',
-                                height: '50%',
+                                height: '65%',
                                 backgroundColor: "#fff",
                                 borderColor: "#000", borderWidth: 2,
                                 borderStyle: "dashed",
@@ -445,14 +455,14 @@ export default class MainScreenInfo extends React.Component {
                                 <ScrollView style={styles.svContentContainer}>
                                     <Text style={styles.title}>{this.state.curentRecipeName}</Text>
                                     <Collapsible collapsed={false} align="center">
-                                        <View style={{ flex: 1, marginBottom: 5, justifyContent: 'space-between' }}>
-                                            <View style={{ flexDirection: 'row', alignSelf: 'center'}}>
+                                        <View style={{ flex: 1, marginBottom: 5}}>
+                                            <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'center', marginLeft: '4.5%' }}>
 
                                                 <TouchableOpacity
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="gluten_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isGluten ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -460,7 +470,7 @@ export default class MainScreenInfo extends React.Component {
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="peanut_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isNuts ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -468,7 +478,7 @@ export default class MainScreenInfo extends React.Component {
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="egg_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isEgg ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -476,7 +486,7 @@ export default class MainScreenInfo extends React.Component {
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="dairy_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isDairy ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -484,7 +494,7 @@ export default class MainScreenInfo extends React.Component {
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="fish_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isFish ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -492,7 +502,7 @@ export default class MainScreenInfo extends React.Component {
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="shellfish_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isShellfish ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -500,7 +510,7 @@ export default class MainScreenInfo extends React.Component {
                                                     style={styles.allergen_icon}
                                                 >
                                                     <CustomIcon name="soy_allergen"
-                                                        size={40}
+                                                        //size={45}
                                                         style={[this.state.isSoy ? styles.allergen_active : styles.allergen_inactive]}>
                                                     </CustomIcon>
                                                 </TouchableOpacity>
@@ -557,6 +567,12 @@ export default class MainScreenInfo extends React.Component {
                             style={styles.recipe_button}
                         >
                             <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.viewCurrentRecipe()}
+                            style={styles.magnify_button}
+                        >
+                            <MaterialCommunityIconsIcon name="magnify" style={styles.magnifyIcon}></MaterialCommunityIconsIcon>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate('MealPlannerScreen')}
