@@ -9,6 +9,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { firebaseApp, db } from '../config/DatabaseConfig';
 import Modal from 'react-native-modal';
 
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 const timeToString = (time) => {
     const date = new Date(time);
@@ -172,8 +173,37 @@ const MealPlannerScreen = (props) => {
                             </TouchableOpacity>
                         </View>
                         <FlatList>
-                            
-                        </FlatList>
+                            {/*
+                            data = {this.state.rec_data}
+                            renderItem={({ item }) => {
+                                return (
+                                    <ImageBackground
+                                        source={{ uri: item.downloadURL }}
+                                        resizeMode="cover"
+                                        style={styles.recipeImageContainer}
+                                        imageStyle={styles.recipeImage}
+                                    >
+
+                                        <Text style={styles.recipeText}>{item.recName}</Text>
+                                        <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+                                            <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.addButton}
+                                            onPress={() => {
+                                                this.showDateTimePicker();
+                                                this.setState(
+                                                    { selectedRecipe: item.recName, }
+                                                );
+                                            }
+                                            }>
+                                            <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+                                        </TouchableOpacity>
+                                    </ImageBackground>
+                                )
+                            }}
+                            keyExtractor={(item) => item.id}
+                            */}
+                            </FlatList>
                     </View>
                 </View>
 
@@ -248,7 +278,19 @@ const styles = StyleSheet.create({
         //color: "#f94723",
         color: "#fff"
 
-    }
+    },
+    recipeImageContainer: {
+        width: SCREEN_WIDTH,
+        height: 140,
+        marginTop: 1
+    },
+    recipeImage: {},
+    recipeText: {
+        color: "rgba(255,255,255,1)",
+        fontSize: 35,
+        marginTop: 84,
+        marginLeft: 8
+    },
 });
 
 export default MealPlannerScreen;
