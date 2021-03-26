@@ -7,6 +7,9 @@ import styles from '../styles/MyRecipesStyle.js';
 import Modal from 'react-native-modal';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config/config.json';
+const CustomMysteryBox = createIconSetFromFontello(fontelloConfig, 'CustomIconsMysteryBox');
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -20,7 +23,7 @@ export default class MyRecipes extends Component {
           isDateTimePickerVisible: false,
           rec_data: [],
           selectedRecipe: '',
-          uid: ''
+          uid: '',
     }
   }
 

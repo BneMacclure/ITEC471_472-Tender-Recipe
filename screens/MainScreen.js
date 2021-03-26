@@ -197,7 +197,7 @@ export default class MainScreenInfo extends React.Component {
         fish = recipeObj.fish ? 'fish, ' : '';
         recipeObj.fish ? this.setState({ isFish: true }) : this.setState({ isFish: false });
         eggs = recipeObj.eggs ? 'eggs, ' : '';
-        recipeObj.eggs ? this.setState({ isEggs: true }) : this.setState({ isEggs: false });
+        recipeObj.eggs ? this.setState({ isEgg: true }) : this.setState({ isEgg: false });
         soy = recipeObj.soy ? "soy, " : '';
         recipeObj.soy ? this.setState({ isSoy: true }) : this.setState({ isSoy: false });
         // Consolidate the allergens before the Alert
@@ -378,7 +378,7 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 190, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
 
@@ -400,7 +400,7 @@ export default class MainScreenInfo extends React.Component {
                         key={item.key} style={[{
                             opacity: this.nextCardOpacity,
                             transform: [{ scale: this.nextCardScale }],
-                            height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute'
+                            height: SCREEN_HEIGHT - 190, width: SCREEN_WIDTH, padding: 10, position: 'absolute'
                         }]}>
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
 
@@ -430,7 +430,7 @@ export default class MainScreenInfo extends React.Component {
                 imageStyle={styles.background_imageStyle}
             >
                 <View style={{ flex: 1 }}
-                      testID="testLocation1">
+                    testID="testLocation1">
 
                     <Modal
                         animationType = "slide"
@@ -544,12 +544,19 @@ export default class MainScreenInfo extends React.Component {
                             </View>
                     </Modal>
 
-                    <View style={{ height: 10 }}>
+
+                    <View style={styles.recipe_title_container}>
+                        <Text
+                            numberOfLines={1}
+                            style={styles.recipe_title}>Lasagna</Text>
+                        </View>
+
+                    <View style={{height: '1.5%' }}>
                     </View>
                     <View style={{ flex: 1 }} testID='recipeStackView'>
                         {this.renderRecipes()}
                     </View>
-                    <View style={{ height: 10 }}>
+                    <View style={{ height: '10%' }}>
 
                     </View>
                     <View style={styles.skip_buttonRow}>
@@ -573,12 +580,6 @@ export default class MainScreenInfo extends React.Component {
                             style={styles.magnify_button}
                         >
                             <MaterialCommunityIconsIcon name="magnify" style={styles.magnifyIcon}></MaterialCommunityIconsIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('MealPlannerScreen')}
-                            style={styles.calendar_button}
-                        >
-                            <FontAwesomeIcon name="calendar" style={styles.calendarIcon}></FontAwesomeIcon>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.likeRecipe()}

@@ -182,6 +182,7 @@ const CreateRecipeScreen = (props) =>  {
                                         multiline={false}
                                         enablesReturnKeyAutomatically={true}
                                         style={styles.recipeName}
+                                        maxLength={50}
                                         onChangeText={(name) => setName(name)}
                                     ></TextInput>
                                 </View>

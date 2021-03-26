@@ -40,7 +40,7 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '4%'
+        marginLeft: '6%'
     },
     calendar_button: {
         width: 64,
@@ -48,7 +48,7 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '4%',
+        marginLeft: '6%',
     },
     magnify_button: {
         width: 64,
@@ -56,7 +56,7 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '4%',
+        marginLeft: '6%',
     },
     icon4: {
         //color: "rgba(80,207,12,1)",
@@ -85,7 +85,7 @@ export default StyleSheet.create({
         backgroundColor: "#f94723",
         borderRadius: 100,
         justifyContent: "center",
-        marginLeft: '4%'
+        marginLeft: '6%'
     },
     icon2: {
         //color: "rgba(244,57,8,1)",
@@ -212,5 +212,20 @@ export default StyleSheet.create({
         //size: 60,
         color: '#6E6A68',
         fontSize: 50,
-    }
+    },
+
+    recipe_title: {
+        fontSize: 45,
+        alignSelf: 'center',
+        color: '#fff',
+        fontFamily: 'BigShouldersDisplay_700Bold',
+        marginLeft: 4,
+        marginRight: 4, 
+    },
+
+    recipe_title_container: {
+        justifyContent: 'center',
+        backgroundColor: '#f5a023',
+        height: '8%',
+    },
 });

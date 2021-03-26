@@ -21,6 +21,7 @@ import {firebaseApp} from '../config/DatabaseConfig';
 import styles from '../styles/LoginStyles.js';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
+//import { TextInput } from 'react-native-paper';
 
 import Svg, { Image, Circle, ClipPath } from 'react-native-svg';
 
@@ -312,7 +313,7 @@ export default class LoginScreen extends React.Component {
                                             style={styles.loginBtn}
                                             testID='loginButton'
                                         >
-                                            <Text style={styles.login}>Login</Text>
+                                            <Text style={styles.login}>LOG IN</Text>
                                         </TouchableOpacity>                   
                                     </Animated.View>
 

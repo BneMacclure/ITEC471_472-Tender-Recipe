@@ -148,7 +148,7 @@ const MealPlannerScreen = (props) => {
                         borderRadius: 1
                     }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: "#FD8017", height: '8%'}}>
-                            <View style={{ borderRadius: 35, backgroundColor: '#fff', borderWidth: 1, borderStyle: "solid", borderColor: 'black', width: '35%', height: '75%', marginTop: 6, marginRight: '50%', alignContent: "center", justifyContent: "center",}}>
+                            <View style={{ borderRadius: 35, backgroundColor: '#fff', width: '35%', height: '75%', marginTop: 6, marginRight: '50%', alignContent: "center", justifyContent: "center",}}>
                                 <Picker
                                     style={{ height: 50, width: 120, marginLeft: 10}}
                                     itemStyle={{ backgroundColor: "black", color: "blue", fontSize: 17 }}
@@ -276,8 +276,7 @@ const styles = StyleSheet.create({
     },
     exitModalIcon: {
         //color: "#f94723",
-        color: "#fff"
-
+        color: "#fff",
     },
     recipeImageContainer: {
         width: SCREEN_WIDTH,
