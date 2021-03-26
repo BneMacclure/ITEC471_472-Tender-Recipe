@@ -80,4 +80,32 @@ export default StyleSheet.create({
         marginLeft: 1,
         marginTop: 2
     },
+    rateButton: {
+        width: 30,
+        height: 30,
+        marginLeft: '70%',
+        bottom: 105
+    },
+    rateIcon: {
+        color: "rgba(0,0,0,1)",
+        fontSize: 38,
+        height: 40,
+        width: 41,
+        marginLeft: 1,
+        marginTop: 2
+    },
+    title: {
+        //textAlign: 'center',
+        fontSize: 25,
+        fontWeight: '700',
+        //marginBottom: 20,
+        //paddingBottom: 10,
+        alignSelf: 'center',
+        marginRight: '10%',
+        color: "#fff"
+    },
+    exitModalIcon: {
+        //color: "#f94723",
+        color: "#fff",
+    },
   });

@@ -388,7 +388,7 @@ export default class MainScreenInfo extends React.Component {
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
                             source={{uri: item.uri}}
-                            testID = 'currentImage' />
+                            testID='currentImage' />
 
                     </Animated.View>
                 )
@@ -538,6 +538,7 @@ export default class MainScreenInfo extends React.Component {
                                     >
                                         <Text style={styles.exitRecipeText}>Exit View</Text>
                                     </TouchableOpacity>
+
                                 </View>
                             </ScrollView>
                             </View>
@@ -557,38 +558,40 @@ export default class MainScreenInfo extends React.Component {
                         {this.renderRecipes()}
                     </View>
                     <View style={{ height: '10%' }}>
+                        <View style={styles.skip_buttonRow}>
+                            <TouchableOpacity
+                                onPress={() => this.skipRecipe()}
+                                style={styles.skip_button}
+                            >
+                                <MaterialCommunityIconsIcon
+                                    name="heart-off"
+                                    style={styles.icon}
+                                ></MaterialCommunityIconsIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
+                                style={styles.recipe_button}
+                            >
+                                <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.viewCurrentRecipe()}
+                                style={styles.magnify_button}
+                            >
+                                <MaterialCommunityIconsIcon name="magnify" style={styles.magnifyIcon}></MaterialCommunityIconsIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.likeRecipe()}
+                                style={styles.like_button}
+                            >
+                                <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
+                                {/*<CustomIcon name="gluten_allergen" size={60} color='white'></CustomIcon>*/}
+                            </TouchableOpacity>
+                        </View>
 
                     </View>
-                    <View style={styles.skip_buttonRow}>
-                        <TouchableOpacity
-                            onPress={() => this.skipRecipe()}
-                            style={styles.skip_button}
-                        >
-                            <MaterialCommunityIconsIcon
-                                name="heart-off"
-                                style={styles.icon}
-                            ></MaterialCommunityIconsIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
-                            style={styles.recipe_button}
-                        >
-                            <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.viewCurrentRecipe()}
-                            style={styles.magnify_button}
-                        >
-                            <MaterialCommunityIconsIcon name="magnify" style={styles.magnifyIcon}></MaterialCommunityIconsIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.likeRecipe()}
-                            style={styles.like_button}
-                        >
-                            <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
-                            {/*<CustomIcon name="gluten_allergen" size={60} color='white'></CustomIcon>*/}
-                        </TouchableOpacity>
-                    </View>
+
+                    
                 </View>
             </ImageBackground>
 

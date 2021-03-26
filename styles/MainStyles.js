@@ -15,9 +15,8 @@ export default StyleSheet.create({
     skip_buttonRow: {
         height: 60,
         flexDirection: "row",
-        marginTop: 65,
+        marginTop: 10,
         alignSelf: 'center',
-        padding: 70
     },
 
     skip_button: {
@@ -219,8 +218,8 @@ export default StyleSheet.create({
         alignSelf: 'center',
         color: '#fff',
         fontFamily: 'BigShouldersDisplay_700Bold',
-        marginLeft: 4,
-        marginRight: 4, 
+        marginLeft: 6,
+        marginRight: 6, 
     },
 
     recipe_title_container: {

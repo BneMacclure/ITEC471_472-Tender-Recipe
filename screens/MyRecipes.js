@@ -5,10 +5,15 @@ import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import styles from '../styles/MyRecipesStyle.js';
 import Modal from 'react-native-modal';
+import { Modal as RateModal } from "react-native-modal";
+import StarRating from 'react-native-star-rating';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from '../config/config.json';
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import { Alert } from "react-native";
 const CustomMysteryBox = createIconSetFromFontello(fontelloConfig, 'CustomIconsMysteryBox');
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -24,6 +29,8 @@ export default class MyRecipes extends Component {
           rec_data: [],
           selectedRecipe: '',
           uid: '',
+          starCount: 0.0,
+          isRateModalVisible: false,
     }
   }
 
@@ -161,6 +168,11 @@ export default class MyRecipes extends Component {
       return newDate
     }
 
+    onStarRatingPress = (rating) => {
+        this.setState({ starCount:rating })
+        
+    }
+
     // Once a date is it's time to submit it to the DB
     handleDatePicked = date => {
         console.log("A date has been picked: ", date);
@@ -195,6 +207,65 @@ export default class MyRecipes extends Component {
   render() {
     return (
         <View style={styles.container}>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                hasBackdrop={true}
+                backdropColor={"#000"}
+                backdropOpacity={0.70}
+                isVisible={this.state.isRateModalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has now been closed.');
+                }}>
+
+
+                <View style={{ flex: 1, justifyContent: "center" }}>
+                    <View style={{
+                        width: '100%',
+                        height: '30%',
+                        backgroundColor: "#fff",
+                        borderColor: "#000", borderWidth: 2,
+                        borderStyle: "dashed",
+                        borderRadius: 1,
+                        alignContent: 'center',
+                    }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#FD8017' }}>
+                            <Text style={styles.title}>Rate this recipe?</Text>
+                            <TouchableOpacity>
+                                <EntypoIcon
+                                    name="circle-with-cross"
+                                    style={styles.exitModalIcon}
+                                    size={50}
+                                    onPress={() => {
+                                        this.setState(
+                                            { isRateModalVisible: false }
+                                        );
+                                    }}
+                                ></EntypoIcon>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ width: '75%', alignContent: 'center', alignSelf: 'center', marginRight: 10, marginTop: '10%' }}>
+                            <StarRating
+                                disabled={false}
+                                emptyStar={'ios-star-outline'}
+                                fullStar={'ios-star'}
+                                halfStar={'ios-star-half'}
+                                iconSet={'Ionicons'}
+                                maxStars={5}
+                                rating={this.state.starCount}
+                                selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                fullStarColor={'#e35514'}
+                                halfStarEnabled
+                                starPadding={10}
+                            />
+                            <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 18, paddingTop: 30}}>Tap a star once for a full rating, tap it twice for half a star!</Text>
+                        </View>
+                    </View>
+                </View>
+
+
+                </Modal>
 
             <View style={{
                 justifyContent: "center",
@@ -252,7 +323,16 @@ export default class MyRecipes extends Component {
             }
           }>
               <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-          </TouchableOpacity>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rateButton}
+                      onPress={() => {
+                          this.setState(
+                              { isRateModalVisible: true }
+                          );
+                      }}
+                      >
+                      <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
+                  </TouchableOpacity>
 			</ImageBackground>		
 		  )
     }}
