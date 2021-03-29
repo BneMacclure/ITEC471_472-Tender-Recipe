@@ -91,7 +91,8 @@ export default StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,1)",
         paddingLeft: 8,
-        fontSize: 16
+        fontSize: 16,
+        paddingRight: 8,
     },
     recipeNameTextStack: {
         height: 61
@@ -332,5 +333,12 @@ export default StyleSheet.create({
         alignSelf: "center",
         fontWeight: "bold",
     },
+
+    activityIndicator: {
+        position: 'absolute',
+        alignSelf: "center",
+        justifyContent: "center",
+        marginTop: '60%'
+    }
 
 });

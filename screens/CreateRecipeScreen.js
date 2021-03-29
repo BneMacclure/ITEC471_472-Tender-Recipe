@@ -7,7 +7,8 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
-    Dimensions
+    Dimensions,
+    ActivityIndicator,
 } from "react-native";
 import { CheckBox } from 'react-native-elements';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -33,6 +34,7 @@ const CreateRecipeScreen = (props) =>  {
     const [instr, setInstructions] = useState('');
     const [imageSource, setImageSource] = useState(null);
     const [downUrl, setDownloadUrl] = useState(null);
+    const [animating, setAnimating] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -95,6 +97,7 @@ const CreateRecipeScreen = (props) =>  {
     const submitRecipeFunc = async () => {
         if (n != '' && ingred != '' && instr != '' && imageSource != null)
         {
+            setAnimating(true)
             const dUrl = await uploadImage(imageSource)
             db.ref('/recipes').push({
                 name: n,
@@ -109,6 +112,7 @@ const CreateRecipeScreen = (props) =>  {
                 shellfish: isSelectedShellfish,
                 nuts: isSelectedNuts,
             }).then(() => {
+                setAnimating(false)
                 Alert.alert(
                     "Looks tasy!",
                     "Recipe sucessfully added.",
@@ -157,7 +161,7 @@ const CreateRecipeScreen = (props) =>  {
                 <Text style={styles.whatsYourRecipe}>What's your recipe?</Text>
             </View>
 
-            <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>           
+            <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>
                 {/*Recipe textbox fill-in secion*/}
                 <View style={styles.recipeFillIn}>
                     <View style={styles.fieldsBackgroundStack}>
@@ -178,6 +182,7 @@ const CreateRecipeScreen = (props) =>  {
                                         multiline={false}
                                         enablesReturnKeyAutomatically={true}
                                         style={styles.recipeName}
+                                        maxLength={50}
                                         onChangeText={(name) => setName(name)}
                                     ></TextInput>
                                 </View>
@@ -198,115 +203,115 @@ const CreateRecipeScreen = (props) =>  {
                                     onChangeText={(instructions) => setInstructions(instructions)}
                                 ></TextInput>
                             </View>
-                        </ImageBackground> 
+                        </ImageBackground>
                     </View>
 
                     {/*Recipe checkbox secion*/}
                     <View style={styles.selectContainer}>
-                    <ImageBackground
-                        source={require("../assets/images/checkbox_bbg.jpg")}
-                        resizeMode="contain"
-                        style={styles.checkboxBackground}
-                        imageStyle={styles.checkBoxBackground_imageStyle}
-                    >
-                        <View style={styles.checkEachBadge}>
-                            <Text style={styles.fillInBelow}>SELECT ALLERGENS THAT APPLY</Text>
-                        </View>
+                        <ImageBackground
+                            source={require("../assets/images/checkbox_bbg.jpg")}
+                            resizeMode="contain"
+                            style={styles.checkboxBackground}
+                            imageStyle={styles.checkBoxBackground_imageStyle}
+                        >
+                            <View style={styles.checkEachBadge}>
+                                <Text style={styles.fillInBelow}>SELECT ALLERGENS THAT APPLY</Text>
+                            </View>
 
 
-                        <View style={styles.checkBoxColumn}>
-                            <CheckBox
-                                title='Gluten'
-                                onValueChange={setSelectionGluten}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedGluten}
-                                checkedIcon={"check-square"}
-                                checkedColor={'#F94723'}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checked={isSelectedGluten}
-                                onPress={() => setSelectionGluten(!isSelectedGluten)}     
-                            />
-                            <CheckBox value={isSelectedNuts}
-                                title='Nuts'
-                                onValueChange={setSelectionNuts}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedNuts}
-                                checkedIcon={"check-square"}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checkedColor={'#F94723'}
-                                checked={isSelectedNuts}
-                                onPress={() => setSelectionNuts(!isSelectedNuts)}
-                            />
-                            <CheckBox value={isSelectedShellfish}
-                                title='Shellfish'
-                                onValueChange={setSelectionShellfish}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedShellfish}
-                                checkedIcon={"check-square"}
-                                checkedColor={'#F94723'}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checked={isSelectedShellfish}
-                                onPress={() => setSelectionShellfish(!isSelectedShellfish)}
-                            />
-                            <CheckBox value={isSelectedDairy}
-                                title='Dairy'
-                                onValueChange={setSelectionDairy}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedGluten}
-                                checkedIcon={"check-square"}
-                                checkedColor={'#F94723'}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checked={isSelectedDairy}
-                                onPress={() => setSelectionDairy(!isSelectedDairy)}
-                            />
-                            <CheckBox value={isSelectedEggs}
-                                title='Eggs'
-                                onValueChange={setSelectionEggs}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedEggs}
-                                checkedIcon={"check-square"}
-                                checkedColor={'#F94723'}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checked={isSelectedEggs}
-                                onPress={() => setSelectionEggs(!isSelectedEggs)}
-                            />
-                            <CheckBox value={isSelectedFish}
-                                title='Fish'
-                                onValueChange={setSelectionFish}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedFish}
-                                checkedIcon={"check-square"}
-                                checkedColor={'#F94723'}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checked={isSelectedFish}
-                                onPress={() => setSelectionFish(!isSelectedFish)}
-                            />
-                            <CheckBox value={isSelectedSoy}
-                                title='Soy'
-                                onValueChange={setSelectionSoy}
-                                size={35}
-                                containerStyle={styles.checkboxContainerStyle}
-                                value={isSelectedSoy}
-                                checkedIcon={"check-square"}
-                                checkedColor={'#F94723'}
-                                textStyle={styles.checkboxText}
-                                uncheckedColor={'#F94723'}
-                                checked={isSelectedSoy}
-                                onPress={() => setSelectionSoy(!isSelectedSoy)}
-                            />
-                        </View>
+                            <View style={styles.checkBoxColumn}>
+                                <CheckBox
+                                    title='Gluten'
+                                    onValueChange={setSelectionGluten}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedGluten}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isSelectedGluten}
+                                    onPress={() => setSelectionGluten(!isSelectedGluten)}
+                                />
+                                <CheckBox value={isSelectedNuts}
+                                    title='Nuts'
+                                    onValueChange={setSelectionNuts}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedNuts}
+                                    checkedIcon={"check-square"}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checkedColor={'#F94723'}
+                                    checked={isSelectedNuts}
+                                    onPress={() => setSelectionNuts(!isSelectedNuts)}
+                                />
+                                <CheckBox value={isSelectedShellfish}
+                                    title='Shellfish'
+                                    onValueChange={setSelectionShellfish}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedShellfish}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isSelectedShellfish}
+                                    onPress={() => setSelectionShellfish(!isSelectedShellfish)}
+                                />
+                                <CheckBox value={isSelectedDairy}
+                                    title='Dairy'
+                                    onValueChange={setSelectionDairy}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedGluten}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isSelectedDairy}
+                                    onPress={() => setSelectionDairy(!isSelectedDairy)}
+                                />
+                                <CheckBox value={isSelectedEggs}
+                                    title='Eggs'
+                                    onValueChange={setSelectionEggs}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedEggs}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isSelectedEggs}
+                                    onPress={() => setSelectionEggs(!isSelectedEggs)}
+                                />
+                                <CheckBox value={isSelectedFish}
+                                    title='Fish'
+                                    onValueChange={setSelectionFish}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedFish}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isSelectedFish}
+                                    onPress={() => setSelectionFish(!isSelectedFish)}
+                                />
+                                <CheckBox value={isSelectedSoy}
+                                    title='Soy'
+                                    onValueChange={setSelectionSoy}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isSelectedSoy}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isSelectedSoy}
+                                    onPress={() => setSelectionSoy(!isSelectedSoy)}
+                                />
+                            </View>
                         </ImageBackground>
                     </View>
 
@@ -346,13 +351,14 @@ const CreateRecipeScreen = (props) =>  {
                             <Text style={styles.submitRecipeText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
-
-                    
-                    
                 </View>
             </ScrollView>
-
-
+            <ActivityIndicator
+                animating={animating}
+                color="rgba(249,71,35,1)"
+                size="large"
+                style={styles.activityIndicator}
+            ></ActivityIndicator>
         </View>
     );
 

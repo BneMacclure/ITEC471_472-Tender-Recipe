@@ -115,13 +115,16 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         marginVertical: 50,
+        borderStyle: 'solid',
+        borderWidth: 3,
+        borderColor: "rgba(225,225,225,1)",
     },
     login: {
         //fontFamily: "roboto-regular",
         color: "rgba(249,71,35,1)",
         alignSelf: "center",
         justifyContent: "center",
-        fontSize: 20
+        fontSize: 18
     },
     loginCover: {
         //fontFamily: "roboto-regular",
@@ -184,6 +187,7 @@ export default StyleSheet.create({
     button: {
         backgroundColor: 'white',
         height: 70,
+        width: SCREEN_WIDTH / 1.1,
         marginHorizontal: 20,
         borderRadius: 10,
         alignItems: 'center',

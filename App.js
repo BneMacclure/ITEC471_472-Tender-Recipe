@@ -37,6 +37,14 @@ export default class App extends React.Component {
                 fontDisplay: Font.FontDisplay.FALLBACK,
             },
         }),
+            await Font.loadAsync({
+            CustomIconsMysteryBox: require('./assets/fonts/fontello_mystery_box.ttf'),
+
+            'CustomIconsMysteryBox': {
+                uri: require('./assets/fonts/fontello_mystery_box.ttf'),
+                fontDisplay: Font.FontDisplay.FALLBACK,
+            },
+        }),
 
       this.setState({ fontsLoaded: true });
     }

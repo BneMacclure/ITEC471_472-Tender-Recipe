@@ -11,6 +11,8 @@ import {
     Alert,
     StatusBar,
     Dimensions,
+    KeyboardAvoidingView,
+    Platform,
 } from "react-native";
 import { Image as ReactImage } from "react-native";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
@@ -19,6 +21,7 @@ import {firebaseApp} from '../config/DatabaseConfig';
 import styles from '../styles/LoginStyles.js';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
+//import { TextInput } from 'react-native-paper';
 
 import Svg, { Image, Circle, ClipPath } from 'react-native-svg';
 
@@ -201,11 +204,11 @@ export default class LoginScreen extends React.Component {
 
     render() {
         return (
+
             <View style={styles.container}>
                 <StatusBar
                     backgroundColor="#E35614"
                 />
-
                 <ImageBackground
                     source={require("../assets/images/login_bg.png")}
                     resizeMode="cover"
@@ -268,31 +271,41 @@ export default class LoginScreen extends React.Component {
                                     <Text style={styles.tenderRecipes}>Tender Recipes</Text>
 
                                     {/*USERNAME AND PASSWORD TEXTINPUTS*/}
-                                    <View style={styles.usernameGroup}>
+                                    <KeyboardAvoidingView
+                                        behavior='padding'
+                                        keyboardVerticalOffset={
+                                            Platform.select({
+                                                ios: () => 0,
+                                                android: () => -200
+                                            })()
+                                        } enabled>
+                                        <View style={styles.usernameGroup}>
                                         <IoniconsIcon name="md-person" style={styles.icon}></IoniconsIcon>
-                                        <TextInput
-                                            testID='emailInput'
-                                            placeholder="Email"
-                                            placeholderTextColor="rgba(150,150,150,1)"
-                                            inlineImagePadding={0}
-                                            selectionColor="rgba(52,250,215,1)"
-                                            style={styles.textInput}
-                                            onChangeText={(email) => this.setState({ email: email })}
-                                        ></TextInput>
-                                    </View>
-                                    <View style={styles.passwordGroup}>
-                                        <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
-                                        <TextInput
-                                            testID='passwordInput'
-                                            placeholder="Password"
-                                            placeholderTextColor="rgba(150,150,150,1)"
-                                            selectionColor="rgba(52,250,215,1)"
-                                            secureTextEntry={true}
-                                            style={styles.textInput2}
-                                            onChangeText={(password) => this.setState({ password: password })}
-                                        ></TextInput>
-                                    </View>
-
+                                            <TextInput
+                                                testID='emailInput'
+                                                placeholder="Email"
+                                                placeholderTextColor="rgba(150,150,150,1)"
+                                                inlineImagePadding={0}
+                                                selectionColor="rgba(52,250,215,1)"
+                                                style={styles.textInput}
+                                                onChangeText={(email) => this.setState({ email: email })}
+                                            ></TextInput>
+                                        </View>
+                                    
+                                        <View style={styles.passwordGroup}>
+                                            <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
+                                            <TextInput
+                                                testID='passwordInput'
+                                                placeholder="Password"
+                                                placeholderTextColor="rgba(150,150,150,1)"
+                                                selectionColor="rgba(52,250,215,1)"
+                                                secureTextEntry={true}
+                                                style={styles.textInput2}
+                                                onChangeText={(password) => this.setState({ password: password })}
+                                            ></TextInput>
+                                        </View>
+                                    </KeyboardAvoidingView>
+                                    
                                     {/*ACTUAL LOGIN BUTTON. LOGIN FUNCTIONALITY GOES HERE.*/}
                                     <Animated.View style={styles.loginBtn}>
                                         <TouchableOpacity
@@ -300,92 +313,25 @@ export default class LoginScreen extends React.Component {
                                             style={styles.loginBtn}
                                             testID='loginButton'
                                         >
-                                            <Text style={styles.login}>Login</Text>
+                                            <Text style={styles.login}>LOG IN</Text>
                                         </TouchableOpacity>                   
                                     </Animated.View>
+
+                                    <ActivityIndicator
+                                        animating={this.state.loading}
+                                        color="rgba(254,242,94,1)"
+                                        size="large"
+                                        style={styles.activityIndicator}
+                                    ></ActivityIndicator>
                                     </View>
                                 
                             </Animated.View>
 
                         </View>
-
-
-
-
-
-                        {/*
-                    <Image
-                        source={require("../assets/images/logo.png")}
-                        resizeMode="contain"
-                        style={styles.logo}
-                    ></Image>
-                    <Text style={styles.tenderRecipes}>Tender Recipes</Text>
-
-
-                    <View style={styles.usernameGroup}>
-                        <IoniconsIcon name="md-person" style={styles.icon}></IoniconsIcon>
-                        <TextInput
-                            testID='emailInput'
-                            placeholder="Email"
-                            placeholderTextColor="rgba(230, 230, 230,1)"
-                            inlineImagePadding={0}
-                            selectionColor="rgba(52,250,215,1)"
-                            style={styles.textInput}
-                            onChangeText={(email) => this.setState({email : email})}
-                        ></TextInput>
                     </View>
-                    <View style={styles.passwordGroup}>
-                        <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
-                        <TextInput
-                            testID='passwordInput'
-                            placeholder="Password"
-                            placeholderTextColor="rgba(230, 230, 230,1)"
-                            selectionColor="rgba(52,250,215,1)"
-                            secureTextEntry={true}
-                            style={styles.textInput2}
-                            onChangeText={(password) => this.setState({ password: password })}
-                        ></TextInput>
-                    </View>
+                    </ImageBackground>       
+                </View>
 
-
-                    <View style={styles.loginBtnRow}>
-                        <TouchableOpacity
-                            onPress={this.loginFunc} //insert navigation
-                            style={styles.loginBtn}
-                            testID='loginButton'
-                        >
-                            <Text style={styles.login}>Login</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => props.navigation.navigate('RegisterScreen')}
-                            testID='registerButton'
-                            //onPress={registerFunc} //insert navigation
-                            style={styles.signupBtn}
-                        >
-                            <Text style={styles.signUp}>Sign up</Text>
-                        </TouchableOpacity>
-                        {/*DEBUG BUTTON
-                    <TouchableOpacity
-                        onPress={ debugLoginFunc }
-                        //onPress={registerFunc} //insert navigation
-                        style={styles.signupBtn}
-                    >
-                        <Text style={styles.signUp}>Debug Login</Text>
-                    </TouchableOpacity>
-                    
-                    </View>
-
-                    <ActivityIndicator
-                        animating={this.state.loading}
-                        color="rgba(254,242,94,1)"
-                        size="large"
-                        style={styles.activityIndicator}
-                    ></ActivityIndicator>
-                    */}
-                    </View>
-                </ImageBackground>
-                
-            </View>
         );
     }
 }
