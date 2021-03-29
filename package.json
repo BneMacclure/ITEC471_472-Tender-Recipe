@@ -31,6 +31,7 @@
     "firebase": "^8.3.0",
     "mocha": "^8.3.2",
     "native-forms": "^1.4.9",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^16.13.1",
     "react-easy-swipe": "^0.0.21",

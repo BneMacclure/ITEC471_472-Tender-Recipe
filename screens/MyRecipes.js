@@ -13,6 +13,7 @@ import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from '../config/config.json';
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import EntypoIcon from 'react-native-vector-icons/Entypo'
+import * as Animatable from 'react-native-animatable';
 import { Alert } from "react-native";
 const CustomMysteryBox = createIconSetFromFontello(fontelloConfig, 'CustomIconsMysteryBox');
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
@@ -292,7 +293,7 @@ export default class MyRecipes extends Component {
                                 ></EntypoIcon>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ width: '75%', alignContent: 'center', alignSelf: 'center', marginRight: 10, marginTop: '10%' }}>
+                        <View style={{ width: '75%', alignContent: 'center', alignSelf: 'center', marginRight: 10, marginTop: '15%' }}>
                             <StarRating
                                 disabled={false}
                                 emptyStar={'ios-star-outline'}
@@ -305,8 +306,9 @@ export default class MyRecipes extends Component {
                                 fullStarColor={'#e35514'}
                                 halfStarEnabled
                                 starPadding={10}
+                                animation='bounce'
                             />
-                            <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 18, paddingTop: 30}}>Tap a star once for a full rating, tap it twice for half a star!</Text>
+                            <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 18, paddingTop: 10}}>Tap a star to give a rating!</Text>
                         </View>
                     </View>
                 </View>

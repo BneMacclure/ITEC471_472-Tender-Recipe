@@ -291,7 +291,7 @@ const Navigator = props => {
                 <Stack.Screen
                     name="MyRecipes"
                     component={MyRecipes}
-                    options={{
+                    options={({ navigation }) => ({
                         title: "My Recipes",
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -329,17 +329,29 @@ const Navigator = props => {
                                     </CustomMysteryBox>
 
                                 </TouchableOpacity>
-                                <Ionicon
-                                    name="person-circle"
-                                    size={45}
-                                    color={'#fff'}
-                                    onPress={() => { navigation.navigate('MyProfile') }}
+                                <TouchableOpacity style={{
+                                    width: 37,
+                                    height: 37,
+                                    marginRight: 3,
+                                    //backgroundColor: "#E6E6E6",
+                                    backgroundColor: "#fff",
+                                    borderRadius: 100,
+                                }}>
+                                    <FontAwesomeIcon
+                                        name="home"
+                                        size={32}
+                                        color={'#e35514'}
+                                        alignSelf={"center"}
+                                        style={{alignSelf: "center", marginTop:2}}
+                                        onPress={() => { navigation.navigate('Main Screen') }}
 
-                                />
+                                    />
+
+                                </TouchableOpacity>
                             </View>
                         ),
 
-                    }}
+                    })}
                 />
                 <Stack.Screen
                     name="CreateRecipeScreen"
