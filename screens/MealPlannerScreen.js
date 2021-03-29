@@ -8,6 +8,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { firebaseApp, db } from '../config/DatabaseConfig';
 import Modal from 'react-native-modal';
+import ViewRecipeModal from '../components/ViewRecipeModal';
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -22,6 +23,7 @@ const MealPlannerScreen = (props) => {
     const [itemKey, setItemKey] = useState("")
     const [isVisible, setIsVisible] = useState(false)
     const [selectedValue, setSelectedValue] = useState(0);
+    const [isRecipeVisible, setIsRecipeVisible] = useState(false);
 
     const deleteFromAgenda = () => {
 
@@ -108,7 +110,9 @@ const MealPlannerScreen = (props) => {
         return (
             //onSwipeableRightOpen={() => deleteItemPrompt(item.key)}>
             <Swipeable renderRightActions={rightActions} onSwipeableRightOpen={setItemKey(item.key)}>
-                <TouchableOpacity style={{ marginTop: 15 }}>
+                <TouchableOpacity
+                    style={{ marginTop: 15 }}
+                    onPress={() => setIsRecipeVisible(true)}>
                     <Card>
                         <Card.Content>
                             <View
@@ -209,6 +213,25 @@ const MealPlannerScreen = (props) => {
 
             </Modal>
 
+            {/* MODAL TO VIEW THE RECIPE, JUST NEEDS TO BE HOOKED UP.
+             * <ViewRecipeModal
+                        currentRecipeName={this.state.currentRecipeName}
+                        CONTENT={this.state.CONTENT}
+                        isModalVisible={this.state.isVisible}
+                        isEgg={this.state.isEgg}
+                        isGluten={this.state.isGluten}
+                        isNuts={this.state.isNuts}
+                        isDairy={this.state.isDairy}
+                        isSoy={this.state.isSoy}
+                        isFish={this.state.isFish}
+                        isShellfish={this.state.isShellfish}
+                        activeSections={this.state.activeSections}
+                        multipleSelect={this.state.multipleSelect}
+                        setSections={this.setSections}
+                        displayRecipeModal={this.displayRecipeModal.bind(this)}
+                        >
+                    </ViewRecipeModal>
+             */}
 
             <Agenda
                 items={items}

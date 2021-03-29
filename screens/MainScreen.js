@@ -15,6 +15,8 @@ import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modal';
 
+import ViewRecipeModal from '../components/ViewRecipeModal';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -57,6 +59,8 @@ export default class MainScreenInfo extends React.Component {
     constructor(props) {
         super(props)
 
+        //this.handler = this.handler.bind(this);
+
         this.position = new Animated.ValueXY()
         this.state = {
             currentIndex: 0,
@@ -66,7 +70,7 @@ export default class MainScreenInfo extends React.Component {
             activeSections: [],
             collapsed: true,
             multipleSelect: false,
-            curentRecipeName: "",
+            currentRecipeName: "",
             CONTENT: [],
             isEgg: false,
             isGluten: false,
@@ -75,7 +79,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
-        }
+        } 
 
         this.rotate = this.position.x.interpolate({
             inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -129,6 +133,8 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
+    
+
     //triggers dislike animation
 
     skipRecipe() {
@@ -170,7 +176,12 @@ export default class MainScreenInfo extends React.Component {
         this.displayRecipeModal(true)
         this.setState({ currentIndex: this.state.currentIndex }, () => {
             this.position.setValue({ x: 0, y: 0 })
-        })}
+        })
+    }
+
+    viewCurrentRecipe2() {
+        this.displayRecipeModal(true)
+    }
 
 
     // Given a key, give the recipe to view for the user
@@ -230,7 +241,7 @@ export default class MainScreenInfo extends React.Component {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
-        this.setState({ curentRecipeName: name });
+        this.setState({ currentRecipeName: name });
     }
 
     componentDidMount() {
@@ -352,6 +363,19 @@ export default class MainScreenInfo extends React.Component {
         );
     }
 
+    getRecipeTitleTemp = key => {
+        const k = this.state.recipes[this.state.currentIndex].key
+        var name;
+        var recipeObj;
+        // Get the recipe
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
+            recipeObj = snapshot.val();
+        });
+        name = recipeObj.name;
+        //this.setState({ currentRecipeName: name });
+        return (name);
+    }
+
     renderContent = (section, _, isActive) => {
         return (
             <Animatable.View
@@ -432,120 +456,23 @@ export default class MainScreenInfo extends React.Component {
                 <View style={{ flex: 1 }}
                     testID="testLocation1">
 
-                    <Modal
-                        animationType = "slide"
-                        transparent={true}
-                        hasBackdrop={true}
-                        backdropColor={"#000"}
-                        backdropOpacity={0.70}
-                        isVisible={this.state.isVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has now been closed.');
-                        }}>
-
-                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                            <View style={{
-                                width: '100%',
-                                height: '65%',
-                                backgroundColor: "#fff",
-                                borderColor: "#000", borderWidth: 2,
-                                borderStyle: "dashed",
-                                borderRadius: 1
-                            }}>
-                                <ScrollView style={styles.svContentContainer}>
-                                    <Text style={styles.title}>{this.state.curentRecipeName}</Text>
-                                    <Collapsible collapsed={false} align="center">
-                                        <View style={{ flex: 1, marginBottom: 5}}>
-                                            <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'center', marginLeft: '4.5%' }}>
-
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="gluten_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isGluten ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="peanut_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isNuts ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="egg_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isEgg ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="dairy_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isDairy ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="fish_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isFish ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="shellfish_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isShellfish ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity
-                                                    style={styles.allergen_icon}
-                                                >
-                                                    <CustomIcon name="soy_allergen"
-                                                        //size={45}
-                                                        style={[this.state.isSoy ? styles.allergen_active : styles.allergen_inactive]}>
-                                                    </CustomIcon>
-                                                </TouchableOpacity>
-                                            </View>
-                                        </View>
-                                    </Collapsible>
-
-                            <Accordion
-                                activeSections={activeSections}
-                                sections={this.state.CONTENT}
-                                touchableComponent={TouchableOpacity}
-                                expandMultiple={multipleSelect}
-                                renderHeader={this.renderHeader}
-                                renderContent={this.renderContent}
-                                duration={400}
-                                onChange={this.setSections}
-                            />
-
-                                <View style={styles.exitRecipeContainer}>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            this.displayRecipeModal(!this.state.isVisible);
-                                        }}
-                                        style={styles.exitBtn}
-                                    >
-                                        <Text style={styles.exitRecipeText}>Exit View</Text>
-                                    </TouchableOpacity>
-
-                                </View>
-                            </ScrollView>
-                            </View>
-                            </View>
-                    </Modal>
-
-
+                    <ViewRecipeModal
+                        currentRecipeName={this.state.currentRecipeName}
+                        CONTENT={this.state.CONTENT}
+                        isModalVisible={this.state.isVisible}
+                        isEgg={this.state.isEgg}
+                        isGluten={this.state.isGluten}
+                        isNuts={this.state.isNuts}
+                        isDairy={this.state.isDairy}
+                        isSoy={this.state.isSoy}
+                        isFish={this.state.isFish}
+                        isShellfish={this.state.isShellfish}
+                        activeSections={this.state.activeSections}
+                        multipleSelect={this.state.multipleSelect}
+                        setSections={this.setSections}
+                        displayRecipeModal={this.displayRecipeModal.bind(this)}
+                        >               
+                    </ViewRecipeModal>
                     <View style={styles.recipe_title_container}>
                         <Text
                             numberOfLines={1}
