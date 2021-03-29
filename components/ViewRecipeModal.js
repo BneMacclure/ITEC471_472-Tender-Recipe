@@ -219,15 +219,16 @@ export default class ViewRecipeModal extends React.Component {
 const styles = StyleSheet.create({
 
     svContentContainer: {
-        paddingTop: 30,
     },
 
     title: {
         textAlign: 'center',
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: '300',
         marginBottom: 20,
         paddingBottom: 10,
+        paddingTop: '7%',
+        //fontFamily: 'BigShouldersDisplay_700Bold'
     },
 
     allergen_icon: {
