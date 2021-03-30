@@ -232,12 +232,12 @@ export default class MainScreenInfo extends React.Component {
         
     }
 
-    getRecipeTitle(key){
+    getRecipeTitle(){
         const k = this.state.recipes[this.state.currentIndex].key
         var name;
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/' + key).once('value', (snapshot) => {
+        db.ref('/recipes/' + k).once('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
@@ -252,6 +252,7 @@ export default class MainScreenInfo extends React.Component {
         snapshot.forEach( (snap) => {
             returnArray.push({
                 key: snap.key,
+                name: snap.val().name,
                 uri: snap.val().downloadUrl
             });
         });
@@ -403,12 +404,17 @@ export default class MainScreenInfo extends React.Component {
                     <Animated.View
                         {...this.PanResponder.panHandlers}
                         key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 190, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
 
                         <Animated.View style={{ opacity: this.dislikeOpacity, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
                         </Animated.View>
-
+                        <View style={styles.recipe_title_container}>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.recipe_title}>{item.name}</Text>
+                        </View>
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
                             source={{uri: item.uri}}
@@ -433,7 +439,11 @@ export default class MainScreenInfo extends React.Component {
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
 
                         </Animated.View>
-
+                        <View style={styles.recipe_title_container}>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.recipe_title}>{item.name}</Text>
+                        </View>
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
                             source={{uri: item.uri}} />
@@ -442,6 +452,7 @@ export default class MainScreenInfo extends React.Component {
                 )
             }
         }).reverse()
+        
     }
 
     render() {
@@ -473,11 +484,7 @@ export default class MainScreenInfo extends React.Component {
                         displayRecipeModal={this.displayRecipeModal.bind(this)}
                         >               
                     </ViewRecipeModal>
-                    <View style={styles.recipe_title_container}>
-                        <Text
-                            numberOfLines={1}
-                            style={styles.recipe_title}>Lasagna</Text>
-                        </View>
+                    
 
                     <View style={{height: '1.5%' }}>
                     </View>
