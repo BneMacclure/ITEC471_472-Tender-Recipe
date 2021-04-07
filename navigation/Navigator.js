@@ -9,7 +9,7 @@ import MainScreen from '../screens/MainScreen';
 import CreateRecipeScreen from '../screens/CreateRecipeScreen';
 import { firebaseApp } from '../config/DatabaseConfig';
 import { HeaderBackButton } from '@react-navigation/stack';
-import {    StackNavigator,} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'
@@ -18,6 +18,7 @@ import Registration03 from '../screens/Registration03';
 import Registration04 from '../screens/Registration04';
 import Registration05 from '../screens/Registration05';
 import MealPlannerScreen from '../screens/MealPlannerScreen'
+import Test from '../screens/testPage'
 import { NavigationContainer } from '@react-navigation/native';
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
@@ -93,6 +94,35 @@ const Navigator = props => {
                     options={{
                         headerShown: false,
                         title: "MyProfile",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 25,
+                                    height: StatusBar.currentHeight,
+                                }}>
+                                <Icon name="three-bars" size={35} color={'#fff'} />
+                            </View>
+                        ),
+
+                    }}
+                />
+                <Stack.Screen
+                    name="TEST"
+                    component={Test}
+                    options={{
+                        headerShown: false,
+                        title: "TEST",
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },
