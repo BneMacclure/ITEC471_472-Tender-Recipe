@@ -59,7 +59,7 @@ const LoginScreen = (props) => {
         // check if valid login
         firebaseApp
         .auth()
-        .signInWithEmailAndPassword("test@radford.edu", "password")
+        .signInWithEmailAndPassword("Sleep@sleep.com", "Password")
         .then(() => props.navigation.navigate('Main Screen'))
         .catch(error => Alert.alert(
             "Login",
@@ -161,7 +161,7 @@ const LoginScreen = (props) => {
                     >
                         <Text style={styles.signUp}>Sign up</Text>
                     </TouchableOpacity>
-                    {/*DEBUG BUTTON
+                    {/* DEBUG BUTTON */}
                     <TouchableOpacity
                         onPress={ debugLoginFunc }
                         //onPress={registerFunc} //insert navigation
@@ -169,7 +169,7 @@ const LoginScreen = (props) => {
                     >
                         <Text style={styles.signUp}>Debug Login</Text>
                     </TouchableOpacity>
-                    */}
+                   
                 </View>
 
                 <ActivityIndicator

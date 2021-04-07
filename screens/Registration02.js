@@ -38,7 +38,7 @@ function Registration02({navigation, route}) {
         style={styles.backImg}
         imageStyle={styles.backImg_imageStyle}
       >
-        <Text style={styles.reg2Header}>What is your skill level?</Text>
+        <Text style={styles.reg2Header}>What is your cooking skill?</Text>
         {/* Spacer */}
         <View style={{marginTop:100}}></View>
         <TouchableOpacity 

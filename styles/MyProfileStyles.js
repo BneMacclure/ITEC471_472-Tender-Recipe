@@ -114,6 +114,9 @@ export default StyleSheet.create({
       marginLeft: 21,
       marginRight: 35
     },
+    infoRow: {
+      flexDirection: "row",
+    },
     emailContStack: {
       width: SCREEN_WIDTH,
       height: 114
