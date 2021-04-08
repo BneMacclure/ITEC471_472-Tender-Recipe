@@ -32,9 +32,11 @@ const CreateRecipeScreen = (props) =>  {
     const [n, setName] = useState('');
     const [ingred, setIngredients] = useState('');
     const [instr, setInstructions] = useState('');
+    const [unit, setUnit] = useState('');
     const [imageSource, setImageSource] = useState(null);
     const [downUrl, setDownloadUrl] = useState(null);
     const [animating, setAnimating] = useState(false);
+    const [numInput, setNumInput] = useState('');
 
     useEffect(() => {
         (async () => {
@@ -46,7 +48,11 @@ const CreateRecipeScreen = (props) =>  {
           }
         })();
       }, []);
-    
+
+    const handleInputChange = (text) => {
+        setNumInput(text.replace(/[- #*;()$,.<>\{\}\[\]\\]/gi,''))
+    };
+
       const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -59,14 +65,14 @@ const CreateRecipeScreen = (props) =>  {
               maxWidth: SCREEN_WIDTH,
               maxHeight: SCREEN_HEIGHT,
           };
-    
+
         console.log(result);
-    
+
         if (!result.cancelled) {
           setImageSource(result.uri);
         }
       };
-    
+
     const uploadImage = async (uri) => {
         var blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -81,16 +87,16 @@ const CreateRecipeScreen = (props) =>  {
             xhr.open('GET', uri, true);
             xhr.send(null);
           });
-        
+
         var ref = firebaseApp
             .storage()
             .ref()
             .child(n);
         var snapshot = await ref.put(blob);
-        
+
         // We're done with the blob, close and release it
         blob.close();
-        
+
         return await snapshot.ref.getDownloadURL();
     }
 
@@ -145,9 +151,9 @@ const CreateRecipeScreen = (props) =>  {
                 { cancelable: false }
             )
         }
-        
+
     }
-    
+
     return (
         <View style={styles.container}>
 
@@ -187,13 +193,36 @@ const CreateRecipeScreen = (props) =>  {
                                     ></TextInput>
                                 </View>
                                 <Text style={styles.recipeIngredientsText}>The Ingredients</Text>
+                                <View style={{flexDirection: 'row', marginBottom: '3%', marginTop: '3%'}}>
+                                <Text style={{fontSize: 17, marginLeft: '4%', fontWeight: "bold"}}>Ingredient: </Text>
                                 <TextInput
-                                    placeholder=""
-                                    multiline={true}
+                                    placeholder="'Onion', 'ground beef'"
                                     enablesReturnKeyAutomatically={true}
-                                    style={styles.recipeIngredients}
+                                    style={styles.recipeIngredient}
                                     onChangeText={(ingredients) => setIngredients(ingredients)}
                                 ></TextInput>
+                                </View>
+                                <View style={{flexDirection: 'row', marginBottom: '3%'}}>
+                                <Text style={styles.recipeAmountText}>Amount: </Text>
+                                <TextInput
+                                    placeholder="'1/2'"
+                                    keyboardType='numeric'
+                                    enablesReturnKeyAutomatically={true}
+                                    style={styles.recipeAmount}
+                                    onChangeText={handleInputChange}
+                                    value={numInput}
+
+                                ></TextInput>
+                                </View>
+                                <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+                                <Text style ={styles.recipeUnitText}>Unit: </Text>
+                                <TextInput
+                                    placeholder="'cups', 'grams', 'diced'"
+                                    enablesReturnKeyAutomatically={true}
+                                    style={styles.recipeIngredient}
+                                    onChangeText={(unit) => setUnit(unit)}
+                                ></TextInput>
+                                </View>
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
                                     placeholder=""

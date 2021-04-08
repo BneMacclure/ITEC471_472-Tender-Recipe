@@ -5,7 +5,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 export default StyleSheet.create({
     container: {
         flex: 1,
-    }, 
+    },
 
     scrollableView: {
         width: SCREEN_WIDTH,
@@ -117,6 +117,66 @@ export default StyleSheet.create({
         paddingTop: 2,
         fontSize: 16
     },
+    recipeIngredient: {
+        width: SCREEN_WIDTH / 2,
+        color: "#121212",
+        height: 30,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2,
+        fontSize: 16
+    },
+    recipeAmount: {
+        width: SCREEN_WIDTH / 8,
+        color: "#121212",
+        height: 30,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2,
+        //marginRight: '36%',
+        //marginLeft: '10%',
+        fontSize: 16
+    },
+
+    recipeUnit: {
+        width: SCREEN_WIDTH / 4,
+        color: "#121212",
+        height: 30,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2,
+        fontSize: 16
+    },
+
+    recipeIngredientText: {
+    },
+
+    recipeAmountText: {
+        marginRight: '6%',
+        marginLeft: '3.5%',
+        fontSize: 17,
+        fontWeight: "bold",
+        color: 'black',
+    },
+
+    recipeUnitText: {
+        marginRight: '16%',
+        fontSize: 17,
+        fontWeight: "bold",
+        color: 'black',
+    },
     theInstructionsText: {
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
@@ -128,7 +188,7 @@ export default StyleSheet.create({
     recipeInstructions: {
         width: SCREEN_WIDTH / 1.1,
         color: "#121212",
-        height: 204,
+        height: 280,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
@@ -200,7 +260,7 @@ export default StyleSheet.create({
     checkboxContainer: {
         flexDirection: "row",
     },
-    
+
 
 
 
