@@ -4,7 +4,7 @@ import {
     View,
     ImageBackground,
     Text,
-    TextInput, 
+    TextInput,
     TouchableOpacity,
     ActivityIndicator,
     Button,
@@ -120,7 +120,7 @@ export default class LoginScreen extends React.Component {
             inputRange: [0, 1],
             outputRange: [180, 360],
             extrapolate: Extrapolate.CLAMP,
-        });     
+        });
     }
     //
 
@@ -130,7 +130,7 @@ export default class LoginScreen extends React.Component {
             this.setState({ loading: false });
         }, 3000);
     };
-   
+
     // Function for login. Uses firebase authentication
 
     loginFunc() {
@@ -151,7 +151,7 @@ export default class LoginScreen extends React.Component {
           ],
           { cancelable: false }
         )
-      )   
+      )
     };
 
     // Function for login. Uses firebase authentication
@@ -171,14 +171,14 @@ export default class LoginScreen extends React.Component {
             ],
             { cancelable: false }
           )
-        )   
+        )
       };
 
     // Function for registering an account. Uses firbase's authentication API to signup
     registerFunc() {
         if(this.state.email === '' && this.state.password === '') {
             Alert.alert('Enter details to signup!')
-          } 
+          }
         else {
             firebaseApp
             .auth()
@@ -251,7 +251,7 @@ export default class LoginScreen extends React.Component {
                                     </TouchableOpacity>
                                 </Animated.View>
 
-                                <Animated.View style={{ zIndex: this.textInputZindex, opacity: this.textInputOpacity, transform: [{ translateY: this.textInputY }], height: SCREEN_HEIGHT / 1.2, ...StyleSheet.absoluteFill, top: null, justifyContent: 'center' }}>
+                                <Animated.View style={{ zIndex: this.textInputZindex, opacity: this.textInputOpacity, transform: [{ translateY: this.textInputY }], height: SCREEN_HEIGHT / 1.11, ...StyleSheet.absoluteFill, top: null, justifyContent: 'center' }}>
 
                                     {/*LITTLE 'X' BUTTON TO CLOSE OUT LOGIN PAGE*/}
                                     <TapGestureHandler onHandlerStateChange={this.onCloseState}>
@@ -290,7 +290,7 @@ export default class LoginScreen extends React.Component {
                                                 onChangeText={(email) => this.setState({ email: email })}
                                             ></TextInput>
                                         </View>
-                                    
+
                                         <View style={styles.passwordGroup}>
                                             <EntypoIcon name="lock" style={styles.icon2}></EntypoIcon>
                                             <TextInput
@@ -304,7 +304,7 @@ export default class LoginScreen extends React.Component {
                                             ></TextInput>
                                         </View>
                                     </KeyboardAvoidingView>
-                                    
+
                                     {/*ACTUAL LOGIN BUTTON. LOGIN FUNCTIONALITY GOES HERE.*/}
                                     <Animated.View style={styles.loginBtn}>
                                         <TouchableOpacity
@@ -313,7 +313,7 @@ export default class LoginScreen extends React.Component {
                                             testID='loginButton'
                                         >
                                             <Text style={styles.login}>LOG IN</Text>
-                                        </TouchableOpacity>                   
+                                        </TouchableOpacity>
                                     </Animated.View>
 
                                     <ActivityIndicator
@@ -324,12 +324,12 @@ export default class LoginScreen extends React.Component {
                                     ></ActivityIndicator>
                                     </View>
                                 </Animated.View>
-                            </View>            
+                            </View>
                         </View>
-                    
-                    </ImageBackground>       
+
+                    </ImageBackground>
             </View>
-            
+
         );
     }
 }

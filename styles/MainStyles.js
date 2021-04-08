@@ -214,17 +214,27 @@ export default StyleSheet.create({
     },
 
     recipe_title: {
-        fontSize: 45,
+        fontSize: 40,
         alignSelf: 'center',
         color: '#fff',
         fontFamily: 'BigShouldersDisplay_700Bold',
         marginLeft: 6,
-        marginRight: 6, 
+        marginRight: 6,
     },
 
     recipe_title_container: {
         justifyContent: 'center',
         backgroundColor: '#f5a023',
-        height: '8%',
+        height: 70,
+        position: 'absolute',
+        top: '91.8%',
+        width: '100%',
+        elevation: 1,
+        alignSelf: 'center',
+        borderBottomRightRadius: 15,
+        borderBottomLeftRadius: 15,
+
+
+
     },
 });

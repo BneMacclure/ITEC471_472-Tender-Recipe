@@ -68,7 +68,7 @@ const Navigator = props => {
                         headerLeft: null,
                         headerStyle: {
                             backgroundColor: '#e35514',
-                        }, 
+                        },
                         headerTintColor: '#f7f5f2',
                         headerTitleStyle: {
                             fontWeight: 'bold',
@@ -82,8 +82,8 @@ const Navigator = props => {
                                     flexDirection: 'row',
                                     paddingHorizontal: 15,
                                     height: StatusBar.currentHeight,
-                                }}>      
-                                
+                                }}>
+
                                 <TouchableOpacity style={{
                                     width: 37,
                                     height: 37,
@@ -107,18 +107,18 @@ const Navigator = props => {
                                     color={'#fff'}
 									testID='myProfileNav'
                                     onPress={() => { navigation.navigate('MyProfile') }}
-                                    
+
                                 />
                             </View>
                         ),
 
-                    })}       
+                    })}
                 />
                 <Stack.Screen
                     name="MyProfile"
                     component={MyProfile}
                     options={{
-                        headerShown: false,
+                        headerShown: true,
                         title: "MyProfile",
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -137,7 +137,6 @@ const Navigator = props => {
                                     paddingHorizontal: 25,
                                     height: StatusBar.currentHeight,
                                 }}>
-                                <Icon name="three-bars" size={35} color={'#fff'} />
                             </View>
                         ),
 
@@ -386,7 +385,7 @@ const Navigator = props => {
 
             </Stack.Navigator>
         </NavigationContainer>
-        
+
     );
 }
 

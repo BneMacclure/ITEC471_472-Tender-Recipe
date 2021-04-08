@@ -79,7 +79,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
-        } 
+        }
 
         this.rotate = this.position.x.interpolate({
             inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -133,7 +133,7 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
-    
+
 
     //triggers dislike animation
 
@@ -229,7 +229,7 @@ export default class MainScreenInfo extends React.Component {
             content: instructions,
         })
         this.setState({ CONTENT : newContent })
-        
+
     }
 
     getRecipeTitle(){
@@ -248,7 +248,7 @@ export default class MainScreenInfo extends React.Component {
         // Retrieve recipes from Firebase
         db.ref('/recipes').on('value', (snapshot) => {
         var returnArray = [];
-        
+
         snapshot.forEach( (snap) => {
             returnArray.push({
                 key: snap.key,
@@ -256,7 +256,7 @@ export default class MainScreenInfo extends React.Component {
                 uri: snap.val().downloadUrl
             });
         });
-    
+
         this.setState({ recipes: returnArray })
         });
         this.PanResponder = PanResponder.create({
@@ -403,8 +403,8 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 190, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
-                        
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
 
@@ -430,7 +430,7 @@ export default class MainScreenInfo extends React.Component {
                         key={item.key} style={[{
                             opacity: this.nextCardOpacity,
                             transform: [{ scale: this.nextCardScale }],
-                            height: SCREEN_HEIGHT - 190, width: SCREEN_WIDTH, padding: 10, position: 'absolute'
+                            height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute'
                         }]}>
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
 
@@ -452,7 +452,7 @@ export default class MainScreenInfo extends React.Component {
                 )
             }
         }).reverse()
-        
+
     }
 
     render() {
@@ -482,9 +482,9 @@ export default class MainScreenInfo extends React.Component {
                         multipleSelect={this.state.multipleSelect}
                         setSections={this.setSections}
                         displayRecipeModal={this.displayRecipeModal.bind(this)}
-                        >               
+                        >
                     </ViewRecipeModal>
-                    
+
 
                     <View style={{height: '1.5%' }}>
                     </View>
@@ -525,7 +525,7 @@ export default class MainScreenInfo extends React.Component {
 
                     </View>
 
-                    
+
                 </View>
             </ImageBackground>
 
