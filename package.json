@@ -1,4 +1,9 @@
 {
+  "rnpm": {
+    "assets": [
+      "fonts"
+    ]
+  },
   "main": "index.js",
   "scripts": {
     "android": "react-native run-android",
@@ -26,6 +31,7 @@
     "firebase": "^8.3.0",
     "mocha": "^8.3.2",
     "native-forms": "^1.4.9",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^16.13.1",
     "react-easy-swipe": "^0.0.21",
@@ -42,7 +48,8 @@
     "react-native-paper": "^4.7.2",
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.2",
-    "react-native-svg": "^12.1.0",
+    "react-native-star-rating": "^1.1.0",
+    "react-native-svg": "12.1.0",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-swipeout": "^2.3.6",
     "react-native-unimodules": "~0.12.0",

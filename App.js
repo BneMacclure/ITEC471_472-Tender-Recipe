@@ -14,14 +14,31 @@ export default class App extends React.Component {
     };
 
     async loadFonts() {
-      await Font.loadAsync({
-        BigShouldersDisplayBold_700Bold: require('./assets/BigShouldersDisplay-Bold.ttf'),
-        
-        'BigShouldersDisplay_700Bold': {
-          uri: require('./assets/BigShouldersDisplay-Bold.ttf'),
-          fontDisplay: Font.FontDisplay.FALLBACK,
-        },
-      });
+        await Font.loadAsync({
+            BigShouldersDisplayBold_700Bold: require('./assets/BigShouldersDisplay-Bold.ttf'),
+
+            'BigShouldersDisplay_700Bold': {
+                uri: require('./assets/BigShouldersDisplay-Bold.ttf'),
+                fontDisplay: Font.FontDisplay.FALLBACK,
+            },
+        }),
+        await Font.loadAsync({
+            CustomIcons: require('./assets/fonts/fontello_allergens.ttf'),
+
+            'CustomIcons': {
+                uri: require('./assets/fonts/fontello_allergens.ttf'),
+                fontDisplay: Font.FontDisplay.FALLBACK,
+            },
+        }),
+            await Font.loadAsync({
+            CustomIconsMysteryBox: require('./assets/fonts/fontello_mystery_box.ttf'),
+
+            'CustomIconsMysteryBox': {
+                uri: require('./assets/fonts/fontello_mystery_box.ttf'),
+                fontDisplay: Font.FontDisplay.FALLBACK,
+            },
+        }),
+
       this.setState({ fontsLoaded: true });
     }
 

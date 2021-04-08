@@ -156,6 +156,7 @@ function Profile({navigation}) {
 		  {/*Temporary navigation button to MyRecipes*/}
 		  <TouchableOpacity 
 			onPress={() => navigation.navigate('MyRecipes')}
+			testID='myRecipebtn'
 			style={styles.myRecipesButton}>
 			<Text style={styles.myRecipesText}>My recipes</Text>
 		  </TouchableOpacity>

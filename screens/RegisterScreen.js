@@ -52,6 +52,7 @@ function Registration({navigation, route}) {
           mode="outlined"
           color="#FFFFFF"
           label="Name"
+		  testID='namefield'
           onChangeText = {(name) => setName(name)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -61,6 +62,7 @@ function Registration({navigation, route}) {
           clearTextOnFocus={true}
           mode="outlined"
           label="Phone Number"
+		  testID='phonefield'
           onChangeText = {(phone) => setPhone(phone)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -70,6 +72,7 @@ function Registration({navigation, route}) {
           mode="outlined"
           label="Email"
           onChangeText = {(email) => setEmail(email)}
+		  testID='emailfield'
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
         </TextInput>
@@ -77,6 +80,7 @@ function Registration({navigation, route}) {
         <TextInput 
           mode="outlined"
           label="Password"
+		  testID='passfield'
           onChangeText = {(password) => setPassword(password)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -85,6 +89,7 @@ function Registration({navigation, route}) {
         <TextInput 
           mode="outlined"
           label="Confirm Password"
+		  testID='confirmpass'
           onChangeText = {(confirmPass) => setConfirmPass(confirmPass)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -93,6 +98,7 @@ function Registration({navigation, route}) {
         <View style={{marginTop:40}}></View>
         <TouchableOpacity
          onPress={() => registerFunc()}
+		 testID='signupbtn'
          style={styles.signUpBtn}
          >
           <Text style={styles.signUpTxt}>Sign Up</Text>
