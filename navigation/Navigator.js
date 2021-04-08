@@ -9,7 +9,7 @@ import MainScreen from '../screens/MainScreen';
 import CreateRecipeScreen from '../screens/CreateRecipeScreen';
 import { firebaseApp } from '../config/DatabaseConfig';
 import { HeaderBackButton } from '@react-navigation/stack';
-import {    StackNavigator,} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'

@@ -161,7 +161,7 @@ export default class LoginScreen extends React.Component {
         // check if valid login
         firebaseApp
         .auth()
-        .signInWithEmailAndPassword("test@radford.edu", "password")
+        .signInWithEmailAndPassword("Sleep@sleep.com", "Password")
         .then(() => props.navigation.navigate('Main Screen'))
         .catch(error => Alert.alert(
             "Login",
@@ -232,6 +232,31 @@ export default class LoginScreen extends React.Component {
 
                         </Animated.View>
 
+                <View style={styles.loginBtnRow}>
+                    <TouchableOpacity
+                        onPress={ loginFunc } //insert navigation
+                        style={styles.loginBtn}
+                        testID='loginButton'
+                    >
+                        <Text style={styles.login}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => props.navigation.navigate('RegisterScreen')}
+                        testID='registerButton'
+                        //onPress={registerFunc} //insert navigation
+                        style={styles.signupBtn}
+                    >
+                        <Text style={styles.signUp}>Sign up</Text>
+                    </TouchableOpacity>
+                    {/* DEBUG BUTTON */}
+                    <TouchableOpacity
+                        onPress={ debugLoginFunc }
+                        //onPress={registerFunc} //insert navigation
+                        style={styles.signupBtn}
+                    >
+                        <Text style={styles.signUp}>Debug Login</Text>
+                    </TouchableOpacity>
+                   
                         <View style={{ height: SCREEN_HEIGHT / 3, justifyContent: 'center' }}>
 
                             {/*DISPLAY LOGIN BUTTON FOR THE FRONT PAGE. IT DOES NOT LOGIN, IT TRIGGERS THE FRONT IMAGE TO RECEDE.*/}

@@ -18,14 +18,14 @@ export default StyleSheet.create({
       color: "rgba(255,255,255,1)",
       fontSize: 40,
       marginTop: Constants.statusBarHeight,
-      marginLeft: '20%'
+      // marginLeft: '20%'
     },
     inputStyle: {
         backgroundColor: "#E35614",
         justifyContent: 'center',
         width: 250,
         marginTop: 10,
-        marginLeft: SCREEN_WIDTH / 5
+        // marginLeft: SCREEN_WIDTH / 5
     },
     signUpBtn: {
       width: 214,
@@ -37,7 +37,7 @@ export default StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 30,
-      marginLeft: SCREEN_WIDTH / 4
+      // marginLeft: SCREEN_WIDTH / 4
     },
     signUpTxt: {
       color: "rgba(249,71,35,1)",
