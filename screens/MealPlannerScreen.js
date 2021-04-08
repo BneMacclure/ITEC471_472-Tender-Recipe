@@ -32,6 +32,7 @@ const MealPlannerScreen = (props) => {
 
     }
 
+    /*
     useEffect = () => {
         var currentUserID = firebaseApp.auth().currentUser.uid;
 
@@ -73,7 +74,7 @@ const MealPlannerScreen = (props) => {
         setRecData(returnArray)
         });
     }
-
+    */
 
     const rightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
@@ -147,6 +148,7 @@ const MealPlannerScreen = (props) => {
     };
 
     // Once a date is it's time to submit it to the DB
+    /*
     const handleDatePicked = (date) => {
         console.log("A date has been picked: ", date);
         // get the recipe
@@ -174,6 +176,7 @@ const MealPlannerScreen = (props) => {
         .then(() => hideDateTimePicker())
         .catch(() => console.log('failure has been achieved'))
     }
+    */
 
     const formatDate = (date) => {
         var newDate = ''

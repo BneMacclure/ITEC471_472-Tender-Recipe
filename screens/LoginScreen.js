@@ -231,63 +231,37 @@ export default class LoginScreen extends React.Component {
                             </Svg>
 
                         </Animated.View>
-                    </View>
-                <View style={styles.loginBtnRow}>
-                    <TouchableOpacity
-                        onPress={ loginFunc } //insert navigation
-                        style={styles.loginBtn}
-                        testID='loginButton'
-                    >
-                        <Text style={styles.login}>Login</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => props.navigation.navigate('RegisterScreen')}
-                        testID='registerButton'
-                        //onPress={registerFunc} //insert navigation
-                        style={styles.signupBtn}
-                    >
-                        <Text style={styles.signUp}>Sign up</Text>
-                    </TouchableOpacity>
-                    {/* DEBUG BUTTON */}
-                    <TouchableOpacity
-                        onPress={ debugLoginFunc }
-                        //onPress={registerFunc} //insert navigation
-                        style={styles.signupBtn}
-                    >
-                        <Text style={styles.signUp}>Debug Login</Text>
-                    </TouchableOpacity>
-                   
-                        <View style={{ height: SCREEN_HEIGHT / 3, justifyContent: 'center' }}>
+                            <View style={{ height: SCREEN_HEIGHT / 3, justifyContent: 'center' }}>
 
-                            {/*DISPLAY LOGIN BUTTON FOR THE FRONT PAGE. IT DOES NOT LOGIN, IT TRIGGERS THE FRONT IMAGE TO RECEDE.*/}
-                            <TapGestureHandler onHandlerStateChange={this.onStateChange}>
-                                <Animated.View style={{ ...styles.button, opacity: this.buttonOpacity, transform: [{ translateY: this.buttonY }] }}>
-                                    <Text style={styles.loginCover}>LOG IN</Text>
-                                </Animated.View>
-                            </TapGestureHandler>
-
-                            {/*REGISTER BUTTON FOR THE FRONT PAGE. IT SHOULD REDIRECT TO REGISTRATION PAGE.*/}
-                            <Animated.View style={{ ...styles.button, opacity: this.buttonOpacity, transform: [{ translateY: this.buttonY }] }}>
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('RegisterScreen')}
-                                    //style={styles.button}
-                                    testID='registerButton'
-                                >
-                                    <Text style={styles.signUp}>SIGN UP</Text>
-                                </TouchableOpacity>
-                            </Animated.View>
-
-                            <Animated.View style={{ zIndex: this.textInputZindex, opacity: this.textInputOpacity, transform: [{ translateY: this.textInputY }], height: SCREEN_HEIGHT / 1.2, ...StyleSheet.absoluteFill, top: null, justifyContent: 'center' }}>
-
-                                {/*LITTLE 'X' BUTTON TO CLOSE OUT LOGIN PAGE*/}
-                                <TapGestureHandler onHandlerStateChange={this.onCloseState}>
-                                    <Animated.View style={styles.closeButton}>
-                                        <Animated.Text style={{ fontSize: 15, transform: [{rotate:concat(this.rotateCross, 'deg')}]}}>X</Animated.Text>
+                                {/*DISPLAY LOGIN BUTTON FOR THE FRONT PAGE. IT DOES NOT LOGIN, IT TRIGGERS THE FRONT IMAGE TO RECEDE.*/}
+                                <TapGestureHandler onHandlerStateChange={this.onStateChange}>
+                                    <Animated.View style={{ ...styles.button, opacity: this.buttonOpacity, transform: [{ translateY: this.buttonY }] }}>
+                                        <Text style={styles.loginCover}>LOG IN</Text>
                                     </Animated.View>
                                 </TapGestureHandler>
 
-                                {/*LOGO*/}
-                                <View style={{ height: SCREEN_HEIGHT / 1.2, alignContent: 'center' }}>
+                                {/*REGISTER BUTTON FOR THE FRONT PAGE. IT SHOULD REDIRECT TO REGISTRATION PAGE.*/}
+                                <Animated.View style={{ ...styles.button, opacity: this.buttonOpacity, transform: [{ translateY: this.buttonY }] }}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.navigation.navigate('RegisterScreen')}
+                                        //style={styles.button}
+                                        testID='registerButton'
+                                    >
+                                        <Text style={styles.signUp}>SIGN UP</Text>
+                                    </TouchableOpacity>
+                                </Animated.View>
+
+                                <Animated.View style={{ zIndex: this.textInputZindex, opacity: this.textInputOpacity, transform: [{ translateY: this.textInputY }], height: SCREEN_HEIGHT / 1.2, ...StyleSheet.absoluteFill, top: null, justifyContent: 'center' }}>
+
+                                    {/*LITTLE 'X' BUTTON TO CLOSE OUT LOGIN PAGE*/}
+                                    <TapGestureHandler onHandlerStateChange={this.onCloseState}>
+                                        <Animated.View style={styles.closeButton}>
+                                            <Animated.Text style={{ fontSize: 15, transform: [{rotate:concat(this.rotateCross, 'deg')}]}}>X</Animated.Text>
+                                        </Animated.View>
+                                    </TapGestureHandler>
+
+                                    {/*LOGO*/}
+                                    <View style={{ height: SCREEN_HEIGHT / 1.2, alignContent: 'center' }}>
                                     <ReactImage
                                         source={require("../assets/images/logo.png")}
                                         resizeMode="contain"
@@ -349,12 +323,12 @@ export default class LoginScreen extends React.Component {
                                         style={styles.activityIndicator}
                                     ></ActivityIndicator>
                                     </View>
-                            </Animated.View>
-
+                                </Animated.View>
+                            </View>            
                         </View>
-                    </View>
+                    
                     </ImageBackground>       
-                </View>
+            </View>
             
         );
     }
