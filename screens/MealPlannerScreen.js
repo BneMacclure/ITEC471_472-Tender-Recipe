@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, setState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, FlatList, ImageBackground, Picker, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -26,7 +26,7 @@ const MealPlannerScreen = (props) => {
     const [selectedValue, setSelectedValue] = useState(0);
     const [selectedRecipe, setSelectedRecipe] = useState('');
     const [isRecipeVisible, setIsRecipeVisible] = useState(false);
-    const [rec_data, setRecData] = setState([]);
+    const [rec_data, setRecData] = useState([]);
 
     const deleteFromAgenda = () => {
 
@@ -129,6 +129,7 @@ const MealPlannerScreen = (props) => {
         console.log("Show date time picker has been set to true");
     };
 
+    /*
      // hide the time picker modal
     const hideDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: false });
@@ -146,6 +147,7 @@ const MealPlannerScreen = (props) => {
         this.setState({ isModalVisible: false });
         console.log("Show date time picker has been set to false");
     };
+    */
 
     // Once a date is it's time to submit it to the DB
     /*
