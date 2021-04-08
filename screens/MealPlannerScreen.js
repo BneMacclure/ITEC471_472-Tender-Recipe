@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState, setState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, FlatList, ImageBackground, Picker, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,13 +22,59 @@ const MealPlannerScreen = (props) => {
     const [uid, setUid] = useState('')
     const [itemKey, setItemKey] = useState("")
     const [isVisible, setIsVisible] = useState(false)
+    const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0);
+    const [selectedRecipe, setSelectedRecipe] = useState('');
     const [isRecipeVisible, setIsRecipeVisible] = useState(false);
+    const [rec_data, setRecData] = useState([]);
 
     const deleteFromAgenda = () => {
 
     }
 
+    /*
+    useEffect = () => {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+
+        setUid(currentUserID)
+
+        
+        db.ref('/savedRecipes/'+currentUserID).once('value', (snapshot) => {
+        var returnArray = [];
+        snapshot.forEach(function(childSnapshot) { // iterate through each recipe
+            var recname, ingredients, instructions, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL;
+            var child = childSnapshot.val();
+            var id = childSnapshot.key;
+            recname = child.name;
+            ingredients = child.ingredients;
+            instructions = child.instructions;
+            downloadURL = child.downloadUrl;
+            dairy = child.dairy;
+            eggs = child.eggs;
+            fish = child.fish;
+            gluten = child.gluten;
+            nuts = child.nuts;
+            shellfish = child.shellfish;
+            soy = child.soy;
+            returnArray.push({ // push data into a single object in the array
+            "id": id,
+            "recName": recname,
+            "ingredients": ingredients,
+            "instructions": instructions,
+            "downloadURL": downloadURL,
+            "dairy": dairy,
+            "eggs": eggs,
+            "fish": fish,
+            "gluten": gluten,
+            "nuts": nuts,
+            "shellfish": shellfish,
+            "soy": soy
+            });
+        });
+        setRecData(returnArray)
+        });
+    }
+    */
 
     const rightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
@@ -76,6 +122,77 @@ const MealPlannerScreen = (props) => {
         }, 1000);
         
     };
+
+    // show the time picker modal
+    const showDateTimePicker = () => {
+        setIsDateTimePickerVisible(true);
+        console.log("Show date time picker has been set to true");
+    };
+
+    /*
+     // hide the time picker modal
+    const hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+        console.log("Show date time picker has been set to false");
+    };
+
+    // show the time picker modal
+    const showModal = () => {
+        this.setState({ isModalVisible: true });
+        console.log("Show date time picker has been set to true");
+    };
+
+    // hide the time picker modal
+    const hideModal = () => {
+        this.setState({ isModalVisible: false });
+        console.log("Show date time picker has been set to false");
+    };
+    */
+
+    // Once a date is it's time to submit it to the DB
+    /*
+    const handleDatePicked = (date) => {
+        console.log("A date has been picked: ", date);
+        // get the recipe
+        var recipe = {}
+        for (i = 0; i < this.state.rec_data.length; i++) {
+          if (this.state.rec_data[i].recName == this.state.selectedRecipe) {
+            recipe = {
+              "recName": rec_data[i].recName,
+              "ingredients": rec_data[i].ingredients,
+              "instructions": rec_data[i].instructions,
+              "downloadURL": rec_data[i].downloadURL,
+              "dairy": rec_data[i].dairy,
+              "eggs": rec_data[i].eggs,
+              "fish": rec_data[i].fish,
+              "gluten": rec_data[i].gluten,
+              "nuts": rec_data[i].nuts,
+              "shellfish": rec_data[i].shellfish,
+              "soy": rec_data[i].soy,
+              "dateTime": formatDate(date.toString())
+            }
+          }
+        }
+        console.log(recipe)
+        db.ref('/userAgendas/'+uid).push(recipe)
+        .then(() => hideDateTimePicker())
+        .catch(() => console.log('failure has been achieved'))
+    }
+    */
+
+    const formatDate = (date) => {
+        var newDate = ''
+        var res = date.split(" ")
+        // "Wed Mar 17 2021 18:04:50 GMT-0400 (EDT)"
+        var year = res[3]
+        var day = res[2]
+        var month = this.numberfyMonth(res[1])
+        var time = res[4]
+  
+        newDate = year + '-' + month + '-' + day
+  
+        return newDate
+    }
 
     const deleteItemPrompt = (itemKey) => {
         Alert.alert(
@@ -177,8 +294,8 @@ const MealPlannerScreen = (props) => {
                             </TouchableOpacity>
                         </View>
                         <FlatList>
-                            {/*
-                            data = {this.state.rec_data}
+                            
+                            data = {rec_data}
                             renderItem={({ item }) => {
                                 return (
                                     <ImageBackground
@@ -194,10 +311,8 @@ const MealPlannerScreen = (props) => {
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.addButton}
                                             onPress={() => {
-                                                this.showDateTimePicker();
-                                                this.setState(
-                                                    { selectedRecipe: item.recName, }
-                                                );
+                                                showDateTimePicker();
+                                                setSelectedRecipe(item.recName);
                                             }
                                             }>
                                             <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
@@ -206,7 +321,7 @@ const MealPlannerScreen = (props) => {
                                 )
                             }}
                             keyExtractor={(item) => item.id}
-                            */}
+                            
                             </FlatList>
                     </View>
                 </View>
