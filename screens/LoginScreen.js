@@ -231,7 +231,7 @@ export default class LoginScreen extends React.Component {
                             </Svg>
 
                         </Animated.View>
-
+                    </View>
                 <View style={styles.loginBtnRow}>
                     <TouchableOpacity
                         onPress={ loginFunc } //insert navigation
@@ -349,14 +349,13 @@ export default class LoginScreen extends React.Component {
                                         style={styles.activityIndicator}
                                     ></ActivityIndicator>
                                     </View>
-                                
                             </Animated.View>
 
                         </View>
                     </View>
                     </ImageBackground>       
                 </View>
-
+            
         );
     }
 }
