@@ -100,7 +100,7 @@ export default class MyRecipes extends Component {
 
     console.log(currentUserID)
     
-    db.ref('/savedRecipes/'+currentUserID).once('value', (snapshot) => {
+    db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
       var returnArray = [];
       snapshot.forEach(function(childSnapshot) { // iterate through each recipe
         var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL;
