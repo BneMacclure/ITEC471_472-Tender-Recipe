@@ -359,29 +359,32 @@ export default class MyRecipes extends Component {
 				style={styles.image2}
 				imageStyle={styles.image2_imageStyle}
 				>
-				  <Text style={styles.recText}>{item.recName}</Text>
-				  <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-				    <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+          <Text style={styles.recText}>{item.recName}</Text>
+
+          <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+            <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.addButton} 
-          onPress={() => {
-            this.showDateTimePicker();
-            this.setState(
-              {selectedRecipe: item.recName,}
-              );
-            }
-          }>
-              <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.rateButton}
-                      onPress={() => {
-                          this.setState(
-                              { isRateModalVisible: true }
-                          );
-                      }}
-                      >
-                      <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
-                  </TouchableOpacity>
+            onPress={() => {
+              this.showDateTimePicker();
+              this.setState(
+                {selectedRecipe: item.recName,}
+                );
+              }
+            }>
+            <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.rateButton}
+              onPress={() => {
+                  this.setState(
+                      { isRateModalVisible: true }
+                  );
+              }}
+              >
+              <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
+          </TouchableOpacity>
 			</ImageBackground>		
 		  )
     }}
