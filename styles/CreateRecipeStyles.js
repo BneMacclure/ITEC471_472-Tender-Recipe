@@ -46,6 +46,10 @@ export default StyleSheet.create({
         left: 0,
         width: 591,
         height: 592,
+        backgroundColor: "#f5a023",
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: "black",
 
     },
     fieldsBackground_imageStyle: {},
@@ -188,7 +192,7 @@ export default StyleSheet.create({
     recipeInstructions: {
         width: SCREEN_WIDTH / 1.1,
         color: "#121212",
-        height: 280,
+        height: 200,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
@@ -399,6 +403,28 @@ export default StyleSheet.create({
         alignSelf: "center",
         justifyContent: "center",
         marginTop: '60%'
+    },
+
+    addIcon: {
+        color: "#e35514",
+        fontSize: 40,
+        marginLeft: 2.5
+
+    },
+
+    addIngredientText: {
+        color: "black",
+        fontWeight: "bold",
+        fontSize: 20,
+        marginTop: 2,
+        marginRight: 10
+    },
+
+    addButton: {
+        backgroundColor: "white",
+        borderRadius: 100,
+        width: 40,
+        height: 40,
     }
 
 });

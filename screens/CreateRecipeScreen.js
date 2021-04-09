@@ -171,12 +171,7 @@ const CreateRecipeScreen = (props) =>  {
                 {/*Recipe textbox fill-in secion*/}
                 <View style={styles.recipeFillIn}>
                     <View style={styles.fieldsBackgroundStack}>
-                        <ImageBackground
-                            source={require("../assets/images/checkboxfield_bbg.jpg")}
-                            resizeMode="contain"
-                            style={styles.fieldsBackground}
-                            imageStyle={styles.fieldsBackground_imageStyle}
-                        >
+                        <View style={styles.fieldsBackground}>
                             <View style={styles.fillInBadge}>
                                 <Text style={styles.fillInBelow}>FILL IN BELOW</Text>
                             </View>
@@ -211,7 +206,6 @@ const CreateRecipeScreen = (props) =>  {
                                     style={styles.recipeAmount}
                                     onChangeText={handleInputChange}
                                     value={numInput}
-
                                 ></TextInput>
                                 </View>
                                 <View style={{flexDirection: 'row', alignSelf: 'center'}}>
@@ -223,6 +217,17 @@ const CreateRecipeScreen = (props) =>  {
                                     onChangeText={(unit) => setUnit(unit)}
                                 ></TextInput>
                                 </View>
+                                <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: '3%'}}>
+                                <Text style ={styles.addIngredientText}>Add Ingredient</Text>
+
+                                <TouchableOpacity
+                                    //onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
+                                    style={styles.addButton}
+                                >
+                                    <Icon name="plus-circle" style={styles.addIcon}></Icon>
+                                </TouchableOpacity>
+
+                                </View>
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
                                     placeholder=""
@@ -232,7 +237,7 @@ const CreateRecipeScreen = (props) =>  {
                                     onChangeText={(instructions) => setInstructions(instructions)}
                                 ></TextInput>
                             </View>
-                        </ImageBackground>
+                        </View>
                     </View>
 
                     {/*Recipe checkbox secion*/}
