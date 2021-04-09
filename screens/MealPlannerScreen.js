@@ -4,9 +4,11 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card, Avatar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons'
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { firebaseApp, db } from '../config/DatabaseConfig';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Modal from 'react-native-modal';
 import ViewRecipeModal from '../components/ViewRecipeModal';
 
@@ -27,13 +29,13 @@ const MealPlannerScreen = (props) => {
     const [selectedRecipe, setSelectedRecipe] = useState('');
     const [isRecipeVisible, setIsRecipeVisible] = useState(false);
     const [rec_data, setRecData] = useState([]);
+    const [num, setNum] = useState(0);
 
     const deleteFromAgenda = () => {
 
     }
 
-    /*
-    useEffect = () => {
+    useEffect(() => {
         var currentUserID = firebaseApp.auth().currentUser.uid;
 
         setUid(currentUserID)
@@ -73,8 +75,7 @@ const MealPlannerScreen = (props) => {
         });
         setRecData(returnArray)
         });
-    }
-    */
+    }, num)
 
     const rightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
@@ -105,7 +106,6 @@ const MealPlannerScreen = (props) => {
             db.ref('/userAgendas/'+currentUserID).on('value', (snapshot) =>{
                 snapshot.forEach((childSnapshot) => {
                     var data = childSnapshot.val()
-                    console.log(data)
                     if(!items[data.dateTime]) {
                         loading[data.dateTime] = [{"name": data.recName, "src": data.downloadURL, "date": data.dateTime, "key": childSnapshot.key}]
                     }
@@ -120,7 +120,6 @@ const MealPlannerScreen = (props) => {
 
             setItems(loading);
         }, 1000);
-        
     };
 
     // show the time picker modal
@@ -129,34 +128,84 @@ const MealPlannerScreen = (props) => {
         console.log("Show date time picker has been set to true");
     };
 
-    /*
      // hide the time picker modal
     const hideDateTimePicker = () => {
-        this.setState({ isDateTimePickerVisible: false });
+        setIsDateTimePickerVisible(false);
         console.log("Show date time picker has been set to false");
     };
 
-    // show the time picker modal
+    // show the recipe modal
     const showModal = () => {
-        this.setState({ isModalVisible: true });
-        console.log("Show date time picker has been set to true");
+        setIsModalVisible(true);
+        console.log("");
     };
 
-    // hide the time picker modal
+    // hide the recipe modal
     const hideModal = () => {
-        this.setState({ isModalVisible: false });
-        console.log("Show date time picker has been set to false");
+        setIsModalVisible(false);
+        console.log("");
     };
-    */
+
+    const numberfyMonth = (monthStr) => {
+        if (monthStr === 'Jan') {
+          return '01'
+        }
+        else if (monthStr === 'Feb') {
+          return '02'
+        }
+        else if (monthStr === 'Mar') {
+          return '03'
+        }
+        else if (monthStr === 'Apr') {
+          return '04'
+        }
+        else if (monthStr === 'May') {
+          return '05'
+        }
+        else if (monthStr === 'Jun') {
+          return '06'
+        }
+        else if (monthStr === 'Jul') {
+          return '07'
+        }
+        else if (monthStr === 'Aug') {
+          return '08'
+        }
+        else if (monthStr === 'Sep') {
+          return '09'
+        }
+        else if (monthStr === 'Oct') {
+          return '10'
+        }
+        else if (monthStr === 'Nov') {
+          return '11'
+        }
+        else if (monthStr === 'Dec') {
+          return '12'
+        }
+      }
+
+    const formatDate = (date) => {
+        var newDate = ''
+        var res = date.split(" ")
+        // "Wed Mar 17 2021 18:04:50 GMT-0400 (EDT)"
+        var year = res[3]
+        var day = res[2]
+        var month = numberfyMonth(res[1])
+        var time = res[4]
+  
+        newDate = year + '-' + month + '-' + day
+  
+        return newDate
+    }
 
     // Once a date is it's time to submit it to the DB
-    /*
     const handleDatePicked = (date) => {
         console.log("A date has been picked: ", date);
         // get the recipe
         var recipe = {}
-        for (i = 0; i < this.state.rec_data.length; i++) {
-          if (this.state.rec_data[i].recName == this.state.selectedRecipe) {
+        for (i = 0; i < rec_data.length; i++) {
+          if (rec_data[i].recName == selectedRecipe) {
             recipe = {
               "recName": rec_data[i].recName,
               "ingredients": rec_data[i].ingredients,
@@ -175,23 +224,11 @@ const MealPlannerScreen = (props) => {
         }
         console.log(recipe)
         db.ref('/userAgendas/'+uid).push(recipe)
-        .then(() => hideDateTimePicker())
+        .then(() => {
+            hideDateTimePicker()
+            setNum(num+1)
+        })
         .catch(() => console.log('failure has been achieved'))
-    }
-    */
-
-    const formatDate = (date) => {
-        var newDate = ''
-        var res = date.split(" ")
-        // "Wed Mar 17 2021 18:04:50 GMT-0400 (EDT)"
-        var year = res[3]
-        var day = res[2]
-        var month = this.numberfyMonth(res[1])
-        var time = res[4]
-  
-        newDate = year + '-' + month + '-' + day
-  
-        return newDate
     }
 
     const deleteItemPrompt = (itemKey) => {
@@ -269,21 +306,6 @@ const MealPlannerScreen = (props) => {
                         borderRadius: 1
                     }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: "#FD8017", height: '8%'}}>
-                            <View style={{ borderRadius: 35, backgroundColor: '#fff', width: '35%', height: '75%', marginTop: 6, marginRight: '50%', alignContent: "center", justifyContent: "center",}}>
-                                <Picker
-                                    style={{ height: 50, width: 120, marginLeft: 10}}
-                                    itemStyle={{ backgroundColor: "black", color: "blue", fontSize: 17 }}
-                                    selectedValue={selectedValue}
-                                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-
-                                >
-                                    <Picker.Item label="Filter" value="0"></Picker.Item>
-                                    <Picker.Item label="Breakfast" value="1"></Picker.Item>
-                                    <Picker.Item label="Lunch" value="1"></Picker.Item>
-                                    <Picker.Item label="Dinner" value="1"></Picker.Item>
-                                </Picker>
-                            </View>
-
                             <TouchableOpacity>
                                 <EntypoIcon
                                     name="circle-with-cross"
@@ -293,40 +315,52 @@ const MealPlannerScreen = (props) => {
                                 ></EntypoIcon>
                             </TouchableOpacity>
                         </View>
-                        <FlatList>
+                        <FlatList
                             
                             data = {rec_data}
                             renderItem={({ item }) => {
                                 return (
-                                    <ImageBackground
-                                        source={{ uri: item.downloadURL }}
-                                        resizeMode="cover"
-                                        style={styles.recipeImageContainer}
-                                        imageStyle={styles.recipeImage}
-                                    >
-
-                                        <Text style={styles.recipeText}>{item.recName}</Text>
-                                        <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-                                            <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={styles.addButton}
+                                    <TouchableOpacity style={styles.recipeImageContainer}
                                             onPress={() => {
                                                 showDateTimePicker();
+                                                //setIsVisible(false)
                                                 setSelectedRecipe(item.recName);
                                             }
                                             }>
-                                            <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-                                        </TouchableOpacity>
-                                    </ImageBackground>
+                                        <ImageBackground
+                                            source={{ uri: item.downloadURL }}
+                                            resizeMode="cover"
+                                            style={styles.recipeImageContainer}
+                                            imageStyle={styles.recipeImage}
+                                        >
+
+                                            <Text style={styles.recipeText}>{item.recName}</Text>
+                                            
+                                        </ImageBackground>
+                                    </TouchableOpacity>
                                 )
                             }}
                             keyExtractor={(item) => item.id}
                             
-                            </FlatList>
+                        />
                     </View>
+                </View>
+                <View style={{
+                    justifyContent: "center",
+                    alignItems: "center", }}>
+                    <DateTimePickerModal
+                        isVisible={isDateTimePickerVisible}
+                        mode="datetime"
+                        onConfirm={(date) => {
+                            handleDatePicked(date)
+                            setIsVisible(false)}}
+                        onCancel={() => hideDateTimePicker()}
+                    />
                 </View>
 
             </Modal>
+
+           
 
             {/* MODAL TO VIEW THE RECIPE, JUST NEEDS TO BE HOOKED UP.
              * <ViewRecipeModal
