@@ -40,7 +40,7 @@ const MealPlannerScreen = (props) => {
 
         setUid(currentUserID)
 
-        
+
         db.ref('/savedRecipes/'+currentUserID).once('value', (snapshot) => {
         var returnArray = [];
         snapshot.forEach(function(childSnapshot) { // iterate through each recipe
@@ -114,8 +114,8 @@ const MealPlannerScreen = (props) => {
 
             console.log('Finished loading')
             console.log(loading)
-            
-           
+
+
 
 
             setItems(loading);
@@ -193,9 +193,9 @@ const MealPlannerScreen = (props) => {
         var day = res[2]
         var month = numberfyMonth(res[1])
         var time = res[4]
-  
+
         newDate = year + '-' + month + '-' + day
-  
+
         return newDate
     }
 
@@ -316,7 +316,7 @@ const MealPlannerScreen = (props) => {
                             </TouchableOpacity>
                         </View>
                         <FlatList
-                            
+
                             data = {rec_data}
                             renderItem={({ item }) => {
                                 return (
@@ -334,14 +334,26 @@ const MealPlannerScreen = (props) => {
                                             imageStyle={styles.recipeImage}
                                         >
 
+                                            <View style={{flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: "#FD8017", height: '30%', marginTop: '25%'}}>
+                                            <TouchableOpacity style={styles.magnifyButton}>
+                                            <MaterialCommunityIconsIcon
+                                                name="magnify"
+                                                size={35}
+                                                style={styles.addRecipeIcon}
+                                                //OnPress, show view recipe modal
+                                            ></MaterialCommunityIconsIcon>
+                                            </TouchableOpacity>
+
                                             <Text style={styles.recipeText}>{item.recName}</Text>
-                                            
+
+                                            </View>
+
                                         </ImageBackground>
                                     </TouchableOpacity>
                                 )
                             }}
                             keyExtractor={(item) => item.id}
-                            
+
                         />
                     </View>
                 </View>
@@ -360,7 +372,7 @@ const MealPlannerScreen = (props) => {
 
             </Modal>
 
-           
+
 
             {/* MODAL TO VIEW THE RECIPE, JUST NEEDS TO BE HOOKED UP.
              * <ViewRecipeModal
@@ -421,7 +433,7 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,1)",
         fontSize: 100,
         marginTop: -10,
-        marginLeft: -10,      
+        marginLeft: -10,
     },
     addButton: {
         width: 80,
@@ -453,15 +465,29 @@ const styles = StyleSheet.create({
     recipeImageContainer: {
         width: SCREEN_WIDTH,
         height: 140,
-        marginTop: 1
+        marginTop: 1,
+        marginBottom: 6,
     },
     recipeImage: {},
     recipeText: {
         color: "rgba(255,255,255,1)",
-        fontSize: 35,
-        marginTop: 84,
-        marginLeft: 8
+        fontSize: 33,
+        marginTop: -6,
+        marginLeft: 8,
+        justifyContent: 'flex-start'
     },
+    addRecipeIcon: {
+        //color: "#f94723",
+        color: "#FD8017",
+    },
+    magnifyButton: {
+        backgroundColor: "#fff",
+        borderRadius: 100,
+        height: 35,
+        width: 35,
+        marginTop: 3,
+        marginLeft: 2
+    }
 });
 
 export default MealPlannerScreen;
