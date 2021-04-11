@@ -17,6 +17,7 @@ import Registration02 from '../screens/Registration02';
 import Registration03 from '../screens/Registration03';
 import Registration04 from '../screens/Registration04';
 import Registration05 from '../screens/Registration05';
+import ShoppingList from '../screens/ShoppingList';
 import MealPlannerScreen from '../screens/MealPlannerScreen'
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicon from 'react-native-vector-icons/Ionicons'
@@ -120,6 +121,34 @@ const Navigator = props => {
                     options={{
                         headerShown: true,
                         title: "MyProfile",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 25,
+                                    height: StatusBar.currentHeight,
+                                }}>
+                            </View>
+                        ),
+
+                    }}
+                />
+                <Stack.Screen
+                    name="ShoppingList"
+                    component={ShoppingList}
+                    options={{
+                        headerShown: true,
+                        title: "ShoppingList",
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },
