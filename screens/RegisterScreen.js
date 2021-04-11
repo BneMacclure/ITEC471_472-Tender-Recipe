@@ -25,12 +25,37 @@ function Registration({navigation, route}) {
   const [phone, setPhone] = useState("");
 
   const registerFunc = () => {
-    if (password === confirmPass) {
-      navigation.navigate('Registration02', { email: email, name: name, password: password, phone: phone })
+    // all fields are required
+    if (email !== "" && password !== "" && confirmPass !== "" && name !== "" && phone !== "") {
+      // check for valid email address, firebase WILL throw an error
+      if (validateEmail(email)) {
+        // check to make sure passwords match
+        if (password === confirmPass) {
+          navigation.navigate('Registration02', { email: email, name: name, password: password, phone: phone })
+        }
+        else {
+          Alert.alert("Passwords do not match")
+        }
+
+      }
+      else {
+        Alert.alert('Invalid email address')
+      }
+
     }
     else {
-      Alert.alert("Passwords do not match")
+      Alert.alert("All fields are required")
     }
+    
+  }
+
+  const validateEmail = (mail) => {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
+      {
+        return true
+      }
+        return false
+        
   }
 
   return (
