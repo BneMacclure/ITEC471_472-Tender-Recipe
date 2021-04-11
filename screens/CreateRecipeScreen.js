@@ -29,6 +29,10 @@ const CreateRecipeScreen = (props) =>  {
     const [isSelectedEggs, setSelectionEggs] = useState(false);
     const [isSelectedSoy, setSelectionSoy] = useState(false);
 
+    const [isVegetarian, setVegetarian] = useState(false);
+    const [isVegan, setVegan] = useState(false);
+    const [isPesc, setPesc] = useState(false);
+
     const [n, setName] = useState('');
     const [ingred, setIngredients] = useState('');
     const [instr, setInstructions] = useState('');
@@ -37,6 +41,9 @@ const CreateRecipeScreen = (props) =>  {
     const [downUrl, setDownloadUrl] = useState(null);
     const [animating, setAnimating] = useState(false);
     const [numInput, setNumInput] = useState('');
+
+    const [idNum, setIdNum] = useState(0);
+    const [allIngredients, setAllIngredients] = useState('');
 
     useEffect(() => {
         (async () => {
@@ -50,8 +57,28 @@ const CreateRecipeScreen = (props) =>  {
       }, []);
 
     const handleInputChange = (text) => {
-        setNumInput(text.replace(/[- #*;()$,.<>\{\}\[\]\\]/gi,''))
+        setNumInput(text.replace(/[- #*;()$&@_=%"':!?+,.<>\{\}\[\]\\]/gi,''))
     };
+
+    const addIngredient = () => {
+        var temp = allIngredients;
+        temp += '-' + numInput + ' ' + unit + ' ' + ingred + "\n"
+        setAllIngredients(temp)
+    }
+
+    const removeIngredient = () => {
+        var count = 0;
+        var temp = allIngredients;
+        for(var i = temp.length - 1; i >= 0; i--){
+            if(temp[i] != '-')
+            {
+                count++;
+            }
+            else
+            i = 0
+        }
+        setAllIngredients(temp.slice(0, -(count + 1)))
+    }
 
       const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -221,20 +248,35 @@ const CreateRecipeScreen = (props) =>  {
                                 <Text style ={styles.addIngredientText}>Add Ingredient</Text>
 
                                 <TouchableOpacity
-                                    //onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
+                                    onPress={() => addIngredient()}
                                     style={styles.addButton}
                                 >
                                     <Icon name="plus-circle" style={styles.addIcon}></Icon>
                                 </TouchableOpacity>
-
                                 </View>
+
+                                <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: '3%', marginRight: '11%'}}>
+                                <Text style ={styles.addIngredientText}>Remove Ingredient</Text>
+
+                                <TouchableOpacity
+                                    onPress={() => removeIngredient()}
+                                    style={styles.removeButton}
+                                >
+                                    <Icon name="minus-circle" style={styles.addIcon}></Icon>
+                                </TouchableOpacity>
+                                </View>
+
                                 <TextInput
-                                    placeholder=""
+                                    editable={false}
                                     multiline={true}
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.allRecipeIngredients}
-                                    onChangeText={(instructions) => setInstructions(instructions)}
+                                    value={allIngredients}
+                                    numberOfLines={25}
+                                    scrollEnabled={true}
                                 ></TextInput>
+
+
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
                                     placeholder=""
@@ -249,12 +291,7 @@ const CreateRecipeScreen = (props) =>  {
 
                     {/*Recipe checkbox secion*/}
                     <View style={styles.selectContainer}>
-                        <ImageBackground
-                            source={require("../assets/images/checkbox_bbg.jpg")}
-                            resizeMode="contain"
-                            style={styles.checkboxBackground}
-                            imageStyle={styles.checkBoxBackground_imageStyle}
-                        >
+                        <View style={styles.checkboxBackground}>
                             <View style={styles.checkEachBadge}>
                                 <Text style={styles.fillInBelow}>SELECT ALLERGENS THAT APPLY</Text>
                             </View>
@@ -353,7 +390,58 @@ const CreateRecipeScreen = (props) =>  {
                                     onPress={() => setSelectionSoy(!isSelectedSoy)}
                                 />
                             </View>
-                        </ImageBackground>
+                        </View>
+                    </View>
+
+                    {/*Diet Selection Section*/}
+                    <View style={styles.selectDietContainer}>
+                        <View style={styles.checkboxDietBackground}>
+                            <View style={styles.checkEachBadge}>
+                                <Text style={styles.fillInBelow}>SELECT DIET THAT APPLIES</Text>
+                            </View>
+
+                            <View style={styles.checkBoxColumn}>
+                                <CheckBox
+                                    title='Vegetarian'
+                                    onValueChange={setVegetarian}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isVegetarian}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isVegetarian}
+                                    onPress={() => setVegetarian(!isVegetarian)}
+                                />
+                                <CheckBox value={isVegan}
+                                    title='Vegan'
+                                    onValueChange={setVegan}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isVegan}
+                                    checkedIcon={"check-square"}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checkedColor={'#F94723'}
+                                    checked={isVegan}
+                                    onPress={() => setVegan(!isVegan)}
+                                />
+                                <CheckBox value={isPesc}
+                                    title='Pescatarian'
+                                    onValueChange={setPesc}
+                                    size={35}
+                                    containerStyle={styles.checkboxContainerStyle}
+                                    value={isPesc}
+                                    checkedIcon={"check-square"}
+                                    checkedColor={'#F94723'}
+                                    textStyle={styles.checkboxText}
+                                    uncheckedColor={'#F94723'}
+                                    checked={isPesc}
+                                    onPress={() => setPesc(!isPesc)}
+                                />
+                            </View>
+                        </View>
                     </View>
 
                     {/*Recipe photo upload section*/}
