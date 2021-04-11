@@ -485,7 +485,7 @@ export default class MainScreenInfo extends React.Component {
                         multipleSelect={this.state.multipleSelect}
                         setSections={this.setSections}
                         displayRecipeModal={this.displayRecipeModal.bind(this)}
-                        rating={this.state.rating}
+                        starRating={this.state.rating}
                         >
                     </ViewRecipeModal>
 
