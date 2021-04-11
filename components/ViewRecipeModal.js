@@ -124,6 +124,7 @@ export default class ViewRecipeModal extends React.Component {
                             <Text style={styles.title}>{this.props.currentRecipeName}</Text>
                             <Collapsible collapsed={false} align="center">
                                 <View style={{ flex: 1, marginBottom: 5 }}>
+                                <View style={{width: '50%', alignSelf: "center", marginRight: 10}}>
                                 <StarRating
                                 disabled={true}
                                 emptyStar={'ios-star-outline'}
@@ -133,9 +134,12 @@ export default class ViewRecipeModal extends React.Component {
                                 maxStars={5}
                                 rating={this.props.starRating}
                                 selectedStar={() => {}}
-                                fullStarColor={'red'}
+                                fullStarColor={'#e35514'}
                                 halfStarEnabled
+                                starPadding={10}
                                 />
+
+                                </View>
                                     <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'center', marginLeft: '4.5%' }}>
 
                                         <TouchableOpacity
@@ -239,7 +243,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 25,
         fontWeight: '300',
-        marginBottom: 20,
+        marginBottom: 10,
         paddingBottom: 10,
         paddingTop: '7%',
         //fontFamily: 'BigShouldersDisplay_700Bold'
