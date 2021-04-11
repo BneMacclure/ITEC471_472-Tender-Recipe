@@ -406,7 +406,7 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - (SCREEN_HEIGHT / 5.5), width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
 
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>

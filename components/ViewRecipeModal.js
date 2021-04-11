@@ -9,6 +9,7 @@ import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modal';
+import StarRating from 'react-native-star-rating';
 
 export default class ViewRecipeModal extends React.Component {
     constructor(props) {
@@ -31,6 +32,7 @@ export default class ViewRecipeModal extends React.Component {
             isNuts: PropTypes.bool,
             setSections: PropTypes.func,
             onChange: PropTypes.func,
+            starRating: PropTypes.double,
         }
 
 /*        this.propTypes = {
@@ -59,7 +61,7 @@ export default class ViewRecipeModal extends React.Component {
         this.setState({ collapsed: !this.state.collapsed });
     }
 
-    
+
 
     setContent = data => {
         this.setSate({ CONTENT : data });
@@ -122,6 +124,18 @@ export default class ViewRecipeModal extends React.Component {
                             <Text style={styles.title}>{this.props.currentRecipeName}</Text>
                             <Collapsible collapsed={false} align="center">
                                 <View style={{ flex: 1, marginBottom: 5 }}>
+                                <StarRating
+                                disabled={true}
+                                emptyStar={'ios-star-outline'}
+                                fullStar={'ios-star'}
+                                halfStar={'ios-star-half'}
+                                iconSet={'Ionicons'}
+                                maxStars={5}
+                                rating={this.props.starRating}
+                                selectedStar={() => {}}
+                                fullStarColor={'red'}
+                                halfStarEnabled
+                                />
                                     <View style={{ flexDirection: 'row', width: '90%', justifyContent: 'center', marginLeft: '4.5%' }}>
 
                                         <TouchableOpacity
@@ -185,7 +199,7 @@ export default class ViewRecipeModal extends React.Component {
                             </Collapsible>
 
 
-                            
+
                             <Accordion
                                 activeSections={this.props.activeSections}
                                 sections={this.props.CONTENT}
@@ -196,7 +210,7 @@ export default class ViewRecipeModal extends React.Component {
                                 duration={400}
                                 onChange={this.props.setSections}
                             />
-                            
+
 
                             <View style={styles.exitRecipeContainer}>
                                 <TouchableOpacity
@@ -207,7 +221,7 @@ export default class ViewRecipeModal extends React.Component {
                                 </TouchableOpacity>
 
                             </View>
-                            
+
                         </ScrollView>
                     </View>
                 </View>
