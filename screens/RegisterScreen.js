@@ -103,6 +103,7 @@ function Registration({navigation, route}) {
         </TextInput>
         {/* <Text style={styles.labelText}>Password</Text> */}
         <TextInput 
+          secureTextEntry={true}
           mode="outlined"
           label="Password"
 		  testID='passfield'
@@ -112,6 +113,7 @@ function Registration({navigation, route}) {
         </TextInput>
         {/* <Text style={styles.labelText}>Confirm Password</Text> */}
         <TextInput 
+          secureTextEntry={true}
           mode="outlined"
           label="Confirm Password"
 		  testID='confirmpass'
