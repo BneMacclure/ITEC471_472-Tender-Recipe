@@ -244,7 +244,7 @@ export default class LoginScreen extends React.Component {
                                 <Animated.View style={{ ...styles.button, opacity: this.buttonOpacity, transform: [{ translateY: this.buttonY }] }}>
                                     <TouchableOpacity
                                         onPress={() => this.props.navigation.navigate('RegisterScreen')}
-                                        //style={styles.button}
+                                        style={styles.button}
                                         testID='registerButton'
                                     >
                                         <Text style={styles.signUp}>SIGN UP</Text>
