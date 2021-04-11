@@ -228,6 +228,13 @@ const CreateRecipeScreen = (props) =>  {
                                 </TouchableOpacity>
 
                                 </View>
+                                <TextInput
+                                    placeholder=""
+                                    multiline={true}
+                                    enablesReturnKeyAutomatically={true}
+                                    style={styles.allRecipeIngredients}
+                                    onChangeText={(instructions) => setInstructions(instructions)}
+                                ></TextInput>
                                 <Text style={styles.theInstructionsText}>The Instructions</Text>
                                 <TextInput
                                     placeholder=""

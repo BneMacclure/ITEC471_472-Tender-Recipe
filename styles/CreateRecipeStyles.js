@@ -45,7 +45,7 @@ export default StyleSheet.create({
         top: 12,
         left: 0,
         width: 591,
-        height: 592,
+        height: 792,
         backgroundColor: "#f5a023",
         borderStyle: "solid",
         borderWidth: 1,
@@ -212,6 +212,7 @@ export default StyleSheet.create({
     selectContainer: {
         width: 292,
         height: 760,
+        marginTop: 200,
     },
 
 
@@ -415,8 +416,8 @@ export default StyleSheet.create({
     addIngredientText: {
         color: "black",
         fontWeight: "bold",
-        fontSize: 20,
-        marginTop: 2,
+        fontSize: 18,
+        marginTop: 5,
         marginRight: 10
     },
 
@@ -425,6 +426,21 @@ export default StyleSheet.create({
         borderRadius: 100,
         width: 40,
         height: 40,
-    }
+    },
+
+    allRecipeIngredients: {
+        width: SCREEN_WIDTH / 1.1,
+        color: "#121212",
+        height: 200,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 6,
+        marginTop: 10,
+        fontSize: 16
+    },
 
 });
