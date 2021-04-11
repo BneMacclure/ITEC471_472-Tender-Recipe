@@ -79,6 +79,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
+            rating: 0,
         }
 
         this.rotate = this.position.x.interpolate({
@@ -241,7 +242,9 @@ export default class MainScreenInfo extends React.Component {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
-        this.setState({ currentRecipeName: name });
+        rating = recipeObj.totalRating
+        this.setState({ currentRecipeName: name,
+                        rating: rating });
     }
 
     componentDidMount() {
@@ -482,6 +485,7 @@ export default class MainScreenInfo extends React.Component {
                         multipleSelect={this.state.multipleSelect}
                         setSections={this.setSections}
                         displayRecipeModal={this.displayRecipeModal.bind(this)}
+                        rating={this.state.rating}
                         >
                     </ViewRecipeModal>
 
