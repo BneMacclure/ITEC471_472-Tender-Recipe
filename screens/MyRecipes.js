@@ -216,9 +216,74 @@ export default class MyRecipes extends Component {
       return newDate
     }
 
+    // helper method to update the recipe's rating
+    updateRecipeRating(id) {
+      var sumOfRatings = 0.0
+      var numOfRatings = 0.0
+      // Count the number of ratings and sum up the ratings
+      db.ref('/recipes/'+id+'/ratings').once('value', (snapshot) => {
+          console.log('snapshot: '+snapshot)
+          snapshot.forEach( (childSnapshot) => {
+            data = childSnapshot.val()
+            console.log('printing data: '+data)
+            sumOfRatings = sumOfRatings + data.rating
+            numOfRatings++
+          })
+      })
+
+      var rating = sumOfRatings/numOfRatings
+      console.log('New Rating: '+ sumOfRatings)
+
+      // Update the rating field for the recipe
+      db.ref('/recipes/'+id).update({
+        totalRating: rating,
+      })
+
+    }
+
     onStarRatingPress = (rating) => {
         this.setState({ starCount:rating })
+        console.log("Submitting Rating")
+        // Update the rating by the user
+        console.log('updating the recipe: ' + this.state.selectedRecipe)
+
+        var recipeID = ''
+        // Get the recipe ID
+        db.ref('/recipes/').once('value', (snapshot) => {
+          snapshot.forEach( (childSnapshot) => {
+            data = childSnapshot.val()
+            n = data.name
+            if (n === this.state.selectedRecipe) {
+              recipeID = childSnapshot.key
+            }
+          })
+        })
+
+        console.log('Recipe ID: '+recipeID)
+
+        db.ref('/recipes/'+recipeID+'/ratings/'+this.state.uid).set({
+          rating: rating,
+        })
+
+        // Update the total rating for the recipe
+        this.updateRecipeRating(recipeID)
+
         
+
+        // Tell the user it's all done
+        Alert.alert(
+          "Rating Submission",
+          "Rating Submission Successful",
+          [
+            { text: "OK", onPress: () => this.setState({
+              starCount: 0,
+              isRateModalVisible: false
+            }) }
+          ]
+        );
+
+        console.log('Rating Submitted: ' + rating)
+    
     }
 
     // Once a date is it's time to submit it to the DB
@@ -379,7 +444,8 @@ export default class MyRecipes extends Component {
           <TouchableOpacity style={styles.rateButton}
               onPress={() => {
                   this.setState(
-                      { isRateModalVisible: true }
+                      { isRateModalVisible: true,
+                        selectedRecipe: item.recName }
                   );
               }}
               >
