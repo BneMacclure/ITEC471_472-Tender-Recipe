@@ -286,6 +286,7 @@ export default class LoginScreen extends React.Component {
                                                 placeholderTextColor="rgba(150,150,150,1)"
                                                 inlineImagePadding={0}
                                                 selectionColor="rgba(52,250,215,1)"
+                                                autoCapitalize="none"
                                                 style={styles.textInput}
                                                 onChangeText={(email) => this.setState({ email: email })}
                                             ></TextInput>
