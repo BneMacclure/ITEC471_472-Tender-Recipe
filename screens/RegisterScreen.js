@@ -96,6 +96,7 @@ function Registration({navigation, route}) {
         <TextInput 
           mode="outlined"
           label="Email"
+          autoCapitalize='none'
           onChangeText = {(email) => setEmail(email)}
 		  testID='emailfield'
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
@@ -106,7 +107,9 @@ function Registration({navigation, route}) {
           secureTextEntry={true}
           mode="outlined"
           label="Password"
-		  testID='passfield'
+          autoCapitalize='none'
+          secureTextEntry={true}
+		    testID='passfield'
           onChangeText = {(password) => setPassword(password)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -116,6 +119,8 @@ function Registration({navigation, route}) {
           secureTextEntry={true}
           mode="outlined"
           label="Confirm Password"
+          autoCapitalize='none'
+          secureTextEntry={true}
 		  testID='confirmpass'
           onChangeText = {(confirmPass) => setConfirmPass(confirmPass)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}

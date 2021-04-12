@@ -160,6 +160,13 @@ function Profile({navigation}) {
 			style={styles.myRecipesButton}>
 			<Text style={styles.myRecipesText}>My recipes</Text>
 		  </TouchableOpacity>
+		  {/*Temporary navigation button to ShoppingList*/}
+		  <TouchableOpacity 
+			onPress={() => navigation.navigate('ShoppingList')}
+			testID='shoppingListBtn'
+			style={styles.myRecipesButton}>
+			<Text style={styles.myRecipesText}>ShoppingList</Text>
+		  </TouchableOpacity>
 		  <View style={styles.button3Row}>
 			  {/*Change password button*/}
 			  <TouchableOpacity style={styles.changePasswordButton}>
