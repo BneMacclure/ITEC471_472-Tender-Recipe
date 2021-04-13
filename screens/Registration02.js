@@ -6,7 +6,8 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from "react-native";
 
 import styles from '../styles/RegisterScreenStyles.js';
@@ -14,14 +15,19 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 function Registration02({navigation, route}) {
-  const [skill, setSkill] = useState("Beginner");
+  const [skill, setSkill] = useState("");
   const {name, email, phone, password} = route.params;
   const [btn1Act, setbtn1Act] = useState(false);
   const [btn2Act, setbtn2Act] = useState(false);
   const [btn3Act, setbtn3Act] = useState(false);
 
   const registerFunc2 = () => {
-    navigation.navigate('Registration03', { name: name, email: email, phone: phone, password: password, skillLevel: skill })
+    if (skill !== "") {
+      navigation.navigate('Registration03', { name: name, email: email, phone: phone, password: password, skillLevel: skill })
+    }
+    else {
+      Alert.alert("Please choose a skill level")
+    }
   }
 
   const setBtns = (btnNum) => {

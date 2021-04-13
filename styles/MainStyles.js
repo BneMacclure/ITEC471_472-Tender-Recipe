@@ -238,6 +238,7 @@ export default StyleSheet.create({
         backgroundColor: '#f5a023',
         height: 70,
         position: 'absolute',
+        zIndex: 10,
         top: '91.8%',
         width: '100%',
         elevation: 1,

@@ -79,6 +79,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
+            rating: 0,
         }
 
         this.rotate = this.position.x.interpolate({
@@ -241,7 +242,9 @@ export default class MainScreenInfo extends React.Component {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
-        this.setState({ currentRecipeName: name });
+        rating = recipeObj.totalRating
+        this.setState({ currentRecipeName: name,
+                        rating: rating });
     }
 
     componentDidMount() {
@@ -403,7 +406,7 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - (SCREEN_HEIGHT / 5.5), width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
 
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
@@ -488,6 +491,7 @@ export default class MainScreenInfo extends React.Component {
                         multipleSelect={this.state.multipleSelect}
                         setSections={this.setSections}
                         displayRecipeModal={this.displayRecipeModal.bind(this)}
+                        starRating={this.state.rating}
                         >
                     </ViewRecipeModal>
 
