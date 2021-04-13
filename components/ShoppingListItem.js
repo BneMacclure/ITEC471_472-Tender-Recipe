@@ -20,14 +20,11 @@ export class ShoppingListItem extends Component {
             <View style={styles.container}>
                 <View style={styles.row}>
                     <CheckBox
-                        name={this.props.name}
+                        title={this.props.name}
                         checked={this.state.checked}
                         containerStyle={styles.checkBox}
                         onPress={() => this.setState({ checked: !this.state.checked})}
                     />
-                    <View style={styles.textBox}>
-                        <Text style={styles.countText}>{this.props.count}</Text>
-                    </View>
                 </View>       
             </View>
         );
@@ -39,7 +36,7 @@ const styles = StyleSheet.create({
       flex: 1
     },
     checkBox: {
-        width: SCREEN_WIDTH - 50
+        width: SCREEN_WIDTH - 20
     },
     textBox: {
         backgroundColor: "white",
