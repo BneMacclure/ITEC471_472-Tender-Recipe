@@ -46,7 +46,6 @@ function Registration04({navigation, route}) {
         </Text>
         {/* Spacer */}
         <View style={{marginTop:100}}></View>
-		testID='vegan'
         <TouchableOpacity 
           onPress={() => {
             setBtns(1)
@@ -74,7 +73,7 @@ function Registration04({navigation, route}) {
           <Text style={btn3Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Pescatarian</Text>
         </TouchableOpacity>
         <TouchableOpacity 
-		  testID='none'
+		      testID='none'
           onPress={() => {
             setBtns(4)
             setDiet("None")

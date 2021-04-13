@@ -25,9 +25,9 @@ export default StyleSheet.create({
 	  overflow: "hidden"
 	},
 	image_imageStyle: {},
-  image2_imageStyle: {
-    borderRadius: 100,
-  },
+ 	image2_imageStyle: {
+    	borderRadius: 100,
+  	},
 	image2: {
 	  width: 182,
 	  height: 182,
@@ -37,7 +37,7 @@ export default StyleSheet.create({
 	johnDoe: {
 	  color: "rgba(255,255,255,1)",
 	  fontSize: 45,
-    fontWeight: 'bold',
+	  fontWeight: 'bold',
 	  marginTop: 27,
 	},
 	loremIpsum: {
