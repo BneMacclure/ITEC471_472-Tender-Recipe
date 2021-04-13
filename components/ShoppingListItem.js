@@ -4,16 +4,26 @@ import { CheckBox } from "react-native-elements";
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
+// const [item4Checked, setItem4Checked] = useState(false);
+
 export class ShoppingListItem extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            checked: false
+        }
+    }
+
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.row}>
                     <CheckBox
-                        title={this.props.title}
-                        checked={this.props.checked}
+                        name={this.props.name}
+                        checked={this.state.checked}
                         containerStyle={styles.checkBox}
-                        onPress={() => this.props.itemFunc(!this.props.checked)}
+                        onPress={() => this.setState({ checked: !this.state.checked})}
                     />
                     <View style={styles.textBox}>
                         <Text style={styles.countText}>{this.props.count}</Text>
