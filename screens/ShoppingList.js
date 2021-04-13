@@ -1,23 +1,44 @@
 import React, { Component, useState } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { ShoppingListItem } from '../components/ShoppingListItem.js'
 // import { useChecklist } from 'react-checklist';
 
 function ShoppingList(props) {
-  
-  const [item1Checked, setItem1Checked] = useState(false);
-  const [item2Checked, setItem2Checked] = useState(false);
-  const [item3Checked, setItem3Checked] = useState(false);
-  const [item4Checked, setItem4Checked] = useState(false);
+
+  const [recipes, setRecipes] = useState({});
+
+  const renRecipeItem = (item) => {
+    return(
+      <View>
+        <Text>{item.name}</Text>
+        <FlatList
+          data = {getIngredients(item.name)}
+          renderItem={() => renIngredientItem()}>
+            
+        </FlatList>
+      </View>
+    );
+  }
+
+  const getIngredients = (recName) => {
+
+  }
+
+  const renIngredientItem = (item) => {
+    return(
+      <ShoppingListItem name={item}/>
+    );
+  }
 
     return (
         <View style={styles.container}>
-          <ScrollView style={styles.scrollView}>
-            <ShoppingListItem title='White Bread' checked={item1Checked} itemFunc={setItem1Checked} count='1'/>
-            <ShoppingListItem title='Ground Beef' checked={item2Checked} itemFunc={setItem2Checked} count='3'/>
-            <ShoppingListItem title='Chicken' checked={item3Checked} itemFunc={setItem3Checked} count='2'/>
-            <ShoppingListItem title='Eggs' checked={item4Checked} itemFunc={setItem4Checked} count='12'/>
-          </ScrollView>
+          <FlatList 
+            data = {recipes}
+            renderItem = {() => renRecipeItem()}
+            style={styles.scrollView}>
+
+          </FlatList>
         </View>
     );
 }
