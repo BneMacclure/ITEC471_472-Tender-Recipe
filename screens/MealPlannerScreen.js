@@ -31,6 +31,22 @@ const MealPlannerScreen = (props) => {
     const [rec_data, setRecData] = useState([]);
     const [num, setNum] = useState(0);
 
+    const [CONTENT, setCONTENT] = useState([]);
+    const [activeSections, setActiveSections] = useState([]);
+    const [collapsed, setCollapsed] = useState(true);
+    const [multipleSelect, setMultipleSelect] = useState(false);
+    const [recipeName, setRecipeName] = useState('');
+    const [isViewRecipeVisible, setViewRecipeVisible] = useState(false);
+    const [isEgg, setIsEgg] = useState(false);
+    const [isGluten, setIsGluten] = useState(false);
+    const [isNuts, setIsNuts] = useState(false);
+    const [isDairy, setIsDairy] = useState(false);
+    const [isSoy, setIsSoy] = useState(false);
+    const [isFish, setIsFish] = useState(false);
+    const [isShellfish, setIsShellfish] = useState(false);
+
+
+
     const deleteFromAgenda = () => {
 
     }
@@ -44,7 +60,7 @@ const MealPlannerScreen = (props) => {
         db.ref('/savedRecipes/'+currentUserID).once('value', (snapshot) => {
         var returnArray = [];
         snapshot.forEach(function(childSnapshot) { // iterate through each recipe
-            var recname, ingredients, instructions, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL;
+            var recname, ingredients, instructions, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL, rating;
             var child = childSnapshot.val();
             var id = childSnapshot.key;
             recname = child.name;
@@ -58,6 +74,8 @@ const MealPlannerScreen = (props) => {
             nuts = child.nuts;
             shellfish = child.shellfish;
             soy = child.soy;
+            rating = child.totalRating;
+
             returnArray.push({ // push data into a single object in the array
             "id": id,
             "recName": recname,
@@ -70,12 +88,71 @@ const MealPlannerScreen = (props) => {
             "gluten": gluten,
             "nuts": nuts,
             "shellfish": shellfish,
-            "soy": soy
+            "soy": soy,
+            "rating" : rating
             });
         });
         setRecData(returnArray)
         });
     }, num)
+
+    const getRecipe = (name) => {
+        var index = -1;
+        for(var i = 0; i < rec_data.length; i++)
+        {
+            if(rec_data[i].recName == name)
+            {
+                index = i;
+                i = rec_data.length;
+            }
+        }
+        var recipeObj = rec_data[index]
+        var allergens, ingredients, instructions, nuts, gluten, shellfish, dairy, fish, eggs, soy;
+        var newContent;
+        setRecipeName(name);
+        ingredients = recipeObj.ingredients;
+        instructions = recipeObj.instructions;
+        nuts = recipeObj.nuts ? "nuts, " : '';
+        recipeObj.nuts ? setIsNuts(true) : setIsNuts(false);
+        gluten = recipeObj.gluten ? 'gluten, ' : '';
+        recipeObj.gluten ? setIsGluten(true) : setIsGluten(false);
+        shellfish = recipeObj.shellfish ? 'shellfish, ' : '';
+        recipeObj.shellfish ? setIsShellfish(true) : setIsShellfish(false);
+        dairy = recipeObj.dairy ? 'dairy, ' : '';
+        recipeObj.dairy ? setIsDairy(true) : setIsDairy(false);
+        fish = recipeObj.fish ? 'fish, ' : '';
+        recipeObj.fish ? setIsFish(true) : setIsFish(false);
+        eggs = recipeObj.eggs ? 'eggs, ' : '';
+        recipeObj.eggs ? setIsEgg(true) : setIsEgg(false);
+        soy = recipeObj.soy ? "soy, " : '';
+        recipeObj.soy ? setIsSoy(true) : setIsSoy(false);
+
+        allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
+
+        newContent = []
+        newContent.push({
+            title: 'Allergens',
+            content: allergens,
+        })
+        newContent.push({
+            title: 'Ingredients',
+            content: ingredients,
+        })
+        newContent.push({
+            title: 'Instructions',
+            content: instructions,
+        })
+        setCONTENT(newContent)
+
+    };
+
+    const setSections = sections => {
+        setActiveSections(sections.includes(undefined) ? [] : sections)
+    };
+
+    const displayRecipeModal = (visibility) => {
+        setViewRecipeVisible(visibility)
+    };
 
     const rightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
@@ -254,10 +331,6 @@ const MealPlannerScreen = (props) => {
         })
     }
 
-    const displayRecipeModal = () => {
-
-    }
-
     const renderItem = (item) => {
         // console.log("item")
         // console.log(item)
@@ -266,7 +339,12 @@ const MealPlannerScreen = (props) => {
             <Swipeable renderRightActions={rightActions} onSwipeableRightOpen={setItemKey(item.key)}>
                 <TouchableOpacity
                     style={{ marginTop: 15 }}
-                    onPress={() => setIsRecipeVisible(true)}>
+                    onPress={() => {
+                        setIsRecipeVisible(true)
+                        setSelectedRecipe(item.name)
+                        getRecipe(item.name)
+                        setViewRecipeVisible(true)
+                        }}>
                     <Card>
                         <Card.Content>
                             <View
@@ -275,7 +353,9 @@ const MealPlannerScreen = (props) => {
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                 }}>
-                                <Text>{item.name}</Text>
+                                <Text
+                                numberOfLines={1}
+                                style={styles.cardTitle}>{item.name}</Text>
                                 <Avatar.Image size={80} source={{uri: item.src}} />
                             </View>
                         </Card.Content>
@@ -334,17 +414,23 @@ const MealPlannerScreen = (props) => {
                                             imageStyle={styles.recipeImage}
                                         >
 
-                                            <View style={{flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: "#FD8017", height: '30%', marginTop: '25%'}}>
+                                            <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: "#FD8017", height: '30%', marginTop: '25%'}}>
+
+                                            <Text
+                                            numberOfLines={1}
+                                            style={styles.recipeText}>{item.recName}</Text>
+
                                             <TouchableOpacity style={styles.magnifyButton}>
                                             <MaterialCommunityIconsIcon
                                                 name="magnify"
                                                 size={35}
                                                 style={styles.addRecipeIcon}
-                                                //OnPress, show view recipe modal
-                                            ></MaterialCommunityIconsIcon>
+                                                onPress={() => {
+                                                    getRecipe(item.recName)
+                                                    setViewRecipeVisible(true)
+                                                }}>
+                                            </MaterialCommunityIconsIcon>
                                             </TouchableOpacity>
-
-                                            <Text style={styles.recipeText}>{item.recName}</Text>
 
                                             </View>
 
@@ -372,27 +458,23 @@ const MealPlannerScreen = (props) => {
 
             </Modal>
 
-
-
-            {/* MODAL TO VIEW THE RECIPE, JUST NEEDS TO BE HOOKED UP.
-             * <ViewRecipeModal
-                        currentRecipeName={this.state.currentRecipeName}
-                        CONTENT={this.state.CONTENT}
-                        isModalVisible={this.state.isVisible}
-                        isEgg={this.state.isEgg}
-                        isGluten={this.state.isGluten}
-                        isNuts={this.state.isNuts}
-                        isDairy={this.state.isDairy}
-                        isSoy={this.state.isSoy}
-                        isFish={this.state.isFish}
-                        isShellfish={this.state.isShellfish}
-                        activeSections={this.state.activeSections}
-                        multipleSelect={this.state.multipleSelect}
-                        setSections={this.setSections}
-                        displayRecipeModal={this.displayRecipeModal.bind(this)}
-                        >
-                    </ViewRecipeModal>
-             */}
+            <ViewRecipeModal
+                       currentRecipeName={recipeName}
+                       CONTENT={CONTENT}
+                       isModalVisible={isViewRecipeVisible}
+                       isEgg={isEgg}
+                       isGluten={isGluten}
+                       isNuts={isNuts}
+                       isDairy={isDairy}
+                       isSoy={isSoy}
+                       isFish={isFish}
+                       isShellfish={isShellfish}
+                       activeSections={activeSections}
+                       multipleSelect={multipleSelect}
+                       setSections={setSections}
+                       displayRecipeModal={displayRecipeModal.bind(this)}
+                       >
+                   </ViewRecipeModal>
 
             <Agenda
                 items={items}
@@ -472,8 +554,9 @@ const styles = StyleSheet.create({
     recipeText: {
         color: "rgba(255,255,255,1)",
         fontSize: 33,
+        width: '70%',
         marginTop: -6,
-        marginLeft: 8,
+        marginLeft: 6,
         justifyContent: 'flex-start'
     },
     addRecipeIcon: {
@@ -486,7 +569,11 @@ const styles = StyleSheet.create({
         height: 35,
         width: 35,
         marginTop: 3,
-        marginLeft: 2
+        marginRight: '12%'
+    },
+    cardTitle: {
+        width: '70%',
+        fontSize: 18,
     }
 });
 
