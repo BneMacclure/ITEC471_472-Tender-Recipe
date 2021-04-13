@@ -36,19 +36,37 @@ function Profile({navigation}) {
   const retrieveData = () => {
 
     var currentUserID = firebaseApp.auth().currentUser.uid;
+	console.log(currentUserID)
     db.ref('/userInfo/'+currentUserID).once('value', (snapshot) => {
 		snapshot.forEach(function(childSnapshot) {
 			data = childSnapshot.val()
-			// console.log(data)
+			console.log("Data: "+data)
 			setName(data.name)
 			setLevel(data.skillLevel)
 			setMeasurement(data.prefMeasurement)
 			setHash(childSnapshot.key)
-			// setAllergies(data.allergies)
+			var a = data.allergies
+			setAllergies(stringifyAllergies(a))
 		})
 
     });
     setEmail(firebaseApp.auth().currentUser.email);
+  }
+
+  const stringifyAllergies = (allergyObj) => {
+	var result = "";
+		
+	result = allergyObj.dairy == true ? result + 'Dairy, ' : result
+	result = allergyObj.eggs == true ? result + 'Eggs, ' : result
+	result = allergyObj.fish == true ? result + 'Fish, ' : result
+	result = allergyObj.gluten == true ? result + 'Gluten, ' : result
+	result = allergyObj.peanuts == true ? result + 'Peanuts, ' : result
+	result = allergyObj.shellfish == true ? result + 'Shellfish, ' : result
+	result = allergyObj.soy == true ? result + 'Soy, ' : result
+	result = allergyObj.treeNuts == true ? result + 'Tree Nuts, ' : result
+	result = allergyObj.wheat == true ? result + 'Wheat' : result
+	
+	return result;
   }
 
   const editInfo = () => {
@@ -126,7 +144,9 @@ function Profile({navigation}) {
 		<Divider style={styles.divider}/>
 		<Text style={styles.loremIpsum}>Allergies:</Text>
 		<TextInput onChangeText = {(allergies) => setAllergies(allergies)} style={styles.loremIpsum}
-					editable={isEditable}>{allergies}</TextInput>
+					editable={isEditable}
+					multiline={true}>{allergies}
+					</TextInput>
 		<Divider style={styles.divider}/>
 		<TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('MyRecipes')}>
 			<View style={styles.row}>
