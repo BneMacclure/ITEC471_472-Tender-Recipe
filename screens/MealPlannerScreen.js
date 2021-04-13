@@ -44,6 +44,7 @@ const MealPlannerScreen = (props) => {
     const [isSoy, setIsSoy] = useState(false);
     const [isFish, setIsFish] = useState(false);
     const [isShellfish, setIsShellfish] = useState(false);
+    const [rating, setRating] = useState(0.0);
 
 
 
@@ -75,6 +76,7 @@ const MealPlannerScreen = (props) => {
             shellfish = child.shellfish;
             soy = child.soy;
             rating = child.totalRating;
+            console.log(recname+"Rating:*************************: "+rating)
 
             returnArray.push({ // push data into a single object in the array
             "id": id,
@@ -126,6 +128,8 @@ const MealPlannerScreen = (props) => {
         recipeObj.eggs ? setIsEgg(true) : setIsEgg(false);
         soy = recipeObj.soy ? "soy, " : '';
         recipeObj.soy ? setIsSoy(true) : setIsSoy(false);
+        setRating(recipeObj.rating)
+        console.log('Rating: '+recipeObj.rating)
 
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
 
@@ -471,6 +475,7 @@ const MealPlannerScreen = (props) => {
                        isShellfish={isShellfish}
                        activeSections={activeSections}
                        multipleSelect={multipleSelect}
+                       starRating={rating}
                        setSections={setSections}
                        displayRecipeModal={displayRecipeModal.bind(this)}
                        >
