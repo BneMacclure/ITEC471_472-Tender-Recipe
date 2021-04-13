@@ -38,18 +38,20 @@ export default class MyRecipes extends Component {
   }
 
   // sorts recipes by name
-  orderData() {
-    this.state.rec_data.sort(function(a, b) {
-      var name1 = a.name; //.toUpperCase();
-      var name2 = b.name; //.toUpperCase();
-      if (name1 < name2) {
-        return -1;
-      }
-      if (name1 > name2) {
-        return 1;
-      }
-      return 0;
-    });
+  orderData(unsorted) {
+    unsorted.sort(function(a, b) {
+    var name1 = a.recName.toUpperCase();
+    var name2 = b.recName.toUpperCase();
+    if (name1 < name2) {
+      return -1;
+    }
+    if (name1 > name2) {
+      return 1;
+    }
+    return 0;
+  });
+    console.log(unsorted);
+    this.setState({rec_data: unsorted});
   };
 
   async shareRecipe (key){
@@ -96,11 +98,11 @@ export default class MyRecipes extends Component {
   };
 
   componentDidMount() {
+    var returnArray = [];
     var currentID = firebaseApp.auth().currentUser.uid;
     this.setState({currentUserID: currentID});
     console.log(this.state.currentUserID);
     db.ref('/savedRecipes/'+currentID).on('value', (snapshot) => {
-      var returnArray = [];
       snapshot.forEach(function(childSnapshot) { // iterate through each recipe
         var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL;
         var child = childSnapshot.val();
@@ -131,8 +133,7 @@ export default class MyRecipes extends Component {
           "soy": soy
         });
       });
-      this.setState({rec_data: returnArray});
-      this.orderData();
+      this.orderData(returnArray);
     });
     
     console.log(this.state.rec_data);

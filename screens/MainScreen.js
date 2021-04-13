@@ -63,6 +63,7 @@ export default class MainScreenInfo extends React.Component {
 
         this.position = new Animated.ValueXY()
         this.state = {
+            allergies: [],
             currentIndex: 0,
             recipes: [],
             indexToKey: [], // basically, helps me figure out which recipe you just liked. things like index 0 is key 1234, which pertains to a certain recipe in the DB
@@ -80,6 +81,7 @@ export default class MainScreenInfo extends React.Component {
             isShellfish: false,
             isNuts: false,
             rating: 0,
+            diets: ""
         }
 
         this.rotate = this.position.x.interpolate({
@@ -246,66 +248,111 @@ export default class MainScreenInfo extends React.Component {
         this.setState({ currentRecipeName: name,
                         rating: rating });
     }
-    /* allergiesMatch : String (key), String (currentUserID)
-       Takes in a key for a specific recipe and checks if any of its allergy warnings match a user's allergies */
-    allergiesMatch(key, currentUserID) {
-        db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
-            snapshot.forEach((childSnapshot) => {
-                db.ref('/recipes/'+key).on('value', (foodShot) => {
-                    var currentRecipe = foodShot.val();
-                    var user = childSnapshot.val();
-                    var allergic = false;
-                    if (user.allergies.dairy == true && currentRecipe.dairy == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.eggs == true && currentRecipe.eggs == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.fish == true && currentRecipe.fish == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.gluten == true && currentRecipe.gluten == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.peanuts == true && currentRecipe.peanuts == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.shellfish == true && currentRecipe.shellfish == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.soy == true && currentRecipe.soy == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.treeNuts == true && currentRecipe.treeNuts == true) {
-                        allergic = true;
-                    }
-                    else if (user.allergies.wheat == true && currentRecipe.wheat == true) {
-                        allergic = true;
-                    }
-                    return allergic;
-                });
-            });
-        });
+
+    /* allergiesMatch : Object (recipe)
+       Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    allergiesMatch(currentRecipe) {
+        var allergic = false;
+        if (this.state.allergies[0].dairy == true && currentRecipe.dairy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].eggs == true && currentRecipe.eggs == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].fish == true && currentRecipe.fish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].gluten == true && currentRecipe.gluten == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].peanuts == true && currentRecipe.peanuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].shellfish == true && currentRecipe.shellfish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].soy == true && currentRecipe.soy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].treeNuts == true && currentRecipe.treeNuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].wheat == true && currentRecipe.wheat == true) {
+            allergic = true;
+        }
+        return allergic;
+    }
+
+    /* dietsMatch : Object (currentRecipe)
+    Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    dietsMatch(currentRecipe) {
+        var canEat = true;
+        if (currentRecipe.diet === "Vegan" && this.state.diet !== "Vegan") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Vegetarian" && this.state.diet !== "Vegetarian") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Pescatarian" && this.state.diet !== "Pescatarian") {
+            canEat = false;
+        }
+        return canEat;
+    }
+
+    /* filter : array (unfiltered)
+    Filters array of recipes using various criteria and returns filtered array */
+    filter(unfiltered) {
+        var filteredArray = [];
+        for (i = 0; i < unfiltered.length; i++) {
+            if (this.allergiesMatch(unfiltered[i]) == false && this.dietsMatch(unfiltered[i])) {
+                filteredArray.push(unfiltered[i]);
+            }
+        }
+        this.setState({ recipes: filteredArray });
     }
 
     componentDidMount() {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        var returnArray = [];
+        db.ref('/userInfo/'+currentUserID).limitToFirst(1).on('value', (snapshot) => {
+            for(var key in snapshot.val()) {
+                var allergies = snapshot.val()[key].allergies;
+                var diets = snapshot.val()[key].diet;
+                this.setState({ diet: diets });
+                var allergiesArray = [];
+                allergiesArray.push({
+                    dairy: allergies.dairy,
+                    eggs: allergies.eggs,
+                    fish: allergies.fish,
+                    gluten: allergies.gluten,
+                    other: allergies.other,
+                    peanuts: allergies.peanuts,
+                    shellfish: allergies.shellfish,
+                    soy: allergies.soy,
+                    treeNuts: allergies.treeNuts,
+                    wheat: allergies.wheat
+                });
+                this.setState({ allergies: allergiesArray });
+            }
+        });
         // Retrieve recipes from Firebase
         db.ref('/recipes/').on('value', (recipeSnapshot) => {
-            var returnArray = [];
-            var currentUserID = firebaseApp.auth().currentUser.uid;
-            db.ref('/userInfo/'+currentUserID).on('value', (userSnapshot) => {
-                recipeSnapshot.forEach( (snap) => {
-                    if (!this.allergiesMatch(snap.val().key, currentUserID) == true) {
+            recipeSnapshot.forEach( (snap) => {
                         returnArray.push({
-                            key: snap.val().key,
+                            key: snap.key,
                             name: snap.val().name,
-                            uri: snap.val().downloadUrl
+                            uri: snap.val().downloadUrl,
+                            dairy: snap.val().dairy,
+                            eggs: snap.val().eggs,
+                            fish: snap.val().fish,
+                            gluten: snap.val().gluten,
+                            nuts: snap.val().nuts,
+                            shellfish: snap.val().shellfish,
+                            soy: snap.val().soy
                         });
                     }
-
-                });
-            });
-        this.setState({ recipes: returnArray });
+        );
+        this.filter(returnArray);
         });
         this.PanResponder = PanResponder.create({
 
