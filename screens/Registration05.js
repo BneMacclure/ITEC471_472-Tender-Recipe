@@ -88,16 +88,19 @@ function Registration05({navigation, route}) {
         <View style={{marginTop:100}}></View>
         <View style={styles.allergyBtnRow}>
           <TouchableOpacity 
+		  TestID='wheat'
             onPress={() => setWheat(!wheat)}
             style={wheat? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={wheat? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Wheat</Text>
           </TouchableOpacity>
           <TouchableOpacity 
+		  TestID='dairy'
             onPress={() => setDairy(!dairy)}
             style={dairy? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={dairy? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Dairy</Text>
           </TouchableOpacity>
           <TouchableOpacity 
+		  TestID='gluten'
             onPress={() => setGluten(!gluten)}
             style={gluten? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={gluten? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Gluten</Text>
@@ -105,16 +108,19 @@ function Registration05({navigation, route}) {
         </View>
         <View style={styles.allergyBtnRow}>
           <TouchableOpacity 
+		  TestID='egg'
             onPress={() => setEggs(!eggs)}
             style={eggs? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={eggs? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Eggs</Text>
           </TouchableOpacity>
           <TouchableOpacity 
+		  TestID='fish'
             onPress={() => setFish(!fish)}
             style={fish? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={fish? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Fish</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
+			TestID='shellfish'
             onPress={() => setShellfish(!shellfish)}
             style={shellfish? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={shellfish? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Shellfish</Text>
@@ -122,16 +128,19 @@ function Registration05({navigation, route}) {
         </View>
         <View style={styles.allergyBtnRow}>
           <TouchableOpacity 
+		  TestID='treenuts'
             onPress={() => setTreeNuts(!treeNuts)}
             style={treeNuts? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={treeNuts? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Tree nuts</Text>
           </TouchableOpacity>
           <TouchableOpacity 
+		  TestID='peanuts'
             onPress={() => setPeanuts(!peanuts)}
             style={peanuts? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={peanuts? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Peanuts</Text>
           </TouchableOpacity>
           <TouchableOpacity 
+		  TestID='soy'
             onPress={() =>  setSoy(!soy)}
             style={soy? styles.allergyBtnActive : styles.allergyBtnInactive}>
             <Text style={soy? styles.allergyBtnTxtActive : styles.allergyBtnTxtInactive}>Soybeans</Text>
@@ -142,6 +151,7 @@ function Registration05({navigation, route}) {
         <View style={{marginTop: 225}}></View>
         <TextInput placeholder="" style={styles.nameInput1}></TextInput>
         <TouchableOpacity 
+			TestID='nextBn5'
             onPress={() => registerFunc5()}
             style={styles.nextBtn}>
           <Text style={styles.nextBtnTxt}>Finish</Text>

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  TextInput,
   Picker
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
@@ -18,6 +19,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 function Profile({navigation}) {
+  const [hash, setHash] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [skillLevel, setLevel] = useState('');
@@ -25,28 +27,43 @@ function Profile({navigation}) {
   const [allergies, setAllergies] = useState('');
   const [pickerMeasValue, setMeasPickerValue] = useState('');
   const [pickerSkillValue, setSkillPickerValue] = useState('');
+  const [isEditable, setEditable] = useState(false);
 
   /* Pulls data from the Firebase database */
   const retrieveData = () => {
 
     var currentUserID = firebaseApp.auth().currentUser.uid;
-    db.ref('/userInfo/'+currentUserID).on('value', (snapshot) => {
+    db.ref('/userInfo/'+currentUserID).once('value', (snapshot) => {
 		snapshot.forEach(function(childSnapshot) {
 			data = childSnapshot.val()
-			console.log(data)
+			// console.log(data)
 			setName(data.name)
 			setLevel(data.skillLevel)
 			setMeasurement(data.prefMeasurement)
-			//setAllergies(data.allergies)
+			setHash(childSnapshot.key)
+			// setAllergies(data.allergies)
 		})
 
     });
     setEmail(firebaseApp.auth().currentUser.email);
   }
 
+  const updateInfo = () => {
+	  var currentUserID = firebaseApp.auth().currentUser.uid;
+	  db.ref('/userInfo/' + currentUserID + '/' + hash).update({
+			
+		name: name,
+		// phone: phone,
+		skillLevel: skillLevel,
+		prefMeasurement: prefMeasurement,
+		// allergies: allergies,
+		// diet: diet
+	  })
+  }
+
   useEffect(() => {
     retrieveData();
-  });
+  }, []); //Added empty array so useEffect is only called once the screen is loaded in
 
     return (
     <View style={styles.container}>
@@ -76,43 +93,46 @@ function Profile({navigation}) {
 			  <Icon name="ios-person" style={styles.icon}></Icon>
 			</View>
 			{/*Name text*/}
-			<Text style={styles.johnDoe}>{name}</Text>
+			<TextInput 
+				// mode="outlined"
+				// color="#FFFFFF"
+				label="Name"
+				onChangeText = {(name) => setName(name)}
+				// theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
+				style={styles.johnDoe}>
+					{name}
+			</TextInput>
+			{/* <TextInput onChangeText = {(name) => setName(name)} style={styles.johnDoe} editable={isEditable}>name</TextInput> */}
 		  </ImageBackground>
 		  {/*Container for email field*/}
 		  <View style={styles.emailContStack}>
 			<View style={styles.emailCont}>
 			  {/*Email text*/}
-			  <Text style={styles.email}>Email: {email}</Text>
+			  <View style={styles.infoRow}>
+			  	<Text style={styles.email}>Email:</Text>
+			  	<TextInput onChangeText = {(email) => setEmail(email)} style={styles.email} editable={isEditable}>{email}</TextInput>
+			  </View>
 			</View>
 			{/*Container for Skill level*/}
 			<View style={styles.skillCont}>
 				{/*Skill level text*/}
-				<Text style={styles.skillLevel}>Skill Level: {skillLevel}</Text>
-				{/*Skill level dropdown*/}
-				<Picker
-					style={styles.skillPicker}
-					onValueChange={(value) => {
-						setSkillPickerValue(value)
-						//alert("Hello");
-					}}
-				>
-					<Picker.Item label="Select a Skill Level" value="0"></Picker.Item>
-					<Picker.Item label="Beginner" value="1"></Picker.Item>
-					<Picker.Item label="Intermediate" value="2"></Picker.Item>
-					<Picker.Item label="Advanced" value="3"></Picker.Item>
-				</Picker>
-			  
-			 
+				<View style={styles.infoRow}>
+					<Text style={styles.skillLevel}>Cooking Skill:</Text>
+					<TextInput onChangeText = {(skillLevel) => setLevel(skillLevel)} style={styles.skillLevel} editable={isEditable}>{skillLevel}</TextInput>
+				</View>
 			</View>
 		  </View>
 		  {/*Container for measurements fields*/}
 		  <View style={styles.measurementsCont}>
 			<View style={styles.preferredRow}>
 			  {/*Preferred Measurements text*/}
-			  <Text style={styles.preferred}>Preferred Measurements:</Text>
+			  <View style={styles.infoRow}>
+			  	<Text style={styles.preferred}>Preferred Measurements:</Text>
+			  	<TextInput onChangeText = {(prefMeasurement) => setMeasurement(prefMeasurement)} style={styles.preferred} editable={isEditable}>{prefMeasurement}</TextInput>
+			  </View>
 			  {/*The measurement*/}
 			</View>
-			<Picker
+			{/* <Picker
 				style={styles.measPicker}
 				onValueChange={(value) => {
 					setMeasPickerValue(value)
@@ -121,12 +141,13 @@ function Profile({navigation}) {
 				>
 				<Picker.Item label="Metric" value="0"></Picker.Item>
 				<Picker.Item label="Imperial" value="1"></Picker.Item>
-			</Picker>
+			</Picker> */}
 		  </View>
 		  {/*Container for allergies*/}
 		  <View style={styles.skillCont1}>
 			{/*Allergies*/}
 			<Text style={styles.allergies}>Allergies</Text>
+			{/* <Text style={styles.allergies}>{allergies}</Text> */}
 			{/*Preview of selected allergies*/}
 			<Text style={styles.allergiesList}>
 			  {allergies}
@@ -135,8 +156,16 @@ function Profile({navigation}) {
 		  {/*Temporary navigation button to MyRecipes*/}
 		  <TouchableOpacity 
 			onPress={() => navigation.navigate('MyRecipes')}
+			testID='myRecipebtn'
 			style={styles.myRecipesButton}>
 			<Text style={styles.myRecipesText}>My recipes</Text>
+		  </TouchableOpacity>
+		  {/*Temporary navigation button to ShoppingList*/}
+		  <TouchableOpacity 
+			onPress={() => navigation.navigate('ShoppingList')}
+			testID='shoppingListBtn'
+			style={styles.myRecipesButton}>
+			<Text style={styles.myRecipesText}>ShoppingList</Text>
 		  </TouchableOpacity>
 		  <View style={styles.button3Row}>
 			  {/*Change password button*/}
@@ -148,6 +177,18 @@ function Profile({navigation}) {
 				<Text style={styles.deleteAccount}>Delete Account</Text>
 			  </TouchableOpacity>
 		  </View>
+		  {/*Delete account button*/}
+		  <TouchableOpacity
+		  	onPress={() => setEditable(!isEditable)}
+			style={styles.deleteAccountButton}>
+			<Text style={styles.deleteAccount}>Edit Info</Text>
+		  </TouchableOpacity>
+
+		  <TouchableOpacity
+		  	onPress={() => updateInfo()}
+			style={styles.deleteAccountButton}>
+			<Text style={styles.deleteAccount}>Save Changes</Text>
+		  </TouchableOpacity>
 	   </ScrollView>
 	  
     </View>

@@ -7,6 +7,7 @@ import {
   Text, 
   Dimensions, 
   TouchableOpacity,
+  Alert,
  } from "react-native";
 
 import styles from '../styles/RegisterScreenStyles.js';
@@ -14,13 +15,18 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 function Registration03({navigation, route}) {
-  const [measurement, setMeasurement] = useState("Imperial");
+  const [measurement, setMeasurement] = useState("");
   const {name, email, phone, skillLevel, password} = route.params;
   const [btn1Act, setbtn1Act] = useState(false);
   const [btn2Act, setbtn2Act] = useState(false);
 
   const registerFunc3 = () => {
-    navigation.navigate('Registration04', { name: name, email: email, phone: phone, password: password, skillLevel: skillLevel, prefMeasurement: measurement })
+    if (measurement !== "") {
+      navigation.navigate('Registration04', { name: name, email: email, phone: phone, password: password, skillLevel: skillLevel, prefMeasurement: measurement })
+    }
+    else {
+      Alert.alert("Please select a measurement")
+    }
   }
 
   const setBtns = (btnNum) => {
@@ -41,6 +47,7 @@ function Registration03({navigation, route}) {
         </Text>
         <View style={styles.rectRow}>
           <TouchableOpacity 
+			TestID='metric'
             onPress={() =>{
               setBtns(1)
               setMeasurement("Metric")
@@ -48,7 +55,10 @@ function Registration03({navigation, route}) {
             style={btn1Act? styles.horzInpBtnActive : styles.horzInpBtnInactive}>
             <Text style={btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Metric</Text>
           </TouchableOpacity>
+          {/* Spacer */}
+          <View style={{marginLeft:5}}></View>
           <TouchableOpacity 
+		    TestID='imperial'
             onPress={() => {
               setBtns(2)
               setMeasurement("Imperial")
@@ -60,6 +70,7 @@ function Registration03({navigation, route}) {
         {/* Spacer */}
         <View style={{marginTop:330}}></View>
         <TouchableOpacity 
+		   TestID='nextBn2'
           onPress={() => registerFunc3()}
           style={styles.nextBtn}>
           <Text style={styles.nextBtnTxt}>Next</Text>

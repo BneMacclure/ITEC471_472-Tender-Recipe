@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, Imag
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config/config.json';
+
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import styles from '../styles/MainStyles.js';
 import * as Animatable from 'react-native-animatable';
@@ -10,11 +15,15 @@ import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modal';
 
+import ViewRecipeModal from '../components/ViewRecipeModal';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Alert } from 'react-native';
+
+const CustomIcon = createIconSetFromFontello(fontelloConfig, 'CustomIcons');
 
 const CONTENT = [
     {
@@ -50,6 +59,8 @@ export default class MainScreenInfo extends React.Component {
     constructor(props) {
         super(props)
 
+        //this.handler = this.handler.bind(this);
+
         this.position = new Animated.ValueXY()
         this.state = {
             currentIndex: 0,
@@ -59,8 +70,16 @@ export default class MainScreenInfo extends React.Component {
             activeSections: [],
             collapsed: true,
             multipleSelect: false,
-            curentRecipeName: "",
+            currentRecipeName: "",
             CONTENT: [],
+            isEgg: false,
+            isGluten: false,
+            isDairy: false,
+            isSoy: false,
+            isFish: false,
+            isShellfish: false,
+            isNuts: false,
+            rating: 0,
         }
 
         this.rotate = this.position.x.interpolate({
@@ -103,7 +122,7 @@ export default class MainScreenInfo extends React.Component {
 
 
     displayRecipeModal(show) {
-        this.setState({isVisible: show})
+        this.setState({ isVisible: show })
     }
 
     //Triggers like animation, might need Ben to handle DB stuff in here
@@ -115,6 +134,8 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
+
+
     //triggers dislike animation
 
     skipRecipe() {
@@ -124,18 +145,45 @@ export default class MainScreenInfo extends React.Component {
         })
     }
 
+    resetAllergens() {
+        this.setState(
+            { isEgg: false },
+            { isGluten: false },
+            { isDairy: false },
+            { isSoy: false },
+            { isFish: false },
+            { isShellfish: false },
+            { isNuts: false },
+        );
+    }
+
 
     // Given a key, saved the recipe under the user's UID in Firebase
     saveRecipe(key) {
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/'+key).on('value', (snapshot) =>{
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         // Send the recipe up to be stored as the User's saved recipe
         var currentUserID = firebaseApp.auth().currentUser.uid;
-        db.ref('/savedRecipes/'+currentUserID).push(recipeObj).then(() => console.log('Data sent'));
+        db.ref('/savedRecipes/' + currentUserID).push(recipeObj).then(() => console.log('Data sent'));
     }
+
+    viewCurrentRecipe() {
+        const k = this.state.recipes[this.state.currentIndex].key
+        this.getRecipeTitle(k)
+        this.viewRecipe(k)
+        this.displayRecipeModal(true)
+        this.setState({ currentIndex: this.state.currentIndex }, () => {
+            this.position.setValue({ x: 0, y: 0 })
+        })
+    }
+
+    viewCurrentRecipe2() {
+        this.displayRecipeModal(true)
+    }
+
 
     // Given a key, give the recipe to view for the user
     viewRecipe(key) {
@@ -151,12 +199,19 @@ export default class MainScreenInfo extends React.Component {
         ingredients = recipeObj.ingredients;
         instructions = recipeObj.instructions;
         nuts = recipeObj.nuts ? "nuts, " : '';
+        recipeObj.nuts ? this.setState({ isNuts: true }) : this.setState({ isNuts: false });
         gluten = recipeObj.gluten ? 'gluten, ' : '';
+        recipeObj.gluten ? this.setState({ isGluten: true }) : this.setState({ isGluten: false });
         shellfish = recipeObj.shellfish ? 'shellfish, ' : '';
+        recipeObj.shellfish ? this.setState({ isShellfish: true }) : this.setState({ isShellfish: false });
         dairy = recipeObj.dairy ? 'dairy, ' : '';
+        recipeObj.dairy ? this.setState({ isDairy: true }) : this.setState({ isDairy: false });
         fish = recipeObj.fish ? 'fish, ' : '';
+        recipeObj.fish ? this.setState({ isFish: true }) : this.setState({ isFish: false });
         eggs = recipeObj.eggs ? 'eggs, ' : '';
+        recipeObj.eggs ? this.setState({ isEgg: true }) : this.setState({ isEgg: false });
         soy = recipeObj.soy ? "soy, " : '';
+        recipeObj.soy ? this.setState({ isSoy: true }) : this.setState({ isSoy: false });
         // Consolidate the allergens before the Alert
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
         // Show info to user
@@ -175,19 +230,21 @@ export default class MainScreenInfo extends React.Component {
             content: instructions,
         })
         this.setState({ CONTENT : newContent })
-        
+
     }
 
-    getRecipeTitle(key) {
+    getRecipeTitle(){
         const k = this.state.recipes[this.state.currentIndex].key
         var name;
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/' + key).on('value', (snapshot) => {
+        db.ref('/recipes/' + k).once('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
-        this.setState({ curentRecipeName: name });
+        rating = recipeObj.totalRating
+        this.setState({ currentRecipeName: name,
+                        rating: rating });
     }
     /* allergiesMatch : String (key), String (currentUserID)
        Takes in a key for a specific recipe and checks if any of its allergy warnings match a user's allergies */
@@ -241,6 +298,7 @@ export default class MainScreenInfo extends React.Component {
                     if (!this.allergiesMatch(snap.val().key, currentUserID) == true) {
                         returnArray.push({
                             key: snap.val().key,
+                            name: snap.val().name,
                             uri: snap.val().downloadUrl
                         });
                     }
@@ -354,6 +412,19 @@ export default class MainScreenInfo extends React.Component {
         );
     }
 
+    getRecipeTitleTemp = key => {
+        const k = this.state.recipes[this.state.currentIndex].key
+        var name;
+        var recipeObj;
+        // Get the recipe
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
+            recipeObj = snapshot.val();
+        });
+        name = recipeObj.name;
+        //this.setState({ currentRecipeName: name });
+        return (name);
+    }
+
     renderContent = (section, _, isActive) => {
         return (
             <Animatable.View
@@ -380,17 +451,22 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - (SCREEN_HEIGHT / 5.5), width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
 
                         <Animated.View style={{ opacity: this.dislikeOpacity, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
                         </Animated.View>
-
+                        <View style={styles.recipe_title_container}>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.recipe_title}>{item.name}</Text>
+                        </View>
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
                             source={{uri: item.uri}}
-                            testID = 'currentImage' />
+                            testID='currentImage' />
 
                     </Animated.View>
                 )
@@ -411,7 +487,11 @@ export default class MainScreenInfo extends React.Component {
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
 
                         </Animated.View>
-
+                        <View style={styles.recipe_title_container}>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.recipe_title}>{item.name}</Text>
+                        </View>
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
                             source={{uri: item.uri}} />
@@ -420,6 +500,7 @@ export default class MainScreenInfo extends React.Component {
                 )
             }
         }).reverse()
+
     }
 
     render() {
@@ -432,94 +513,68 @@ export default class MainScreenInfo extends React.Component {
                 imageStyle={styles.background_imageStyle}
             >
                 <View style={{ flex: 1 }}
-                      testID="testLocation1">
+                    testID="testLocation1">
 
-                    <Modal
-                        animationType = "slide"
-                        transparent={true}
-                        hasBackdrop={true}
-                        backdropColor={"#000"}
-                        backdropOpacity={0.70}
-                        isVisible={this.state.isVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has now been closed.');
-                        }}>
+                    <ViewRecipeModal
+                        currentRecipeName={this.state.currentRecipeName}
+                        CONTENT={this.state.CONTENT}
+                        isModalVisible={this.state.isVisible}
+                        isEgg={this.state.isEgg}
+                        isGluten={this.state.isGluten}
+                        isNuts={this.state.isNuts}
+                        isDairy={this.state.isDairy}
+                        isSoy={this.state.isSoy}
+                        isFish={this.state.isFish}
+                        isShellfish={this.state.isShellfish}
+                        activeSections={this.state.activeSections}
+                        multipleSelect={this.state.multipleSelect}
+                        setSections={this.setSections}
+                        displayRecipeModal={this.displayRecipeModal.bind(this)}
+                        starRating={this.state.rating}
+                        >
+                    </ViewRecipeModal>
 
-                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                            <View style={{
-                                width: '100%',
-                                height: '50%',
-                                backgroundColor: "#fff",
-                                borderColor: "#000", borderWidth: 2,
-                                borderStyle: "dashed",
-                                borderRadius: 1
-                            }}>
-                                <ScrollView style={styles.svContentContainer}>
-                                    <Text style={styles.title}>{this.state.curentRecipeName}</Text>
 
-                            <Accordion
-                                activeSections={activeSections}
-                                sections={this.state.CONTENT}
-                                touchableComponent={TouchableOpacity}
-                                expandMultiple={multipleSelect}
-                                renderHeader={this.renderHeader}
-                                renderContent={this.renderContent}
-                                duration={400}
-                                onChange={this.setSections}
-                            />
-
-                                <View style={styles.exitRecipeContainer}>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            this.displayRecipeModal(!this.state.isVisible);
-                                        }}
-                                        style={styles.exitBtn}
-                                    >
-                                        <Text style={styles.exitRecipeText}>Exit View</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </ScrollView>
-                            </View>
-                            </View>
-                    </Modal>
-
-                    <View style={{ height: 10 }}>
+                    <View style={{height: '1.5%' }}>
                     </View>
                     <View style={{ flex: 1 }} testID='recipeStackView'>
                         {this.renderRecipes()}
                     </View>
-                    <View style={{ height: 10 }}>
+                    <View style={{ height: '10%' }}>
+                        <View style={styles.skip_buttonRow}>
+                            <TouchableOpacity
+                                onPress={() => this.skipRecipe()}
+                                style={styles.skip_button}
+                            >
+                                <MaterialCommunityIconsIcon
+                                    name="heart-off"
+                                    style={styles.icon}
+                                ></MaterialCommunityIconsIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
+                                style={styles.recipe_button}
+                            >
+                                <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.viewCurrentRecipe()}
+                                style={styles.magnify_button}
+                            >
+                                <MaterialCommunityIconsIcon name="magnify" style={styles.magnifyIcon}></MaterialCommunityIconsIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.likeRecipe()}
+                                style={styles.like_button}
+                            >
+                                <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
+                                {/*<CustomIcon name="gluten_allergen" size={60} color='white'></CustomIcon>*/}
+                            </TouchableOpacity>
+                        </View>
 
                     </View>
-                    <View style={styles.skip_buttonRow}>
-                        <TouchableOpacity
-                            onPress={() => this.skipRecipe()}
-                            style={styles.skip_button}
-                        >
-                            <MaterialCommunityIconsIcon
-                                name="heart-off"
-                                style={styles.icon}
-                            ></MaterialCommunityIconsIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
-                            style={styles.recipe_button}
-                        >
-                            <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('MealPlannerScreen')}
-                            style={styles.calendar_button}
-                        >
-                            <FontAwesomeIcon name="calendar" style={styles.calendarIcon}></FontAwesomeIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.likeRecipe()}
-                            style={styles.like_button}
-                        >
-                            <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
-                        </TouchableOpacity>
-                    </View>
+
+
                 </View>
             </ImageBackground>
 

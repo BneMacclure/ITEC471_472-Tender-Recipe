@@ -7,18 +7,6 @@
     "sdkVersion": "40.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "Radford",
-            "project": "tender-recipes",
-            "authToken": "5c346844879e11ebb0cdf203133c69c4"
-          }
-        }
-      ]
-    },
     "assetBundlePatterns": [
       "**/*"
     ]

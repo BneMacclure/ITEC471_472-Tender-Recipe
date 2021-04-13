@@ -6,7 +6,8 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from "react-native";
 
 import styles from '../styles/RegisterScreenStyles.js';
@@ -14,7 +15,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 function Registration04({navigation, route}) {
-  const [diet, setDiet] = useState("Neither");
+  const [diet, setDiet] = useState("");
   const {name, email, phone, skillLevel, prefMeasurement, password} = route.params;
   const [btn1Act, setbtn1Act] = useState(false);
   const [btn2Act, setbtn2Act] = useState(false);
@@ -22,8 +23,13 @@ function Registration04({navigation, route}) {
   const [btn4Act, setbtn4Act] = useState(false);
 
   const registerFunc4 = () => {
-    navigation.navigate('Registration05', { name: name, email: email, phone: phone, password: password, skillLevel: skillLevel,
-    prefMeasurement: prefMeasurement, diet: diet })
+    if (diet !== "") {
+      navigation.navigate('Registration05', { name: name, email: email, phone: phone, password: password, skillLevel: skillLevel,
+        prefMeasurement: prefMeasurement, diet: diet })
+    }
+    else {
+      Alert.alert("Please choose a diet option.")
+    }
   }
 
   const setBtns = (btnNum) => {
@@ -54,7 +60,8 @@ function Registration04({navigation, route}) {
           style={btn1Act? styles.vertInpBtnActive : styles.vertInpBtnInactive}>
           <Text style={btn1Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Vegan</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
+			testID='veg'
           onPress={() => {
             setBtns(2)
             setDiet("Vegetarian")
@@ -63,6 +70,7 @@ function Registration04({navigation, route}) {
           <Text style={btn2Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Vegetarian</Text>
         </TouchableOpacity>
         <TouchableOpacity 
+			TestID='pesc'
           onPress={() => {
             setBtns(3)
             setDiet("Pescatarian")
@@ -71,6 +79,7 @@ function Registration04({navigation, route}) {
           <Text style={btn3Act? styles.inpBtnTxtActive : styles.inpBtnTxtInactive}>Pescatarian</Text>
         </TouchableOpacity>
         <TouchableOpacity 
+		  testID='none'
           onPress={() => {
             setBtns(4)
             setDiet("None")
@@ -81,6 +90,7 @@ function Registration04({navigation, route}) {
         {/* Spacer */}
         <View style={{marginTop:150}}></View>
         <TouchableOpacity 
+			TestID='nextBn4'
             onPress={() => registerFunc4()}
             style={styles.nextBtn}>
           <Text style={styles.nextBtnTxt}>Next</Text>

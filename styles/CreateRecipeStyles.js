@@ -5,7 +5,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 export default StyleSheet.create({
     container: {
         flex: 1,
-    }, 
+    },
 
     scrollableView: {
         width: SCREEN_WIDTH,
@@ -45,7 +45,11 @@ export default StyleSheet.create({
         top: 12,
         left: 0,
         width: 591,
-        height: 592,
+        height: 1430,
+        backgroundColor: "#f5a023",
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: "black",
 
     },
     fieldsBackground_imageStyle: {},
@@ -91,7 +95,8 @@ export default StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,1)",
         paddingLeft: 8,
-        fontSize: 16
+        fontSize: 16,
+        paddingRight: 8,
     },
     recipeNameTextStack: {
         height: 61
@@ -116,6 +121,69 @@ export default StyleSheet.create({
         paddingTop: 2,
         fontSize: 16
     },
+    recipeIngredient: {
+        width: SCREEN_WIDTH / 2,
+        color: "#121212",
+        height: 30,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2,
+        fontSize: 16
+    },
+    recipeAmount: {
+        width: SCREEN_WIDTH / 8,
+        color: "#121212",
+        height: 30,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2,
+        //marginRight: '36%',
+        //marginLeft: '10%',
+        fontSize: 16
+    },
+
+    recipeUnit: {
+        width: SCREEN_WIDTH / 4,
+        color: "#121212",
+        height: 30,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 2,
+        fontSize: 16
+    },
+
+    recipeIngredientText: {
+    },
+
+    recipeAmountText: {
+        marginRight: '6%',
+        marginLeft: '3.5%',
+        fontSize: 17,
+        fontWeight: "bold",
+        color: 'black',
+    },
+
+    recipeUnitText: {
+        marginRight: '16%',
+        fontSize: 17,
+        fontWeight: "bold",
+        color: 'black',
+    },
+
+
+
     theInstructionsText: {
         //fontFamily: "roboto-700",
         color: "rgba(255,255,255,1)",
@@ -127,7 +195,7 @@ export default StyleSheet.create({
     recipeInstructions: {
         width: SCREEN_WIDTH / 1.1,
         color: "#121212",
-        height: 204,
+        height: 500,
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 10,
@@ -147,6 +215,7 @@ export default StyleSheet.create({
     selectContainer: {
         width: 292,
         height: 760,
+        marginTop: 850,
     },
 
 
@@ -157,7 +226,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: "#000000",
         borderRadius: 100,
-        marginTop: 87,
+        marginTop: -12,
         alignSelf: 'center',
         marginRight: 20
     },
@@ -171,9 +240,13 @@ export default StyleSheet.create({
 
     checkboxBackground: {
         width: 591,
-        height: 715,
-        marginTop: -24,
-        marginLeft: -135
+        height: 535,
+        marginTop: 60,
+        marginLeft: -135,
+        backgroundColor: "#f5a023",
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: "black",
 
     },
     checkboxBackground_imageStyle: {},
@@ -199,12 +272,6 @@ export default StyleSheet.create({
     checkboxContainer: {
         flexDirection: "row",
     },
-    
-
-
-
-
-
 
     imagePickerContainer: {
         //flex: 1
@@ -221,7 +288,7 @@ export default StyleSheet.create({
     recipePhotoUpload: {
         width: 292,
         height: 890,
-        marginTop: -10,
+        marginTop: -80,
         alignSelf: "center"
     },
 
@@ -332,5 +399,73 @@ export default StyleSheet.create({
         alignSelf: "center",
         fontWeight: "bold",
     },
+
+    activityIndicator: {
+        position: 'absolute',
+        alignSelf: "center",
+        justifyContent: "center",
+        marginTop: '60%'
+    },
+
+    addIcon: {
+        color: "#e35514",
+        fontSize: 40,
+        marginLeft: 2.5
+
+    },
+
+    addIngredientText: {
+        color: "black",
+        fontWeight: "bold",
+        fontSize: 18,
+        marginTop: 5,
+        marginRight: 10
+    },
+
+    addButton: {
+        backgroundColor: "white",
+        borderRadius: 100,
+        width: 40,
+        height: 40,
+    },
+
+    removeButton: {
+        backgroundColor: "white",
+        borderRadius: 100,
+        width: 40,
+        height: 40,
+    },
+
+    allRecipeIngredients: {
+        width: SCREEN_WIDTH / 1.1,
+        color: "#121212",
+        height: 500,
+        borderWidth: 1,
+        borderColor: "#000000",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,1)",
+        textAlignVertical: 'top',
+        paddingLeft: 8,
+        paddingTop: 6,
+        marginTop: 10,
+        fontSize: 16
+    },
+
+    selectDietContainer: {
+        width: 292,
+        height: 500,
+        marginTop: -100
+    },
+
+    checkboxDietBackground: {
+        width: 591,
+        height: 270,
+        marginLeft: -135,
+        backgroundColor: "#f5a023",
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: "black",
+    },
+
 
 });

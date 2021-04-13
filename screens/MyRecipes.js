@@ -1,14 +1,21 @@
-import React, { Component, setState, useState, useEffect } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
+import React, { Component, useState, useEffect } from "react";
+import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Share, Picker } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import styles from '../styles/MyRecipesStyle.js';
 import Modal from 'react-native-modal';
-import {TextInput} from 'react-native-paper';
+import { Modal as RateModal } from "react-native-modal";
+import StarRating from 'react-native-star-rating';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import emailjs from 'emailjs-com';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config/config.json';
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import * as Animatable from 'react-native-animatable';
+import { Alert } from "react-native";
+const CustomMysteryBox = createIconSetFromFontello(fontelloConfig, 'CustomIconsMysteryBox');
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -21,14 +28,12 @@ export default class MyRecipes extends Component {
       rec_data: [],
       currentUserID: '',
           //isVisible: false,
-      isDateTimePickerVisible: false,
-      rec_data: [],
-      selectedRecipeName: '',
-      selectedRecipeIngredients: '',
-      selectedRecipeInstructions: '',
-      isModalVisible: false,
-      user_email: '',
-      user_name: ''
+          isDateTimePickerVisible: false,
+          rec_data: [],
+          selectedRecipe: '',
+          uid: '',
+          starCount: 0.0,
+          isRateModalVisible: false,
     }
   }
 
@@ -47,8 +52,40 @@ export default class MyRecipes extends Component {
     });
   };
 
+  async shareRecipe (key){
+    var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
+    db.ref('/savedRecipes/'+currentUserID).child(key).on('value', (snapshot) => {
+      data = snapshot.val()
+      this.state.msg = data.name
+      this.state.msg += "\n \n"
+      this.state.msg += data.ingredients
+      this.state.msg += data.instructions
+      console.log("msg1:" + this.state.msg)
+    })
+    console.log("msg2:" + this.state.msg)
+		try {
+			const result = await Share.share({
+			message:
+			this.state.msg,
+		});
+		if (result.action === Share.sharedAction) {
+			if (result.activityType) {
+			// shared with activity type of result.activityType
+			} else {
+			// shared
+			}
+		} else if (result.action === Share.dismissedAction) {
+			// dismissed
+		}
+		} catch (error) {
+		alert(error.message);
+	}
+  };
+
   // removes a recipe from the MyRecipes list
   unsaveRecipe(key) {
+
+    var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
     console.log(key);
     db.ref('/savedRecipes/'+this.state.currentUserID).child(key).remove();
     console.log(key);
@@ -179,6 +216,76 @@ export default class MyRecipes extends Component {
       return newDate
     }
 
+    // helper method to update the recipe's rating
+    updateRecipeRating(id) {
+      var sumOfRatings = 0.0
+      var numOfRatings = 0.0
+      // Count the number of ratings and sum up the ratings
+      db.ref('/recipes/'+id+'/ratings').once('value', (snapshot) => {
+          console.log('snapshot: '+snapshot)
+          snapshot.forEach( (childSnapshot) => {
+            data = childSnapshot.val()
+            console.log('printing data: '+data)
+            sumOfRatings = sumOfRatings + data.rating
+            numOfRatings++
+          })
+      })
+
+      var rating = sumOfRatings/numOfRatings
+      console.log('New Rating: '+ sumOfRatings)
+
+      // Update the rating field for the recipe
+      db.ref('/recipes/'+id).update({
+        totalRating: rating,
+      })
+
+    }
+
+    onStarRatingPress = (rating) => {
+        this.setState({ starCount:rating })
+        console.log("Submitting Rating")
+        // Update the rating by the user
+        console.log('updating the recipe: ' + this.state.selectedRecipe)
+
+        var recipeID = ''
+        // Get the recipe ID
+        db.ref('/recipes/').once('value', (snapshot) => {
+          snapshot.forEach( (childSnapshot) => {
+            data = childSnapshot.val()
+            n = data.name
+            if (n === this.state.selectedRecipe) {
+              recipeID = childSnapshot.key
+            }
+          })
+        })
+
+        console.log('Recipe ID: '+recipeID)
+
+        db.ref('/recipes/'+recipeID+'/ratings/'+this.state.uid).set({
+          rating: rating,
+        })
+
+        // Update the total rating for the recipe
+        this.updateRecipeRating(recipeID)
+
+        
+
+        // Tell the user it's all done
+        Alert.alert(
+          "Rating Submission",
+          "Rating Submission Successful",
+          [
+            { text: "OK", onPress: () => this.setState({
+              starCount: 0,
+              isRateModalVisible: false
+            }) }
+          ]
+        );
+
+        console.log('Rating Submitted: ' + rating)
+    
+    }
+
     // Once a date is it's time to submit it to the DB
     handleDatePicked = date => {
         console.log("A date has been picked: ", date);
@@ -212,119 +319,143 @@ export default class MyRecipes extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={{
-            justifyContent: "center",
-            alignItems: "center", }}>
-            <DateTimePickerModal
-                isVisible={this.state.isDateTimePickerVisible}
-                mode="datetime"
-                onConfirm={(date) => this.handleDatePicked(date)}
-                onCancel={() => this.hideDateTimePicker()}
-            />
-        </View>
-        <ImageBackground
-          source={require("../assets/images/Gradient.png")}
-          resizeMode="stretch"
-          style={styles.image}
-          imageStyle={styles.image_imageStyle}
-        >
-          <TouchableOpacity style={{width: 50,height: 30,marginLeft: 20, marginTop: 15}}
-             onPress={() => this.showModal()}>
-            <Text style={{fontSize: 10}}>Show Modal</Text>
-          </TouchableOpacity>
-          {/* Share Modal */}
-          <Modal 
-            style={{alignItems: 'center', justifyContent: 'center',}}
-            isVisible = {this.state.isModalVisible}>
-            <View style={{height: 300, width: 300, backgroundColor: "white"}}>
-              <Text>Share {this.state.selectedRecipeName}</Text>
-              <TextInput 
-                mode="flat"
-                label="Recipient's Email"
-                onChangeText = {(email) => this.setState({user_email: email})}
-                theme={{ colors: {placeholder: 'black', text: 'black', primary: 'black'} }}
-                style={styles.inputStyle}>
-              </TextInput>
-              <TextInput 
-                mode="flat"
-                label="Recipient's Name"
-                onChangeText = {(name) => this.setState({user_name: name})}
-                theme={{ colors: {placeholder: 'black', text: 'black', primary: 'black'} }}
-                style={styles.inputStyle}>
-              </TextInput>
-              <TouchableOpacity style={{width: 50,height: 30,marginLeft: 10, marginTop: 15}}
-                onPress={() => this.shareRecipe()}>
-                <Text style={{fontSize: 10}}>Share</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{width: 50,height: 30,marginLeft: 10, marginTop: 15}}
-                onPress={() => this.hideModal()}>
-                <Text style={{fontSize: 10}}>Hide Modal</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
-          <View style={styles.filterRow}>
-            <Picker
-              style={styles.filterPicker}
-              onValueChange={(value) => {
-                this.setState({pickerValue: value});
-                //alert("Hello");
-              }}
-            >
-              <Picker.Item label="Filter" value="0"></Picker.Item>
-              <Picker.Item label="Breakfast" value="1"></Picker.Item>
-              <Picker.Item label="Lunch" value="1"></Picker.Item>
-              <Picker.Item label="Dinner" value="1"></Picker.Item>
-            </Picker>
-          </View>
-        </ImageBackground>
-      
-        <FlatList
-        data = {this.state.rec_data}
-        renderItem={({item}) => {
-          return (
-          <ImageBackground
-            source={{uri: item.downloadURL}}
-            resizeMode="cover"
-            style={styles.image2}
-            imageStyle={styles.image2_imageStyle}
-            >
-              <Text style={styles.recText}>{item.recName}</Text>
-              <View style={styles.iconRow}>
-                <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-                  <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
-                </TouchableOpacity>
+        <View style={styles.container}>
 
-                <TouchableOpacity style={styles.addButton} 
-                    onPress={() => {
-                      this.setState(
-                        {selectedRecipe: item.id,}
-                        );
-                      this.setState({selectedRecipeName: item.recName});
-                      this.setState({selectedRecipeIngredients: item.ingredients});
-                      this.setState({selectedRecipeInstructions: item.instructions});
-                      this.showModal();
-                      }
-                    }>
-                    <Icon name="share" style={styles.shareIcon}></Icon>
-                </TouchableOpacity>
-                
-                <TouchableOpacity style={styles.addButton} 
-                    onPress={() => {
-                      this.showDateTimePicker();
-                      this.setState(
-                        {selectedRecipe: item.recName,}
-                        );
-                      }
-                    }>
-                    <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-                </TouchableOpacity>
-              </View>
-          </ImageBackground>		
-        )
-      }}
-      keyExtractor={(item) => item.id}
-      />
+            <Modal
+                animationType="slide"
+                transparent={true}
+                hasBackdrop={true}
+                backdropColor={"#000"}
+                backdropOpacity={0.70}
+                isVisible={this.state.isRateModalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has now been closed.');
+                }}>
+
+
+                <View style={{ flex: 1, justifyContent: "center" }}>
+                    <View style={{
+                        width: '100%',
+                        height: '30%',
+                        backgroundColor: "#fff",
+                        borderColor: "#000", borderWidth: 2,
+                        borderStyle: "dashed",
+                        borderRadius: 1,
+                        alignContent: 'center',
+                    }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#FD8017' }}>
+                            <Text style={styles.title}>Rate this recipe?</Text>
+                            <TouchableOpacity>
+                                <EntypoIcon
+                                    name="circle-with-cross"
+                                    style={styles.exitModalIcon}
+                                    size={50}
+                                    onPress={() => {
+                                        this.setState(
+                                            { isRateModalVisible: false }
+                                        );
+                                    }}
+                                ></EntypoIcon>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ width: '75%', alignContent: 'center', alignSelf: 'center', marginRight: 10, marginTop: '15%' }}>
+                            <StarRating
+                                disabled={false}
+                                emptyStar={'ios-star-outline'}
+                                fullStar={'ios-star'}
+                                halfStar={'ios-star-half'}
+                                iconSet={'Ionicons'}
+                                maxStars={5}
+                                rating={this.state.starCount}
+                                selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                fullStarColor={'#e35514'}
+                                halfStarEnabled
+                                starPadding={10}
+                                animation='bounce'
+                            />
+                            <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 18, paddingTop: 10}}>Tap a star to give a rating!</Text>
+                        </View>
+                    </View>
+                </View>
+
+
+                </Modal>
+
+            <View style={{
+                justifyContent: "center",
+                alignItems: "center", }}>
+                <DateTimePickerModal
+                    isVisible={this.state.isDateTimePickerVisible}
+                    mode="datetime"
+                    onConfirm={(date) => this.handleDatePicked(date)}
+                    onCancel={() => this.hideDateTimePicker()}
+                />
+            </View>
+
+      <ImageBackground
+        source={require("../assets/images/Gradient.png")}
+        resizeMode="stretch"
+        style={styles.image}
+        imageStyle={styles.image_imageStyle}
+      >
+        <View style={styles.filterRow}>
+          <Picker
+				style={styles.filterPicker}
+				onValueChange={(value) => {
+					this.setState({pickerValue: value});
+					//alert("Hello");
+				}}
+				>
+				<Picker.Item label="Filter" value="0"></Picker.Item>
+				<Picker.Item label="Breakfast" value="1"></Picker.Item>
+				<Picker.Item label="Lunch" value="1"></Picker.Item>
+				<Picker.Item label="Dinner" value="1"></Picker.Item>
+			</Picker>
+        </View>
+      </ImageBackground>
+	  
+	  <FlatList
+		data = {this.state.rec_data}
+		renderItem={({item}) => {
+		  return (
+			<ImageBackground
+				source={{uri: item.downloadURL}}
+				resizeMode="cover"
+				style={styles.image2}
+				imageStyle={styles.image2_imageStyle}
+				>
+          <Text style={styles.recText}>{item.recName}</Text>
+
+          <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+            <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.addButton} 
+            onPress={() => {
+              this.showDateTimePicker();
+              this.setState(
+                {selectedRecipe: item.recName,}
+                );
+              }
+            }>
+            <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.rateButton}
+              onPress={() => {
+                  this.setState(
+                      { isRateModalVisible: true,
+                        selectedRecipe: item.recName }
+                  );
+              }}
+              >
+              <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
+          </TouchableOpacity>
+			</ImageBackground>		
+		  )
+    }}
+		keyExtractor={(item) => item.id}
+	  />
 	  
     </View>
   );}

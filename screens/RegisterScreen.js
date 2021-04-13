@@ -25,12 +25,37 @@ function Registration({navigation, route}) {
   const [phone, setPhone] = useState("");
 
   const registerFunc = () => {
-    if (password === confirmPass) {
-      navigation.navigate('Registration02', { email: email, name: name, password: password, phone: phone })
+    // all fields are required
+    if (email !== "" && password !== "" && confirmPass !== "" && name !== "" && phone !== "") {
+      // check for valid email address, firebase WILL throw an error
+      if (validateEmail(email)) {
+        // check to make sure passwords match
+        if (password === confirmPass) {
+          navigation.navigate('Registration02', { email: email, name: name, password: password, phone: phone })
+        }
+        else {
+          Alert.alert("Passwords do not match")
+        }
+
+      }
+      else {
+        Alert.alert('Invalid email address')
+      }
+
     }
     else {
-      Alert.alert("Passwords do not match")
+      Alert.alert("All fields are required")
     }
+    
+  }
+
+  const validateEmail = (mail) => {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
+      {
+        return true
+      }
+        return false
+        
   }
 
   return (
@@ -52,6 +77,7 @@ function Registration({navigation, route}) {
           mode="outlined"
           color="#FFFFFF"
           label="Name"
+		  testID='namefield'
           onChangeText = {(name) => setName(name)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -61,6 +87,7 @@ function Registration({navigation, route}) {
           clearTextOnFocus={true}
           mode="outlined"
           label="Phone Number"
+		  testID='phonefield'
           onChangeText = {(phone) => setPhone(phone)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -69,22 +96,32 @@ function Registration({navigation, route}) {
         <TextInput 
           mode="outlined"
           label="Email"
+          autoCapitalize='none'
           onChangeText = {(email) => setEmail(email)}
+		  testID='emailfield'
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
         </TextInput>
         {/* <Text style={styles.labelText}>Password</Text> */}
         <TextInput 
+          secureTextEntry={true}
           mode="outlined"
           label="Password"
+          autoCapitalize='none'
+          secureTextEntry={true}
+		    testID='passfield'
           onChangeText = {(password) => setPassword(password)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
         </TextInput>
         {/* <Text style={styles.labelText}>Confirm Password</Text> */}
         <TextInput 
+          secureTextEntry={true}
           mode="outlined"
           label="Confirm Password"
+          autoCapitalize='none'
+          secureTextEntry={true}
+		  testID='confirmpass'
           onChangeText = {(confirmPass) => setConfirmPass(confirmPass)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
           style={styles.inputStyle}>
@@ -93,6 +130,7 @@ function Registration({navigation, route}) {
         <View style={{marginTop:40}}></View>
         <TouchableOpacity
          onPress={() => registerFunc()}
+		 testID='signupbtn'
          style={styles.signUpBtn}
          >
           <Text style={styles.signUpTxt}>Sign Up</Text>
