@@ -1,17 +1,14 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, setState, useState, useEffect } from "react";
 import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Picker } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import styles from '../styles/MyRecipesStyle.js';
-<<<<<<< HEAD
-import { data } from "cypress/types/jquery";
-=======
 import Modal from 'react-native-modal';
 import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from '@react-native-community/datetimepicker';
->>>>>>> a646547ba375468c9dd784b5536c9144ec114635
+import emailjs from 'emailjs-com';
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -20,19 +17,18 @@ export default class MyRecipes extends Component {
   constructor(props) {
     super(props)
 
-<<<<<<< HEAD
     this.state = {
       rec_data: [],
-      currentUserID = firebaseApp.auth().currentUser.uid
-=======
-      this.state = {
+      currentUserID: '',
           //isVisible: false,
-          isDateTimePickerVisible: false,
-          rec_data: [],
-          selectedRecipe: '',
-          uid: '',
-          isModalVisible: false
->>>>>>> a646547ba375468c9dd784b5536c9144ec114635
+      isDateTimePickerVisible: false,
+      rec_data: [],
+      selectedRecipeName: '',
+      selectedRecipeIngredients: '',
+      selectedRecipeInstructions: '',
+      isModalVisible: false,
+      user_email: '',
+      user_name: ''
     }
   }
 
@@ -51,42 +47,10 @@ export default class MyRecipes extends Component {
     });
   };
 
-
-
-  
-
-  shareRecipe(key) {
-    console.log(key);
-    db.ref('/savedRecipes/'+currentUserID).child(key).on('value', (snapshot) => {
-      db.ref('/userInfo/'+currentUserID).child().on('value', (userSnapshot) => {
-        userSnapshot.forEach(childSnapshot) {
-          userData = childSnapshot.val();
-          recipeData = snapshot.val();
-          var templateParams = {
-            from_name: userData.name,
-            to_name: "Insert name here", // replace with name variable from field
-            to_email: "Insert email here", // replace with email variable from field
-            recipe_name: recipeData.name,
-            recipe_ingredients: recipeData.ingredients,
-            recipe_instructions: recipeData.instructions
-          }
-          emailjs.send('service_z7eytox', 'template_4zzkqrh', templateParams);e
-        }
-
-      })
-
-    })
-  }
-
   // removes a recipe from the MyRecipes list
   unsaveRecipe(key) {
-<<<<<<< HEAD
-=======
-
-    var currentUserID = firbeaseApp ? firebaseApp.auth().currentUser.uid : '';
->>>>>>> a646547ba375468c9dd784b5536c9144ec114635
     console.log(key);
-    db.ref('/savedRecipes/'+currentUserID).child(key).remove();
+    db.ref('/savedRecipes/'+this.state.currentUserID).child(key).remove();
     console.log(key);
   };
   
@@ -95,19 +59,13 @@ export default class MyRecipes extends Component {
   };
 
   componentDidMount() {
-<<<<<<< HEAD
-=======
-    var currentUserID = firebaseApp.auth().currentUser.uid;
-
-    this.setState({uid: currentUserID})
-
->>>>>>> a646547ba375468c9dd784b5536c9144ec114635
-    console.log(currentUserID)
-    
-    db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
+    var currentID = firebaseApp.auth().currentUser.uid;
+    this.setState({currentUserID: currentID});
+    console.log(this.state.currentUserID);
+    db.ref('/savedRecipes/'+currentID).on('value', (snapshot) => {
       var returnArray = [];
       snapshot.forEach(function(childSnapshot) { // iterate through each recipe
-        var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy;
+        var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL;
         var child = childSnapshot.val();
         var id = childSnapshot.key;
         recname = child.name;
@@ -137,6 +95,7 @@ export default class MyRecipes extends Component {
         });
       });
       this.setState({rec_data: returnArray});
+      this.orderData();
     });
     
     console.log(this.state.rec_data);
@@ -279,24 +238,24 @@ export default class MyRecipes extends Component {
             style={{alignItems: 'center', justifyContent: 'center',}}
             isVisible = {this.state.isModalVisible}>
             <View style={{height: 300, width: 300, backgroundColor: "white"}}>
-              <Text>Share (Recipe Name)</Text>
+              <Text>Share {this.state.selectedRecipeName}</Text>
               <TextInput 
                 mode="flat"
-                label="Email"
-                // onChangeText = {(email) => setEmail(email)}
+                label="Recipient's Email"
+                onChangeText = {(email) => this.setState({user_email: email})}
                 theme={{ colors: {placeholder: 'black', text: 'black', primary: 'black'} }}
                 style={styles.inputStyle}>
               </TextInput>
               <TextInput 
                 mode="flat"
-                label="Recipients Name"
-                // onChangeText = {(email) => setEmail(email)}
+                label="Recipient's Name"
+                onChangeText = {(name) => this.setState({user_name: name})}
                 theme={{ colors: {placeholder: 'black', text: 'black', primary: 'black'} }}
                 style={styles.inputStyle}>
               </TextInput>
               <TouchableOpacity style={{width: 50,height: 30,marginLeft: 10, marginTop: 15}}
-                onPress={() => this.hideModal()}>
-                <Text style={{fontSize: 10}}>Hide Modal</Text>
+                onPress={() => this.shareRecipe()}>
+                <Text style={{fontSize: 10}}>Share</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{width: 50,height: 30,marginLeft: 10, marginTop: 15}}
                 onPress={() => this.hideModal()}>
@@ -338,10 +297,13 @@ export default class MyRecipes extends Component {
 
                 <TouchableOpacity style={styles.addButton} 
                     onPress={() => {
-                      this.showDateTimePicker();
                       this.setState(
-                        {selectedRecipe: item.recName,}
+                        {selectedRecipe: item.id,}
                         );
+                      this.setState({selectedRecipeName: item.recName});
+                      this.setState({selectedRecipeIngredients: item.ingredients});
+                      this.setState({selectedRecipeInstructions: item.instructions});
+                      this.showModal();
                       }
                     }>
                     <Icon name="share" style={styles.shareIcon}></Icon>

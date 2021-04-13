@@ -12,10 +12,7 @@
   "dependencies": {
     "@expo-google-fonts/big-shoulders-display": "^0.1.0",
     "@expo/vector-icons": "^12.0.3",
-<<<<<<< HEAD
-=======
     "@expo/webpack-config": "^0.12.61",
->>>>>>> a646547ba375468c9dd784b5536c9144ec114635
     "@react-native-community/datetimepicker": "3.0.4",
     "@react-navigation/native": "^5.9.2",
     "@react-navigation/stack": "^5.14.2",
@@ -52,12 +49,8 @@
     "react-native-unimodules": "~0.12.0",
     "react-native-uuid": "^1.4.9",
     "react-native-web": "^0.15.0",
-<<<<<<< HEAD
-    "react-navigation": "^4.4.3"
-=======
     "react-navigation": "^4.4.3",
     "sentry-expo": "^3.0.5"
->>>>>>> a646547ba375468c9dd784b5536c9144ec114635
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
