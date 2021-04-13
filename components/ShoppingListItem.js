@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { CheckBox } from "react-native-elements";
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
-// import { View } from "react-native-animatable";
 
 export class ShoppingListItem extends Component {
     render(){

@@ -119,7 +119,7 @@ const Navigator = props => {
                     name="MyProfile"
                     component={MyProfile}
                     options={{
-                        headerShown: true,
+                        headerShown: false,
                         title: "MyProfile",
                         headerStyle: {
                             backgroundColor: '#e35514',
