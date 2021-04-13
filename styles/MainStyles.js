@@ -12,6 +12,17 @@ export default StyleSheet.create({
         alignSelf: 'center'
     },
 
+    image2_imageStyle: {
+    	// borderRadius: 100,
+  	},
+	image2: {
+        flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20
+	//   width: 182,
+	//   height: 182,
+	//   borderRadius: 100,
+	//   marginTop: 106,
+	},
+
     skip_buttonRow: {
         height: 60,
         flexDirection: "row",
