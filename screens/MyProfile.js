@@ -56,15 +56,15 @@ function Profile({navigation}) {
   const stringifyAllergies = (allergyObj) => {
 	var result = "";
 		
-	result = allergyObj.dairy == true ? result + 'Dairy\n' : result
-	result = allergyObj.eggs == true ? result + 'Eggs\n' : result
-	result = allergyObj.fish == true ? result + 'Fish\n' : result
-	result = allergyObj.gluten == true ? result + 'Gluten\n' : result
-	result = allergyObj.peanuts == true ? result + 'Peanuts\n' : result
-	result = allergyObj.shellfish == true ? result + 'Shellfish\n' : result
-	result = allergyObj.soy == true ? result + 'Soy\n' : result
-	result = allergyObj.treeNuts == true ? result + 'Tree Nuts\n' : result
-	result = allergyObj.wheat == true ? result + 'Wheat\n' : result
+	result = allergyObj.dairy == true ? result + 'Dairy, ' : result
+	result = allergyObj.eggs == true ? result + 'Eggs, ' : result
+	result = allergyObj.fish == true ? result + 'Fish, ' : result
+	result = allergyObj.gluten == true ? result + 'Gluten, ' : result
+	result = allergyObj.peanuts == true ? result + 'Peanuts, ' : result
+	result = allergyObj.shellfish == true ? result + 'Shellfish, ' : result
+	result = allergyObj.soy == true ? result + 'Soy, ' : result
+	result = allergyObj.treeNuts == true ? result + 'Tree Nuts, ' : result
+	result = allergyObj.wheat == true ? result + 'Wheat' : result
 	
 	return result;
   }
