@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Share, Picker } from "react-native";
+import { StyleSheet, View, Image, ImageBackground, Text, FlatList, TouchableOpacity, Dimensions, Share, Picker, StatusBar } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -15,6 +15,7 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import * as Animatable from 'react-native-animatable';
 import { Alert } from "react-native";
+import ViewRecipeModal from '../components/ViewRecipeModal';
 const CustomMysteryBox = createIconSetFromFontello(fontelloConfig, 'CustomIconsMysteryBox');
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -24,6 +25,58 @@ export default class MyRecipes extends Component {
   constructor(props) {
     super(props)
 
+      props.navigation.setOptions({
+        headerRight: () => (
+          <View
+              style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  paddingHorizontal: 15,
+                  height: StatusBar.currentHeight,
+              }}>
+
+              <TouchableOpacity style={{
+                  width: 37,
+                  height: 37,
+                  marginRight: 5,
+                  //backgroundColor: "#E6E6E6",
+                  backgroundColor: "#fff",
+                  borderRadius: 100,
+              }}>
+                  <CustomMysteryBox
+                      name="gluten_allergen"
+                      size={32}
+                      color={'#e35514'}
+                      onPress={() => this.showRandomRecipe()}
+                      alignSelf={"center"}
+                      style={{ alignSelf: "center", marginTop: 3 }}>
+                  </CustomMysteryBox>
+
+              </TouchableOpacity>
+              <TouchableOpacity style={{
+                  width: 37,
+                  height: 37,
+                  marginRight: 3,
+                  //backgroundColor: "#E6E6E6",
+                  backgroundColor: "#fff",
+                  borderRadius: 100,
+              }}>
+                  <FontAwesomeIcon
+                      name="home"
+                      size={32}
+                      color={'#e35514'}
+                      alignSelf={"center"}
+                      style={{alignSelf: "center", marginTop:2}}
+                      onPress={() => { navigation.navigate('Main Screen') }}
+
+                  />
+
+              </TouchableOpacity>
+          </View>
+      ),
+      })
+
       this.state = {
           //isVisible: false,
           isDateTimePickerVisible: false,
@@ -32,7 +85,87 @@ export default class MyRecipes extends Component {
           uid: '',
           starCount: 0.0,
           isRateModalVisible: false,
+          isViewRecipeVisible: false,
+          currentRecipeName: "",
+          CONTENT: [],
+          isEgg: false,
+          isGluten: false,
+          isDairy: false,
+          isSoy: false,
+          isFish: false,
+          isShellfish: false,
+          isNuts: false,
+          rating: 0,
+          activeSections: [],
+          multipleSelect: false,
     }
+  }
+
+  showRandomRecipe() {
+
+    this.displayRecipeModal(true)
+   
+    // Only do this if there are saved Recipes to choose from
+    if (this.state.rec_data.length == 0) {
+      Alert.alert('No saved recipes to choose from. Go save some recipes in order to generate a random one')
+    }
+    else {
+      // Choose a recipe
+      var index = Math.floor(Math.random() * this.state.rec_data.length)
+      var  ingredients, instructions, dairy, eggs, fish, gluten, nuts, shellfish, soy, totalRating, allergens, name;
+      var recipeObj = this.state.rec_data[index]
+      var newContent;
+
+      nuts = recipeObj.nuts ? "nuts, " : '';
+      recipeObj.nuts ? this.setState({ isNuts: true }) : this.setState({ isNuts: false });
+      gluten = recipeObj.gluten ? 'gluten, ' : '';
+      recipeObj.gluten ? this.setState({ isGluten: true }) : this.setState({ isGluten: false });
+      shellfish = recipeObj.shellfish ? 'shellfish, ' : '';
+      recipeObj.shellfish ? this.setState({ isShellfish: true }) : this.setState({ isShellfish: false });
+      dairy = recipeObj.dairy ? 'dairy, ' : '';
+      recipeObj.dairy ? this.setState({ isDairy: true }) : this.setState({ isDairy: false });
+      fish = recipeObj.fish ? 'fish, ' : '';
+      recipeObj.fish ? this.setState({ isFish: true }) : this.setState({ isFish: false });
+      eggs = recipeObj.eggs ? 'eggs, ' : '';
+      recipeObj.eggs ? this.setState({ isEgg: true }) : this.setState({ isEgg: false });
+      soy = recipeObj.soy ? "soy, " : '';
+      recipeObj.soy ? this.setState({ isSoy: true }) : this.setState({ isSoy: false });
+      allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
+
+      name = recipeObj.recName;
+      this.setState({currentRecipeName: name})
+      ingredients = recipeObj.ingredients;
+      instructions = recipeObj.instructions;
+
+      totalRating = recipeObj.totalRating
+      this.setState({
+        rating: totalRating
+      })
+
+      newContent = []
+        newContent.push({
+            title: 'Allergens',
+            content: allergens,
+        })
+        newContent.push({
+            title: 'Ingredients',
+            content: ingredients,
+        })
+        newContent.push({
+            title: 'Instructions',
+            content: instructions,
+        })
+      
+
+      // Populate the modal's states and Show it
+      this.setState({
+        CONTENT: newContent,
+      })
+    }
+  }
+
+  displayRecipeModal(show) {
+    this.setState({ isViewRecipeVisible: show })
   }
 
   // sorts recipes by name
@@ -51,7 +184,7 @@ export default class MyRecipes extends Component {
   };
 
   async shareRecipe (key){
-    var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
+    var currentUserID = this.state.uid
     db.ref('/savedRecipes/'+currentUserID).child(key).on('value', (snapshot) => {
       data = snapshot.val()
       this.state.msg = data.name
@@ -94,7 +227,7 @@ export default class MyRecipes extends Component {
   };
 
   componentDidMount() {
-    var currentUserID = firebaseApp.auth().currentUser.uid;
+    var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
 
     this.setState({uid: currentUserID})
 
@@ -103,7 +236,7 @@ export default class MyRecipes extends Component {
     db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
       var returnArray = [];
       snapshot.forEach(function(childSnapshot) { // iterate through each recipe
-        var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL;
+        var recname, ingredients, instructions, imageSource, dairy, eggs, fish, gluten, nuts, shellfish, soy, downloadURL, totalRating;
         var child = childSnapshot.val();
         var id = childSnapshot.key;
         recname = child.name;
@@ -117,6 +250,7 @@ export default class MyRecipes extends Component {
         nuts = child.nuts;
         shellfish = child.shellfish;
         soy = child.soy;
+        totalRating = child.totalRating;
         returnArray.push({ // push data into a single object in the array
           "id": id,
           "recName": recname,
@@ -129,7 +263,8 @@ export default class MyRecipes extends Component {
           "gluten": gluten,
           "nuts": nuts,
           "shellfish": shellfish,
-          "soy": soy
+          "soy": soy,
+          "totalRating": totalRating
         });
       });
       this.setState({rec_data: returnArray});
@@ -286,6 +421,12 @@ export default class MyRecipes extends Component {
     
     }
 
+    setSections = sections => {
+      this.setState({
+          activeSections: sections.includes(undefined) ? [] : sections,
+      });
+    }
+
     // Once a date is it's time to submit it to the DB
     handleDatePicked = date => {
         console.log("A date has been picked: ", date);
@@ -331,7 +472,7 @@ export default class MyRecipes extends Component {
                 onRequestClose={() => {
                     Alert.alert('Modal has now been closed.');
                 }}>
-
+                
 
                 <View style={{ flex: 1, justifyContent: "center" }}>
                     <View style={{
@@ -343,6 +484,7 @@ export default class MyRecipes extends Component {
                         borderRadius: 1,
                         alignContent: 'center',
                     }}>
+                      
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#FD8017' }}>
                             <Text style={styles.title}>Rate this recipe?</Text>
                             <TouchableOpacity>
@@ -411,6 +553,7 @@ export default class MyRecipes extends Component {
 				<Picker.Item label="Lunch" value="1"></Picker.Item>
 				<Picker.Item label="Dinner" value="1"></Picker.Item>
 			</Picker>
+      
         </View>
       </ImageBackground>
 	  
@@ -456,6 +599,24 @@ export default class MyRecipes extends Component {
     }}
 		keyExtractor={(item) => item.id}
 	  />
+      <ViewRecipeModal
+          currentRecipeName={this.state.currentRecipeName}
+          CONTENT={this.state.CONTENT}
+          isModalVisible={this.state.isViewRecipeVisible}
+          isEgg={this.state.isEgg}
+          isGluten={this.state.isGluten}
+          isNuts={this.state.isNuts}
+          isDairy={this.state.isDairy}
+          isSoy={this.state.isSoy}
+          isFish={this.state.isFish}
+          isShellfish={this.state.isShellfish}
+          activeSections={this.state.activeSections}
+          multipleSelect={this.state.multipleSelect}
+          starRating={this.state.rating}
+          setSections={this.setSections}
+          displayRecipeModal={this.displayRecipeModal.bind(this)}
+        >
+      </ViewRecipeModal>
 	  
     </View>
   );}
