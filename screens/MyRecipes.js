@@ -21,7 +21,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 export default class MyRecipes extends Component {
-  
+
   constructor(props) {
     super(props)
 
@@ -221,7 +221,7 @@ export default class MyRecipes extends Component {
     db.ref('/savedRecipes/'+currentUserID).child(key).remove();
     console.log(key);
   };
-  
+
   toggleModal(){
     this.setState({isModalVisible: !isModalVisible})
   };
@@ -232,7 +232,7 @@ export default class MyRecipes extends Component {
     this.setState({uid: currentUserID})
 
     console.log(currentUserID)
-    
+
     db.ref('/savedRecipes/'+currentUserID).on('value', (snapshot) => {
       var returnArray = [];
       snapshot.forEach(function(childSnapshot) { // iterate through each recipe
@@ -269,9 +269,9 @@ export default class MyRecipes extends Component {
       });
       this.setState({rec_data: returnArray});
     });
-    
+
     console.log(this.state.rec_data);
-    
+
     };
 
     // show the time picker modal
@@ -403,22 +403,25 @@ export default class MyRecipes extends Component {
         // Update the total rating for the recipe
         this.updateRecipeRating(recipeID)
 
-        
+
 
         // Tell the user it's all done
-        Alert.alert(
-          "Rating Submission",
-          "Rating Submission Successful",
-          [
-            { text: "OK", onPress: () => this.setState({
-              starCount: 0,
-              isRateModalVisible: false
-            }) }
-          ]
-        );
+        setTimeout(() => {
+          //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+          Alert.alert(
+            "Rating Submission",
+            "Rating Submission Successful",
+            [
+              { text: "OK", onPress: () => this.setState({
+                starCount: 0,
+                isRateModalVisible: false
+              }) }
+            ]
+          );
+      }, 1500);
 
         console.log('Rating Submitted: ' + rating)
-    
+
     }
 
     setSections = sections => {
@@ -454,8 +457,8 @@ export default class MyRecipes extends Component {
         db.ref('/userAgendas/'+this.state.uid).push(recipe)
         .then(() => this.hideDateTimePicker())
         .catch(() => console.log('failure has been achieved'))
-        
-        
+
+
     }
 
   render() {
@@ -556,7 +559,7 @@ export default class MyRecipes extends Component {
       
         </View>
       </ImageBackground>
-	  
+
 	  <FlatList
 		data = {this.state.rec_data}
 		renderItem={({item}) => {
@@ -573,7 +576,7 @@ export default class MyRecipes extends Component {
             <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.addButton} 
+          <TouchableOpacity style={styles.addButton}
             onPress={() => {
               this.showDateTimePicker();
               this.setState(
@@ -583,7 +586,7 @@ export default class MyRecipes extends Component {
             }>
             <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
           </TouchableOpacity>
-          
+
           <TouchableOpacity style={styles.rateButton}
               onPress={() => {
                   this.setState(
@@ -594,11 +597,12 @@ export default class MyRecipes extends Component {
               >
               <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
           </TouchableOpacity>
-			</ImageBackground>		
+			</ImageBackground>
 		  )
     }}
 		keyExtractor={(item) => item.id}
 	  />
+
       <ViewRecipeModal
           currentRecipeName={this.state.currentRecipeName}
           CONTENT={this.state.CONTENT}
@@ -618,6 +622,7 @@ export default class MyRecipes extends Component {
         >
       </ViewRecipeModal>
 	  
+
     </View>
   );}
 }
