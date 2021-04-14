@@ -137,7 +137,7 @@ const CreateRecipeScreen = (props) =>  {
             const dUrl = await uploadImage(imageSource)
             db.ref('/recipes').push({
                 name: n,
-                ingredients: ingred,
+                ingredients: allIngredients,
                 instructions: instr,
                 downloadUrl: dUrl,
                 soy: isSelectedSoy,
