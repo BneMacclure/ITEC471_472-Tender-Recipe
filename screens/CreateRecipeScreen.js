@@ -215,6 +215,7 @@ const CreateRecipeScreen = (props) =>  {
                                     ></TextInput>
                                 </View>
                                 <Text style={styles.recipeIngredientsText}>The Ingredients</Text>
+                                {/*Add ingredient name secion*/}
                                 <View style={{flexDirection: 'row', marginBottom: '3%', marginTop: '3%'}}>
                                 <Text style={{fontSize: 17, marginLeft: '4%', fontWeight: "bold"}}>Ingredient: </Text>
                                 <TextInput
@@ -235,12 +236,15 @@ const CreateRecipeScreen = (props) =>  {
                                     value={numInput}
                                 ></TextInput>
                                 </View>
+
+                                {/*Add ingredient unit secion*/}
                                 <View style={{flexDirection: 'row', alignSelf: 'center'}}>
                                 <Text style ={styles.recipeUnitText}>Unit: </Text>
                                 <TextInput
                                     placeholder="'cups', 'grams', 'diced'"
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeIngredient}
+                                    autoCapitalize={'none'}
                                     onChangeText={(unit) => setUnit(unit)}
                                 ></TextInput>
                                 </View>
@@ -255,6 +259,7 @@ const CreateRecipeScreen = (props) =>  {
                                 </TouchableOpacity>
                                 </View>
 
+                                {/*Remove ingredient secion*/}
                                 <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: '3%', marginRight: '11%'}}>
                                 <Text style ={styles.addIngredientText}>Remove Ingredient</Text>
 
@@ -265,7 +270,6 @@ const CreateRecipeScreen = (props) =>  {
                                     <Icon name="minus-circle" style={styles.addIcon}></Icon>
                                 </TouchableOpacity>
                                 </View>
-
                                 <TextInput
                                     editable={false}
                                     multiline={true}
