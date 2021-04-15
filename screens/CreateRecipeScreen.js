@@ -64,6 +64,10 @@ const CreateRecipeScreen = (props) =>  {
         var temp = allIngredients;
         temp += '-' + numInput + ' ' + unit + ' ' + ingred + "\n"
         setAllIngredients(temp)
+
+        setIngredients("")
+        setUnit("")
+        setNumInput("")
     }
 
     const removeIngredient = () => {
@@ -223,6 +227,7 @@ const CreateRecipeScreen = (props) =>  {
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeIngredient}
                                     onChangeText={(ingredients) => setIngredients(ingredients)}
+                                    value={ingred}
                                 ></TextInput>
                                 </View>
                                 <View style={{flexDirection: 'row', marginBottom: '3%'}}>
@@ -246,6 +251,7 @@ const CreateRecipeScreen = (props) =>  {
                                     style={styles.recipeIngredient}
                                     autoCapitalize={'none'}
                                     onChangeText={(unit) => setUnit(unit)}
+                                    value={unit}
                                 ></TextInput>
                                 </View>
                                 <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: '3%'}}>

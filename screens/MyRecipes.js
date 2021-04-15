@@ -68,7 +68,7 @@ export default class MyRecipes extends Component {
                       color={'#e35514'}
                       alignSelf={"center"}
                       style={{alignSelf: "center", marginTop:2}}
-                      onPress={() => { navigation.navigate('Main Screen') }}
+                      onPress={() => { props.navigation.navigate('Main Screen') }}
 
                   />
 
@@ -104,7 +104,7 @@ export default class MyRecipes extends Component {
   showRandomRecipe() {
 
     this.displayRecipeModal(true)
-   
+
     // Only do this if there are saved Recipes to choose from
     if (this.state.rec_data.length == 0) {
       Alert.alert('No saved recipes to choose from. Go save some recipes in order to generate a random one')
@@ -155,7 +155,7 @@ export default class MyRecipes extends Component {
             title: 'Instructions',
             content: instructions,
         })
-      
+
 
       // Populate the modal's states and Show it
       this.setState({
@@ -220,7 +220,7 @@ export default class MyRecipes extends Component {
 
     var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
     console.log(key);
-    db.ref('/savedRecipes/'+this.state.currentUserID).child(key).remove();
+    db.ref('/savedRecipes/'+currentUserID).child(key).remove();
     console.log(key);
   };
 
@@ -378,6 +378,18 @@ export default class MyRecipes extends Component {
 
     }
 
+    truncateRecName = (name) => {
+        var temp = '';
+        if(name.length > 14)
+        {
+            temp = name.slice(0, -(name.length - 16))
+            temp += '...'
+            return temp;
+        }
+        else
+        return name
+    }
+
     onStarRatingPress = (rating) => {
         this.setState({ starCount:rating })
         console.log("Submitting Rating")
@@ -477,7 +489,7 @@ export default class MyRecipes extends Component {
                 onRequestClose={() => {
                     Alert.alert('Modal has now been closed.');
                 }}>
-                
+
 
                 <View style={{ flex: 1, justifyContent: "center" }}>
                     <View style={{
@@ -489,7 +501,7 @@ export default class MyRecipes extends Component {
                         borderRadius: 1,
                         alignContent: 'center',
                     }}>
-                      
+
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#FD8017' }}>
                             <Text style={styles.title}>Rate this recipe?</Text>
                             <TouchableOpacity>
@@ -539,28 +551,6 @@ export default class MyRecipes extends Component {
                 />
             </View>
 
-      <ImageBackground
-        source={require("../assets/images/Gradient.png")}
-        resizeMode="stretch"
-        style={styles.image}
-        imageStyle={styles.image_imageStyle}
-      >
-        <View style={styles.filterRow}>
-          <Picker
-				style={styles.filterPicker}
-				onValueChange={(value) => {
-					this.setState({pickerValue: value});
-					//alert("Hello");
-				}}
-				>
-				<Picker.Item label="Filter" value="0"></Picker.Item>
-				<Picker.Item label="Breakfast" value="1"></Picker.Item>
-				<Picker.Item label="Lunch" value="1"></Picker.Item>
-				<Picker.Item label="Dinner" value="1"></Picker.Item>
-			</Picker>
-      
-        </View>
-      </ImageBackground>
 
 	  <FlatList
 		data = {this.state.rec_data}
@@ -572,33 +562,50 @@ export default class MyRecipes extends Component {
 				style={styles.image2}
 				imageStyle={styles.image2_imageStyle}
 				>
-          <Text style={styles.recText}>{item.recName}</Text>
 
-          <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-            <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
-          </TouchableOpacity>
+          <ImageBackground
+            style={styles.image2}
+            imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+            source={require("../assets/images/recipeGradient.png")}
+            testID='currentImage' >
+                <Text
+                style={styles.recText}
+                NumberOfLines={1}>{this.truncateRecName(item.recName)}</Text>
 
-          <TouchableOpacity style={styles.addButton}
-            onPress={() => {
-              this.showDateTimePicker();
-              this.setState(
-                {selectedRecipe: item.recName,}
-                );
-              }
-            }>
-            <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+                  <FontAwesomeIcon name="trash" style={styles.icon}></FontAwesomeIcon>
+                </TouchableOpacity>
 
-          <TouchableOpacity style={styles.rateButton}
-              onPress={() => {
-                  this.setState(
-                      { isRateModalVisible: true,
-                        selectedRecipe: item.recName }
-                  );
-              }}
-              >
-              <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.addButton}
+                  onPress={() => {
+                    this.showDateTimePicker();
+                    this.setState(
+                      {selectedRecipe: item.recName,}
+                      );
+                    }
+                  }>
+                  <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.rateButton}
+                    onPress={() => {
+                        this.setState(
+                            { isRateModalVisible: true,
+                              selectedRecipe: item.recName }
+                        );
+                    }}
+                    >
+                    <IoniconsIcon name="ios-star" style={styles.rateIcon}></IoniconsIcon>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.shareButton}
+                    onPress={() => {
+                        this.shareRecipe(item.id)
+                    }}
+                    >
+                    <EntypoIcon name="share" style={styles.shareIcon}></EntypoIcon>
+                </TouchableOpacity>
+          </ImageBackground>
 			</ImageBackground>
 		  )
     }}
@@ -623,7 +630,7 @@ export default class MyRecipes extends Component {
           displayRecipeModal={this.displayRecipeModal.bind(this)}
         >
       </ViewRecipeModal>
-	  
+
 
     </View>
   );}

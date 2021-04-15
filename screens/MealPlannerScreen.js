@@ -95,6 +95,7 @@ const MealPlannerScreen = (props) => {
             });
         });
         setRecData(returnArray)
+        loadItems('')
         });
     }, num)
 
@@ -417,8 +418,13 @@ const MealPlannerScreen = (props) => {
                                             style={styles.recipeImageContainer}
                                             imageStyle={styles.recipeImage}
                                         >
+                                        <ImageBackground
+                                          style={{flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20}}
+                                          imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+                                          source={require("../assets/images/recipeGradient.png")}
+                                          testID='currentImage' >
 
-                                            <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: "#FD8017", height: '30%', marginTop: '25%'}}>
+                                            <View style={{flexDirection: 'row', justifyContent: 'space-between', height: '30%', marginTop: '25%'}}>
 
                                             <Text
                                             numberOfLines={1}
@@ -437,7 +443,7 @@ const MealPlannerScreen = (props) => {
                                             </TouchableOpacity>
 
                                             </View>
-
+                                            </ImageBackground>
                                         </ImageBackground>
                                     </TouchableOpacity>
                                 )
@@ -558,7 +564,7 @@ const styles = StyleSheet.create({
     recipeImage: {},
     recipeText: {
         color: "rgba(255,255,255,1)",
-        fontSize: 33,
+        fontSize: 26,
         width: '70%',
         marginTop: -6,
         marginLeft: 6,
@@ -573,7 +579,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         height: 35,
         width: 35,
-        marginTop: 3,
+        marginTop: -5,
         marginRight: '12%'
     },
     cardTitle: {

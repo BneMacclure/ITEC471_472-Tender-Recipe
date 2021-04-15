@@ -81,17 +81,74 @@ function Profile({navigation}) {
 	  db.ref('/userInfo/' + currentUserID + '/' + hash).update({
 			
 		name: name,
-		// phone: phone,
 		skillLevel: skillLevel,
 		prefMeasurement: prefMeasurement,
-		// allergies: allergies,
-		// diet: diet
 	  })
   }
 
   useEffect(() => {
     retrieveData();
   }, []); //Added empty array so useEffect is only called once the screen is loaded in
+
+  	let cookingToggle;
+	let measToggle;
+
+  	if(isEditable){
+		cookingToggle = <View>
+					<View style={styles.row}>
+						<Text style={styles.loremIpsum}>Cooking Skill:</Text>
+						<TextInput onChangeText = {(skillLevel) => setLevel(skillLevel)} style={styles.loremIpsum} 
+							editable={false}>{skillLevel}</TextInput>
+					</View>
+					<View style={{flexDirection: "row", alignSelf: 'center', marginTop: 10}}>
+						<TouchableOpacity 
+							style={{marginLeft: 10, width: 115, borderRadius: 10, borderColor: '#FC8217', borderWidth: 2}}
+							onPress={() => setLevel('Beginner')}>
+							<Text style={{fontSize: 18, alignSelf: 'center'}}>Beginner</Text>
+						</TouchableOpacity>
+						<TouchableOpacity 
+							style={{marginLeft: 10, width: 115, borderRadius: 10, borderColor: '#FC8217', borderWidth: 2}}
+							onPress={() => setLevel('Intermediate')}>
+							<Text style={{fontSize: 18, alignSelf: 'center'}}>Intermediate</Text>
+						</TouchableOpacity>
+						<TouchableOpacity 
+							style={{marginLeft: 10, width: 115, borderRadius: 10, borderColor: '#FC8217', borderWidth: 2}}
+							onPress={() => setLevel('Advanced')}>
+							<Text style={{fontSize: 18, alignSelf: 'center'}}>Advanced</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+		measToggle = <View>
+						<View style={styles.row}>
+							<Text style={styles.loremIpsum}>Preferred Measurements:</Text>
+							<TextInput onChangeText = {(prefMeasurement) => setMeasurement(prefMeasurement)} style={styles.loremIpsum}
+								editable={false}>{prefMeasurement}</TextInput>
+						</View>
+						<View style={{flexDirection: "row", alignSelf: 'center', marginTop: 10}}>
+							<TouchableOpacity 
+								style={{marginLeft: 10, width: 115, borderRadius: 10, borderColor: '#FC8217', borderWidth: 2}}
+								onPress={() => setMeasurement('Metric')}>
+								<Text style={{fontSize: 18, alignSelf: 'center'}}>Metric</Text>
+							</TouchableOpacity>
+							<TouchableOpacity 
+								style={{marginLeft: 10, width: 115, borderRadius: 10, borderColor: '#FC8217', borderWidth: 2}}
+								onPress={() => setMeasurement('Imperial')}>
+								<Text style={{fontSize: 18, alignSelf: 'center'}}>Imperial</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+	}else{
+		cookingToggle = <View style={styles.row}>
+							<Text style={styles.loremIpsum}>Cooking Skill:</Text>
+							<TextInput onChangeText = {(skillLevel) => setLevel(skillLevel)} style={styles.loremIpsum} 
+								editable={false}>{skillLevel}</TextInput>
+						</View>
+		measToggle = <View style={styles.row}>
+						<Text style={styles.loremIpsum}>Preferred Measurements:</Text>
+						<TextInput onChangeText = {(prefMeasurement) => setMeasurement(prefMeasurement)} style={styles.loremIpsum}
+							editable={false}>{prefMeasurement}</TextInput>
+					</View>
+	}
 
     return (
 
@@ -127,24 +184,16 @@ function Profile({navigation}) {
 		<View style={styles.row}>
 			<Text style={styles.loremIpsum}>Email:</Text>
 	 		<TextInput onChangeText = {(email) => setEmail(email)} style={styles.loremIpsum} 
-			 			editable={isEditable}>{email}</TextInput>
+			 			editable={false}>{email}</TextInput>
 		</View>
 		<Divider style={styles.divider}/>
-		<View style={styles.row}>
-			<Text style={styles.loremIpsum}>Cooking Skill:</Text>
-			<TextInput onChangeText = {(skillLevel) => setLevel(skillLevel)} style={styles.loremIpsum} 
-						editable={isEditable}>{skillLevel}</TextInput>
-		</View>
+		{cookingToggle}
 		<Divider style={styles.divider}/>
-		<View style={styles.row}>
-			<Text style={styles.loremIpsum}>Preferred Measurements:</Text>
-			<TextInput onChangeText = {(prefMeasurement) => setMeasurement(prefMeasurement)} style={styles.loremIpsum}
-						editable={isEditable}>{prefMeasurement}</TextInput>
-		</View>
+		{measToggle}
 		<Divider style={styles.divider}/>
 		<Text style={styles.loremIpsum}>Allergies:</Text>
 		<TextInput onChangeText = {(allergies) => setAllergies(allergies)} style={styles.loremIpsum}
-					editable={isEditable}
+					editable={false}
 					multiline={true}>{allergies}
 					</TextInput>
 		<Divider style={styles.divider}/>

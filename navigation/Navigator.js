@@ -65,7 +65,7 @@ const Navigator = props => {
                     name="Main Screen"
                     component={MainScreen}
                     options={({ navigation }) => ({
-                        title: "Welcome!",
+                        title: "",
                         headerLeft: null,
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -148,7 +148,7 @@ const Navigator = props => {
                     component={ShoppingList}
                     options={{
                         headerShown: true,
-                        title: "ShoppingList",
+                        title: "Shopping List",
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },
@@ -320,7 +320,7 @@ const Navigator = props => {
                     name="MyRecipes"
                     component={MyRecipes}
                     options={({ navigation }) => ({
-                        title: "My Recipes",
+                        title: "",
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },
