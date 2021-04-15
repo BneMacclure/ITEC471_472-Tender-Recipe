@@ -3,6 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import MainScreenInfo from '../../screens/MainScreen';
 import { renderRecipes } from '../../screens/MainScreen';
+import Enzyme, { configure, shallow, mount, render } from 'enzyme';
 // in a test setup file, or your test itself
 const FRAME_TIME = 10
 
@@ -20,8 +21,4 @@ describe('<MainScreen />', () => {
 		
         expect(main.renderRecipes()).tobenull();
     });
-	it('first registertion page renders',()=>{
-		const wrapper = render(<MainScreenInfo />);
-		expect(wrapper).toBeTruthy();
-	});
 })

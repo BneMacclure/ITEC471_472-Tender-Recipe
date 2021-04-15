@@ -302,6 +302,7 @@ exports[`<CreateRecipeScreen /> CreateRecipeScreen snapshot test 1`] = `
                 </Text>
                 <TextInput
                   allowFontScaling={true}
+                  autoCapitalize="none"
                   enablesReturnKeyAutomatically={true}
                   onChangeText={[Function]}
                   placeholder="'cups', 'grams', 'diced'"

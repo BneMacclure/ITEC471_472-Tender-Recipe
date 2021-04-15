@@ -81,7 +81,7 @@ function Registration({navigation, route}) {
 		  testID='namefield'
           onChangeText = {(name) => setName(name)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
-          style={styles.inputStyle}>
+          style={styles.inputStyle}>name
         </TextInput>
         {/*<Text style={styles.labelText}>Phone Number</Text>*/}
         <TextInput 

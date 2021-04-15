@@ -281,7 +281,9 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
             }
             testID="namefield"
             underlineColorAndroid="transparent"
-          />
+          >
+            name
+          </TextInput>
         </View>
       </View>
     </View>

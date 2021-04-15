@@ -555,7 +555,11 @@
 <a name='L496'></a><a href='#L496'>496</a>
 <a name='L497'></a><a href='#L497'>497</a>
 <a name='L498'></a><a href='#L498'>498</a>
-<a name='L499'></a><a href='#L499'>499</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -778,32 +782,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -816,8 +794,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1189,7 +1197,7 @@ const CreateRecipeScreen = (props) =&gt;  {
             const dUrl = <span class="cstat-no" title="statement not covered" >await uploadImage(imageSource)</span>
 <span class="cstat-no" title="statement not covered" >            db.ref('/recipes').push({</span>
                 name: n,
-                ingredients: ingred,
+                ingredients: allIngredients,
                 instructions: instr,
                 downloadUrl: dUrl,
                 soy: isSelectedSoy,
@@ -1270,6 +1278,7 @@ const CreateRecipeScreen = (props) =&gt;  {
                                     &gt;&lt;/TextInput&gt;
                                 &lt;/View&gt;
                                 &lt;Text style={styles.recipeIngredientsText}&gt;The Ingredients&lt;/Text&gt;
+                                {/*Add ingredient name secion*/}
                                 &lt;View style={{flexDirection: 'row', marginBottom: '3%', marginTop: '3%'}}&gt;
                                 &lt;Text style={{fontSize: 17, marginLeft: '4%', fontWeight: "bold"}}&gt;Ingredient: &lt;/Text&gt;
                                 &lt;TextInput
@@ -1290,12 +1299,15 @@ const CreateRecipeScreen = (props) =&gt;  {
                                     value={numInput}
                                 &gt;&lt;/TextInput&gt;
                                 &lt;/View&gt;
+&nbsp;
+                                {/*Add ingredient unit secion*/}
                                 &lt;View style={{flexDirection: 'row', alignSelf: 'center'}}&gt;
                                 &lt;Text style ={styles.recipeUnitText}&gt;Unit: &lt;/Text&gt;
                                 &lt;TextInput
                                     placeholder="'cups', 'grams', 'diced'"
                                     enablesReturnKeyAutomatically={true}
                                     style={styles.recipeIngredient}
+                                    autoCapitalize={'none'}
                                     onChangeText={<span class="fstat-no" title="function not covered" >(u</span>nit) =&gt; <span class="cstat-no" title="statement not covered" >setUnit(unit)}</span>
                                 &gt;&lt;/TextInput&gt;
                                 &lt;/View&gt;
@@ -1310,6 +1322,7 @@ const CreateRecipeScreen = (props) =&gt;  {
                                 &lt;/TouchableOpacity&gt;
                                 &lt;/View&gt;
 &nbsp;
+                                {/*Remove ingredient secion*/}
                                 &lt;View style={{flexDirection: 'row', alignSelf: 'center', marginTop: '3%', marginRight: '11%'}}&gt;
                                 &lt;Text style ={styles.addIngredientText}&gt;Remove Ingredient&lt;/Text&gt;
 &nbsp;
@@ -1320,7 +1333,6 @@ const CreateRecipeScreen = (props) =&gt;  {
                                     &lt;Icon name="minus-circle" style={styles.addIcon}&gt;&lt;/Icon&gt;
                                 &lt;/TouchableOpacity&gt;
                                 &lt;/View&gt;
-&nbsp;
                                 &lt;TextInput
                                     editable={false}
                                     multiline={true}
@@ -1558,7 +1570,7 @@ export default CreateRecipeScreen;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Apr 14 2021 23:38:39 GMT-0400 (Eastern Daylight Time)
+                at Thu Apr 15 2021 11:11:04 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

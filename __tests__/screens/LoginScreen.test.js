@@ -3,10 +3,10 @@ import React, { Component , useState}  from 'react';
 import renderer from 'react-test-renderer';
 import LoginScreen from '../../screens/LoginScreen';
 import { Alert } from 'react-native';
-import {act, fireEvent, waitFor, cleanup} from '@testing-library/react-native';
+import {act, fireEvent, waitFor, cleanup,render} from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 jest.mock('../../screens/LoginScreen');
-import Enzyme, { configure, shallow, mount, render } from 'enzyme';
+
 
 beforeEach(() => {
   // Clear all instances and calls to constructor and all methods:
@@ -23,7 +23,7 @@ describe('<LoginScreen />', () => {
 		expect(wrapper).toBeTruthy();
 	});
 
-	it('first LoginScreen page renders',()=>{
+	it('debugloginFunc called',()=>{
 		const wrapper = render(<LoginScreen />);
 		
 		let log =  new LoginScreen();
@@ -31,15 +31,15 @@ describe('<LoginScreen />', () => {
 		expect(LoginScreen).toHaveBeenCalledTimes(2);
 		
 	});
-	
-	it("should update state on click", () => {
-		window.alert = jest.fn();
-		changeinput=jest.fn();
-		const wrapper = mount(<LoginScreen onChange={changeinput} />);
-		jest.spyOn(Wrapper.instance(), loginFunc);
-		wrapper.find("loginButton").simulate("click");
-		expect(formWrapper.instance().loginFunc).toBeCalled();
-		expect(window.alert).toBeCalledWith(loginFunc);
+	it('loginFunc called',()=>{
+		const wrapper = render(<LoginScreen />);
+		
+		let log =  new LoginScreen();
+		log.email="jamal@test.edu";
+		log.pass="pass";
+		log.loginFunc;
+		expect(LoginScreen).toHaveBeenCalledTimes(2);
+		
 	});
 	
 	
