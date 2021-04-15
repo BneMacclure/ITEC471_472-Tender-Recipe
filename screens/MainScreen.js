@@ -64,6 +64,7 @@ export default class MainScreenInfo extends React.Component {
 
         this.position = new Animated.ValueXY()
         this.state = {
+            allergies: [],
             currentIndex: 0,
             recipes: [],
             indexToKey: [], // basically, helps me figure out which recipe you just liked. things like index 0 is key 1234, which pertains to a certain recipe in the DB
@@ -82,6 +83,7 @@ export default class MainScreenInfo extends React.Component {
             isNuts: false,
             isEnd: false,
             rating: 0,
+            diets: ""
         }
 
         this.rotate = this.position.x.interpolate({
@@ -134,6 +136,7 @@ export default class MainScreenInfo extends React.Component {
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
             this.setState({isEnd: true}) 
         }
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -148,6 +151,7 @@ export default class MainScreenInfo extends React.Component {
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
             this.setState({isEnd: true})
         }
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -192,6 +196,10 @@ export default class MainScreenInfo extends React.Component {
         this.displayRecipeModal(true)
     }
 
+    addtoViewed(key) {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+key+"/viewed").push(currentUserID);
+    }
 
     // Given a key, give the recipe to view for the user
     viewRecipe(key) {
@@ -255,20 +263,126 @@ export default class MainScreenInfo extends React.Component {
                         rating: rating });
     }
 
+    /* hasViewed : Object (currentRecipe)
+       Takes in a specific recipe and checks if if has been viewed by this user before */
+    hasViewed(currentRecipe) {
+        var viewed = false;
+        var recipe_key = currentRecipe.key;
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+recipe_key+'/viewed').on('value', (snapshot) => {
+            snapshot.forEach((user) => {
+                if (user.val() == currentUserID) {
+                    viewed = true;
+                }
+            })
+        });
+        return viewed;
+    }
+
+    /* allergiesMatch : Object (recipe)
+       Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    allergiesMatch(currentRecipe) {
+        var allergic = false;
+        if (this.state.allergies[0].dairy == true && currentRecipe.dairy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].eggs == true && currentRecipe.eggs == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].fish == true && currentRecipe.fish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].gluten == true && currentRecipe.gluten == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].peanuts == true && currentRecipe.peanuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].shellfish == true && currentRecipe.shellfish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].soy == true && currentRecipe.soy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].treeNuts == true && currentRecipe.treeNuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].wheat == true && currentRecipe.wheat == true) {
+            allergic = true;
+        }
+        return allergic;
+    }
+
+    /* dietsMatch : Object (currentRecipe)
+    Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    dietsMatch(currentRecipe) {
+        var canEat = true;
+        if (currentRecipe.diet === "Vegan" && this.state.diet !== "Vegan") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Vegetarian" && this.state.diet !== "Vegetarian") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Pescatarian" && this.state.diet !== "Pescatarian") {
+            canEat = false;
+        }
+        return canEat;
+    }
+
+    /* filter : array (unfiltered)
+    Filters array of recipes using various criteria and returns filtered array */
+    filter(unfiltered) {
+        var filteredArray = [];
+        for (i = 0; i < unfiltered.length; i++) {
+            if (this.allergiesMatch(unfiltered[i]) == false && this.dietsMatch(unfiltered[i]) && this.hasViewed(unfiltered[i]) == false) {
+                filteredArray.push(unfiltered[i]);
+            }
+        }
+        this.setState({ recipes: filteredArray });
+    }
+
     componentDidMount() {
-        // Retrieve recipes from Firebase
-        db.ref('/recipes').on('value', (snapshot) => {
-            var returnArray = [];
-
-            snapshot.forEach( (snap) => {
-                returnArray.push({
-                    key: snap.key,
-                    name: snap.val().name,
-                    uri: snap.val().downloadUrl
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        var returnArray = [];
+        db.ref('/userInfo/'+currentUserID).limitToFirst(1).on('value', (snapshot) => {
+            for(var key in snapshot.val()) {
+                var allergies = snapshot.val()[key].allergies;
+                var diets = snapshot.val()[key].diet;
+                this.setState({ diet: diets });
+                var allergiesArray = [];
+                allergiesArray.push({
+                    dairy: allergies.dairy,
+                    eggs: allergies.eggs,
+                    fish: allergies.fish,
+                    gluten: allergies.gluten,
+                    other: allergies.other,
+                    peanuts: allergies.peanuts,
+                    shellfish: allergies.shellfish,
+                    soy: allergies.soy,
+                    treeNuts: allergies.treeNuts,
+                    wheat: allergies.wheat
                 });
-            });
-
-            this.setState({ recipes: returnArray })
+                this.setState({ allergies: allergiesArray });
+            }
+        });
+        // Retrieve recipes from Firebase
+        db.ref('/recipes/').on('value', (recipeSnapshot) => {
+            recipeSnapshot.forEach( (snap) => {
+                        returnArray.push({
+                            key: snap.key,
+                            name: snap.val().name,
+                            uri: snap.val().downloadUrl,
+                            dairy: snap.val().dairy,
+                            eggs: snap.val().eggs,
+                            fish: snap.val().fish,
+                            gluten: snap.val().gluten,
+                            nuts: snap.val().nuts,
+                            shellfish: snap.val().shellfish,
+                            soy: snap.val().soy
+                        });
+                    }
+        );
+        this.filter(returnArray);
         });
         this.PanResponder = PanResponder.create({
 
@@ -291,7 +405,8 @@ export default class MainScreenInfo extends React.Component {
                             this.setState({isEnd: true})
                         }
                         console.log(this.state.isEnd)
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -308,7 +423,8 @@ export default class MainScreenInfo extends React.Component {
                             this.setState({isEnd: true})
                         }
                         console.log(this.state.isEnd)
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
