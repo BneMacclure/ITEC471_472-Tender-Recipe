@@ -89,19 +89,22 @@ export default StyleSheet.create({
     image2_imageStyle: {},
     recText: {
       color: "rgba(255,255,255,1)",
-      fontSize: 35,
-      marginTop: 84,
-      marginLeft: 8
+      fontSize: 26,
+      marginTop: 95,
+      marginLeft: 8,
+      width: '60%',
+      //flex: 1
+
     },
     addButton: {
         width: 30,
         height: 30,
-        marginLeft: '80%',
+        marginLeft: '80.5%',
         bottom: 73
     },
 
     addIcon: {
-        color: "rgba(0,0,0,1)",
+        color: "white",
         fontSize: 38,
         height: 40,
         width: 41,
@@ -112,10 +115,31 @@ export default StyleSheet.create({
         width: 30,
         height: 30,
         marginLeft: '70%',
-        bottom: 105
+        bottom: 106
+    },
+    trashButton: {
+        width: 30,
+        height: 30,
+        marginLeft: '90%',
+        bottom: 43
     },
     rateIcon: {
-        color: "rgba(0,0,0,1)",
+        color: "white",
+        fontSize: 38,
+        height: 40,
+        width: 41,
+        marginLeft: 1,
+        marginTop: 2
+    },
+
+    shareButton: {
+        width: 30,
+        height: 30,
+        marginLeft: '60%',
+        bottom: 133
+    },
+    shareIcon: {
+        color: "white",
         fontSize: 38,
         height: 40,
         width: 41,

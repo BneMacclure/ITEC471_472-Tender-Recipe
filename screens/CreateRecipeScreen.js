@@ -64,9 +64,10 @@ const CreateRecipeScreen = (props) =>  {
         var temp = allIngredients;
         temp += '-' + numInput + ' ' + unit + ' ' + ingred + "\n"
         setAllIngredients(temp)
+
+        setIngredients("")
         setUnit("")
         setNumInput("")
-        setIngredients("")
     }
 
     const removeIngredient = () => {
