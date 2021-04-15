@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { ShoppingListItem } from '../components/ShoppingListItem.js'
 // import { useChecklist } from 'react-checklist';
 
-function ShoppingList(props) {
+export default function ShoppingList(props) {
   
   const [item1Checked, setItem1Checked] = useState(false);
   const [item2Checked, setItem2Checked] = useState(false);
@@ -35,4 +35,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShoppingList;

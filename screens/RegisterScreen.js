@@ -76,6 +76,7 @@ function Registration({navigation, route}) {
         <TextInput 
           mode="outlined"
           color="#FFFFFF"
+		  data-testid="name"
           label="Name"
 		  testID='namefield'
           onChangeText = {(name) => setName(name)}
@@ -87,6 +88,7 @@ function Registration({navigation, route}) {
           clearTextOnFocus={true}
           mode="outlined"
           label="Phone Number"
+		  data-testid="phone"
 		  testID='phonefield'
           onChangeText = {(phone) => setPhone(phone)}
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
@@ -97,6 +99,7 @@ function Registration({navigation, route}) {
           mode="outlined"
           label="Email"
           autoCapitalize='none'
+		  data-testid="email"
           onChangeText = {(email) => setEmail(email)}
 		  testID='emailfield'
           theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
@@ -107,6 +110,7 @@ function Registration({navigation, route}) {
           secureTextEntry={true}
           mode="outlined"
           label="Password"
+		  data-testid="pass"
           autoCapitalize='none'
           secureTextEntry={true}
 		    testID='passfield'

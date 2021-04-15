@@ -311,7 +311,8 @@ export default class LoginScreen extends React.Component {
                                         <TouchableOpacity
                                             onPress={() => this.loginFunc()}
                                             style={styles.loginBtn}
-                                            testID='loginButton'
+                                            id='loginButton'
+											
                                         >
                                             <Text style={styles.login}>LOG IN</Text>
                                         </TouchableOpacity>
