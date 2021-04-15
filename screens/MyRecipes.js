@@ -380,9 +380,9 @@ export default class MyRecipes extends Component {
 
     truncateRecName = (name) => {
         var temp = '';
-        if(name.length > 12)
+        if(name.length > 14)
         {
-            temp = name.slice(0, -(name.length - 13))
+            temp = name.slice(0, -(name.length - 16))
             temp += '...'
             return temp;
         }
@@ -596,6 +596,17 @@ export default class MyRecipes extends Component {
                     }}
                     >
                     <IoniconsIcon name="ios-star" style={styles.rateIcon}></IoniconsIcon>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.shareButton}
+                    onPress={() => {
+                        this.setState(
+                            { isRateModalVisible: true,
+                              selectedRecipe: item.recName }
+                        );
+                    }}
+                    >
+                    <EntypoIcon name="share" style={styles.shareIcon}></EntypoIcon>
                 </TouchableOpacity>
           </ImageBackground>
 			</ImageBackground>
