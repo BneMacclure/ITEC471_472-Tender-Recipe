@@ -384,6 +384,9 @@ export default class MainScreenInfo extends React.Component {
         );
         this.filter(returnArray);
         });
+        if(this.state.recipes.length == 0){
+            this.setState({isEnd: true})
+        }
         this.PanResponder = PanResponder.create({
 
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -612,7 +615,17 @@ export default class MainScreenInfo extends React.Component {
                 {/* Toggle end of recipe view */}
                 {this.state.isEnd ?
                     (
-                        <Text>You've reached the end! Would you like to restart?</Text>
+                        <View style={styles.container2}>
+                            <Text style={styles.endText}>You&#39;ve reached {"\n"}the end!</Text>
+                            <Text style={styles.endText2}>
+                                Come back later {"\n"}when more recipes {"\n"}have been added!
+                            </Text>
+                            <Image
+                                source={require("../assets/images/sadIcon.jpg")}
+                                resizeMode="contain"
+                                style={styles.sadIcon}
+                            ></Image>
+                        </View>
                     ) 
                     : null}
                 
