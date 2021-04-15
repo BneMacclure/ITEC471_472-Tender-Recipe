@@ -95,6 +95,7 @@ const MealPlannerScreen = (props) => {
             });
         });
         setRecData(returnArray)
+        loadItems('')
         });
     }, num)
 
