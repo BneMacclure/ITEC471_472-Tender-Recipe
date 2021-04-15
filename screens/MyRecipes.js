@@ -551,28 +551,6 @@ export default class MyRecipes extends Component {
                 />
             </View>
 
-      <ImageBackground
-        source={require("../assets/images/Gradient.png")}
-        resizeMode="stretch"
-        style={styles.image}
-        imageStyle={styles.image_imageStyle}
-      >
-        <View style={styles.filterRow}>
-          <Picker
-				style={styles.filterPicker}
-				onValueChange={(value) => {
-					this.setState({pickerValue: value});
-					//alert("Hello");
-				}}
-				>
-				<Picker.Item label="Filter" value="0"></Picker.Item>
-				<Picker.Item label="Breakfast" value="1"></Picker.Item>
-				<Picker.Item label="Lunch" value="1"></Picker.Item>
-				<Picker.Item label="Dinner" value="1"></Picker.Item>
-			</Picker>
-
-        </View>
-      </ImageBackground>
 
 	  <FlatList
 		data = {this.state.rec_data}
@@ -585,36 +563,41 @@ export default class MyRecipes extends Component {
 				imageStyle={styles.image2_imageStyle}
 				>
 
-          <Text
-          style={styles.recText}
-          NumberOfLines={1}>{this.truncateRecName(item.recName)}</Text>
+          <ImageBackground
+            style={styles.image2}
+            imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+            source={require("../assets/images/recipeGradient.png")}
+            testID='currentImage' >
+                <Text
+                style={styles.recText}
+                NumberOfLines={1}>{this.truncateRecName(item.recName)}</Text>
 
-          <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-            <FontAwesomeIcon name="trash" style={styles.icon}></FontAwesomeIcon>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
+                  <FontAwesomeIcon name="trash" style={styles.icon}></FontAwesomeIcon>
+                </TouchableOpacity>
 
-          <TouchableOpacity style={styles.addButton}
-            onPress={() => {
-              this.showDateTimePicker();
-              this.setState(
-                {selectedRecipe: item.recName,}
-                );
-              }
-            }>
-            <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.addButton}
+                  onPress={() => {
+                    this.showDateTimePicker();
+                    this.setState(
+                      {selectedRecipe: item.recName,}
+                      );
+                    }
+                  }>
+                  <FontAwesomeIcon name="plus-circle" style={styles.addIcon}></FontAwesomeIcon>
+                </TouchableOpacity>
 
-          <TouchableOpacity style={styles.rateButton}
-              onPress={() => {
-                  this.setState(
-                      { isRateModalVisible: true,
-                        selectedRecipe: item.recName }
-                  );
-              }}
-              >
-              <IoniconsIcon name="ios-star" style={styles.rateIcon}></IoniconsIcon>
-          </TouchableOpacity>
-
+                <TouchableOpacity style={styles.rateButton}
+                    onPress={() => {
+                        this.setState(
+                            { isRateModalVisible: true,
+                              selectedRecipe: item.recName }
+                        );
+                    }}
+                    >
+                    <IoniconsIcon name="ios-star" style={styles.rateIcon}></IoniconsIcon>
+                </TouchableOpacity>
+          </ImageBackground>
 			</ImageBackground>
 		  )
     }}

@@ -89,8 +89,8 @@ export default StyleSheet.create({
     image2_imageStyle: {},
     recText: {
       color: "rgba(255,255,255,1)",
-      fontSize: 35,
-      marginTop: 84,
+      fontSize: 30,
+      marginTop: 90,
       marginLeft: 8,
       width: '60%',
       //flex: 1
