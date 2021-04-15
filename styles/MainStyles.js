@@ -11,6 +11,37 @@ export default StyleSheet.create({
         bottom: 10,
         alignSelf: 'center'
     },
+    container2: {
+        flex: 1,
+        position: 'absolute',
+        alignSelf: 'center'
+    },
+
+    image2_imageStyle: {
+  	},
+	image2: {
+        flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20
+	},
+
+    endText: {
+        color: "#121212",
+        fontSize: 40,
+        textAlign: "center",
+        marginTop: 60,
+    },
+    endText2: {
+        color: "#121212",
+        fontSize: 40,
+        textAlign: "center",
+        marginTop: 320,
+    },
+    sadIcon: {
+        width: 200,
+        height: 200,
+        marginTop: -400,
+        alignSelf: 'center',
+        marginLeft: 30
+    },
 
     skip_buttonRow: {
         height: 60,

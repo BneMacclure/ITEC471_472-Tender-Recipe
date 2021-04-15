@@ -22,6 +22,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Alert } from 'react-native';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 
 const CustomIcon = createIconSetFromFontello(fontelloConfig, 'CustomIcons');
 
@@ -63,6 +64,7 @@ export default class MainScreenInfo extends React.Component {
 
         this.position = new Animated.ValueXY()
         this.state = {
+            allergies: [],
             currentIndex: 0,
             recipes: [],
             indexToKey: [], // basically, helps me figure out which recipe you just liked. things like index 0 is key 1234, which pertains to a certain recipe in the DB
@@ -79,7 +81,9 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
+            isEnd: false,
             rating: 0,
+            diets: ""
         }
 
         this.rotate = this.position.x.interpolate({
@@ -129,6 +133,10 @@ export default class MainScreenInfo extends React.Component {
     likeRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
         this.saveRecipe(k)
+        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+            this.setState({isEnd: true}) 
+        }
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -140,6 +148,10 @@ export default class MainScreenInfo extends React.Component {
 
     skipRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
+        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+            this.setState({isEnd: true})
+        }
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -184,6 +196,10 @@ export default class MainScreenInfo extends React.Component {
         this.displayRecipeModal(true)
     }
 
+    addtoViewed(key) {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+key+"/viewed").push(currentUserID);
+    }
 
     // Given a key, give the recipe to view for the user
     viewRecipe(key) {
@@ -247,21 +263,130 @@ export default class MainScreenInfo extends React.Component {
                         rating: rating });
     }
 
+    /* hasViewed : Object (currentRecipe)
+       Takes in a specific recipe and checks if if has been viewed by this user before */
+    hasViewed(currentRecipe) {
+        var viewed = false;
+        var recipe_key = currentRecipe.key;
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+recipe_key+'/viewed').on('value', (snapshot) => {
+            snapshot.forEach((user) => {
+                if (user.val() == currentUserID) {
+                    viewed = true;
+                }
+            })
+        });
+        return viewed;
+    }
+
+    /* allergiesMatch : Object (recipe)
+       Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    allergiesMatch(currentRecipe) {
+        var allergic = false;
+        if (this.state.allergies[0].dairy == true && currentRecipe.dairy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].eggs == true && currentRecipe.eggs == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].fish == true && currentRecipe.fish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].gluten == true && currentRecipe.gluten == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].peanuts == true && currentRecipe.peanuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].shellfish == true && currentRecipe.shellfish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].soy == true && currentRecipe.soy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].treeNuts == true && currentRecipe.treeNuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].wheat == true && currentRecipe.wheat == true) {
+            allergic = true;
+        }
+        return allergic;
+    }
+
+    /* dietsMatch : Object (currentRecipe)
+    Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    dietsMatch(currentRecipe) {
+        var canEat = true;
+        if (currentRecipe.diet === "Vegan" && this.state.diet !== "Vegan") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Vegetarian" && this.state.diet !== "Vegetarian") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Pescatarian" && this.state.diet !== "Pescatarian") {
+            canEat = false;
+        }
+        return canEat;
+    }
+
+    /* filter : array (unfiltered)
+    Filters array of recipes using various criteria and returns filtered array */
+    filter(unfiltered) {
+        var filteredArray = [];
+        for (i = 0; i < unfiltered.length; i++) {
+            if (this.allergiesMatch(unfiltered[i]) == false && this.dietsMatch(unfiltered[i]) && this.hasViewed(unfiltered[i]) == false) {
+                filteredArray.push(unfiltered[i]);
+            }
+        }
+        this.setState({ recipes: filteredArray });
+    }
+
     componentDidMount() {
-        // Retrieve recipes from Firebase
-        db.ref('/recipes').on('value', (snapshot) => {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
         var returnArray = [];
-
-        snapshot.forEach( (snap) => {
-            returnArray.push({
-                key: snap.key,
-                name: snap.val().name,
-                uri: snap.val().downloadUrl
-            });
+        db.ref('/userInfo/'+currentUserID).limitToFirst(1).on('value', (snapshot) => {
+            for(var key in snapshot.val()) {
+                var allergies = snapshot.val()[key].allergies;
+                var diets = snapshot.val()[key].diet;
+                this.setState({ diet: diets });
+                var allergiesArray = [];
+                allergiesArray.push({
+                    dairy: allergies.dairy,
+                    eggs: allergies.eggs,
+                    fish: allergies.fish,
+                    gluten: allergies.gluten,
+                    other: allergies.other,
+                    peanuts: allergies.peanuts,
+                    shellfish: allergies.shellfish,
+                    soy: allergies.soy,
+                    treeNuts: allergies.treeNuts,
+                    wheat: allergies.wheat
+                });
+                this.setState({ allergies: allergiesArray });
+            }
         });
-
-        this.setState({ recipes: returnArray })
+        // Retrieve recipes from Firebase
+        db.ref('/recipes/').on('value', (recipeSnapshot) => {
+            recipeSnapshot.forEach( (snap) => {
+                        returnArray.push({
+                            key: snap.key,
+                            name: snap.val().name,
+                            uri: snap.val().downloadUrl,
+                            dairy: snap.val().dairy,
+                            eggs: snap.val().eggs,
+                            fish: snap.val().fish,
+                            gluten: snap.val().gluten,
+                            nuts: snap.val().nuts,
+                            shellfish: snap.val().shellfish,
+                            soy: snap.val().soy
+                        });
+                    }
+        );
+        this.filter(returnArray);
         });
+        if(this.state.recipes.length == 0){
+            this.setState({isEnd: true})
+        }
         this.PanResponder = PanResponder.create({
 
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -279,7 +404,12 @@ export default class MainScreenInfo extends React.Component {
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
                         this.saveRecipe(k)
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+                            this.setState({isEnd: true})
+                        }
+                        console.log(this.state.isEnd)
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -292,7 +422,12 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+                            this.setState({isEnd: true})
+                        }
+                        console.log(this.state.isEnd)
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -413,15 +548,25 @@ export default class MainScreenInfo extends React.Component {
 
                         <Animated.View style={{ opacity: this.dislikeOpacity, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
                         </Animated.View>
-                        <View style={styles.recipe_title_container}>
+                        {/* <View style={styles.recipe_title_container}>
                             <Text
                                 numberOfLines={1}
                                 style={styles.recipe_title}>{item.name}</Text>
-                        </View>
-                        <Image
-                            style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
+                        </View> */}
+                        <ImageBackground
                             source={{uri: item.uri}}
-                            testID='currentImage' />
+                            style={styles.image2}
+                            imageStyle={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}>
+                            <BackgroundImage
+                                style={styles.image2}
+                                imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+                                source={require("../assets/images/recipeGradient.png")}
+                                testID='currentImage' >
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
+                                        {item.name}
+                                    </Text>
+                                </BackgroundImage>
+                        </ImageBackground>
 
                     </Animated.View>
                 )
@@ -466,7 +611,24 @@ export default class MainScreenInfo extends React.Component {
                 resizeMode="cover"
                 style={styles.background}
                 imageStyle={styles.background_imageStyle}
-            >
+            >   
+                {/* Toggle end of recipe view */}
+                {this.state.isEnd ?
+                    (
+                        <View style={styles.container2}>
+                            <Text style={styles.endText}>You&#39;ve reached {"\n"}the end!</Text>
+                            <Text style={styles.endText2}>
+                                Come back later {"\n"}when more recipes {"\n"}have been added!
+                            </Text>
+                            <Image
+                                source={require("../assets/images/sadIcon.jpg")}
+                                resizeMode="contain"
+                                style={styles.sadIcon}
+                            ></Image>
+                        </View>
+                    ) 
+                    : null}
+                
                 <View style={{ flex: 1 }}
                     testID="testLocation1">
 
