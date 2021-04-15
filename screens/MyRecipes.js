@@ -169,18 +169,20 @@ export default class MyRecipes extends Component {
   }
 
   // sorts recipes by name
-  orderData() {
-    this.state.rec_data.sort(function(a, b) {
-      var name1 = a.name; //.toUpperCase();
-      var name2 = b.name; //.toUpperCase();
-      if (name1 < name2) {
-        return -1;
-      }
-      if (name1 > name2) {
-        return 1;
-      }
-      return 0;
-    });
+  orderData(unsorted) {
+    unsorted.sort(function(a, b) {
+    var name1 = a.recName.toUpperCase();
+    var name2 = b.recName.toUpperCase();
+    if (name1 < name2) {
+      return -1;
+    }
+    if (name1 > name2) {
+      return 1;
+    }
+    return 0;
+  });
+    console.log(unsorted);
+    this.setState({rec_data: unsorted});
   };
 
   async shareRecipe (key){
@@ -218,7 +220,7 @@ export default class MyRecipes extends Component {
 
     var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
     console.log(key);
-    db.ref('/savedRecipes/'+currentUserID).child(key).remove();
+    db.ref('/savedRecipes/'+this.state.currentUserID).child(key).remove();
     console.log(key);
   };
 
@@ -267,7 +269,7 @@ export default class MyRecipes extends Component {
           "totalRating": totalRating
         });
       });
-      this.setState({rec_data: returnArray});
+      this.orderData(returnArray);
     });
 
     console.log(this.state.rec_data);
