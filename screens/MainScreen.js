@@ -134,7 +134,7 @@ export default class MainScreenInfo extends React.Component {
         const k = this.state.recipes[this.state.currentIndex].key
         this.saveRecipe(k)
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
-            this.setState({isEnd: true}) 
+            this.setState({isEnd: true})
         }
         this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
@@ -565,9 +565,11 @@ export default class MainScreenInfo extends React.Component {
                                 imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
                                 source={require("../assets/images/recipeGradient.png")}
                                 testID='currentImage' >
+                                    //<View style={styles.recipe_title_container}>
                                     <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
                                         {item.name}
                                     </Text>
+                                    //</View>
                                 </BackgroundImage>
                         </ImageBackground>
 
@@ -620,7 +622,7 @@ export default class MainScreenInfo extends React.Component {
                 resizeMode="cover"
                 style={styles.background}
                 imageStyle={styles.background_imageStyle}
-            >   
+            >
                 {/* Toggle end of recipe view */}
                 {this.state.isEnd ?
                     (
@@ -635,9 +637,9 @@ export default class MainScreenInfo extends React.Component {
                                 style={styles.sadIcon}
                             ></Image>
                         </View>
-                    ) 
+                    )
                     : null}
-                
+
                 <View style={{ flex: 1 }}
                     testID="testLocation1">
 
