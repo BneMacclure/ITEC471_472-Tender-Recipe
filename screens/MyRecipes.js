@@ -382,7 +382,7 @@ export default class MyRecipes extends Component {
         var temp = '';
         if(name.length > 14)
         {
-            temp = name.slice(0, -(name.length - 18))
+            temp = name.slice(0, -(name.length - 16))
             temp += '...'
             return temp;
         }
