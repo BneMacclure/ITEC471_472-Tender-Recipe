@@ -81,7 +81,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
-            isEnd: false,
+            isEnd: true,
             rating: 0,
             diets: ""
         }
@@ -136,7 +136,7 @@ export default class MainScreenInfo extends React.Component {
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
             this.setState({isEnd: true}) 
         }
-        this.addtoViewed(k)
+        // this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -151,7 +151,7 @@ export default class MainScreenInfo extends React.Component {
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
             this.setState({isEnd: true})
         }
-        this.addtoViewed(k)
+        // this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -338,6 +338,11 @@ export default class MainScreenInfo extends React.Component {
                 filteredArray.push(unfiltered[i]);
             }
         }
+        if(filteredArray.length == 0){
+            this.setState({isEnd: true})
+        }else{
+            this.setState({isEnd: false})
+        }
         this.setState({ recipes: filteredArray });
     }
 
@@ -384,9 +389,7 @@ export default class MainScreenInfo extends React.Component {
         );
         this.filter(returnArray);
         });
-        if(this.state.recipes.length == 0){
-            this.setState({isEnd: true})
-        }
+        
         this.PanResponder = PanResponder.create({
 
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -408,7 +411,7 @@ export default class MainScreenInfo extends React.Component {
                             this.setState({isEnd: true})
                         }
                         console.log(this.state.isEnd)
-                        this.addtoViewed(k)
+                        // this.addtoViewed(k)
                         this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
@@ -587,14 +590,20 @@ export default class MainScreenInfo extends React.Component {
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
 
                         </Animated.View>
-                        <View style={styles.recipe_title_container}>
-                            <Text
-                                numberOfLines={1}
-                                style={styles.recipe_title}>{item.name}</Text>
-                        </View>
-                        <Image
-                            style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
-                            source={{uri: item.uri}} />
+                        <ImageBackground
+                            source={{uri: item.uri}}
+                            style={styles.image2}
+                            imageStyle={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}>
+                            <BackgroundImage
+                                style={styles.image2}
+                                imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+                                source={require("../assets/images/recipeGradient.png")}
+                                testID='currentImage' >
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
+                                        {item.name}
+                                    </Text>
+                                </BackgroundImage>
+                        </ImageBackground>
 
                     </Animated.View>
                 )
