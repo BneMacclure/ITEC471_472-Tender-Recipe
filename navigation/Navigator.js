@@ -9,7 +9,7 @@ import MainScreen from '../screens/MainScreen';
 import CreateRecipeScreen from '../screens/CreateRecipeScreen';
 import { firebaseApp } from '../config/DatabaseConfig';
 import { HeaderBackButton } from '@react-navigation/stack';
-import {    StackNavigator,} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import MyProfile from '../screens/MyProfile'
 import MyRecipes from '../screens/MyRecipes'
 import RegisterScreen from '../screens/RegisterScreen'
@@ -17,8 +17,16 @@ import Registration02 from '../screens/Registration02';
 import Registration03 from '../screens/Registration03';
 import Registration04 from '../screens/Registration04';
 import Registration05 from '../screens/Registration05';
+import ShoppingList from '../screens/ShoppingList';
 import MealPlannerScreen from '../screens/MealPlannerScreen'
 import { NavigationContainer } from '@react-navigation/native';
+import Ionicon from 'react-native-vector-icons/Ionicons'
+import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config/config.json';
+const CustomMysteryBox = createIconSetFromFontello(fontelloConfig, 'CustomIconsMysteryBox');
 
 //you can implement different kinds of navigators here. Stack navigators, tab navigators, etc
 
@@ -57,7 +65,7 @@ const Navigator = props => {
                     name="Main Screen"
                     component={MainScreen}
                     options={({ navigation }) => ({
-                        title: "",
+                        title: "Welcome!",
                         headerLeft: null,
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -73,20 +81,39 @@ const Navigator = props => {
                                     flex: 1,
                                     alignItems: 'center',
                                     flexDirection: 'row',
-                                    paddingHorizontal: 25,
+                                    paddingHorizontal: 15,
                                     height: StatusBar.currentHeight,
                                 }}>
-                                <Icon
-                                    name="three-bars"
-                                    size={35}
+
+                                <TouchableOpacity style={{
+                                    width: 37,
+                                    height: 37,
+                                    marginRight: 5,
+                                    //backgroundColor: "#E6E6E6",
+                                    backgroundColor: "#fff",
+                                    borderRadius: 100, }}>
+                                    <FontAwesomeIcon
+                                        name="calendar"
+                                        size={25}
+                                        color={'#e35514'}
+                                        onPress={() => { navigation.navigate('MealPlannerScreen') }}
+                                        alignSelf={"center"}
+                                        style={{alignSelf: "center", marginTop: 5}}
+                                    />
+
+                                </TouchableOpacity>
+                                <Ionicon
+                                    name="person-circle"
+                                    size={45}
                                     color={'#fff'}
 									testID='myProfileNav'
                                     onPress={() => { navigation.navigate('MyProfile') }}
+
                                 />
                             </View>
                         ),
 
-                    })}       
+                    })}
                 />
                 <Stack.Screen
                     name="MyProfile"
@@ -111,7 +138,34 @@ const Navigator = props => {
                                     paddingHorizontal: 25,
                                     height: StatusBar.currentHeight,
                                 }}>
-                                <Icon name="three-bars" size={35} color={'#fff'} />
+                            </View>
+                        ),
+
+                    }}
+                />
+                <Stack.Screen
+                    name="ShoppingList"
+                    component={ShoppingList}
+                    options={{
+                        headerShown: true,
+                        title: "ShoppingList",
+                        headerStyle: {
+                            backgroundColor: '#e35514',
+                        },
+                        headerTintColor: '#f7f5f2',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        },
+                        headerRight: () => (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 25,
+                                    height: StatusBar.currentHeight,
+                                }}>
                             </View>
                         ),
 
@@ -265,9 +319,8 @@ const Navigator = props => {
                 <Stack.Screen
                     name="MyRecipes"
                     component={MyRecipes}
-                    options={{
-                        title: "MyRecipes",
-                        headerShown: false,
+                    options={({ navigation }) => ({
+                        title: "My Recipes",
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },
@@ -276,20 +329,9 @@ const Navigator = props => {
                             fontWeight: 'bold',
                             fontSize: 25,
                         },
-                        headerRight: () => (
-                            <View
-                                style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    paddingHorizontal: 10,
-                                    height: StatusBar.currentHeight,
-                                }}>
-                                <Icon name="three-bars" size={30} color={'#fff'} />
-                            </View>
-                        ),
+                        
 
-                    }}
+                    })}
                 />
                 <Stack.Screen
                     name="CreateRecipeScreen"
@@ -324,7 +366,7 @@ const Navigator = props => {
 
             </Stack.Navigator>
         </NavigationContainer>
-        
+
     );
 }
 

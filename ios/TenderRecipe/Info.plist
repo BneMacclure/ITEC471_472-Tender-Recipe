@@ -58,6 +58,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>BigShouldersDisplay-Bold.ttf</string>
+		<string>fontello_allergens.ttf</string>
 	</array>
 </dict>
 </plist>

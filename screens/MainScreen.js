@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, Imag
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config/config.json';
+
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import styles from '../styles/MainStyles.js';
 import * as Animatable from 'react-native-animatable';
@@ -10,11 +15,16 @@ import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modal';
 
+import ViewRecipeModal from '../components/ViewRecipeModal';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Alert } from 'react-native';
+import { BackgroundImage } from 'react-native-elements/dist/config';
+
+const CustomIcon = createIconSetFromFontello(fontelloConfig, 'CustomIcons');
 
 const CONTENT = [
     {
@@ -50,8 +60,11 @@ export default class MainScreenInfo extends React.Component {
     constructor(props) {
         super(props)
 
+        //this.handler = this.handler.bind(this);
+
         this.position = new Animated.ValueXY()
         this.state = {
+            allergies: [],
             currentIndex: 0,
             recipes: [],
             indexToKey: [], // basically, helps me figure out which recipe you just liked. things like index 0 is key 1234, which pertains to a certain recipe in the DB
@@ -59,8 +72,18 @@ export default class MainScreenInfo extends React.Component {
             activeSections: [],
             collapsed: true,
             multipleSelect: false,
-            curentRecipeName: "",
+            currentRecipeName: "",
             CONTENT: [],
+            isEgg: false,
+            isGluten: false,
+            isDairy: false,
+            isSoy: false,
+            isFish: false,
+            isShellfish: false,
+            isNuts: false,
+            isEnd: false,
+            rating: 0,
+            diets: ""
         }
 
         this.rotate = this.position.x.interpolate({
@@ -103,25 +126,47 @@ export default class MainScreenInfo extends React.Component {
 
 
     displayRecipeModal(show) {
-        this.setState({isVisible: show})
+        this.setState({ isVisible: show })
     }
 
     //Triggers like animation, might need Ben to handle DB stuff in here
     likeRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
         this.saveRecipe(k)
+        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+            this.setState({isEnd: true}) 
+        }
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
     }
 
+
+
     //triggers dislike animation
 
     skipRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
+        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+            this.setState({isEnd: true})
+        }
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
+    }
+
+    resetAllergens() {
+        this.setState(
+            { isEgg: false },
+            { isGluten: false },
+            { isDairy: false },
+            { isSoy: false },
+            { isFish: false },
+            { isShellfish: false },
+            { isNuts: false },
+        );
     }
 
 
@@ -129,12 +174,31 @@ export default class MainScreenInfo extends React.Component {
     saveRecipe(key) {
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/'+key).on('value', (snapshot) =>{
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         // Send the recipe up to be stored as the User's saved recipe
         var currentUserID = firebaseApp.auth().currentUser.uid;
-        db.ref('/savedRecipes/'+currentUserID).push(recipeObj).then(() => console.log('Data sent'));
+        db.ref('/savedRecipes/' + currentUserID).push(recipeObj).then(() => console.log('Data sent'));
+    }
+
+    viewCurrentRecipe() {
+        const k = this.state.recipes[this.state.currentIndex].key
+        this.getRecipeTitle(k)
+        this.viewRecipe(k)
+        this.displayRecipeModal(true)
+        this.setState({ currentIndex: this.state.currentIndex }, () => {
+            this.position.setValue({ x: 0, y: 0 })
+        })
+    }
+
+    viewCurrentRecipe2() {
+        this.displayRecipeModal(true)
+    }
+
+    addtoViewed(key) {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+key+"/viewed").push(currentUserID);
     }
 
     // Given a key, give the recipe to view for the user
@@ -151,12 +215,19 @@ export default class MainScreenInfo extends React.Component {
         ingredients = recipeObj.ingredients;
         instructions = recipeObj.instructions;
         nuts = recipeObj.nuts ? "nuts, " : '';
+        recipeObj.nuts ? this.setState({ isNuts: true }) : this.setState({ isNuts: false });
         gluten = recipeObj.gluten ? 'gluten, ' : '';
+        recipeObj.gluten ? this.setState({ isGluten: true }) : this.setState({ isGluten: false });
         shellfish = recipeObj.shellfish ? 'shellfish, ' : '';
+        recipeObj.shellfish ? this.setState({ isShellfish: true }) : this.setState({ isShellfish: false });
         dairy = recipeObj.dairy ? 'dairy, ' : '';
+        recipeObj.dairy ? this.setState({ isDairy: true }) : this.setState({ isDairy: false });
         fish = recipeObj.fish ? 'fish, ' : '';
+        recipeObj.fish ? this.setState({ isFish: true }) : this.setState({ isFish: false });
         eggs = recipeObj.eggs ? 'eggs, ' : '';
+        recipeObj.eggs ? this.setState({ isEgg: true }) : this.setState({ isEgg: false });
         soy = recipeObj.soy ? "soy, " : '';
+        recipeObj.soy ? this.setState({ isSoy: true }) : this.setState({ isSoy: false });
         // Consolidate the allergens before the Alert
         allergens = nuts+gluten+shellfish+dairy+fish+eggs+soy;
         // Show info to user
@@ -175,35 +246,147 @@ export default class MainScreenInfo extends React.Component {
             content: instructions,
         })
         this.setState({ CONTENT : newContent })
-        
+
     }
 
-    getRecipeTitle(key){
+    getRecipeTitle(){
         const k = this.state.recipes[this.state.currentIndex].key
         var name;
         var recipeObj;
         // Get the recipe
-        db.ref('/recipes/' + key).once('value', (snapshot) => {
+        db.ref('/recipes/' + k).once('value', (snapshot) => {
             recipeObj = snapshot.val();
         });
         name = recipeObj.name;
-        this.setState({ curentRecipeName: name });
+        rating = recipeObj.totalRating
+        this.setState({ currentRecipeName: name,
+                        rating: rating });
+    }
+
+    /* hasViewed : Object (currentRecipe)
+       Takes in a specific recipe and checks if if has been viewed by this user before */
+    hasViewed(currentRecipe) {
+        var viewed = false;
+        var recipe_key = currentRecipe.key;
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+recipe_key+'/viewed').on('value', (snapshot) => {
+            snapshot.forEach((user) => {
+                if (user.val() == currentUserID) {
+                    viewed = true;
+                }
+            })
+        });
+        return viewed;
+    }
+
+    /* allergiesMatch : Object (recipe)
+       Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    allergiesMatch(currentRecipe) {
+        var allergic = false;
+        if (this.state.allergies[0].dairy == true && currentRecipe.dairy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].eggs == true && currentRecipe.eggs == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].fish == true && currentRecipe.fish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].gluten == true && currentRecipe.gluten == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].peanuts == true && currentRecipe.peanuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].shellfish == true && currentRecipe.shellfish == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].soy == true && currentRecipe.soy == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].treeNuts == true && currentRecipe.treeNuts == true) {
+            allergic = true;
+        }
+        else if (this.state.allergies[0].wheat == true && currentRecipe.wheat == true) {
+            allergic = true;
+        }
+        return allergic;
+    }
+
+    /* dietsMatch : Object (currentRecipe)
+    Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
+    dietsMatch(currentRecipe) {
+        var canEat = true;
+        if (currentRecipe.diet === "Vegan" && this.state.diet !== "Vegan") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Vegetarian" && this.state.diet !== "Vegetarian") {
+            canEat = false;
+        }
+        else if (currentRecipe.diet === "Pescatarian" && this.state.diet !== "Pescatarian") {
+            canEat = false;
+        }
+        return canEat;
+    }
+
+    /* filter : array (unfiltered)
+    Filters array of recipes using various criteria and returns filtered array */
+    filter(unfiltered) {
+        var filteredArray = [];
+        for (i = 0; i < unfiltered.length; i++) {
+            if (this.allergiesMatch(unfiltered[i]) == false && this.dietsMatch(unfiltered[i]) && this.hasViewed(unfiltered[i]) == false) {
+                filteredArray.push(unfiltered[i]);
+            }
+        }
+        this.setState({ recipes: filteredArray });
     }
 
     componentDidMount() {
-        // Retrieve recipes from Firebase
-        db.ref('/recipes').on('value', (snapshot) => {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
         var returnArray = [];
-        
-        snapshot.forEach( (snap) => {
-            returnArray.push({
-                key: snap.key,
-                uri: snap.val().downloadUrl
-            });
+        db.ref('/userInfo/'+currentUserID).limitToFirst(1).on('value', (snapshot) => {
+            for(var key in snapshot.val()) {
+                var allergies = snapshot.val()[key].allergies;
+                var diets = snapshot.val()[key].diet;
+                this.setState({ diet: diets });
+                var allergiesArray = [];
+                allergiesArray.push({
+                    dairy: allergies.dairy,
+                    eggs: allergies.eggs,
+                    fish: allergies.fish,
+                    gluten: allergies.gluten,
+                    other: allergies.other,
+                    peanuts: allergies.peanuts,
+                    shellfish: allergies.shellfish,
+                    soy: allergies.soy,
+                    treeNuts: allergies.treeNuts,
+                    wheat: allergies.wheat
+                });
+                this.setState({ allergies: allergiesArray });
+            }
         });
-    
-        this.setState({ recipes: returnArray })
+        // Retrieve recipes from Firebase
+        db.ref('/recipes/').on('value', (recipeSnapshot) => {
+            recipeSnapshot.forEach( (snap) => {
+                        returnArray.push({
+                            key: snap.key,
+                            name: snap.val().name,
+                            uri: snap.val().downloadUrl,
+                            dairy: snap.val().dairy,
+                            eggs: snap.val().eggs,
+                            fish: snap.val().fish,
+                            gluten: snap.val().gluten,
+                            nuts: snap.val().nuts,
+                            shellfish: snap.val().shellfish,
+                            soy: snap.val().soy
+                        });
+                    }
+        );
+        this.filter(returnArray);
         });
+        if(this.state.recipes.length == 0){
+            this.setState({isEnd: true})
+        }
         this.PanResponder = PanResponder.create({
 
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -221,7 +404,12 @@ export default class MainScreenInfo extends React.Component {
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
                         this.saveRecipe(k)
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+                            this.setState({isEnd: true})
+                        }
+                        console.log(this.state.isEnd)
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -234,7 +422,12 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+                            this.setState({isEnd: true})
+                        }
+                        console.log(this.state.isEnd)
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -309,6 +502,19 @@ export default class MainScreenInfo extends React.Component {
         );
     }
 
+    getRecipeTitleTemp = key => {
+        const k = this.state.recipes[this.state.currentIndex].key
+        var name;
+        var recipeObj;
+        // Get the recipe
+        db.ref('/recipes/' + key).on('value', (snapshot) => {
+            recipeObj = snapshot.val();
+        });
+        name = recipeObj.name;
+        //this.setState({ currentRecipeName: name });
+        return (name);
+    }
+
     renderContent = (section, _, isActive) => {
         return (
             <Animatable.View
@@ -335,17 +541,32 @@ export default class MainScreenInfo extends React.Component {
                 return (
                     <Animated.View
                         {...this.PanResponder.panHandlers}
-                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+                        key={item.key} style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - (SCREEN_HEIGHT / 5.5), width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}>
+
                         <Animated.View style={{ opacity: this.likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                         </Animated.View>
 
                         <Animated.View style={{ opacity: this.dislikeOpacity, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
                         </Animated.View>
-
-                        <Image
-                            style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
+                        {/* <View style={styles.recipe_title_container}>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.recipe_title}>{item.name}</Text>
+                        </View> */}
+                        <ImageBackground
                             source={{uri: item.uri}}
-                            testID = 'currentImage' />
+                            style={styles.image2}
+                            imageStyle={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}>
+                            <BackgroundImage
+                                style={styles.image2}
+                                imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+                                source={require("../assets/images/recipeGradient.png")}
+                                testID='currentImage' >
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
+                                        {item.name}
+                                    </Text>
+                                </BackgroundImage>
+                        </ImageBackground>
 
                     </Animated.View>
                 )
@@ -366,7 +587,11 @@ export default class MainScreenInfo extends React.Component {
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
 
                         </Animated.View>
-
+                        <View style={styles.recipe_title_container}>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.recipe_title}>{item.name}</Text>
+                        </View>
                         <Image
                             style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
                             source={{uri: item.uri}} />
@@ -375,6 +600,7 @@ export default class MainScreenInfo extends React.Component {
                 )
             }
         }).reverse()
+
     }
 
     render() {
@@ -385,96 +611,87 @@ export default class MainScreenInfo extends React.Component {
                 resizeMode="cover"
                 style={styles.background}
                 imageStyle={styles.background_imageStyle}
-            >
+            >   
+                {/* Toggle end of recipe view */}
+                {this.state.isEnd ?
+                    (
+                        <View style={styles.container2}>
+                            <Text style={styles.endText}>You&#39;ve reached {"\n"}the end!</Text>
+                            <Text style={styles.endText2}>
+                                Come back later {"\n"}when more recipes {"\n"}have been added!
+                            </Text>
+                            <Image
+                                source={require("../assets/images/sadIcon.jpg")}
+                                resizeMode="contain"
+                                style={styles.sadIcon}
+                            ></Image>
+                        </View>
+                    ) 
+                    : null}
+                
                 <View style={{ flex: 1 }}
-                      testID="testLocation1">
+                    testID="testLocation1">
 
-                    <Modal
-                        animationType = "slide"
-                        transparent={true}
-                        hasBackdrop={true}
-                        backdropColor={"#000"}
-                        backdropOpacity={0.70}
-                        isVisible={this.state.isVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has now been closed.');
-                        }}>
+                    <ViewRecipeModal
+                        currentRecipeName={this.state.currentRecipeName}
+                        CONTENT={this.state.CONTENT}
+                        isModalVisible={this.state.isVisible}
+                        isEgg={this.state.isEgg}
+                        isGluten={this.state.isGluten}
+                        isNuts={this.state.isNuts}
+                        isDairy={this.state.isDairy}
+                        isSoy={this.state.isSoy}
+                        isFish={this.state.isFish}
+                        isShellfish={this.state.isShellfish}
+                        activeSections={this.state.activeSections}
+                        multipleSelect={this.state.multipleSelect}
+                        setSections={this.setSections}
+                        displayRecipeModal={this.displayRecipeModal.bind(this)}
+                        starRating={this.state.rating}
+                        >
+                    </ViewRecipeModal>
 
-                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                            <View style={{
-                                width: '100%',
-                                height: '50%',
-                                backgroundColor: "#fff",
-                                borderColor: "#000", borderWidth: 2,
-                                borderStyle: "dashed",
-                                borderRadius: 1
-                            }}>
-                                <ScrollView style={styles.svContentContainer}>
-                                    <Text style={styles.title}>{this.state.curentRecipeName}</Text>
 
-                            <Accordion
-                                activeSections={activeSections}
-                                sections={this.state.CONTENT}
-                                touchableComponent={TouchableOpacity}
-                                expandMultiple={multipleSelect}
-                                renderHeader={this.renderHeader}
-                                renderContent={this.renderContent}
-                                duration={400}
-                                onChange={this.setSections}
-                            />
-
-                                <View style={styles.exitRecipeContainer}>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            this.displayRecipeModal(!this.state.isVisible);
-                                        }}
-                                        style={styles.exitBtn}
-                                    >
-                                        <Text style={styles.exitRecipeText}>Exit View</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </ScrollView>
-                            </View>
-                            </View>
-                    </Modal>
-
-                    <View style={{ height: 10 }}>
+                    <View style={{height: '1.5%' }}>
                     </View>
                     <View style={{ flex: 1 }} testID='recipeStackView'>
                         {this.renderRecipes()}
                     </View>
-                    <View style={{ height: 10 }}>
+                    <View style={{ height: '10%' }}>
+                        <View style={styles.skip_buttonRow}>
+                            <TouchableOpacity
+                                onPress={() => this.skipRecipe()}
+                                style={styles.skip_button}
+                            >
+                                <MaterialCommunityIconsIcon
+                                    name="heart-off"
+                                    style={styles.icon}
+                                ></MaterialCommunityIconsIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
+                                style={styles.recipe_button}
+                            >
+                                <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.viewCurrentRecipe()}
+                                style={styles.magnify_button}
+                            >
+                                <MaterialCommunityIconsIcon name="magnify" style={styles.magnifyIcon}></MaterialCommunityIconsIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.likeRecipe()}
+                                style={styles.like_button}
+                            >
+                                <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
+                                {/*<CustomIcon name="gluten_allergen" size={60} color='white'></CustomIcon>*/}
+                            </TouchableOpacity>
+                        </View>
 
                     </View>
-                    <View style={styles.skip_buttonRow}>
-                        <TouchableOpacity
-                            onPress={() => this.skipRecipe()}
-                            style={styles.skip_button}
-                        >
-                            <MaterialCommunityIconsIcon
-                                name="heart-off"
-                                style={styles.icon}
-                            ></MaterialCommunityIconsIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('CreateRecipeScreen')}
-                            style={styles.recipe_button}
-                        >
-                            <FontAwesomeIcon name="pencil" style={styles.icon4}></FontAwesomeIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('MealPlannerScreen')}
-                            style={styles.calendar_button}
-                        >
-                            <FontAwesomeIcon name="calendar" style={styles.calendarIcon}></FontAwesomeIcon>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.likeRecipe()}
-                            style={styles.like_button}
-                        >
-                            <IoniconsIcon name="md-heart" style={styles.icon2}></IoniconsIcon>
-                        </TouchableOpacity>
-                    </View>
+
+
                 </View>
             </ImageBackground>
 

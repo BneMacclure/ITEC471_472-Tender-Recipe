@@ -11,13 +11,43 @@ export default StyleSheet.create({
         bottom: 10,
         alignSelf: 'center'
     },
+    container2: {
+        flex: 1,
+        position: 'absolute',
+        alignSelf: 'center'
+    },
+
+    image2_imageStyle: {
+  	},
+	image2: {
+        flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20
+	},
+
+    endText: {
+        color: "#121212",
+        fontSize: 40,
+        textAlign: "center",
+        marginTop: 60,
+    },
+    endText2: {
+        color: "#121212",
+        fontSize: 40,
+        textAlign: "center",
+        marginTop: 320,
+    },
+    sadIcon: {
+        width: 200,
+        height: 200,
+        marginTop: -400,
+        alignSelf: 'center',
+        marginLeft: 30
+    },
 
     skip_buttonRow: {
         height: 60,
         flexDirection: "row",
-        marginTop: 65,
+        marginTop: 10,
         alignSelf: 'center',
-        padding: 70
     },
 
     skip_button: {
@@ -40,7 +70,7 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '12%'
+        marginLeft: '6%'
     },
     calendar_button: {
         width: 64,
@@ -48,7 +78,15 @@ export default StyleSheet.create({
         //backgroundColor: "#E6E6E6",
         backgroundColor: "#f94723",
         borderRadius: 100,
-        marginLeft: '12%',
+        marginLeft: '6%',
+    },
+    magnify_button: {
+        width: 64,
+        height: 60,
+        //backgroundColor: "#E6E6E6",
+        backgroundColor: "#f94723",
+        borderRadius: 100,
+        marginLeft: '6%',
     },
     icon4: {
         //color: "rgba(80,207,12,1)",
@@ -64,6 +102,12 @@ export default StyleSheet.create({
         marginTop: 10,
         alignSelf: "center"
     },
+    magnifyIcon: {
+        color: "rgba(255,255,255,1)",
+        fontSize: 50,
+        marginTop: 6,
+        alignSelf: "center"
+    },
     like_button: {
         width: 64,
         height: 60,
@@ -71,7 +115,7 @@ export default StyleSheet.create({
         backgroundColor: "#f94723",
         borderRadius: 100,
         justifyContent: "center",
-        marginLeft: '12%'
+        marginLeft: '6%'
     },
     icon2: {
         //color: "rgba(244,57,8,1)",
@@ -99,6 +143,7 @@ export default StyleSheet.create({
         fontSize: 22,
         fontWeight: '300',
         marginBottom: 20,
+        paddingBottom: 10,
     },
     header: {
         backgroundColor: '#FD8014',
@@ -156,7 +201,7 @@ export default StyleSheet.create({
 
     exitRecipeContainer: {
         height: 196,
-        paddingTop: 30,
+        paddingTop: 40,
         alignSelf: "center",
         width: '80%',
     },
@@ -175,5 +220,53 @@ export default StyleSheet.create({
         color: "rgba(255,255,255,1)",
         alignSelf: "center",
         fontWeight: "bold",
+    },
+    allergen_icon: {
+        width: 50,
+        height: 50,
+        //backgroundColor: "#E6E6E6",
+        //backgroundColor: "#f94723",
+        borderRadius: 100,
+        justifyContent: "center",
+        marginLeft: '0.5%',
+        borderRadius: 100,
+        borderWidth: 1,
+        borderColor: "black",
+        overflow: "hidden"
+    },
+    allergen_active: {
+        color: '#e35514',
+        fontSize: 50,
+    },
+    allergen_inactive: {
+        //size: 60,
+        color: '#6E6A68',
+        fontSize: 50,
+    },
+
+    recipe_title: {
+        fontSize: 40,
+        alignSelf: 'center',
+        color: '#fff',
+        fontFamily: 'BigShouldersDisplay_700Bold',
+        marginLeft: 6,
+        marginRight: 6,
+    },
+
+    recipe_title_container: {
+        justifyContent: 'center',
+        backgroundColor: '#f5a023',
+        height: 70,
+        position: 'absolute',
+        zIndex: 10,
+        top: '91.8%',
+        width: '100%',
+        elevation: 1,
+        alignSelf: 'center',
+        borderBottomRightRadius: 15,
+        borderBottomLeftRadius: 15,
+
+
+
     },
 });
