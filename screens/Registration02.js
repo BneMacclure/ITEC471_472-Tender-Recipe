@@ -85,38 +85,6 @@ function Registration02({navigation, route}) {
       </ImageBackground>
     </View>
   );
-  // return (
-  //   <View style={styles.container}>
-  //     <ImageBackground
-  //       source={require("../assets/images/Gradient.png")}
-  //       resizeMode="cover"
-  //       style={styles.backImg}
-  //       imageStyle={styles.backImg_imageStyle}
-  //     >
-  //       <Text style={styles.loremIpsum1}>What is your skill level?</Text>
-  //       <TouchableOpacity
-  //       style={styles.button}
-  //       onPress={() => setSkill("Beginner")}>
-  //         <Text style={styles.beginner}>Beginner</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity
-  //       style={styles.button2}
-  //       onPress={() => setSkill("Intermediate")}>
-  //         <Text style={styles.intermediate}>Intermediate</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity
-  //       style={styles.button3}
-  //       onPress={() => setSkill("Advanced")}>
-  //         <Text style={styles.advanced}>Advanced</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity
-  //           onPress={() => registerFunc2()}
-  //           style={styles.button4}>
-  //         <Text style={styles.next1}>Next</Text>
-  //       </TouchableOpacity>
-  //     </ImageBackground>
-  //   </View>
-  // );
 }
 
 export default Registration02;

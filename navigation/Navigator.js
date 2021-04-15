@@ -148,7 +148,7 @@ const Navigator = props => {
                     component={ShoppingList}
                     options={{
                         headerShown: true,
-                        title: "ShoppingList",
+                        title: "Shopping List",
                         headerStyle: {
                             backgroundColor: '#e35514',
                         },

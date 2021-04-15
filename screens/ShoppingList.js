@@ -39,7 +39,7 @@ function ShoppingList(props) {
     console.log('Recipe Item: '+item.name)
     return(
       <View style={styles.container}>
-        <Text>{item.name}</Text>
+        <Text style={styles.recipeTitle}>{item.name}</Text>
         <FlatList
           data = {getIngredients(item.name)}
           renderItem={renIngredientItem}
@@ -107,6 +107,13 @@ const styles = StyleSheet.create({
     color: "#121212",
     marginTop: 272,
     marginLeft: 183
+  },
+  recipeTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: "white",
+    backgroundColor: "#FC8217"
   },
   scrollView: {
   },
