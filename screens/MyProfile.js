@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
+import { Divider } from 'react-native-elements';
 import { db, firebaseApp } from '../config/DatabaseConfig';
 import {
   StyleSheet,
@@ -13,8 +14,10 @@ import {
   Picker
 } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
-import Icon from "react-native-vector-icons/Ionicons";
+// import Icon from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from '../styles/MyProfileStyles.js';
+import Icon from "react-native-vector-icons/Entypo";
 const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -33,19 +36,44 @@ function Profile({navigation}) {
   const retrieveData = () => {
 
     var currentUserID = firebaseApp.auth().currentUser.uid;
+	console.log(currentUserID)
     db.ref('/userInfo/'+currentUserID).once('value', (snapshot) => {
 		snapshot.forEach(function(childSnapshot) {
 			data = childSnapshot.val()
-			// console.log(data)
+			console.log("Data: "+data)
 			setName(data.name)
 			setLevel(data.skillLevel)
 			setMeasurement(data.prefMeasurement)
 			setHash(childSnapshot.key)
-			// setAllergies(data.allergies)
+			var a = data.allergies
+			setAllergies(stringifyAllergies(a))
 		})
 
     });
     setEmail(firebaseApp.auth().currentUser.email);
+  }
+
+  const stringifyAllergies = (allergyObj) => {
+	var result = "";
+		
+	result = allergyObj.dairy == true ? result + 'Dairy, ' : result
+	result = allergyObj.eggs == true ? result + 'Eggs, ' : result
+	result = allergyObj.fish == true ? result + 'Fish, ' : result
+	result = allergyObj.gluten == true ? result + 'Gluten, ' : result
+	result = allergyObj.peanuts == true ? result + 'Peanuts, ' : result
+	result = allergyObj.shellfish == true ? result + 'Shellfish, ' : result
+	result = allergyObj.soy == true ? result + 'Soy, ' : result
+	result = allergyObj.treeNuts == true ? result + 'Tree Nuts, ' : result
+	result = allergyObj.wheat == true ? result + 'Wheat' : result
+	
+	return result;
+  }
+
+  const editInfo = () => {
+	  setEditable(!isEditable);
+	  if(isEditable){
+		  updateInfo();
+	  }
   }
 
   const updateInfo = () => {
@@ -66,134 +94,91 @@ function Profile({navigation}) {
   }, []); //Added empty array so useEffect is only called once the screen is loaded in
 
     return (
-    <View style={styles.container}>
-	  <ScrollView style={styles.scrollableView} contentContainerStyle={styles.svContentContainer}>
+
+	<View style={styles.container}>
 		
-			{/*Background image for top section*/}
-		  <ImageBackground
-			source={require("../assets/images/Gradient.png")}
-			resizeMode="stretch"
+		<ImageBackground
+			source={require("../assets/images/profileSplash.jpg")}
+			resizeMode="cover"
 			style={styles.image}
 			imageStyle={styles.image_imageStyle}
-		  >
-			{/*Circle for profile picture*/}
-			<View style={styles.ellipseStack}>
-			  <Svg viewBox="0 0 116 104" style={styles.ellipse}>
-				<Ellipse
-				  stroke="rgba(230, 230, 230,1)"
-				  strokeWidth={0}
-				  fill="rgba(230, 230, 230,1)"
-				  cx={58}
-				  cy={52}
-				  rx={58}
-				  ry={58}
-				></Ellipse>
-			  </Svg>
-			  {/*Temp icon inside profile circle*/}
-			  <Icon name="ios-person" style={styles.icon}></Icon>
-			</View>
-			{/*Name text*/}
-			<TextInput 
-				// mode="outlined"
-				// color="#FFFFFF"
+		>
+			<ImageBackground
+				source={require("../assets/images/profile.jpg")}
+				resizeMode="cover"
+				style={styles.image2}
+				imageStyle={styles.image2_imageStyle}
+				>
+				<TouchableOpacity onPress={() => editInfo()}>
+					<MaterialCommunityIconsIcon
+						name="pencil-circle-outline"
+						style={styles.icon2}
+					></MaterialCommunityIconsIcon>
+				</TouchableOpacity>
+			</ImageBackground>
+			<TextInput
+				editable={isEditable}
 				label="Name"
 				onChangeText = {(name) => setName(name)}
-				// theme={{ colors: {placeholder: 'white', text: 'white', primary: 'white'} }}
 				style={styles.johnDoe}>
 					{name}
 			</TextInput>
-			{/* <TextInput onChangeText = {(name) => setName(name)} style={styles.johnDoe} editable={isEditable}>name</TextInput> */}
-		  </ImageBackground>
-		  {/*Container for email field*/}
-		  <View style={styles.emailContStack}>
-			<View style={styles.emailCont}>
-			  {/*Email text*/}
-			  <View style={styles.infoRow}>
-			  	<Text style={styles.email}>Email:</Text>
-			  	<TextInput onChangeText = {(email) => setEmail(email)} style={styles.email} editable={isEditable}>{email}</TextInput>
-			  </View>
+		</ImageBackground>
+		<View style={styles.row}>
+			<Text style={styles.loremIpsum}>Email:</Text>
+	 		<TextInput onChangeText = {(email) => setEmail(email)} style={styles.loremIpsum} 
+			 			editable={isEditable}>{email}</TextInput>
+		</View>
+		<Divider style={styles.divider}/>
+		<View style={styles.row}>
+			<Text style={styles.loremIpsum}>Cooking Skill:</Text>
+			<TextInput onChangeText = {(skillLevel) => setLevel(skillLevel)} style={styles.loremIpsum} 
+						editable={isEditable}>{skillLevel}</TextInput>
+		</View>
+		<Divider style={styles.divider}/>
+		<View style={styles.row}>
+			<Text style={styles.loremIpsum}>Preferred Measurements:</Text>
+			<TextInput onChangeText = {(prefMeasurement) => setMeasurement(prefMeasurement)} style={styles.loremIpsum}
+						editable={isEditable}>{prefMeasurement}</TextInput>
+		</View>
+		<Divider style={styles.divider}/>
+		<Text style={styles.loremIpsum}>Allergies:</Text>
+		<TextInput onChangeText = {(allergies) => setAllergies(allergies)} style={styles.loremIpsum}
+					editable={isEditable}
+					multiline={true}>{allergies}
+					</TextInput>
+		<Divider style={styles.divider}/>
+		<TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('MyRecipes')}>
+			<View style={styles.row}>
+				<Text style={styles.loremIpsum}>My Recipes</Text>
+				<Icon name="chevron-small-right" style={styles.arrowIcon}></Icon>
 			</View>
-			{/*Container for Skill level*/}
-			<View style={styles.skillCont}>
-				{/*Skill level text*/}
-				<View style={styles.infoRow}>
-					<Text style={styles.skillLevel}>Cooking Skill:</Text>
-					<TextInput onChangeText = {(skillLevel) => setLevel(skillLevel)} style={styles.skillLevel} editable={isEditable}>{skillLevel}</TextInput>
-				</View>
+		</TouchableOpacity>
+		<Divider style={styles.divider}/>
+		<TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('ShoppingList')}>
+			<View style={styles.row}>
+				<Text style={styles.loremIpsum}>Shopping List</Text>
+				<Icon name="chevron-small-right" style={styles.arrowIcon}></Icon>
 			</View>
-		  </View>
-		  {/*Container for measurements fields*/}
-		  <View style={styles.measurementsCont}>
-			<View style={styles.preferredRow}>
-			  {/*Preferred Measurements text*/}
-			  <View style={styles.infoRow}>
-			  	<Text style={styles.preferred}>Preferred Measurements:</Text>
-			  	<TextInput onChangeText = {(prefMeasurement) => setMeasurement(prefMeasurement)} style={styles.preferred} editable={isEditable}>{prefMeasurement}</TextInput>
-			  </View>
-			  {/*The measurement*/}
+		</TouchableOpacity>
+		<Divider style={styles.divider}/>
+		<TouchableOpacity style={styles.profileBtn}>
+			<View style={styles.row}>
+				<Text style={styles.loremIpsum}>Change Password</Text>
 			</View>
-			{/* <Picker
-				style={styles.measPicker}
-				onValueChange={(value) => {
-					setMeasPickerValue(value)
-					//alert("Hello");
-				}}
-				>
-				<Picker.Item label="Metric" value="0"></Picker.Item>
-				<Picker.Item label="Imperial" value="1"></Picker.Item>
-			</Picker> */}
-		  </View>
-		  {/*Container for allergies*/}
-		  <View style={styles.skillCont1}>
-			{/*Allergies*/}
-			<Text style={styles.allergies}>Allergies</Text>
-			{/* <Text style={styles.allergies}>{allergies}</Text> */}
-			{/*Preview of selected allergies*/}
-			<Text style={styles.allergiesList}>
-			  {allergies}
-			</Text>
-		  </View>
-		  {/*Temporary navigation button to MyRecipes*/}
-		  <TouchableOpacity 
-			onPress={() => navigation.navigate('MyRecipes')}
-			testID='myRecipebtn'
-			style={styles.myRecipesButton}>
-			<Text style={styles.myRecipesText}>My recipes</Text>
-		  </TouchableOpacity>
-		  {/*Temporary navigation button to ShoppingList*/}
-		  <TouchableOpacity 
-			onPress={() => navigation.navigate('ShoppingList')}
-			testID='shoppingListBtn'
-			style={styles.myRecipesButton}>
-			<Text style={styles.myRecipesText}>ShoppingList</Text>
-		  </TouchableOpacity>
-		  <View style={styles.button3Row}>
-			  {/*Change password button*/}
-			  <TouchableOpacity style={styles.changePasswordButton}>
-				<Text style={styles.changePasswordText}>Change Password?</Text>
-			  </TouchableOpacity>
-			  {/*Delete account button*/}
-			  <TouchableOpacity style={styles.deleteAccountButton}>
-				<Text style={styles.deleteAccount}>Delete Account</Text>
-			  </TouchableOpacity>
-		  </View>
-		  {/*Delete account button*/}
-		  <TouchableOpacity
-		  	onPress={() => setEditable(!isEditable)}
-			style={styles.deleteAccountButton}>
-			<Text style={styles.deleteAccount}>Edit Info</Text>
-		  </TouchableOpacity>
-
-		  <TouchableOpacity
-		  	onPress={() => updateInfo()}
-			style={styles.deleteAccountButton}>
-			<Text style={styles.deleteAccount}>Save Changes</Text>
-		  </TouchableOpacity>
-	   </ScrollView>
-	  
+		</TouchableOpacity>
+		<Divider style={styles.divider}/>
+		<TouchableOpacity style={styles.deleteBtn}>
+			<View style={styles.row}>
+				<Text style={styles.deleteTxt}>Delete Account</Text>
+			</View>
+		</TouchableOpacity>
     </View>
   );
 
 }
 
 export default Profile;
+
+
+

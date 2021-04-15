@@ -529,15 +529,21 @@ export default class MainScreenInfo extends React.Component {
 
                         <Animated.View style={{ opacity: this.dislikeOpacity, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
                         </Animated.View>
-                        <View style={styles.recipe_title_container}>
+                        {/* <View style={styles.recipe_title_container}>
                             <Text
                                 numberOfLines={1}
                                 style={styles.recipe_title}>{item.name}</Text>
-                        </View>
-                        <Image
-                            style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
+                        </View> */}
+                        <ImageBackground
                             source={{uri: item.uri}}
-                            testID='currentImage' />
+                            
+                            style={styles.image2}
+                            imageStyle={styles.image2_imageStyle}>
+                            <Image
+                                style={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
+                                source={require("../assets/images/recipeGradient2.jpg")}
+                                testID='currentImage' />
+                        </ImageBackground>
 
                     </Animated.View>
                 )

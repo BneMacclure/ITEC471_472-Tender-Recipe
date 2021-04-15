@@ -119,7 +119,7 @@ const Navigator = props => {
                     name="MyProfile"
                     component={MyProfile}
                     options={{
-                        headerShown: true,
+                        headerShown: false,
                         title: "MyProfile",
                         headerStyle: {
                             backgroundColor: '#e35514',
@@ -329,55 +329,7 @@ const Navigator = props => {
                             fontWeight: 'bold',
                             fontSize: 25,
                         },
-                        headerRight: () => (
-                            <View
-                                style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    paddingHorizontal: 15,
-                                    height: StatusBar.currentHeight,
-                                }}>
-
-                                <TouchableOpacity style={{
-                                    width: 37,
-                                    height: 37,
-                                    marginRight: 5,
-                                    //backgroundColor: "#E6E6E6",
-                                    backgroundColor: "#fff",
-                                    borderRadius: 100,
-                                }}>
-                                    <CustomMysteryBox
-                                        name="gluten_allergen"
-                                        size={32}
-                                        color={'#e35514'}
-                                        onPress={() => { navigation.navigate('MealPlannerScreen') }}
-                                        alignSelf={"center"}
-                                        style={{ alignSelf: "center", marginTop: 3 }}>
-                                    </CustomMysteryBox>
-
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{
-                                    width: 37,
-                                    height: 37,
-                                    marginRight: 3,
-                                    //backgroundColor: "#E6E6E6",
-                                    backgroundColor: "#fff",
-                                    borderRadius: 100,
-                                }}>
-                                    <FontAwesomeIcon
-                                        name="home"
-                                        size={32}
-                                        color={'#e35514'}
-                                        alignSelf={"center"}
-                                        style={{alignSelf: "center", marginTop:2}}
-                                        onPress={() => { navigation.navigate('Main Screen') }}
-
-                                    />
-
-                                </TouchableOpacity>
-                            </View>
-                        ),
+                        
 
                     })}
                 />
