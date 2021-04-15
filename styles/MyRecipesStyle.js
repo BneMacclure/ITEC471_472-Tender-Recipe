@@ -89,8 +89,8 @@ export default StyleSheet.create({
     image2_imageStyle: {},
     recText: {
       color: "rgba(255,255,255,1)",
-      fontSize: 30,
-      marginTop: 90,
+      fontSize: 26,
+      marginTop: 95,
       marginLeft: 8,
       width: '60%',
       //flex: 1
@@ -124,6 +124,21 @@ export default StyleSheet.create({
         bottom: 43
     },
     rateIcon: {
+        color: "white",
+        fontSize: 38,
+        height: 40,
+        width: 41,
+        marginLeft: 1,
+        marginTop: 2
+    },
+
+    shareButton: {
+        width: 30,
+        height: 30,
+        marginLeft: '60%',
+        bottom: 133
+    },
+    shareIcon: {
         color: "white",
         fontSize: 38,
         height: 40,
