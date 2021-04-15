@@ -220,7 +220,7 @@ export default class MyRecipes extends Component {
 
     var currentUserID = firebaseApp ? firebaseApp.auth().currentUser.uid : '';
     console.log(key);
-    db.ref('/savedRecipes/'+this.state.currentUserID).child(key).remove();
+    db.ref('/savedRecipes/'+currentUserID).child(key).remove();
     console.log(key);
   };
 
@@ -600,10 +600,8 @@ export default class MyRecipes extends Component {
 
                 <TouchableOpacity style={styles.shareButton}
                     onPress={() => {
-                        this.setState(
-                            { isRateModalVisible: true,
-                              selectedRecipe: item.recName }
-                        );
+                        console.log({item}.key)
+                        this.shareRecipe(item.key)
                     }}
                     >
                     <EntypoIcon name="share" style={styles.shareIcon}></EntypoIcon>
