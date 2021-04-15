@@ -68,7 +68,7 @@ export default class MyRecipes extends Component {
                       color={'#e35514'}
                       alignSelf={"center"}
                       style={{alignSelf: "center", marginTop:2}}
-                      onPress={() => { navigation.navigate('Main Screen') }}
+                      onPress={() => { props.navigation.navigate('Main Screen') }}
 
                   />
 
@@ -104,7 +104,7 @@ export default class MyRecipes extends Component {
   showRandomRecipe() {
 
     this.displayRecipeModal(true)
-   
+
     // Only do this if there are saved Recipes to choose from
     if (this.state.rec_data.length == 0) {
       Alert.alert('No saved recipes to choose from. Go save some recipes in order to generate a random one')
@@ -155,7 +155,7 @@ export default class MyRecipes extends Component {
             title: 'Instructions',
             content: instructions,
         })
-      
+
 
       // Populate the modal's states and Show it
       this.setState({
@@ -378,6 +378,18 @@ export default class MyRecipes extends Component {
 
     }
 
+    truncateRecName = (name) => {
+        var temp = '';
+        if(name.length > 12)
+        {
+            temp = name.slice(0, -(name.length - 13))
+            temp += '...'
+            return temp;
+        }
+        else
+        return name
+    }
+
     onStarRatingPress = (rating) => {
         this.setState({ starCount:rating })
         console.log("Submitting Rating")
@@ -477,7 +489,7 @@ export default class MyRecipes extends Component {
                 onRequestClose={() => {
                     Alert.alert('Modal has now been closed.');
                 }}>
-                
+
 
                 <View style={{ flex: 1, justifyContent: "center" }}>
                     <View style={{
@@ -489,7 +501,7 @@ export default class MyRecipes extends Component {
                         borderRadius: 1,
                         alignContent: 'center',
                     }}>
-                      
+
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#FD8017' }}>
                             <Text style={styles.title}>Rate this recipe?</Text>
                             <TouchableOpacity>
@@ -558,7 +570,7 @@ export default class MyRecipes extends Component {
 				<Picker.Item label="Lunch" value="1"></Picker.Item>
 				<Picker.Item label="Dinner" value="1"></Picker.Item>
 			</Picker>
-      
+
         </View>
       </ImageBackground>
 
@@ -572,10 +584,13 @@ export default class MyRecipes extends Component {
 				style={styles.image2}
 				imageStyle={styles.image2_imageStyle}
 				>
-          <Text style={styles.recText}>{item.recName}</Text>
+
+          <Text
+          style={styles.recText}
+          NumberOfLines={1}>{this.truncateRecName(item.recName)}</Text>
 
           <TouchableOpacity style={styles.trashButton} onPress={() => this.unsaveRecipe(item.id)}>
-            <FontAwesomeIcon name="trash-o" style={styles.icon}></FontAwesomeIcon>
+            <FontAwesomeIcon name="trash" style={styles.icon}></FontAwesomeIcon>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.addButton}
@@ -597,8 +612,9 @@ export default class MyRecipes extends Component {
                   );
               }}
               >
-              <IoniconsIcon name="ios-star-outline" style={styles.rateIcon}></IoniconsIcon>
+              <IoniconsIcon name="ios-star" style={styles.rateIcon}></IoniconsIcon>
           </TouchableOpacity>
+
 			</ImageBackground>
 		  )
     }}
@@ -623,7 +639,7 @@ export default class MyRecipes extends Component {
           displayRecipeModal={this.displayRecipeModal.bind(this)}
         >
       </ViewRecipeModal>
-	  
+
 
     </View>
   );}
