@@ -241,6 +241,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           <TextInput
             allowFontScaling={true}
             color="#FFFFFF"
+            data-testid="name"
             editable={true}
             multiline={false}
             onBlur={[Function]}
@@ -280,7 +281,9 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
             }
             testID="namefield"
             underlineColorAndroid="transparent"
-          />
+          >
+            name
+          </TextInput>
         </View>
       </View>
     </View>
@@ -468,6 +471,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           <TextInput
             allowFontScaling={true}
             clearTextOnFocus={true}
+            data-testid="phone"
             editable={true}
             multiline={false}
             onBlur={[Function]}
@@ -695,6 +699,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           <TextInput
             allowFontScaling={true}
             autoCapitalize="none"
+            data-testid="email"
             editable={true}
             multiline={false}
             onBlur={[Function]}
@@ -922,6 +927,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           <TextInput
             allowFontScaling={true}
             autoCapitalize="none"
+            data-testid="pass"
             editable={true}
             multiline={false}
             onBlur={[Function]}

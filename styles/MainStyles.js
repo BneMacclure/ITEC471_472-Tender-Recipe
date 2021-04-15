@@ -256,7 +256,7 @@ export default StyleSheet.create({
 
     recipe_title_container: {
         justifyContent: 'center',
-        backgroundColor: '#f5a023',
+        //backgroundColor: '#f5a023',
         height: 70,
         position: 'absolute',
         zIndex: 10,
