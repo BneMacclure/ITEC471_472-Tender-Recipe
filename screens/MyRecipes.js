@@ -600,8 +600,7 @@ export default class MyRecipes extends Component {
 
                 <TouchableOpacity style={styles.shareButton}
                     onPress={() => {
-                        console.log({item}.key)
-                        this.shareRecipe(item.key)
+                        this.shareRecipe(item.id)
                     }}
                     >
                     <EntypoIcon name="share" style={styles.shareIcon}></EntypoIcon>
