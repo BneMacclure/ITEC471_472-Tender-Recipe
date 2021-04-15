@@ -131,6 +131,7 @@ export default class MainScreenInfo extends React.Component {
     likeRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
         this.saveRecipe(k)
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -142,6 +143,7 @@ export default class MainScreenInfo extends React.Component {
 
     skipRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -186,6 +188,10 @@ export default class MainScreenInfo extends React.Component {
         this.displayRecipeModal(true)
     }
 
+    addtoViewed(key) {
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+key+"/viewed").push(currentUserID);
+    }
 
     // Given a key, give the recipe to view for the user
     viewRecipe(key) {
@@ -249,6 +255,22 @@ export default class MainScreenInfo extends React.Component {
                         rating: rating });
     }
 
+    /* hasViewed : Object (currentRecipe)
+       Takes in a specific recipe and checks if if has been viewed by this user before */
+    hasViewed(currentRecipe) {
+        var viewed = false;
+        var recipe_key = currentRecipe.key;
+        var currentUserID = firebaseApp.auth().currentUser.uid;
+        db.ref('/recipes/'+recipe_key+'/viewed').on('value', (snapshot) => {
+            snapshot.forEach((user) => {
+                if (user.val() == currentUserID) {
+                    viewed = true;
+                }
+            })
+        });
+        return viewed;
+    }
+
     /* allergiesMatch : Object (recipe)
        Takes in a specific recipe and checks if any of its allergy warnings match a user's allergies */
     allergiesMatch(currentRecipe) {
@@ -304,7 +326,7 @@ export default class MainScreenInfo extends React.Component {
     filter(unfiltered) {
         var filteredArray = [];
         for (i = 0; i < unfiltered.length; i++) {
-            if (this.allergiesMatch(unfiltered[i]) == false && this.dietsMatch(unfiltered[i])) {
+            if (this.allergiesMatch(unfiltered[i]) == false && this.dietsMatch(unfiltered[i]) && this.hasViewed(unfiltered[i]) == false) {
                 filteredArray.push(unfiltered[i]);
             }
         }
@@ -371,7 +393,8 @@ export default class MainScreenInfo extends React.Component {
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
                         this.saveRecipe(k)
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -384,7 +407,8 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
-                        this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+                        this.addtoViewed(k)
+                        this.setState({ currentIndex: this.state.currentIndex }, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
