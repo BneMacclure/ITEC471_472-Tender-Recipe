@@ -22,6 +22,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height - 20
 const SCREEN_WIDTH = Dimensions.get('window').width
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Alert } from 'react-native';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 
 const CustomIcon = createIconSetFromFontello(fontelloConfig, 'CustomIcons');
 
@@ -80,6 +81,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
+            isEnd: false,
             rating: 0,
             diets: ""
         }
@@ -131,6 +133,9 @@ export default class MainScreenInfo extends React.Component {
     likeRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
         this.saveRecipe(k)
+        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+            this.setState({isEnd: true}) 
+        }
         this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
@@ -143,6 +148,9 @@ export default class MainScreenInfo extends React.Component {
 
     skipRecipe() {
         const k = this.state.recipes[this.state.currentIndex].key
+        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+            this.setState({isEnd: true})
+        }
         this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
@@ -393,8 +401,12 @@ export default class MainScreenInfo extends React.Component {
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
                         this.saveRecipe(k)
+                        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+                            this.setState({isEnd: true})
+                        }
+                        console.log(this.state.isEnd)
                         this.addtoViewed(k)
-                        this.setState({ currentIndex: this.state.currentIndex }, () => {
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -407,8 +419,12 @@ export default class MainScreenInfo extends React.Component {
                         useNativeDriver: true
                     }).start(() => {
                         const k = this.state.recipes[this.state.currentIndex].key
+                        if(this.state.currentIndex == (this.state.recipes.length - 1)){
+                            this.setState({isEnd: true})
+                        }
+                        console.log(this.state.isEnd)
                         this.addtoViewed(k)
-                        this.setState({ currentIndex: this.state.currentIndex }, () => {
+                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -536,13 +552,17 @@ export default class MainScreenInfo extends React.Component {
                         </View> */}
                         <ImageBackground
                             source={{uri: item.uri}}
-                            
                             style={styles.image2}
-                            imageStyle={styles.image2_imageStyle}>
-                            <Image
-                                style={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
-                                source={require("../assets/images/recipeGradient2.jpg")}
-                                testID='currentImage' />
+                            imageStyle={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}>
+                            <BackgroundImage
+                                style={styles.image2}
+                                imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+                                source={require("../assets/images/recipeGradient.png")}
+                                testID='currentImage' >
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
+                                        {item.name}
+                                    </Text>
+                                </BackgroundImage>
                         </ImageBackground>
 
                     </Animated.View>
@@ -588,7 +608,14 @@ export default class MainScreenInfo extends React.Component {
                 resizeMode="cover"
                 style={styles.background}
                 imageStyle={styles.background_imageStyle}
-            >
+            >   
+                {/* Toggle end of recipe view */}
+                {this.state.isEnd ?
+                    (
+                        <Text>You've reached the end! Would you like to restart?</Text>
+                    ) 
+                    : null}
+                
                 <View style={{ flex: 1 }}
                     testID="testLocation1">
 
