@@ -81,7 +81,7 @@ export default class MainScreenInfo extends React.Component {
             isFish: false,
             isShellfish: false,
             isNuts: false,
-            isEnd: true,
+            isEnd: false,
             rating: 0,
             diets: ""
         }
@@ -136,7 +136,7 @@ export default class MainScreenInfo extends React.Component {
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
             this.setState({isEnd: true}) 
         }
-        // this.addtoViewed(k)
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -151,7 +151,7 @@ export default class MainScreenInfo extends React.Component {
         if(this.state.currentIndex == (this.state.recipes.length - 1)){
             this.setState({isEnd: true})
         }
-        // this.addtoViewed(k)
+        this.addtoViewed(k)
         this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
             this.position.setValue({ x: 0, y: 0 })
         })
@@ -411,7 +411,7 @@ export default class MainScreenInfo extends React.Component {
                             this.setState({isEnd: true})
                         }
                         console.log(this.state.isEnd)
-                        // this.addtoViewed(k)
+                        this.addtoViewed(k)
                         this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
