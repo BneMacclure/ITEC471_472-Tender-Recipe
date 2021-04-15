@@ -13,6 +13,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
     accessibilityIgnoresInvertColors={true}
     style={
       Object {
+        "alignItems": "center",
         "height": 1334,
         "width": 750,
       }
@@ -43,7 +44,6 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
         Object {
           "color": "rgba(255,255,255,1)",
           "fontSize": 40,
-          "marginLeft": "20%",
           "marginTop": 44,
         }
       }
@@ -61,7 +61,6 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
       style={
         Object {
           "justifyContent": "center",
-          "marginLeft": 150,
           "marginTop": 10,
           "width": 250,
         }
@@ -279,6 +278,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
                 ],
               ]
             }
+            testID="namefield"
             underlineColorAndroid="transparent"
           />
         </View>
@@ -288,7 +288,6 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
       style={
         Object {
           "justifyContent": "center",
-          "marginLeft": 150,
           "marginTop": 10,
           "width": 250,
         }
@@ -506,6 +505,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
                 ],
               ]
             }
+            testID="phonefield"
             underlineColorAndroid="transparent"
           />
         </View>
@@ -515,7 +515,6 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
       style={
         Object {
           "justifyContent": "center",
-          "marginLeft": 150,
           "marginTop": 10,
           "width": 250,
         }
@@ -695,6 +694,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           </View>
           <TextInput
             allowFontScaling={true}
+            autoCapitalize="none"
             editable={true}
             multiline={false}
             onBlur={[Function]}
@@ -732,6 +732,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
                 ],
               ]
             }
+            testID="emailfield"
             underlineColorAndroid="transparent"
           />
         </View>
@@ -741,7 +742,6 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
       style={
         Object {
           "justifyContent": "center",
-          "marginLeft": 150,
           "marginTop": 10,
           "width": 250,
         }
@@ -921,6 +921,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           </View>
           <TextInput
             allowFontScaling={true}
+            autoCapitalize="none"
             editable={true}
             multiline={false}
             onBlur={[Function]}
@@ -929,6 +930,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
             placeholder=""
             placeholderTextColor="white"
             rejectResponderTermination={true}
+            secureTextEntry={true}
             selectionColor="white"
             style={
               Array [
@@ -958,6 +960,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
                 ],
               ]
             }
+            testID="passfield"
             underlineColorAndroid="transparent"
           />
         </View>
@@ -967,7 +970,6 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
       style={
         Object {
           "justifyContent": "center",
-          "marginLeft": 150,
           "marginTop": 10,
           "width": 250,
         }
@@ -1147,6 +1149,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           </View>
           <TextInput
             allowFontScaling={true}
+            autoCapitalize="none"
             editable={true}
             multiline={false}
             onBlur={[Function]}
@@ -1155,6 +1158,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
             placeholder=""
             placeholderTextColor="white"
             rejectResponderTermination={true}
+            secureTextEntry={true}
             selectionColor="white"
             style={
               Array [
@@ -1184,6 +1188,7 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
                 ],
               ]
             }
+            testID="confirmpass"
             underlineColorAndroid="transparent"
           />
         </View>
@@ -1215,12 +1220,12 @@ exports[`<RegisterScreen /> RegisterScreen snapshot test 1`] = `
           "borderWidth": 0,
           "height": 59,
           "justifyContent": "center",
-          "marginLeft": 187.5,
           "marginTop": 30,
           "opacity": 1,
           "width": 214,
         }
       }
+      testID="signupbtn"
     >
       <Text
         style={

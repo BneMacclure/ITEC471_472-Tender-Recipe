@@ -338,6 +338,11 @@ export default class MainScreenInfo extends React.Component {
                 filteredArray.push(unfiltered[i]);
             }
         }
+        if(filteredArray.length == 0){
+            this.setState({isEnd: true})
+        }else{
+            this.setState({isEnd: false})
+        }
         this.setState({ recipes: filteredArray });
     }
 
@@ -384,6 +389,7 @@ export default class MainScreenInfo extends React.Component {
         );
         this.filter(returnArray);
         });
+        
         this.PanResponder = PanResponder.create({
 
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -584,14 +590,20 @@ export default class MainScreenInfo extends React.Component {
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '30deg' }], position: 'absolute', top: 50, right: 40, zIndex: 1000 }}>
 
                         </Animated.View>
-                        <View style={styles.recipe_title_container}>
-                            <Text
-                                numberOfLines={1}
-                                style={styles.recipe_title}>{item.name}</Text>
-                        </View>
-                        <Image
-                            style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
-                            source={{uri: item.uri}} />
+                        <ImageBackground
+                            source={{uri: item.uri}}
+                            style={styles.image2}
+                            imageStyle={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}>
+                            <BackgroundImage
+                                style={styles.image2}
+                                imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
+                                source={require("../assets/images/recipeGradient.png")}
+                                testID='currentImage' >
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
+                                        {item.name}
+                                    </Text>
+                                </BackgroundImage>
+                        </ImageBackground>
 
                     </Animated.View>
                 )
@@ -612,7 +624,17 @@ export default class MainScreenInfo extends React.Component {
                 {/* Toggle end of recipe view */}
                 {this.state.isEnd ?
                     (
-                        <Text>You've reached the end! Would you like to restart?</Text>
+                        <View style={styles.container2}>
+                            <Text style={styles.endText}>You&#39;ve reached {"\n"}the end!</Text>
+                            <Text style={styles.endText2}>
+                                Come back later {"\n"}when more recipes {"\n"}have been added!
+                            </Text>
+                            <Image
+                                source={require("../assets/images/sadIcon.jpg")}
+                                resizeMode="contain"
+                                style={styles.sadIcon}
+                            ></Image>
+                        </View>
                     ) 
                     : null}
                 
