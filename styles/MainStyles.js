@@ -14,7 +14,8 @@ export default StyleSheet.create({
     container2: {
         flex: 1,
         position: 'absolute',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        height: SCREEN_HEIGHT - 20,
     },
 
     image2_imageStyle: {

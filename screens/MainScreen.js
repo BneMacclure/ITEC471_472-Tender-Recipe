@@ -412,7 +412,7 @@ export default class MainScreenInfo extends React.Component {
                         }
                         console.log(this.state.isEnd)
                         this.addtoViewed(k)
-                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
+                        this.setState({ currentIndex: this.state.currentIndex}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -430,7 +430,7 @@ export default class MainScreenInfo extends React.Component {
                         }
                         console.log(this.state.isEnd)
                         this.addtoViewed(k)
-                        this.setState({ currentIndex: this.state.currentIndex + 1}, () => {
+                        this.setState({ currentIndex: this.state.currentIndex}, () => {
                             this.position.setValue({ x: 0, y: 0 })
                         })
                     })
@@ -565,11 +565,11 @@ export default class MainScreenInfo extends React.Component {
                                 imageStyle={{ flex: 1, opacity: 0.5, height: null, width: null, resizeMode: 'stretch', borderRadius: 20 }}
                                 source={require("../assets/images/recipeGradient.png")}
                                 testID='currentImage' >
-                                    //<View style={styles.recipe_title_container}>
+                                    
                                     <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 575, marginLeft: 20, color: 'white' }}>
                                         {item.name}
                                     </Text>
-                                    //</View>
+                                   
                                 </BackgroundImage>
                         </ImageBackground>
 
